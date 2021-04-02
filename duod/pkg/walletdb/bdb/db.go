@@ -6,7 +6,7 @@ import (
 	
 	bolt "github.com/coreos/bbolt"
 	
-	"github.com/p9c/duod/pkg/walletdb"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
 )
 
 // convertErr converts some bolt errors to the equivalent walletdb error.

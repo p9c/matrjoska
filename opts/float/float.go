@@ -3,8 +3,8 @@ package float
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/opts/meta"
-	"github.com/p9c/opts/opt"
+	"github.com/p9c/monorepo/opts/meta"
+	"github.com/p9c/monorepo/opts/opt"
 	
 	uberatomic "go.uber.org/atomic"
 	"strconv"

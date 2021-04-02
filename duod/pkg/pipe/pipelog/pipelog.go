@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/log"
 	"os"
 	"time"
 	
-	"github.com/p9c/duod/pkg/pipe/consume"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/consume"
+	"github.com/p9c/monorepo/qu"
 )
 
 func main() {

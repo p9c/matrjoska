@@ -1,8 +1,8 @@
 package mempool
 
 import (
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // RuleError identifies a rule violation. It is used to indicate that processing of a transaction failed due to one of

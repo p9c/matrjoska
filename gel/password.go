@@ -1,12 +1,12 @@
 package gel
 
 import (
-	"github.com/p9c/opts/text"
+	"github.com/p9c/monorepo/opts/text"
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
 	
 	l "gioui.org/layout"
 	
-	"github.com/p9c/gel/clipboard"
+	"github.com/p9c/monorepo/gel/clipboard"
 )
 
 type Password struct {

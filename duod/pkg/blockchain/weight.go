@@ -1,9 +1,9 @@
 package blockchain
 
 import (
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

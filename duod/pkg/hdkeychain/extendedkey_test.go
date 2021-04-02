@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 )
 
 // // TestBIP0032Vectors tests the vectors provided by [BIP32] to ensure the derivation works as intended.

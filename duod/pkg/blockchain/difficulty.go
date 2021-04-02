@@ -2,13 +2,13 @@ package blockchain
 
 import (
 	"encoding/hex"
-	bits2 "github.com/p9c/duod/pkg/bits"
-	"github.com/p9c/duod/pkg/fork"
+	bits2 "github.com/p9c/monorepo/duod/pkg/bits"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
 	"math/big"
 	"strings"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 var (

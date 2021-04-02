@@ -1,13 +1,13 @@
 package state
 
 import (
-	"github.com/p9c/duod/pkg/amt"
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/connmgr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/connmgr"
 	"net"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 )
 
 // Config stores current state of the node

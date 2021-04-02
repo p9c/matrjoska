@@ -1,15 +1,15 @@
 package gel
 
 import (
-	"github.com/p9c/gel/fonts/p9fonts"
-	"github.com/p9c/opts/binary"
-	"github.com/p9c/opts/meta"
+	"github.com/p9c/monorepo/gel/fonts/p9fonts"
+	"github.com/p9c/monorepo/opts/binary"
+	"github.com/p9c/monorepo/opts/meta"
 	"math"
 	"time"
 	
 	"gioui.org/io/event"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"gioui.org/app"
 	"gioui.org/io/system"

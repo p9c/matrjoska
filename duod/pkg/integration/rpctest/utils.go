@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
 )
 
 // JoinType is an enum representing a particular type of "node join". A node

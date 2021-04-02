@@ -2,15 +2,15 @@ package rpcclient
 
 import (
 	js "encoding/json"
-	"github.com/p9c/duod/pkg/amt"
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	"strconv"
 	
-	"github.com/p9c/duod/pkg/btcjson"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // *****************************

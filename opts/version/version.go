@@ -5,7 +5,7 @@ import "fmt"
 var (
 
 	// URL is the git URL for the repository
-	URL = "github.com/p9c/qu"
+	URL = "github.com/p9c/monorepo"
 	// GitRef is the gitref, as in refs/heads/branchname
 	GitRef = "refs/heads/main"
 	// GitCommit is the commit hash of the current HEAD

@@ -4,17 +4,17 @@ import (
 	"crypto/cipher"
 	"errors"
 	"fmt"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/log"
 	"net"
 	"runtime"
 	"strings"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/fec"
-	"github.com/p9c/duod/pkg/gcm"
-	"github.com/p9c/duod/pkg/multicast"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fec"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/gcm"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/multicast"
 )
 
 const (

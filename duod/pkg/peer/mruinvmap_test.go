@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // TestMruInventoryMap ensures the MruInventoryMap behaves as expected including limiting, eviction of least-recently

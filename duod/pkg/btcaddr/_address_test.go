@@ -4,15 +4,15 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
 	"reflect"
 	"strings"
 	"testing"
 	
 	"github.com/btcsuite/golangcrypto/ripemd160"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
 )
 
 func TestAddresses(t *testing.T) {

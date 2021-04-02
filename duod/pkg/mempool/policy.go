@@ -2,13 +2,13 @@ package mempool
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
 	"time"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/txscript"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

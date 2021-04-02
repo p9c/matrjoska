@@ -2,17 +2,17 @@ package blockchain_test
 
 import (
 	"fmt"
-	bits2 "github.com/p9c/duod/pkg/bits"
-	"github.com/p9c/duod/pkg/block"
+	bits2 "github.com/p9c/monorepo/duod/pkg/bits"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	"log"
 	"math/big"
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/database"
-	_ "github.com/p9c/duod/pkg/database/ffldb"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
 )
 
 // This example demonstrates how to create a new chain instance and use ProcessBlock to attempt to add a block to the

@@ -7,12 +7,12 @@ import (
 	"path/filepath"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/appdata"
-	"github.com/p9c/duod/pkg/rpcclient"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 func main() {

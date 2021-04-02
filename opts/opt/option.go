@@ -1,7 +1,7 @@
 package opt
 
 import (
-	"github.com/p9c/opts/meta"
+	"github.com/p9c/monorepo/opts/meta"
 )
 
 type (

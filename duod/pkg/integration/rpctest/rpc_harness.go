@@ -2,10 +2,10 @@ package rpctest
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/amt"
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	"io/ioutil"
 	"net"
 	"os"
@@ -15,12 +15,12 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/rpcclient"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

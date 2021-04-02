@@ -1,7 +1,7 @@
 package cfgutil
 
 import (
-	"github.com/p9c/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
 	"strconv"
 	"strings"
 )

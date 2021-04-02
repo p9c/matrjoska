@@ -1,7 +1,7 @@
 package chaincfg
 
 import (
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // MainNetParams defines the network parameters for the main Bitcoin network.

@@ -9,8 +9,8 @@ import (
 	"runtime"
 	"time"
 	
-	rpc "github.com/p9c/duod/pkg/rpcclient"
-	"github.com/p9c/duod/pkg/util"
+	rpc "github.com/p9c/monorepo/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
 )
 
 // nodeConfig contains all the args and data required to launch a pod process and connect the rpc client to it.

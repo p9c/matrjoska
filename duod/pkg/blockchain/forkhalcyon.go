@@ -2,8 +2,8 @@ package blockchain
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/bits"
-	"github.com/p9c/duod/pkg/fork"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/bits"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
 	"math/big"
 )
 

@@ -4,20 +4,20 @@ import (
 	"compress/bzip2"
 	"encoding/binary"
 	"fmt"
-	"github.com/p9c/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/txscript"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
 	
-	"github.com/p9c/duod/pkg/database"
-	_ "github.com/p9c/duod/pkg/database/ffldb"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

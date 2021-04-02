@@ -1,12 +1,12 @@
 package mining
 
 import (
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/opts"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
 	
-	"github.com/p9c/duod/cmd/node/state"
-	wm "github.com/p9c/duod/pkg/waddrmgr"
-	"github.com/p9c/duod/pkg/wallet"
+	"github.com/p9c/monorepo/monorepo/duod/cmd/node/state"
+	wm "github.com/p9c/monorepo/duod/pkg/waddrmgr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wallet"
 )
 
 // RefillMiningAddresses adds new addresses to the mining address pool for the miner

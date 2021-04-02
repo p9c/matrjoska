@@ -6,7 +6,7 @@ import (
 	"io"
 	"unicode/utf8"
 	
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // MessageHeaderSize is the number of bytes in a bitcoin message header. Bitcoin network (magic) 4 bytes + command 12

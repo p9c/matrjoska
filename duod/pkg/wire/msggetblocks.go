@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // MaxBlockLocatorsPerMsg is the maximum number of block locator hashes allowed per message.

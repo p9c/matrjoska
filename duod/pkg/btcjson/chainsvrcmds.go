@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // AddNodeSubCmd defines the type used in the addnode JSON-RPC command for the sub command field.

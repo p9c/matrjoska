@@ -2,20 +2,20 @@ package peer_test
 
 import (
 	"errors"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	"io"
 	"net"
 	"strconv"
 	"testing"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"github.com/btcsuite/go-socks/socks"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/peer"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/peer"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // conn mocks a network connection by implementing the net.Conn interface. It is used to test peer connection without

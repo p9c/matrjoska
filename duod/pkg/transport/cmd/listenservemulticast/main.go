@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/log"
 	"net"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/transport"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/transport"
 )
 
 const (

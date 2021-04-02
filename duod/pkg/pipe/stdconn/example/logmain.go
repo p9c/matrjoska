@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/log"
 )
 
 var subsystem = log.AddLoggerSubsystem()

@@ -5,7 +5,7 @@ import (
 	
 	"github.com/niubaoshu/gotiny"
 	
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // Magic is the marker for packets containing a solution

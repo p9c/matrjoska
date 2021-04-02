@@ -5,10 +5,10 @@ import (
 	"math"
 	"sync"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/txscript"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // ln2Squared is simply the square of the natural log of 2.

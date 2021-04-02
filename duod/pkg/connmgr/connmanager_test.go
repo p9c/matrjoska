@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 )
 
 func init() {

@@ -4,10 +4,10 @@ import (
 	"encoding/hex"
 	js "encoding/json"
 	"errors"
-	"github.com/p9c/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	
-	"github.com/p9c/duod/pkg/btcjson"
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // FutureGenerateResult is a future promise to deliver the result of a GenerateAsync RPC invocation (or an applicable

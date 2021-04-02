@@ -4,8 +4,8 @@ import (
 	"container/list"
 	"errors"
 	"fmt"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/log"
 	"io"
 	"math/rand"
 	"net"
@@ -14,13 +14,13 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"github.com/btcsuite/go-socks/socks"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

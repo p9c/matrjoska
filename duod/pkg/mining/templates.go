@@ -4,12 +4,12 @@ package mining
 // import (
 // 	"container/heap"
 // 	"fmt"
-// 	blockchain "github.com/p9c/duod/pkg/chain"
-// 	"github.com/p9c/duod/pkg/chain/fork"
-// 	chainhash "github.com/p9c/duod/pkg/chain/hash"
-// 	txscript "github.com/p9c/duod/pkg/chain/tx/script"
-// 	"github.com/p9c/duod/pkg/chain/wire"
-// 	"github.com/p9c/duod/pkg/util"
+// 	blockchain "github.com/p9c/monorepo/duod/pkg/chain"
+// 	"github.com/p9c/monorepo/monorepo/duod/pkg/chain/fork"
+// 	chainhash "github.com/p9c/monorepo/duod/pkg/chain/hash"
+// 	txscript "github.com/p9c/monorepo/duod/pkg/chain/tx/script"
+// 	"github.com/p9c/monorepo/monorepo/duod/pkg/chain/wire"
+// 	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
 // 	"math/rand"
 // 	"time"
 // )

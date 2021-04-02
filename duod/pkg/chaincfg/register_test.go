@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 	
-	. "github.com/p9c/duod/pkg/chaincfg"
+	. "github.com/p9c/monorepo/duod/pkg/chaincfg"
 )
 
 // Define some of the required parameters for a user-registered network. This is necessary to test the registration of

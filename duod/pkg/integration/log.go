@@ -1,8 +1,8 @@
 package integration
 
 import (
-	"github.com/p9c/duod/version"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/monorepo/duod/version"
+	"github.com/p9c/monorepo/log"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

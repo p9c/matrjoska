@@ -2,8 +2,8 @@ package txscript
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 )
 
 // ScriptClass is an enumeration for the list of standard types of script.

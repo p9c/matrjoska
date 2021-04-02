@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // addrIndexBucket provides a mock address index database bucket by implementing the internalBucket interface.

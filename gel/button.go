@@ -13,7 +13,7 @@ import (
 	"gioui.org/text"
 	"gioui.org/unit"
 	
-	"github.com/p9c/gel/f32color"
+	"github.com/p9c/monorepo/gel/f32color"
 )
 
 // Button is a material text label icon with options to change all features

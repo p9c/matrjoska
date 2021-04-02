@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/btcjson"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // TestChainSvrCmds tests all of the chain server commands marshal and unmarshal into valid results include handling of

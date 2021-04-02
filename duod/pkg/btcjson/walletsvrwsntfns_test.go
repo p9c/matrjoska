@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
 )
 
 // TestWalletSvrWsNtfns tests all of the chain server websocket-specific notifications marshal and unmarshal into valid

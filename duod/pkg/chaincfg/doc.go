@@ -17,8 +17,8 @@
 //  import (
 //          "flag"
 //          "fmt"
-//          "github.com/p9c/duod/pkg/util"
-//          "github.com/p9c/duod/pkg/chain/config"
+//          "github.com/p9c/monorepo/duod/pkg/util"
+//          "github.com/p9c/monorepo/duod/pkg/chain/config"
 //  )
 //  var testnet = flag.Bool("testnet", false, "operate on the testnet Bitcoin network")
 //  // By default (without -testnet), use mainnet.

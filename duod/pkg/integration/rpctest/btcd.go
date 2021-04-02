@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"sync"
 	
-	"github.com/p9c/duod/pkg/gobin"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/gobin"
 )
 
 var (

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/p9c/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -19,10 +19,10 @@ import (
 	"github.com/btcsuite/goleveldb/leveldb/opt"
 	"github.com/btcsuite/goleveldb/leveldb/util"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/database"
-	"github.com/p9c/duod/pkg/treap"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/treap"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

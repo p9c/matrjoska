@@ -2,13 +2,13 @@ package connmgr
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	mrand "math/rand"
 	"net"
 	"strconv"
 	"time"
 	
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

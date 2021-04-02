@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/p9c/duod/pkg/fork"
+	_ "github.com/p9c/monorepo/duod/pkg/fork"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 	
-	"github.com/p9c/duod/pkg/appdata"
-	"github.com/p9c/duod/pkg/apputil"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/apputil"
 	
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"

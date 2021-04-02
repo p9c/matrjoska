@@ -4,8 +4,8 @@ import (
 	"crypto/rand"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	ec "github.com/p9c/duod/pkg/ecc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 
 // genRandomSig returns a random message, a signature of the message under the public key and the public key. This

@@ -5,9 +5,9 @@ import (
 	"net/rpc"
 	"os"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/pipe/stdconn"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn"
 )
 
 type Hello struct {

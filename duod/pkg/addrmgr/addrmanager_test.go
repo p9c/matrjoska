@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/duod/pkg/addrmgr"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/addrmgr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // naTest is used to describe a test to be performed against the NetAddressKey method.

@@ -3,8 +3,8 @@ package txscript
 import (
 	"sync"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	ec "github.com/p9c/duod/pkg/ecc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 
 // sigCacheEntry represents an entry in the SigCache. Entries within the SigCache are keyed according to the sigHash of

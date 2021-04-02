@@ -10,8 +10,8 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/p9c/duod/pkg/btcaddr"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	"io"
 	"io/ioutil"
 	"math/big"
@@ -22,12 +22,12 @@ import (
 	
 	"golang.org/x/crypto/ripemd160"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	ec "github.com/p9c/duod/pkg/ecc"
-	"github.com/p9c/duod/pkg/legacy/rename"
-	"github.com/p9c/duod/pkg/txscript"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	ec "github.com/p9c/monorepo/duod/pkg/ecc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/legacy/rename"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // A bunch of constants

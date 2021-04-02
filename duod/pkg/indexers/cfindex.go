@@ -2,17 +2,17 @@ package indexers
 
 import (
 	"errors"
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/database"
-	"github.com/p9c/duod/pkg/gcs"
-	"github.com/p9c/duod/pkg/gcs/builder"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/gcs"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/gcs/builder"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 const (

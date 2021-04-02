@@ -18,10 +18,10 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // AddrManager provides a concurrency safe address manager for caching potential peers on the bitcoin network.

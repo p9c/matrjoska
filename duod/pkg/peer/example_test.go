@@ -2,16 +2,16 @@ package peer_test
 
 import (
 	"fmt"
-	"github.com/p9c/duod/version"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/monorepo/duod/version"
+	"github.com/p9c/monorepo/log"
 	"net"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/peer"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/peer"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

@@ -5,7 +5,7 @@ import (
 	"sort"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
 )
 
 // TestUsageFlagStringer tests the stringized output for the UsageFlag type.

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // Bip16Activation is the timestamp where BIP0016 is valid to use in the blockchain. To be used to determine if BIP0016

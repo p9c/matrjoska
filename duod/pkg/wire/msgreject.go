@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // RejectCode represents a numeric value by which a remote peer indicates why a message was rejected.

@@ -1,7 +1,7 @@
 package forkhash
 
 import (
-	"github.com/p9c/duod/pkg/fork"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
 	"math/big"
 	
 	"github.com/bitbandi/go-x11"
@@ -14,7 +14,7 @@ import (
 	"golang.org/x/crypto/sha3"
 	"lukechampine.com/blake3"
 	
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // HashReps allows the number of multiplication/division cycles to be repeated before the final hash, on release for

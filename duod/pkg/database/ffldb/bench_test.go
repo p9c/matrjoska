@@ -1,13 +1,13 @@
 package ffldb
 
 import (
-	block2 "github.com/p9c/duod/pkg/block"
+	block2 "github.com/p9c/monorepo/duod/pkg/block"
 	"os"
 	"path/filepath"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
 )
 
 // BenchmarkBlockHeader benchmarks how long it takes to load the mainnet genesis block header.

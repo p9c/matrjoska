@@ -3,8 +3,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/opts"
-	"github.com/p9c/duod/pkg/spec"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/spec"
 	"go/format"
 	"io/ioutil"
 	"os"
@@ -47,14 +47,14 @@ func main() {
 var configBase = `package opts
 
 import (
-	"github.com/p9c/opts/binary"
-	"github.com/p9c/opts/cmds"
-	"github.com/p9c/opts/duration"
-	"github.com/p9c/opts/float"
-	"github.com/p9c/opts/integer"
-	"github.com/p9c/opts/list"
-	"github.com/p9c/opts/opt"
-	"github.com/p9c/opts/text"
+	"github.com/p9c/monorepo/opts/binary"
+	"github.com/p9c/monorepo/opts/cmds"
+	"github.com/p9c/monorepo/opts/duration"
+	"github.com/p9c/monorepo/opts/float"
+	"github.com/p9c/monorepo/opts/integer"
+	"github.com/p9c/monorepo/opts/list"
+	"github.com/p9c/monorepo/opts/opt"
+	"github.com/p9c/monorepo/opts/text"
 )
 
 // Config defines the configuration items used by pod along with the various components included in the suite

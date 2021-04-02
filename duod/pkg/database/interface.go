@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
 )
 
 // Cursor represents a cursor over key/value pairs and nested buckets of a bucket.

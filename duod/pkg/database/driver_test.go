@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/database"
-	_ "github.com/p9c/duod/pkg/database/ffldb"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
 )
 
 var (

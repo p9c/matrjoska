@@ -3,8 +3,8 @@ package gel
 import (
 	"gioui.org/text"
 	"gioui.org/unit"
-	"github.com/p9c/opts/binary"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/opts/binary"
+	"github.com/p9c/monorepo/qu"
 )
 
 type Theme struct {

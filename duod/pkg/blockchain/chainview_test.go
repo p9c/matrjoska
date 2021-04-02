@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // testNoncePrng provides a deterministic prng for the nonce in generated fake nodes. The ensures that the node have

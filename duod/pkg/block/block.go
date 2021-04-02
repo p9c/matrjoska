@@ -3,11 +3,11 @@ package block
 import (
 	"bytes"
 	"fmt"
-	"github.com/p9c/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
 	"io"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // OutOfRangeError describes an error due to accessing an element that is out of range.

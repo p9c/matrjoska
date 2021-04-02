@@ -1,13 +1,13 @@
 package util
 
 import (
-	"github.com/p9c/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
 	"golang.org/x/crypto/ripemd160"
 	
-	"github.com/p9c/duod/pkg/appdata"
-	"github.com/p9c/duod/pkg/base58"
-	"github.com/p9c/duod/pkg/bech32"
-	ec "github.com/p9c/duod/pkg/ecc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/base58"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/bech32"
+	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 
 // TstAppDataDir makes the internal appDataDir function available to the test package.

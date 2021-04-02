@@ -3,22 +3,22 @@ package netsync
 import (
 	"container/list"
 	"fmt"
-	block2 "github.com/p9c/duod/pkg/block"
+	block2 "github.com/p9c/monorepo/duod/pkg/block"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/database"
-	"github.com/p9c/duod/pkg/mempool"
-	peerpkg "github.com/p9c/duod/pkg/peer"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/mempool"
+	peerpkg "github.com/p9c/monorepo/duod/pkg/peer"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 type (

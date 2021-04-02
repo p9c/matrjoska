@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 	
-	"github.com/p9c/duod/pkg/fec"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fec"
 )
 
 // HandleFunc is a map of handlers for working on received, decoded packets

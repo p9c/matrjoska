@@ -2,7 +2,7 @@ package opts
 
 import (
 	"fmt"
-	"github.com/p9c/opts/opt"
+	"github.com/p9c/monorepo/opts/opt"
 )
 
 func getAllOptionStrings(c *Config) (s map[string][]string, e error) {

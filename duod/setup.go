@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/chainrpc"
-	"github.com/p9c/duod/pkg/fork"
-	"github.com/p9c/duod/pkg/opts"
-	"github.com/p9c/duod/pkg/pod"
-	"github.com/p9c/duod/pkg/spec"
-	"github.com/p9c/duod/pkg/state"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainrpc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/pod"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/spec"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/state"
+	"github.com/p9c/monorepo/qu"
 	"go.uber.org/atomic"
 	"math/rand"
 	"reflect"
@@ -22,8 +22,8 @@ import (
 	"runtime/debug"
 	"runtime/trace"
 	
-	"github.com/p9c/duod/pkg/interrupt"
-	"github.com/p9c/duod/pkg/limits"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/interrupt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/limits"
 )
 
 func main() {

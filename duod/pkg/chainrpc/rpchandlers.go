@@ -8,9 +8,9 @@ import (
 	"net/rpc"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
 )
 
 // API stores the channel, parameters and result values from calls via

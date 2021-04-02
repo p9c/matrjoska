@@ -2,19 +2,19 @@ package rpctest
 
 import (
 	"errors"
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
 	"math"
 	"math/big"
 	"runtime"
 	"time"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/txscript"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // solveBlock attempts to find a nonce which makes the passed block header hash to a value less than the target

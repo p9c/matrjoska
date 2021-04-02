@@ -1,7 +1,7 @@
 package interrupt
 
 import (
-	"github.com/p9c/pod/pkg/logg"
+	"github.com/p9c/monorepo/pod/pkg/logg"
 )
 
 var subsystem = logg.AddLoggerSubsystem()

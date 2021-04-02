@@ -6,15 +6,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/p9c/duod/pkg/amt"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
 	"io/ioutil"
 	"strconv"
 	"strings"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/util"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // scriptTestName returns a descriptive test name for the given reference script test data.

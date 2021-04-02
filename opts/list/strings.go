@@ -3,8 +3,8 @@ package list
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/opts/meta"
-	"github.com/p9c/opts/opt"
+	"github.com/p9c/monorepo/opts/meta"
+	"github.com/p9c/monorepo/opts/opt"
 	"strings"
 	"sync/atomic"
 )

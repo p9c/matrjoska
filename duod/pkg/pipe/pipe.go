@@ -1,14 +1,14 @@
 package pipe
 
 import (
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/log"
 	"io"
 	"os"
 	
-	"github.com/p9c/duod/pkg/pipe/stdconn"
-	"github.com/p9c/duod/pkg/pipe/stdconn/worker"
-	"github.com/p9c/duod/pkg/util/interrupt"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn/worker"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util/interrupt"
+	"github.com/p9c/monorepo/qu"
 )
 
 // Consume listens for messages from a child process over a stdio pipe.

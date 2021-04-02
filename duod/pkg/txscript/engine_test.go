@@ -3,8 +3,8 @@ package txscript
 import (
 	"testing"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // TestBadPC sets the pc to a deliberately bad result then confirms that Step() and Disasm fail correctly.

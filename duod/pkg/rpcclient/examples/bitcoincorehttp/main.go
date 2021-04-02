@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
 )
 
 func main() {

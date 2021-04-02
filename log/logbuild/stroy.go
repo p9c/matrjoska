@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/log/appdata"
+	"github.com/p9c/monorepo/log/appdata"
 	"io/ioutil"
 	"os"
 	"os/exec"

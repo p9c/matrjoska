@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 )
 
 type StdConn struct {

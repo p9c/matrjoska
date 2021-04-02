@@ -5,21 +5,21 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/duod/pkg/bits"
-	block2 "github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/fork"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/bits"
+	block2 "github.com/p9c/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
 	"math/big"
 	"math/rand"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"github.com/conformal/fastsha256"
 	
-	"github.com/p9c/duod/pkg/blockchain"
-	"github.com/p9c/duod/pkg/btcjson"
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 // Uint256Size is the number of bytes needed to represent an unsigned 256-bit integer.

@@ -11,13 +11,13 @@ import (
 	"golang.org/x/image/font/gofont/gomonobolditalic"
 	"golang.org/x/image/font/gofont/gomonoitalic"
 	
-	"github.com/p9c/gel/fonts/bariolbold"
-	"github.com/p9c/gel/fonts/bariolbolditalic"
-	"github.com/p9c/gel/fonts/bariollight"
-	"github.com/p9c/gel/fonts/bariollightitalic"
-	"github.com/p9c/gel/fonts/bariolregular"
-	"github.com/p9c/gel/fonts/bariolregularitalic"
-	"github.com/p9c/gel/fonts/plan9"
+	"github.com/p9c/monorepo/gel/fonts/bariolbold"
+	"github.com/p9c/monorepo/gel/fonts/bariolbolditalic"
+	"github.com/p9c/monorepo/gel/fonts/bariollight"
+	"github.com/p9c/monorepo/gel/fonts/bariollightitalic"
+	"github.com/p9c/monorepo/gel/fonts/bariolregular"
+	"github.com/p9c/monorepo/gel/fonts/bariolregularitalic"
+	"github.com/p9c/monorepo/gel/fonts/plan9"
 )
 
 var (

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/p9c/log/version"
+	"github.com/p9c/monorepo/log/version"
 	"io/ioutil"
 	"os"
 	"path/filepath"

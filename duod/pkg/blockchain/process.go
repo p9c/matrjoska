@@ -3,13 +3,13 @@ package blockchain
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/duod/pkg/bits"
-	"github.com/p9c/duod/pkg/block"
-	"github.com/p9c/duod/pkg/fork"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/bits"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
 	"time"
 	
-	"github.com/p9c/duod/pkg/chainhash"
-	"github.com/p9c/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
 )
 
 // BehaviorFlags is a bitmask defining tweaks to the normal behavior when performing chain processing and consensus

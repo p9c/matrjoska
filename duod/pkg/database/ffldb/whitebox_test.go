@@ -5,7 +5,7 @@ import (
 	"compress/bzip2"
 	"encoding/binary"
 	"fmt"
-	"github.com/p9c/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	"hash/crc32"
 	"io"
 	"os"
@@ -15,9 +15,9 @@ import (
 	"github.com/btcsuite/goleveldb/leveldb"
 	ldberrors "github.com/btcsuite/goleveldb/leveldb/errors"
 	
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/database"
-	"github.com/p9c/duod/pkg/wire"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
 )
 
 var (

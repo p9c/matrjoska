@@ -1,7 +1,7 @@
 package clipboard
 
 import (
-	"github.com/p9c/gel/version"
+	"github.com/p9c/monorepo/gel/version"
 	logg "github.com/p9c/log"
 )
 

@@ -4,26 +4,26 @@ package pod
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/chaincfg"
-	"github.com/p9c/duod/pkg/chainclient"
-	"github.com/p9c/duod/pkg/control"
-	"github.com/p9c/duod/pkg/opts"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainclient"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/control"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
 	"math/rand"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"go.uber.org/atomic"
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/duod/cmd/node/state"
-	"github.com/p9c/duod/pkg/chainrpc"
-	"github.com/p9c/duod/pkg/util/lang"
-	"github.com/p9c/duod/pkg/wallet"
+	"github.com/p9c/monorepo/monorepo/duod/cmd/node/state"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/chainrpc"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/util/lang"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/wallet"
 )
 
 type _dtype int

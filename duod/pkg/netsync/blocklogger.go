@@ -2,7 +2,7 @@ package netsync
 
 import (
 	"fmt"
-	"github.com/p9c/duod/pkg/block"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
 	"sync"
 	"time"
 )

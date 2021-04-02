@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
 )
 
 // TestWalletSvrCmds tests all of the wallet server commands marshal and unmarshal into valid results include handling
