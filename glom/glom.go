@@ -11,13 +11,15 @@ type State struct {
 	*gel.Window
 }
 
-func NewState() *State {
-	return &State{}
+func NewState(quit qu.C) *State {
+	return &State{
+		Window: gel.NewWindowP9(quit),
+	}
 }
 
 func main() {
-	state := NewState()
 	quit := qu.T()
+	state := NewState(quit)
 	var e error
 	if e = state.Window.
 		Size(20, 20).
@@ -28,6 +30,7 @@ func main() {
 		},
 			nil, func() {
 				interrupt.Request()
+				quit.Q()
 			}, quit,
 		); E.Chk(e) {
 		

@@ -75,6 +75,7 @@ func NewWindowP9(quit chan struct{}) (out *Window) {
 	out = &Window{
 		scale:  &scaledConfig{1},
 		Runner: NewCallbackQueue(32),
+		Theme:  &Theme{},
 	}
 	out.Theme = NewTheme(
 		binary.New(meta.Data{}, false, out.Theme.SetDarkTheme),
