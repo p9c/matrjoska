@@ -5,7 +5,7 @@ package gel
 import (
 	"golang.org/x/exp/shiny/materialdesign/icons"
 
-	"gioui.org/layout"
+	l "gioui.org/layout"
 )
 
 type RadioButton struct {
@@ -46,7 +46,7 @@ func (r *RadioButton) Group(group *Enum) *RadioButton {
 }
 
 // Fn updates enum and displays the radio button.
-func (r RadioButton) Fn(gtx layout.Context) layout.Dimensions {
+func (r RadioButton) Fn(gtx l.Context) l.Dimensions {
 	dims := r.Checkable.Fn(gtx, r.group.Value() == r.key)
 	gtx.Constraints.Min = dims.Size
 	r.group.Fn(gtx, r.key)

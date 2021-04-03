@@ -4,7 +4,7 @@ import (
 	"image/color"
 	
 	"gioui.org/f32"
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 	"gioui.org/unit"
@@ -16,7 +16,7 @@ type Border struct {
 	color        color.NRGBA
 	cornerRadius unit.Value
 	width        unit.Value
-	w            layout.Widget
+	w            l.Widget
 	corners      int
 }
 
@@ -51,15 +51,15 @@ func (b *Border) Width(width float32) *Border {
 	return b
 }
 
-func (b *Border) Embed(w layout.Widget) *Border {
+func (b *Border) Embed(w l.Widget) *Border {
 	b.w = w
 	return b
 }
 
 // Fn renders the border
-func (b *Border) Fn(gtx layout.Context) layout.Dimensions {
+func (b *Border) Fn(gtx l.Context) l.Dimensions {
 	dims := b.w(gtx)
-	sz := layout.FPt(dims.Size)
+	sz := l.FPt(dims.Size)
 	
 	rr := float32(gtx.Px(b.cornerRadius))
 	width := float32(gtx.Px(b.width))

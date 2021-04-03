@@ -6,7 +6,7 @@ import (
 	"image"
 	
 	"gioui.org/f32"
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/clip"
 )
@@ -35,7 +35,7 @@ const (
 // scale adds clip and scale operations to fit dims to the constraints.
 // It positions the widget to the appropriate position.
 // It returns dimensions modified accordingly.
-func (fit Fit) scale(gtx layout.Context, pos layout.Direction, dims layout.Dimensions) layout.Dimensions {
+func (fit Fit) scale(gtx l.Context, pos l.Direction, dims l.Dimensions) l.Dimensions {
 	widgetSize := dims.Size
 	
 	if fit == Unscaled || dims.Size.X == 0 || dims.Size.Y == 0 {
@@ -43,7 +43,7 @@ func (fit Fit) scale(gtx layout.Context, pos layout.Direction, dims layout.Dimen
 		clip.Rect{Max: dims.Size}.Add(gtx.Ops)
 		
 		offset := pos.Position(widgetSize, dims.Size)
-		op.Offset(layout.FPt(offset)).Add(gtx.Ops)
+		op.Offset(l.FPt(offset)).Add(gtx.Ops)
 		dims.Baseline += offset.Y
 		return dims
 	}
@@ -79,7 +79,7 @@ func (fit Fit) scale(gtx layout.Context, pos layout.Direction, dims layout.Dimen
 			clip.Rect{Max: dims.Size}.Add(gtx.Ops)
 			
 			offset := pos.Position(widgetSize, dims.Size)
-			op.Offset(layout.FPt(offset)).Add(gtx.Ops)
+			op.Offset(l.FPt(offset)).Add(gtx.Ops)
 			dims.Baseline += offset.Y
 			return dims
 		}
@@ -97,7 +97,7 @@ func (fit Fit) scale(gtx layout.Context, pos layout.Direction, dims layout.Dimen
 	offset := pos.Position(scaledSize, dims.Size)
 	op.Affine(f32.Affine2D{}.
 		Scale(f32.Point{}, scale).
-		Offset(layout.FPt(offset)),
+		Offset(l.FPt(offset)),
 	).Add(gtx.Ops)
 	
 	dims.Baseline += offset.Y

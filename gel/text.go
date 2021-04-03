@@ -5,7 +5,7 @@ import (
 	"image"
 	"unicode/utf8"
 	
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
@@ -101,7 +101,7 @@ func (l *lineIterator) Next() (text.Layout, image.Point, bool) {
 	return text.Layout{}, image.Point{}, false
 }
 
-func linesDimens(lines []text.Line) layout.Dimensions {
+func linesDimens(lines []text.Line) l.Dimensions {
 	var width fixed.Int26_6
 	var h int
 	var baseline int
@@ -118,7 +118,7 @@ func linesDimens(lines []text.Line) layout.Dimensions {
 		h += lines[len(lines)-1].Descent.Ceil()
 	}
 	w := width.Ceil()
-	return layout.Dimensions{
+	return l.Dimensions{
 		Size: image.Point{
 			X: w,
 			Y: h,
@@ -127,7 +127,7 @@ func linesDimens(lines []text.Line) layout.Dimensions {
 	}
 }
 
-func (t *Text) Fn(gtx layout.Context, s text.Shaper, font text.Font, size unit.Value, txt string) layout.Dimensions {
+func (t *Text) Fn(gtx l.Context, s text.Shaper, font text.Font, size unit.Value, txt string) l.Dimensions {
 	cs := gtx.Constraints
 	textSize := fixed.I(gtx.Px(size))
 	lines := s.LayoutString(font, textSize, cs.Max.X, txt)
@@ -145,13 +145,13 @@ func (t *Text) Fn(gtx layout.Context, s text.Shaper, font text.Font, size unit.V
 		Width:     dims.Size.X,
 	}
 	for {
-		l, off, ok := it.Next()
+		ll, off, ok := it.Next()
 		if !ok {
 			break
 		}
 		stack := op.Save(gtx.Ops)
-		op.Offset(layout.FPt(off)).Add(gtx.Ops)
-		s.Shape(font, textSize, l).Add(gtx.Ops)
+		op.Offset(l.FPt(off)).Add(gtx.Ops)
+		s.Shape(font, textSize, ll).Add(gtx.Ops)
 		clip.Rect(cl.Sub(off)).Add(gtx.Ops)
 		paint.PaintOp{}.Add(gtx.Ops)
 		stack.Load()

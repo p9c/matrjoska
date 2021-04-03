@@ -1,7 +1,7 @@
 package gel
 
 import (
-	"gioui.org/layout"
+	l "gioui.org/layout"
 )
 
 type BoolHook func(b bool)
@@ -54,7 +54,7 @@ func (b *Bool) History() []press {
 }
 
 // Fn renders the events of the boolean widget
-func (b *Bool) Fn(gtx layout.Context) layout.Dimensions {
+func (b *Bool) Fn(gtx l.Context) l.Dimensions {
 	dims := b.clk.Fn(gtx)
 	for b.clk.Clicked() {
 		b.value = !b.value

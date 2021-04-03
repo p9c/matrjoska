@@ -41,7 +41,7 @@ type App struct {
 	sideBarColor        string
 	SideBarSize         *unit.Value
 	sideBarList         *List
-	Size                *int
+	Size                *atomic.Int32
 	statusBar           []l.Widget
 	statusBarRight      []l.Widget
 	statusBarBackground string
@@ -57,7 +57,7 @@ type App struct {
 
 type WidgetMap map[string]l.Widget
 
-func (w *Window) App(size *int, activePage *atomic.String, invalidate chan struct{}, Break1 float32,) *App {
+func (w *Window) App(size *atomic.Int32, activePage *atomic.String, Break1 float32,) *App {
 	mc := w.Clickable()
 	a := &App{
 		Window:              w,
@@ -89,7 +89,6 @@ func (w *Window) App(size *int, activePage *atomic.String, invalidate chan struc
 		menuColor:           "DocText",
 		MenuOpen:            false,
 		Size:                size,
-		invalidate:          invalidate,
 		mainDirection:       l.Center + 1,
 		Break1:              Break1,
 	}
@@ -177,7 +176,7 @@ func (a *App) RenderHeader(gtx l.Context) l.Dimensions {
 		// ).
 		Rigid(
 			a.Theme.Responsive(
-				*a.Size,
+				int(a.Size.Load()),
 				Widgets{
 					{Widget: If(len(a.sideBar) > 0, a.MenuButton, a.NoMenuButton)},
 					{Size: a.Break1, Widget: a.NoMenuButton},
@@ -187,7 +186,7 @@ func (a *App) RenderHeader(gtx l.Context) l.Dimensions {
 		).
 		Flexed(
 			1, If(
-				float32(a.Width) >= a.TextSize.Scale(a.Break1).V,
+				float32(a.Width.Load()) >= a.TextSize.Scale(a.Break1).V,
 				a.Direction().W().Embed(a.LogoAndTitle).Fn,
 				a.Direction().Center().Embed(a.LogoAndTitle).Fn,
 			),
@@ -223,7 +222,7 @@ func (a *App) MainFrame(gtx l.Context) l.Dimensions {
 				Flexed(
 					1,
 					a.Responsive(
-						*a.Size, Widgets{
+						int(a.Size.Load()), Widgets{
 							{
 								Widget: func(gtx l.Context) l.Dimensions {
 									return If(
@@ -290,7 +289,7 @@ func (a *App) NoMenuButton(_ l.Context) l.Dimensions {
 
 func (a *App) LogoAndTitle(gtx l.Context) l.Dimensions {
 	return a.Theme.Responsive(
-		*a.Size, Widgets{
+		int(a.Size.Load()), Widgets{
 			{
 				Widget: a.Theme.Flex().AlignMiddle().
 					Rigid(

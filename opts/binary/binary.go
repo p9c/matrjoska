@@ -84,7 +84,9 @@ func (x *Opt) SetHooks(hook ...func(b bool)) {
 
 // True returns whether the value is set to true (it returns the value)
 func (x *Opt) True() bool {
-	return x.value.Load()
+	return x.
+		value.
+		Load()
 }
 
 // False returns whether the value is false (it returns the inverse of the value)

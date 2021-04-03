@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"time"
 	
-	"github.com/p9c/monorepo/appdata"
-	"github.com/p9c/monorepo/apputil"
+	"github.com/p9c/gel/appdata"
+	"github.com/p9c/gel/apputil"
 	
 	"github.com/davecgh/go-spew/spew"
 	"gopkg.in/src-d/go-git.v4"

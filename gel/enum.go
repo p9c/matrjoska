@@ -5,7 +5,7 @@ import (
 
 	"gioui.org/gesture"
 	"gioui.org/io/pointer"
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op"
 )
 
@@ -52,7 +52,7 @@ func (e *Enum) Changed() bool {
 }
 
 // Fn adds the event handler for key.
-func (e *Enum) Fn(gtx layout.Context, key string) layout.Dimensions {
+func (e *Enum) Fn(gtx l.Context, key string) l.Dimensions {
 	defer op.Save(gtx.Ops).Load()
 	pointer.Rect(image.Rectangle{Max: gtx.Constraints.Min}).Add(gtx.Ops)
 
@@ -76,5 +76,5 @@ func (e *Enum) Fn(gtx layout.Context, key string) layout.Dimensions {
 		clk.Add(gtx.Ops)
 	}
 
-	return layout.Dimensions{Size: gtx.Constraints.Min}
+	return l.Dimensions{Size: gtx.Constraints.Min}
 }

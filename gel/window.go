@@ -1,14 +1,10 @@
 package gel
 
 import (
-	"github.com/p9c/monorepo/gel/fonts/p9fonts"
+	"github.com/p9c/monorepo/fonts/p9fonts"
 	"github.com/p9c/monorepo/opts/binary"
 	"github.com/p9c/monorepo/opts/meta"
 	"math"
-	"os/exec"
-	"runtime"
-	"strconv"
-	"strings"
 	"time"
 	
 	"gioui.org/io/event"
@@ -20,6 +16,7 @@ import (
 	l "gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/unit"
+	uberatomic "go.uber.org/atomic"
 )
 
 type CallbackQueue chan func() error
@@ -49,8 +46,8 @@ type Window struct {
 	*app.Window
 	opts    []app.Option
 	scale   *scaledConfig
-	Width   int // stores the width at the beginning of render
-	Height  int
+	Width   *uberatomic.Int32 // stores the width at the beginning of render
+	Height  *uberatomic.Int32
 	ops     op.Ops
 	evQ     system.FrameEvent
 	Runner  CallbackQueue
@@ -79,10 +76,11 @@ func NewWindowP9(quit chan struct{}) (out *Window) {
 	out = &Window{
 		scale:  &scaledConfig{1},
 		Runner: NewCallbackQueue(32),
-		Theme:  &Theme{},
+		Width:  uberatomic.NewInt32(0),
+		Height: uberatomic.NewInt32(0),
 	}
 	out.Theme = NewTheme(
-		binary.New(meta.Data{}, false, out.Theme.SetDarkTheme),
+		binary.New(meta.Data{}, false, nil),
 		p9fonts.Collection(), quit,
 	)
 	out.Theme.WidgetPool = out.NewPool()
@@ -108,7 +106,7 @@ func (w *Window) Title(title string) (out *Window) {
 func (w *Window) Size(width, height float32) (out *Window) {
 	w.opts = append(
 		w.opts,
-		app.Size(w.Theme.TextSize.Scale(width), w.Theme.TextSize.Scale(height)),
+		app.Size(w.TextSize.Scale(width), w.TextSize.Scale(height)),
 	)
 	return w
 }
@@ -135,25 +133,8 @@ func (w *Window) Run(
 	frame func(ctx l.Context) l.Dimensions,
 	overlay func(ctx l.Context), destroy func(), quit qu.C,
 ) (e error) {
-	ticker := time.NewTicker(time.Second)
 	for {
 		select {
-		case <-ticker.C:
-			if runtime.GOOS == "linux" {
-				var e error
-				var b []byte
-				textSize := unit.Sp(16)
-				runner := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "text-scaling-factor")
-				if b, e = runner.CombinedOutput(); D.Chk(e) {
-				}
-				var factor float64
-				numberString := strings.TrimSpace(string(b))
-				if factor, e = strconv.ParseFloat(numberString, 10); D.Chk(e) {
-				}
-				w.TextSize = textSize.Scale(float32(factor))
-				// I.Ln(w.TextSize)
-			}
-			w.Invalidate()
 		case fn := <-w.Runner:
 			if e = fn(); E.Chk(e) {
 				return
@@ -166,6 +147,38 @@ func (w *Window) Run(
 			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
 				return
 			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
+		case ev := <-w.Window.Events():
+			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+				return
+			}
 		}
 	}
 }
@@ -174,14 +187,19 @@ func (w *Window) processEvents(e event.Event, frame func(ctx l.Context) l.Dimens
 	switch e := e.(type) {
 	case system.DestroyEvent:
 		D.Ln("received destroy event", e.Err)
+		// if e.Err != nil {
+		// 	if strings.Contains(e.Err.Error(), "eglCreateWindowSurface failed") {
+		// 		return nil
+		// 	}
+		// }
 		destroy()
 		return e.Err
 	case system.FrameEvent:
 		ops := op.Ops{}
 		c := l.NewContext(&ops, e)
 		// update dimensions for responsive sizing widgets
-		w.Width = c.Constraints.Max.X
-		w.Height = c.Constraints.Max.Y
+		w.Width.Store(int32(c.Constraints.Max.X))
+		w.Height.Store(int32(c.Constraints.Max.Y))
 		frame(c)
 		w.Overlay(c)
 		e.Frame(c.Ops)

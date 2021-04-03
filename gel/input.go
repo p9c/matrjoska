@@ -3,7 +3,7 @@ package gel
 import (
 	"regexp"
 	
-	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
+	"golang.org/x/exp/shiny/materialdesign/icons"
 	
 	l "gioui.org/layout"
 	
@@ -95,19 +95,19 @@ func (w *Window) Input(
 		Icon(
 			w.Icon().
 				Color("DocText").
-				Src(&icons2.ContentBackspace),
+				Src(&icons.ContentBackspace),
 		)
 	p.copyButton.
 		Icon(
 			w.Icon().
 				Color("DocText").
-				Src(&icons2.ContentContentCopy),
+				Src(&icons.ContentContentCopy),
 		)
 	p.pasteButton.
 		Icon(
 			w.Icon().
 				Color("DocText").
-				Src(&icons2.ContentContentPaste),
+				Src(&icons.ContentContentPaste),
 		)
 	p.input.Color("DocText")
 	p.clearClickable.SetClick(clearClickableFn)
@@ -154,21 +154,21 @@ func (in *Input) Fn(gtx l.Context) l.Dimensions {
 					Rigid(
 						in.copyButton.
 							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons2.ContentContentCopy)).
+							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentCopy)).
 							ButtonInset(0.25).
 							Fn,
 					).
 					Rigid(
 						in.pasteButton.
 							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons2.ContentContentPaste)).
+							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentPaste)).
 							ButtonInset(0.25).
 							Fn,
 					).
 					Rigid(
 						in.clearButton.
 							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons2.ContentBackspace)).
+							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentBackspace)).
 							ButtonInset(0.25).
 							Fn,
 					).

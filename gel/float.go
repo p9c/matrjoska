@@ -7,7 +7,7 @@ import (
 
 	"gioui.org/gesture"
 	"gioui.org/io/pointer"
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op"
 )
 
@@ -39,7 +39,7 @@ func (f *Float) SetHook(fn func(fl float32)) *Float {
 }
 
 // Fn processes events.
-func (f *Float) Fn(gtx layout.Context, pointerMargin int, min, max float32) layout.Dimensions {
+func (f *Float) Fn(gtx l.Context, pointerMargin int, min, max float32) l.Dimensions {
 	size := gtx.Constraints.Min
 	f.length = float32(size.X)
 	var de *pointer.Event
@@ -74,7 +74,7 @@ func (f *Float) Fn(gtx layout.Context, pointerMargin int, min, max float32) layo
 	pointer.Rect(rect).Add(gtx.Ops)
 	f.drag.Add(gtx.Ops)
 
-	return layout.Dimensions{Size: size}
+	return l.Dimensions{Size: size}
 }
 
 func (f *Float) setValue(value, min, max float32) {

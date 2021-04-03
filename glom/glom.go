@@ -1,6 +1,7 @@
 package main
 
 import (
+	l "gioui.org/layout"
 	"github.com/p9c/monorepo/gel"
 	"github.com/p9c/monorepo/glom/pkg/pathtree"
 	"github.com/p9c/monorepo/interrupt"
@@ -22,11 +23,12 @@ func main() {
 	state := NewState(quit)
 	var e error
 	folderView := pathtree.New(state.Window)
+	state.Window.SetDarkTheme(folderView.Dark.True())
 	if e = state.Window.
-		Size(20, 20).
+		Size(48, 32).
 		Title("glom, the visual code editor").
 		Open().
-		Run(folderView.Fn,
+		Run(func(gtx l.Context) l.Dimensions { return folderView.Fn(gtx) },
 			nil, func() {
 				interrupt.Request()
 				quit.Q()

@@ -21,7 +21,7 @@ import (
 	"gioui.org/gesture"
 	"gioui.org/io/key"
 	"gioui.org/io/pointer"
-	"gioui.org/layout"
+	l "gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/paint"
 	"gioui.org/text"
@@ -65,7 +65,7 @@ type Editor struct {
 	valid        bool
 	lines        []text.Line
 	shapes       []line
-	dims         layout.Dimensions
+	dims         l.Dimensions
 	requestFocus bool
 	Caret        struct {
 		on     bool
@@ -169,7 +169,7 @@ func (e *Editor) Events() []EditorEvent {
 	return events
 }
 
-func (e *Editor) processEvents(gtx layout.Context) {
+func (e *Editor) processEvents(gtx l.Context) {
 	// Flush events from before the previous Open.
 	n := copy(e.events, e.events[e.prevEvents:])
 	e.events = e.events[:n]
@@ -230,7 +230,7 @@ func (e *Editor) makeValid() {
 	e.valid = true
 }
 
-func (e *Editor) processPointer(gtx layout.Context) {
+func (e *Editor) processPointer(gtx l.Context) {
 	sbounds := e.scrollBounds()
 	var smin, smax int
 	var axis gesture.Axis
@@ -270,7 +270,7 @@ func (e *Editor) processPointer(gtx layout.Context) {
 	}
 }
 
-func (e *Editor) processKey(gtx layout.Context) {
+func (e *Editor) processKey(gtx l.Context) {
 	if e.rr.Changed() {
 		e.events = append(e.events, ChangeEvent{})
 	}
@@ -384,7 +384,7 @@ func (e *Editor) Focused() bool {
 }
 
 // Layout lays out the editor.
-func (e *Editor) Layout(gtx layout.Context, sh text.Shaper, font text.Font, size unit.Value) layout.Dimensions {
+func (e *Editor) Layout(gtx l.Context, sh text.Shaper, font text.Font, size unit.Value) l.Dimensions {
 	textSize := fixed.I(gtx.Px(size))
 	if e.font != font || e.textSize != textSize {
 		e.invalidate()
@@ -450,8 +450,8 @@ func sign(n int) int {
 	}
 }
 
-func (e *Editor) layout(gtx layout.Context) layout.Dimensions {
-	// Adjust scrolling for new viewport and layout.
+func (e *Editor) layout(gtx l.Context) l.Dimensions {
+	// Adjust scrolling for new viewport and l.
 	e.scrollRel(0, 0)
 	if e.Caret.scroll {
 		e.Caret.scroll = false
@@ -518,15 +518,15 @@ func (e *Editor) layout(gtx layout.Context) layout.Dimensions {
 		e.Caret.on = e.focused && (!blinking || dt%timePerBlink < timePerBlink/2)
 	}
 	
-	return layout.Dimensions{Size: e.viewSize, Baseline: e.dims.Baseline}
+	return l.Dimensions{Size: e.viewSize, Baseline: e.dims.Baseline}
 }
 
-func (e *Editor) PaintText(gtx layout.Context) {
+func (e *Editor) PaintText(gtx l.Context) {
 	cl := textPadding(e.lines)
 	cl.Max = cl.Max.Add(e.viewSize)
 	for _, shape := range e.shapes {
 		stack := op.Save(gtx.Ops)
-		op.Offset(layout.FPt(shape.offset)).Add(gtx.Ops)
+		op.Offset(l.FPt(shape.offset)).Add(gtx.Ops)
 		shape.clip.Add(gtx.Ops)
 		clip.Rect(cl.Sub(shape.offset)).Add(gtx.Ops)
 		paint.PaintOp{}.Add(gtx.Ops)
@@ -534,7 +534,7 @@ func (e *Editor) PaintText(gtx layout.Context) {
 	}
 }
 
-func (e *Editor) PaintCaret(gtx layout.Context) {
+func (e *Editor) PaintCaret(gtx l.Context) {
 	if !e.Caret.on {
 		return
 	}
@@ -650,7 +650,7 @@ func (e *Editor) moveCoord(pos image.Point) {
 	e.Caret.xoff = 0
 }
 
-func (e *Editor) layoutText(s text.Shaper) ([]text.Line, layout.Dimensions) {
+func (e *Editor) layoutText(s text.Shaper) ([]text.Line, l.Dimensions) {
 	e.rr.Reset()
 	var r io.Reader = &e.rr
 	if e.mask != 0 {
@@ -665,7 +665,7 @@ func (e *Editor) layoutText(s text.Shaper) ([]text.Line, layout.Dimensions) {
 	}
 	dims := linesDimens(lines)
 	for i := 0; i < len(lines)-1; i++ {
-		// To avoid layout flickering while editing, assume a soft newline takes up all available space.
+		// To avoid l flickering while editing, assume a soft newline takes up all available space.
 		if lay := lines[i].Layout; len(lay.Text) > 0 {
 			r := lay.Text[len(lay.Text)-1]
 			if r != '\n' {
