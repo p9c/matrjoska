@@ -4,7 +4,7 @@ import (
 	"github.com/p9c/monorepo/duod/pkg/btcaddr"
 	"golang.org/x/crypto/ripemd160"
 	
-	"github.com/p9c/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/appdata"
 	"github.com/p9c/monorepo/duod/pkg/base58"
 	"github.com/p9c/monorepo/duod/pkg/bech32"
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"

@@ -12,7 +12,7 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/appdata"
 	"github.com/p9c/monorepo/duod/pkg/rpcclient"
 )
 

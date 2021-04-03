@@ -1,7 +1,7 @@
 package spec
 
 import (
-	"github.com/p9c/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/appdata"
 	"github.com/p9c/monorepo/duod/pkg/base58"
 	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	"github.com/p9c/monorepo/duod/pkg/constant"
