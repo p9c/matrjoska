@@ -32,8 +32,7 @@ type Input struct {
 
 var findSpaceRegexp = regexp.MustCompile(`\s+`)
 
-func (w *Window) Input(
-	txt, hint, borderColorFocused, borderColorUnfocused, backgroundColor string,
+func (w *Window) Input(txt, hint, borderColorFocused, borderColorUnfocused, backgroundColor string,
 	submit, change func(txt string),
 ) *Input {
 	editor := w.Editor().SingleLine().Submit(true)
