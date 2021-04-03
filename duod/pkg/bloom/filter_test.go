@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"encoding/hex"
 	block2 "github.com/p9c/monorepo/duod/pkg/block"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/bloom"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/bloom"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // TestFilterLarge ensures a maximum sized filter can be created.

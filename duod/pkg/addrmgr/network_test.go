@@ -4,8 +4,8 @@ import (
 	"net"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/addrmgr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/addrmgr"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // TestIPTypes ensures the various functions which determine the type of an IP address based on RFCs work as intended.

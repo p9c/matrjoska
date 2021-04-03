@@ -6,7 +6,7 @@ import (
 	
 	bolt "go.etcd.io/bbolt"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
+	"github.com/p9c/monorepo/duod/pkg/walletdb"
 )
 
 // convertErr converts some bolt errors to the equivalent walletdb error.

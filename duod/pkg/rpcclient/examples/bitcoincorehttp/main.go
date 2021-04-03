@@ -5,7 +5,7 @@ import (
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/duod/pkg/rpcclient"
 )
 
 func main() {

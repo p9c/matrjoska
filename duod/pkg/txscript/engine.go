@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math/big"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 	
 	"go.uber.org/atomic"
 	

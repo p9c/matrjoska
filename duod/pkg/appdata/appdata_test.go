@@ -8,7 +8,7 @@ import (
 	"testing"
 	"unicode"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/duod/pkg/appdata"
 )
 
 // TestAppDataDir tests the API for Dir to ensure it gives expected results for various operating systems.

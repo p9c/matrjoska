@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 

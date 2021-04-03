@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // TestSequenceLocksActive tests the SequenceLockActive function to ensure it works as expected in all possible

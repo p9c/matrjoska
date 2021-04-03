@@ -7,7 +7,7 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // genTestTx creates a random transaction for uses within test cases.

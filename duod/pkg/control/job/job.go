@@ -3,16 +3,16 @@ package job
 //
 // import (
 // 	"errors"
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+// 	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 // 	"time"
 //
 // 	"github.com/niubaoshu/gotiny"
 //
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain/fork"
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
-// 	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+// 	"github.com/p9c/monorepo/duod/pkg/blockchain"
+// 	"github.com/p9c/monorepo/duod/pkg/chainhash"
+// 	"github.com/p9c/monorepo/duod/pkg/blockchain/fork"
+// 	"github.com/p9c/monorepo/duod/pkg/wire"
+// 	"github.com/p9c/monorepo/duod/pkg/util"
 // )
 //
 

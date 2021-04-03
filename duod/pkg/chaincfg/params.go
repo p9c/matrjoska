@@ -3,7 +3,7 @@ package chaincfg
 import (
 	"strings"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // String returns the hostname of the DNS seed in human-readable form.

@@ -8,7 +8,7 @@ import (
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/transport"
+	"github.com/p9c/monorepo/duod/pkg/transport"
 )
 
 const (

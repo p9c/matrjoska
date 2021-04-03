@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"sync"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 const (

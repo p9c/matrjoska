@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for the main network, regression test network,

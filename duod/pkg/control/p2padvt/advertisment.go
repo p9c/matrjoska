@@ -3,8 +3,8 @@ package p2padvt
 import (
 	"github.com/niubaoshu/gotiny"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/routeable"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/routeable"
+	"github.com/p9c/monorepo/duod/pkg/util"
 )
 
 var Magic = []byte{'a', 'd', 'v', 1}

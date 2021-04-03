@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/base58"
+	"github.com/p9c/monorepo/duod/pkg/base58"
 )
 
 var stringTests = []struct {

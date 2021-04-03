@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
+	"github.com/p9c/monorepo/duod/pkg/walletdb"
 	_ "github.com/p9c/monorepo/duod/pkg/walletdb/bdb"
 )
 

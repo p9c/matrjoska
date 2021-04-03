@@ -3,8 +3,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/spec"
+	"github.com/p9c/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/duod/pkg/spec"
 	"go/format"
 	"io/ioutil"
 	"os"

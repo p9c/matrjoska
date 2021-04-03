@@ -1,12 +1,12 @@
 package spec
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/base58"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/constant"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hdkeychain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/duod/pkg/base58"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/constant"
+	"github.com/p9c/monorepo/duod/pkg/hdkeychain"
+	"github.com/p9c/monorepo/duod/pkg/opts"
 	"github.com/p9c/monorepo/opts/binary"
 	"github.com/p9c/monorepo/opts/cmds"
 	"github.com/p9c/monorepo/opts/duration"

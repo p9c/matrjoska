@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/util"
 	// "github.com/davecgh/go-spew/spew"
 )
 

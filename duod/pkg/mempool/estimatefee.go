@@ -5,8 +5,8 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	"io"
 	"math"
 	"math/rand"
@@ -14,9 +14,9 @@ import (
 	"strings"
 	"sync"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/mining"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/mining"
+	"github.com/p9c/monorepo/duod/pkg/util"
 )
 
 // DUOPerKilobyte is number with units of parallelcoins per kilobyte.

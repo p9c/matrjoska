@@ -8,7 +8,7 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // TestGetBlocks tests the MsgGetBlocks API.

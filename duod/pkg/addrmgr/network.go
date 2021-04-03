@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 var (

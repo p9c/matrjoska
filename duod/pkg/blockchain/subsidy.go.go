@@ -1,13 +1,13 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hardfork"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/hardfork"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // CreateHardForkSubsidyTx creates the transaction that must be on the hard fork activation block in place of a standard

@@ -1,7 +1,7 @@
 package chaincfg
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // RegressionTestParams defines the network parameters for the regression test Bitcoin network. Not to be confused with

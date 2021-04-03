@@ -7,8 +7,8 @@ import (
 	"golang.org/x/crypto/ripemd160"
 	"hash"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/base58"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/base58"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 

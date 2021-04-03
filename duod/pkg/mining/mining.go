@@ -3,20 +3,20 @@ package mining
 import (
 	"container/heap"
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/bits"
+	"github.com/p9c/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/duod/pkg/bits"
 	block2 "github.com/p9c/monorepo/duod/pkg/block"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/fork"
 	"math/rand"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 const (

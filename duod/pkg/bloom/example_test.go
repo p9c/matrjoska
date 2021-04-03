@@ -5,9 +5,9 @@ import (
 	"math/rand"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/bloom"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/bloom"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction hash to it, and check if the filter

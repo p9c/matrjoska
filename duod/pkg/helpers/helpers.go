@@ -3,8 +3,8 @@
 package helpers
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // SumOutputValues sums up the list of TxOuts and returns an Amount.

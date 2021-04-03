@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/database"
 )
 
 // BenchmarkBlockHeader benchmarks how long it takes to load the mainnet genesis block header.

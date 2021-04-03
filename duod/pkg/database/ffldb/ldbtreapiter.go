@@ -4,7 +4,7 @@ import (
 	"github.com/btcsuite/goleveldb/leveldb/iterator"
 	"github.com/btcsuite/goleveldb/leveldb/util"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/treap"
+	"github.com/p9c/monorepo/duod/pkg/treap"
 )
 
 // ldbTreapIter wraps a treap iterator to provide the additional functionality needed to satisfy the leveldb

@@ -2,15 +2,12 @@ package main
 
 var commands = map[string][]string{
 	"build": {
-		"go build -v",
+		"go build -v ./...",
 	},
 	"install": {
-		"go install -v",
+		"go install -v ./...",
 	},
-	"tests": {
-		"go test ./...",
-	},
-	"builder": {
-		"go install -v ./logbuild/.",
+	"tidy": {
+		"go mod tidy",
 	},
 }

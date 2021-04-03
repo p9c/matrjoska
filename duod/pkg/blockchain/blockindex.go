@@ -1,17 +1,17 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/fork"
 	"math/big"
 	"sort"
 	"sync"
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // blockStatus is a bit field representing the validation state of the block.

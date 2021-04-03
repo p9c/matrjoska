@@ -3,18 +3,18 @@ package keystore
 import (
 	"bytes"
 	"crypto/rand"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	"math/big"
 	"reflect"
 	"testing"
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/util"
 )
 
 const dummyDir = ""

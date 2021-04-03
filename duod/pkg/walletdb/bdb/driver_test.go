@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb/bdb"
+	"github.com/p9c/monorepo/duod/pkg/walletdb"
+	"github.com/p9c/monorepo/duod/pkg/walletdb/bdb"
 	_ "github.com/p9c/monorepo/duod/pkg/walletdb/bdb"
 )
 

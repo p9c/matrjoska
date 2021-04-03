@@ -2,10 +2,10 @@ package blockchain
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hardfork"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/hardfork"
 )
 
 // maybeAcceptBlock potentially accepts a block into the block chain and, if accepted, returns whether or not it is on

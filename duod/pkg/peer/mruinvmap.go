@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sync"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // mruInventoryMap provides a concurrency safe map that is limited to a maximum number of items with eviction for the

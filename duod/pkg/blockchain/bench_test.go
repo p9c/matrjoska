@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	"testing"
 )
 

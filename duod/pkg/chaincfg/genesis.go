@@ -1,11 +1,11 @@
 package chaincfg
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/fork"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for the main network, regression test network,

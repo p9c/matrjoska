@@ -3,15 +3,15 @@ package blockchain_test
 import (
 	"fmt"
 	bits2 "github.com/p9c/monorepo/duod/pkg/bits"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	"log"
 	"math/big"
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/database"
 	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
 )
 

@@ -2,16 +2,16 @@ package blockchain
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	"math"
 	"runtime"
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hardfork"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/hardfork"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // txValidateItem holds a transaction along with which input to validate.

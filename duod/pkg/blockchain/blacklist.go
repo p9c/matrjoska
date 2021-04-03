@@ -1,10 +1,10 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/util"
 )
 
 // ContainsBlacklisted returns true if one of the given addresses is found in the transaction

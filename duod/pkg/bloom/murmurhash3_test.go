@@ -3,7 +3,7 @@ package bloom_test
 import (
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/bloom"
+	"github.com/p9c/monorepo/duod/pkg/bloom"
 )
 
 // TestMurmurHash3 ensure the MurmurHash3 function produces the correct hash when given various seeds and data.

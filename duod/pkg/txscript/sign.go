@@ -3,11 +3,11 @@ package txscript
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // RawTxInWitnessSignature returns the serialized ECDSA signature for the input

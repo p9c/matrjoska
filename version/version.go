@@ -16,7 +16,7 @@ var (
 	// not that commit
 	Tag = "v0.0.2"
 	// PathBase is the path base returned from runtime caller
-	PathBase = "/home/loki/src/github.com/p9c/monorepo/spore/"
+	PathBase = "/home/loki/src/github.com/p9c/monorepo/"
 )
 
 // Get returns a pretty printed version information string

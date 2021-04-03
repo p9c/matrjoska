@@ -2,7 +2,7 @@ package blockchain
 
 import (
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/txscript"
+	"github.com/p9c/monorepo/duod/pkg/txscript"
 )
 
 // In order to reduce the size of stored scripts, a domain specific compression algorithm is used which recognizes

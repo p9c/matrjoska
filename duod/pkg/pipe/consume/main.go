@@ -3,8 +3,8 @@ package consume
 import (
 	"github.com/niubaoshu/gotiny"
 	"github.com/p9c/monorepo/log"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn/worker"
+	"github.com/p9c/monorepo/duod/pkg/pipe"
+	"github.com/p9c/monorepo/duod/pkg/pipe/stdconn/worker"
 	"github.com/p9c/monorepo/qu"
 )
 

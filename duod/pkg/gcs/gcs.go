@@ -9,7 +9,7 @@ import (
 	"github.com/aead/siphash"
 	"github.com/kkdai/bstream"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // Inspired by https://github.com/rasky/gcs

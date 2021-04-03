@@ -11,14 +11,14 @@ import (
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/mempool"
+	"github.com/p9c/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/mempool"
 	peerpkg "github.com/p9c/monorepo/duod/pkg/peer"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 type (

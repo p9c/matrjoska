@@ -1,8 +1,8 @@
 package chaincfg
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // TestNet3Params defines the network parameters for the test Bitcoin network (version 3). Not to be confused with the

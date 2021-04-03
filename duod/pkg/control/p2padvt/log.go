@@ -1,7 +1,7 @@
 package p2padvt
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/version"
+	"github.com/p9c/monorepo/duod/version"
 	"github.com/p9c/monorepo/log"
 )
 

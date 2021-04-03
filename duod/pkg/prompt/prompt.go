@@ -10,8 +10,8 @@ import (
 	
 	"github.com/btcsuite/golangcrypto/ssh/terminal"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hdkeychain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/legacy/keystore"
+	"github.com/p9c/monorepo/duod/pkg/hdkeychain"
+	"github.com/p9c/monorepo/duod/pkg/legacy/keystore"
 )
 
 // ProvideSeed is used to prompt for the wallet seed which maybe required during upgrades.

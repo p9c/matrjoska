@@ -10,12 +10,12 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
 	"math/big"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/base58"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/base58"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 	ec "github.com/p9c/monorepo/duod/pkg/ecc"
 )
 

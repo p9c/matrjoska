@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/database"
 )
 
 // TestErrorCodeStringer tests the stringized output for the ErrorCode type.

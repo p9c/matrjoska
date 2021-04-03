@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/duod/pkg/btcjson"
 )
 
 // TestHelpers tests the various helper functions which create pointers to primitive types.

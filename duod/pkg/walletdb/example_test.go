@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
+	"github.com/p9c/monorepo/duod/pkg/walletdb"
 	_ "github.com/p9c/monorepo/duod/pkg/walletdb/bdb"
 )
 
@@ -15,7 +15,7 @@ func ExampleCreate() {
 	// This example assumes the bdb (bolt db) driver is imported.
 	//
 	// import (
-	// 	"github.com/p9c/monorepo/monorepo/duod/pkg/wallet/db"
+	// 	"github.com/p9c/monorepo/duod/pkg/wallet/db"
 	// 	_ "github.com/p9c/monorepo/duod/pkg/wallet/db/bdb"
 	// )
 	//
@@ -95,7 +95,7 @@ func Example_basicUsage() {
 	// This example assumes the bdb (bolt db) driver is imported.
 	//
 	// import (
-	// 	"github.com/p9c/monorepo/monorepo/duod/pkg/wallet/db"
+	// 	"github.com/p9c/monorepo/duod/pkg/wallet/db"
 	// 	_ "github.com/p9c/monorepo/duod/pkg/wallet/db/bdb"
 	// )
 	//

@@ -3,13 +3,13 @@ package blockchain
 import (
 	"fmt"
 	bits2 "github.com/p9c/monorepo/duod/pkg/bits"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/fork"
 	"math/big"
 	"strings"
 	
 	"github.com/VividCortex/ewma"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // GetAlgStamps ...

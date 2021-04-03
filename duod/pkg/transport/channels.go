@@ -12,9 +12,9 @@ import (
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fec"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/gcm"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/multicast"
+	"github.com/p9c/monorepo/duod/pkg/fec"
+	"github.com/p9c/monorepo/duod/pkg/gcm"
+	"github.com/p9c/monorepo/duod/pkg/multicast"
 )
 
 const (

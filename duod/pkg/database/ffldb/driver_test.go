@@ -2,15 +2,15 @@ package ffldb_test
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/block"
+	"github.com/p9c/monorepo/duod/pkg/block"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database/ffldb"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/database/ffldb"
 )
 
 // dbType is the database type name for this driver.

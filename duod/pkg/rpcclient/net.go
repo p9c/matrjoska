@@ -3,7 +3,7 @@ package rpcclient
 import (
 	js "encoding/json"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcjson"
+	"github.com/p9c/monorepo/duod/pkg/btcjson"
 )
 
 // AddNodeCommand enumerates the available commands that the AddNode function accepts.

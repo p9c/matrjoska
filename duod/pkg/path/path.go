@@ -1,7 +1,7 @@
 package path
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pod"
+	"github.com/p9c/monorepo/duod/pkg/pod"
 	"path/filepath"
 )
 

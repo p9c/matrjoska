@@ -6,7 +6,7 @@ import (
 	"io"
 	"strconv"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 const (

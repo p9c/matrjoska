@@ -1,11 +1,11 @@
 package util_test
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/ecc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util"
+	"github.com/p9c/monorepo/duod/pkg/ecc"
+	"github.com/p9c/monorepo/duod/pkg/util"
 )
 
 func TestEncodeDecodeWIF(t *testing.T) {

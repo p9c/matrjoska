@@ -12,7 +12,7 @@ import (
 	
 	"github.com/niubaoshu/gotiny"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/routeable"
+	"github.com/p9c/monorepo/duod/pkg/routeable"
 )
 
 var Magic = []byte{'h', 'a', 's', 1}

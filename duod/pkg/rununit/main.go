@@ -4,11 +4,11 @@ import (
 	"github.com/p9c/monorepo/log"
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/interrupt"
+	"github.com/p9c/monorepo/duod/pkg/interrupt"
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/consume"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn/worker"
+	"github.com/p9c/monorepo/duod/pkg/pipe/consume"
+	"github.com/p9c/monorepo/duod/pkg/pipe/stdconn/worker"
 )
 
 // RunUnit handles correctly starting and stopping child processes that have StdConn pipe logging enabled, allowing

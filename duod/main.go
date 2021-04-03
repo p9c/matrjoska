@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/control"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pod"
+	"github.com/p9c/monorepo/duod/pkg/control"
+	"github.com/p9c/monorepo/duod/pkg/pod"
 	"github.com/p9c/monorepo/log"
 	"github.com/p9c/monorepo/qu"
 	"net"
@@ -12,13 +12,13 @@ import (
 	"os"
 	"runtime/pprof"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/apputil"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainrpc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database/blockdb"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/indexers"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/interrupt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/path"
+	"github.com/p9c/monorepo/duod/pkg/apputil"
+	"github.com/p9c/monorepo/duod/pkg/chainrpc"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/database/blockdb"
+	"github.com/p9c/monorepo/duod/pkg/indexers"
+	"github.com/p9c/monorepo/duod/pkg/interrupt"
+	"github.com/p9c/monorepo/duod/pkg/path"
 )
 
 // Main is the real main function for pod.

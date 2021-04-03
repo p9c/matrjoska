@@ -3,7 +3,7 @@ package blockchain
 import (
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // TestThresholdStateStringer tests the stringified output for the ThresholdState type.

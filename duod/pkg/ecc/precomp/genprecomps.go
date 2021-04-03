@@ -10,7 +10,7 @@ import (
 	"github.com/p9c/monorepo/log"
 	"os"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/ecc"
+	"github.com/p9c/monorepo/duod/pkg/ecc"
 )
 
 func main() {

@@ -3,8 +3,8 @@ package hdkeychain_test
 import (
 	"fmt"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/hdkeychain"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/hdkeychain"
 )
 
 // This example demonstrates how to generate a cryptographically random seed then use it to create a new master node

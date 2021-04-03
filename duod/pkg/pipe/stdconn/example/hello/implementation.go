@@ -7,7 +7,7 @@ import (
 	
 	"github.com/p9c/monorepo/qu"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/stdconn"
+	"github.com/p9c/monorepo/duod/pkg/pipe/stdconn"
 )
 
 type Hello struct {

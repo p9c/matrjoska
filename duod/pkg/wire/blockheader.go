@@ -2,12 +2,12 @@ package wire
 
 import (
 	"bytes"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/fork"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/forkhash"
+	"github.com/p9c/monorepo/duod/pkg/fork"
+	"github.com/p9c/monorepo/duod/pkg/forkhash"
 	"io"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // MaxBlockHeaderPayload is the maximum number of bytes a block header can be. Version 4 bytes + Timestamp 4 bytes +

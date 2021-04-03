@@ -1,7 +1,7 @@
 package hardfork
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
 )
 
 // Blacklist is a list of addresses that have been suspended

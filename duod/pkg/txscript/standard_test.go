@@ -3,12 +3,12 @@ package txscript
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/btcaddr"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/btcaddr"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // mustParseShortForm parses the passed short form script and returns the resulting bytes. It panics if an error occurs.

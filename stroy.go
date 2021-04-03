@@ -296,7 +296,7 @@ var (
 // Get returns a pretty printed version information string
 func Get() string {
 	return fmt.Sprint(
-		"ParallelCoin Pod\n"+
+		"Build Information\n"+
 		"	git repository: "+URL+"\n",
 		"	branch: "+GitRef+"\n"+
 		"	commit: "+GitCommit+"\n"+

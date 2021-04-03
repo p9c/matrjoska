@@ -1,9 +1,9 @@
 package mining
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/blockchain"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/duod/pkg/blockchain"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 const (

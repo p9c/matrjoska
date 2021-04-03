@@ -17,7 +17,7 @@ import (
 	
 	"golang.org/x/net/ipv4"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/routeable"
+	"github.com/p9c/monorepo/duod/pkg/routeable"
 )
 
 func Conn(port int) (conn *net.UDPConn, e error) {

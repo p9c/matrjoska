@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/database"
 	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // This example demonstrates creating a new database.
@@ -16,7 +16,7 @@ func ExampleCreate() {
 	// This example assumes the ffldb driver is imported.
 	//
 	// import (
-	// 	"github.com/p9c/monorepo/monorepo/duod/pkg/db"
+	// 	"github.com/p9c/monorepo/duod/pkg/db"
 	// 	_ "github.com/p9c/monorepo/duod/pkg/db/ffldb"
 	// )
 	//
@@ -45,7 +45,7 @@ func Example_basicUsage() {
 	// This example assumes the ffldb driver is imported.
 	//
 	// import (
-	// 	"github.com/p9c/monorepo/monorepo/duod/pkg/db"
+	// 	"github.com/p9c/monorepo/duod/pkg/db"
 	// 	_ "github.com/p9c/monorepo/duod/pkg/db/ffldb"
 	// )
 	//
@@ -109,7 +109,7 @@ func Example_basicUsage() {
 // 	// This example assumes the ffldb driver is imported.
 // 	//
 // 	// import (
-// 	// 	"github.com/p9c/monorepo/monorepo/duod/pkg/db"
+// 	// 	"github.com/p9c/monorepo/duod/pkg/db"
 // 	// 	_ "github.com/p9c/monorepo/duod/pkg/db/ffldb"
 // 	// )
 // 	// Create a database and schedule it to be closed and removed on exit.

@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // TestErrNotInMainChain ensures the functions related to errNotInMainChain work as expected.

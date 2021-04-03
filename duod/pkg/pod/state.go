@@ -4,10 +4,10 @@ package pod
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/control"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/state"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/control"
+	"github.com/p9c/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/duod/pkg/state"
 	"github.com/p9c/monorepo/opts/opt"
 	"runtime"
 	"strings"
@@ -17,7 +17,7 @@ import (
 	
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainrpc"
+	"github.com/p9c/monorepo/duod/pkg/chainrpc"
 )
 
 // type _dtype int

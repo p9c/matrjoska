@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pipe/consume"
+	"github.com/p9c/monorepo/duod/pkg/pipe/consume"
 	"github.com/p9c/monorepo/qu"
 )
 

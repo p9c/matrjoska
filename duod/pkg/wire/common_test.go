@@ -10,7 +10,7 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // mainNetGenesisHash is the hash of the first block in the block chain for the main network (genesis block).

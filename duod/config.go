@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"strings"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/database"
 	
 	// This ensures the database drivers get registered
 	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"

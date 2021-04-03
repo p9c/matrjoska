@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/p9c/monorepo/monorepo/duod/pkg/constant"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/pod"
+	"github.com/p9c/monorepo/duod/pkg/constant"
+	"github.com/p9c/monorepo/duod/pkg/pod"
 	"io"
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/monorepo/apputil"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database/blockdb"
+	"github.com/p9c/monorepo/apputil"
+	"github.com/p9c/monorepo/duod/pkg/database/blockdb"
 )
 
 // dirEmpty returns whether or not the specified directory path is empty

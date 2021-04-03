@@ -4,10 +4,10 @@ package pod
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chaincfg"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainclient"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/control"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/opts"
+	"github.com/p9c/monorepo/duod/pkg/chaincfg"
+	"github.com/p9c/monorepo/duod/pkg/chainclient"
+	"github.com/p9c/monorepo/duod/pkg/control"
+	"github.com/p9c/monorepo/duod/pkg/opts"
 	"math/rand"
 	"runtime"
 	"strings"
@@ -20,10 +20,10 @@ import (
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/monorepo/monorepo/duod/cmd/node/state"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainrpc"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/util/lang"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wallet"
+	"github.com/p9c/monorepo/duod/cmd/node/state"
+	"github.com/p9c/monorepo/duod/pkg/chainrpc"
+	"github.com/p9c/monorepo/duod/pkg/util/lang"
+	"github.com/p9c/monorepo/duod/pkg/wallet"
 )
 
 type _dtype int

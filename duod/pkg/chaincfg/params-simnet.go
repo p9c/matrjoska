@@ -3,7 +3,7 @@ package chaincfg
 import (
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/wire"
+	"github.com/p9c/monorepo/duod/pkg/wire"
 )
 
 // SimNetParams defines the network parameters for the simulation test Bitcoin network. This network is similar to the

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/chainhash"
+	"github.com/p9c/monorepo/duod/pkg/chainhash"
 )
 
 // defaultTransactionAlloc is the default size used for the backing array for transactions. The transaction array will

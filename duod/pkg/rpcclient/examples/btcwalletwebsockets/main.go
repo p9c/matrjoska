@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/amt"
+	"github.com/p9c/monorepo/duod/pkg/amt"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -12,8 +12,8 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/appdata"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/rpcclient"
+	"github.com/p9c/monorepo/duod/pkg/appdata"
+	"github.com/p9c/monorepo/duod/pkg/rpcclient"
 )
 
 func main() {

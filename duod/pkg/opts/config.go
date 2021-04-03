@@ -14,8 +14,8 @@ package opts
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/apputil"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/constant"
+	"github.com/p9c/monorepo/duod/pkg/apputil"
+	"github.com/p9c/monorepo/duod/pkg/constant"
 	"github.com/p9c/monorepo/opts/binary"
 	"github.com/p9c/monorepo/opts/cmds"
 	"github.com/p9c/monorepo/opts/duration"

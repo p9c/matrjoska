@@ -2,12 +2,12 @@ package chainrpc
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/monorepo/duod/pkg/connmgr"
+	"github.com/p9c/monorepo/duod/pkg/connmgr"
 	"net"
 	"strings"
 	"time"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/state"
+	"github.com/p9c/monorepo/duod/pkg/state"
 )
 
 // DefaultConnectTimeout is a reasonable 30 seconds

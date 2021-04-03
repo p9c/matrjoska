@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 	
-	"github.com/p9c/monorepo/monorepo/duod/pkg/database"
+	"github.com/p9c/monorepo/duod/pkg/database"
 	_ "github.com/p9c/monorepo/duod/pkg/database/ffldb"
 )
 
