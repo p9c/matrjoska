@@ -5,6 +5,10 @@ import (
 	"github.com/p9c/monorepo/opts/binary"
 	"github.com/p9c/monorepo/opts/meta"
 	"math"
+	"os/exec"
+	"runtime"
+	"strconv"
+	"strings"
 	"time"
 	
 	"gioui.org/io/event"
@@ -131,8 +135,25 @@ func (w *Window) Run(
 	frame func(ctx l.Context) l.Dimensions,
 	overlay func(ctx l.Context), destroy func(), quit qu.C,
 ) (e error) {
+	ticker := time.NewTicker(time.Second)
 	for {
 		select {
+		case <-ticker.C:
+			if runtime.GOOS == "linux" {
+				var e error
+				var b []byte
+				textSize := unit.Sp(16)
+				runner := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "text-scaling-factor")
+				if b, e = runner.CombinedOutput(); D.Chk(e) {
+				}
+				var factor float64
+				numberString := strings.TrimSpace(string(b))
+				if factor, e = strconv.ParseFloat(numberString, 10); D.Chk(e) {
+				}
+				w.TextSize = textSize.Scale(float32(factor))
+				// I.Ln(w.TextSize)
+			}
+			w.Invalidate()
 		case fn := <-w.Runner:
 			if e = fn(); E.Chk(e) {
 				return
@@ -145,38 +166,6 @@ func (w *Window) Run(
 			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
 				return
 			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
 		}
 	}
 }
@@ -185,11 +174,6 @@ func (w *Window) processEvents(e event.Event, frame func(ctx l.Context) l.Dimens
 	switch e := e.(type) {
 	case system.DestroyEvent:
 		D.Ln("received destroy event", e.Err)
-		// if e.Err != nil {
-		// 	if strings.Contains(e.Err.Error(), "eglCreateWindowSurface failed") {
-		// 		return nil
-		// 	}
-		// }
 		destroy()
 		return e.Err
 	case system.FrameEvent:
