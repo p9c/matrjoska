@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/p9c/monorepo/pod/pkg/util/interrupt"
+	"github.com/p9c/monorepo/interrupt"
 )
 
 func main() {

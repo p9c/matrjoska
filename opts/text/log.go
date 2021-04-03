@@ -2,7 +2,7 @@ package text
 
 import (
 	"github.com/p9c/monorepo/log"
-	"github.com/p9c/monorepo/opts/version"
+	"github.com/p9c/monorepo/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

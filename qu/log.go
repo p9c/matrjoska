@@ -2,7 +2,7 @@ package qu
 
 import (
 	"github.com/p9c/monorepo/log"
-	"github.com/p9c/monorepo/qu/version"
+	"github.com/p9c/monorepo/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

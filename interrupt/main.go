@@ -11,7 +11,7 @@ import (
 	
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/pod/pkg/util/qu"
+	"github.com/p9c/monorepo/qu"
 	
 	"github.com/kardianos/osext"
 )
@@ -22,7 +22,7 @@ type HandlerWithSource struct {
 }
 
 var (
-	Restart bool // = true
+	Restart   bool // = true
 	requested uberatomic.Bool
 	// ch is used to receive SIGINT (Ctrl+C) signals.
 	ch chan os.Signal

@@ -23,7 +23,7 @@ func main() {
 //
 //go:generate go run poolgen/poolgen.go poolgen/log.go
 
-package gui
+package gel
 `
 	for i := range types {
 		out += `

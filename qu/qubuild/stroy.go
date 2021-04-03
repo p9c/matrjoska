@@ -4,7 +4,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/log/appdata"
+	"github.com/p9c/monorepo/appdata"
+	"github.com/p9c/monorepo/apputil"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -84,7 +85,7 @@ func main() {
 				// inf(split)
 				var cmd *exec.Cmd
 				scriptPath := filepath.Join(appdata.Dir("stroy", false), "stroy.sh")
-				EnsureDir(scriptPath)
+				apputil.EnsureDir(scriptPath)
 				if e = ioutil.WriteFile(
 					scriptPath,
 					[]byte(strings.Join(split, " ")),
