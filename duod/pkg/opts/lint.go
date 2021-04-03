@@ -2,12 +2,11 @@ package opts
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/opts/opt"
 )
 
 func getAllOptionStrings(c *Config) (s map[string][]string, e error) {
 	s = make(map[string][]string)
-	if c.ForEach(func(ifc opt.Option) bool {
+	if c.ForEach(func(ifc Option) bool {
 		md := ifc.GetMetadata()
 		if _, ok := s[ifc.Name()]; ok {
 			e = fmt.Errorf("conflicting opt names: %v %v", ifc.GetAllOptionStrings(), s[ifc.Name()])

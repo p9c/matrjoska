@@ -1,8 +1,8 @@
 package opts
 
 import (
-	"github.com/p9c/monorepo/duod/version"
 	"github.com/p9c/monorepo/log"
+	"github.com/p9c/monorepo/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)
