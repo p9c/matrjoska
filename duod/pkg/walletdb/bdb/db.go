@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 	
-	bolt "github.com/coreos/bbolt"
+	bolt "go.etcd.io/bbolt"
 	
 	"github.com/p9c/monorepo/monorepo/duod/pkg/walletdb"
 )

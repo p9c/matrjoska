@@ -3,7 +3,7 @@ package version
 import "fmt"
 
 var (
-
+	
 	// URL is the git URL for the repository
 	URL = "github.com/p9c/monorepo"
 	// GitRef is the gitref, as in refs/heads/branchname
@@ -16,17 +16,17 @@ var (
 	// not that commit
 	Tag = "v0.0.2"
 	// PathBase is the path base returned from runtime caller
-	PathBase = "/home/loki/src/github.com/p9c/qu/"
+	PathBase = "/home/loki/src/github.com/p9c/monorepo/spore/"
 )
 
 // Get returns a pretty printed version information string
 func Get() string {
 	return fmt.Sprint(
-		"ParallelCoin Pod\n"+
-		"	git repository: "+URL+"\n",
+		"Build information\n"+
+			"	git repository: "+URL+"\n",
 		"	branch: "+GitRef+"\n"+
-		"	commit: "+GitCommit+"\n"+
-		"	built: "+BuildTime+"\n"+
-		"	Tag: "+Tag+"\n",
+			"	commit: "+GitCommit+"\n"+
+			"	built: "+BuildTime+"\n"+
+			"	Tag: "+Tag+"\n",
 	)
 }

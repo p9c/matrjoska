@@ -73,3 +73,5 @@ repository in order to simplify several aspects of the work.
     on-chain governance and interoperability with many other blockchain networks,
     built on the strong discipline of proof of work mining.
         
+# Building
+
