@@ -38,8 +38,7 @@ func (c *Column) List(gtx l.Context) (max int, out []l.Widget) {
 		return c.H6(c.rows[index].Label).Font(c.font).TextScale(c.scale).Fn(gtx)
 	}
 	// render the widgets onto a second context to get their dimensions
-	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, gtx.Constraints.Max,
-		l.Vertical)
+	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, l.Vertical)
 	// generate the dimensions for all the list elements
 	dims := GetDimensionList(gtx1, len(c.rows), le)
 	D.S(dims)

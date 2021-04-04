@@ -127,7 +127,7 @@ func (t *Table) Fn(gtx l.Context) l.Dimensions {
 			panic("not all rows are equal number of cells")
 		}
 	}
-	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, gtx.Constraints.Max, l.Vertical)
+	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, l.Vertical)
 	gtx1.Constraints.Max = image.Point{X: Inf, Y: Inf}
 	// gather the dimensions from all cells
 	for i := range t.header {

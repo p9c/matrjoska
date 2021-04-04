@@ -381,10 +381,7 @@ func (a *App) renderSideBar() l.Widget {
 		}
 		return func(gtx l.Context) l.Dimensions {
 			a.PreRendering = true
-			gtx1 := CopyContextDimensionsWithMaxAxis(
-				gtx, gtx.Constraints.Max,
-				l.Horizontal,
-			)
+			gtx1 := CopyContextDimensionsWithMaxAxis(gtx, l.Horizontal)
 			// generate the dimensions for all the list elements
 			allDims := GetDimensionList(gtx1, len(a.sideBar), le)
 			a.PreRendering = false

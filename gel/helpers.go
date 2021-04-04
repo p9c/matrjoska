@@ -162,14 +162,14 @@ func EmptyMinHeight() func(gtx l.Context) l.Dimensions {
 }
 
 // CopyContextDimensionsWithMaxAxis copies the dimensions out with the max set by an image.Point along the axis
-func CopyContextDimensionsWithMaxAxis(gtx l.Context, size image.Point, axis l.Axis) l.Context {
+func CopyContextDimensionsWithMaxAxis(gtx l.Context, axis l.Axis) l.Context {
 	ip := image.Point{}
 	if axis == l.Horizontal {
-		ip.Y = size.Y
+		ip.Y = gtx.Constraints.Max.Y
 		ip.X = gtx.Constraints.Max.X
 	} else {
 		ip.Y = gtx.Constraints.Max.Y
-		ip.X = size.X
+		ip.X = gtx.Constraints.Max.X
 	}
 	var ops op.Ops
 	gtx1 := l.NewContext(

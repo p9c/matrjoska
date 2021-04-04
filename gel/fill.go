@@ -36,7 +36,7 @@ func (w *Window) Fill(col string, dxn l.Direction, radius float32, corners int, 
 
 // Fn renders the fill with the widget inside
 func (f *Filler) Fn(gtx l.Context) l.Dimensions {
-	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, gtx.Constraints.Max, l.Horizontal)
+	gtx1 := CopyContextDimensionsWithMaxAxis(gtx, l.Horizontal)
 	// generate the dimensions for all the list elements
 	dL := GetDimensionList(gtx1, 1, func(gtx l.Context, index int) l.Dimensions {
 		return f.w(gtx)
