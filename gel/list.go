@@ -63,6 +63,24 @@ type List struct {
 	leftSide            bool
 }
 
+// List returns a new scrollable List widget
+func (w *Window) List() (li *List) {
+	li = &List{
+		Window:          w,
+		pageUp:          w.Clickable(),
+		pageDown:        w.Clickable(),
+		color:           "DocText",
+		background:      "Transparent",
+		active:          "Primary",
+		scrollWidth:     int(w.TextSize.Scale(0.75).V),
+		setScrollWidth:  int(w.TextSize.Scale(0.75).V),
+		recalculateTime: time.Now().Add(-time.Second),
+		recalculate:     true,
+	}
+	li.currentColor = li.color
+	return
+}
+
 // ListElement is a function that computes the dimensions of a list element.
 type ListElement func(gtx l.Context, index int) l.Dimensions
 
@@ -88,23 +106,211 @@ const (
 	iterateBackward
 )
 
-// List returns a new scrollable List widget
-func (w *Window) List() (li *List) {
-	li = &List{
-		Window:          w,
-		pageUp:          w.Clickable(),
-		pageDown:        w.Clickable(),
-		color:           "DocText",
-		background:      "Transparent",
-		active:          "Primary",
-		scrollWidth:     int(w.TextSize.Scale(0.75).V),
-		setScrollWidth:  int(w.TextSize.Scale(0.75).V),
-		recalculateTime: time.Now().Add(-time.Second),
-		recalculate:     true,
+// init prepares the list for iterating through its children with next.
+func (li *List) init(gtx l.Context, len int) {
+	if li.more() {
+		panic("unfinished child")
 	}
-	li.currentColor = li.color
-	return
+	li.ctx = gtx
+	li.maxSize = 0
+	li.children = li.children[:0]
+	li.len = len
+	li.update()
+	if li.canScrollToEnd() || li.position.First > len {
+		li.position.Offset = 0
+		li.position.First = len
+	}
 }
+
+// Layout the List.
+func (li *List) Layout(gtx l.Context, len int, w ListElement) l.Dimensions {
+	li.init(gtx, len)
+	crossMin, crossMax := axisCrossConstraint(li.axis, gtx.Constraints)
+	gtx.Constraints = axisConstraints(li.axis, 0, Inf, crossMin, crossMax)
+	macro := op.Record(gtx.Ops)
+	for li.next(); li.more(); li.next() {
+		child := op.Record(gtx.Ops)
+		dims := w(gtx, li.index())
+		call := child.Stop()
+		li.end(dims, call)
+	}
+	return li.layout(macro)
+}
+
+// canScrollToEnd returns true if there is room to scroll further towards the end
+func (li *List) canScrollToEnd() bool {
+	return li.scrollToEnd && !li.position.BeforeEnd
+}
+
+// Dragging reports whether the List is being dragged.
+func (li *List) Dragging() bool {
+	return li.scroll.State() == gesture.StateDragging
+}
+
+// update the scrolling
+func (li *List) update() {
+	d := li.scroll.Scroll(li.ctx.Metric, li.ctx, li.ctx.Now, gesture.Axis(li.axis))
+	d += li.sideScroll.Scroll(li.ctx.Metric, li.ctx, li.ctx.Now, gesture.Axis(li.axis))
+	li.scrollDelta = d
+	li.position.Offset += d
+}
+
+// next advances to the next child.
+func (li *List) next() {
+	li.dir = li.nextDir()
+	// The user scroll offset is applied after scrolling to list end.
+	if li.canScrollToEnd() && !li.more() && li.scrollDelta < 0 {
+		li.position.BeforeEnd = true
+		li.position.Offset += li.scrollDelta
+		li.dir = li.nextDir()
+	}
+}
+
+// index is current child's position in the underlying list.
+func (li *List) index() int {
+	switch li.dir {
+	case iterateBackward:
+		return li.position.First - 1
+	case iterateForward:
+		return li.position.First + len(li.children)
+	default:
+		panic("Index called before Next")
+	}
+}
+
+// more reports whether more children are needed.
+func (li *List) more() bool {
+	return li.dir != iterateNone
+}
+
+func (li *List) nextDir() iterationDir {
+	_, vsize := axisMainConstraint(li.axis, li.ctx.Constraints)
+	last := li.position.First + len(li.children)
+	// Clamp offset.
+	if li.maxSize-li.position.Offset < vsize && last == li.len {
+		li.position.Offset = li.maxSize - vsize
+	}
+	if li.position.Offset < 0 && li.position.First == 0 {
+		li.position.Offset = 0
+	}
+	switch {
+	case len(li.children) == li.len:
+		return iterateNone
+	case li.maxSize-li.position.Offset < vsize:
+		return iterateForward
+	case li.position.Offset < 0:
+		return iterateBackward
+	}
+	return iterateNone
+}
+
+// End the current child by specifying its dimensions.
+func (li *List) end(dims l.Dimensions, call op.CallOp) {
+	child := scrollChild{dims.Size, call}
+	mainSize := axisMain(li.axis, child.size)
+	li.maxSize += mainSize
+	switch li.dir {
+	case iterateForward:
+		li.children = append(li.children, child)
+	case iterateBackward:
+		li.children = append([]scrollChild{child}, li.children...)
+		li.position.First--
+		li.position.Offset += mainSize
+	default:
+		panic("call Next before End")
+	}
+	li.dir = iterateNone
+}
+
+// layout the List and return its dimensions.
+func (li *List) layout(macro op.MacroOp) l.Dimensions {
+	if li.more() {
+		panic("unfinished child")
+	}
+	mainMin, mainMax := axisMainConstraint(li.axis, li.ctx.Constraints)
+	children := li.children
+	// Skip invisible children
+	for len(children) > 0 {
+		sz := children[0].size
+		mainSize := axisMain(li.axis, sz)
+		if li.position.Offset <= mainSize {
+			break
+		}
+		li.position.First++
+		li.position.Offset -= mainSize
+		children = children[1:]
+	}
+	size := -li.position.Offset
+	var maxCross int
+	for i, child := range children {
+		sz := child.size
+		if c := axisCross(li.axis, sz); c > maxCross {
+			maxCross = c
+		}
+		size += axisMain(li.axis, sz)
+		if size >= mainMax {
+			children = children[:i+1]
+			break
+		}
+	}
+	ops := li.ctx.Ops
+	pos := -li.position.Offset
+	// ScrollToEnd lists are end aligned.
+	if space := mainMax - size; li.scrollToEnd && space > 0 {
+		pos += space
+	}
+	for _, child := range children {
+		sz := child.size
+		var cross int
+		switch li.alignment {
+		case l.End:
+			cross = maxCross - axisCross(li.axis, sz)
+		case l.Middle:
+			cross = (maxCross - axisCross(li.axis, sz)) / 2
+		}
+		childSize := axisMain(li.axis, sz)
+		max := childSize + pos
+		if max > mainMax {
+			max = mainMax
+		}
+		min := pos
+		if min < 0 {
+			min = 0
+		}
+		r := image.Rectangle{
+			Min: axisPoint(li.axis, min, -Inf),
+			Max: axisPoint(li.axis, max, Inf),
+		}
+		stack := op.Save(ops)
+		clip.Rect(r).Add(ops)
+		op.Offset(toPointF(axisPoint(li.axis, pos, cross))).Add(ops)
+		child.call.Add(ops)
+		stack.Load()
+		pos += childSize
+	}
+	atStart := li.position.First == 0 && li.position.Offset <= 0
+	atEnd := li.position.First+len(children) == li.len && mainMax >= pos
+	if atStart && li.scrollDelta < 0 || atEnd && li.scrollDelta > 0 {
+		li.scroll.Stop()
+	}
+	li.position.BeforeEnd = !atEnd
+	if pos < mainMin {
+		pos = mainMin
+	}
+	if pos > mainMax {
+		pos = mainMax
+	}
+	dims := axisPoint(li.axis, pos, maxCross)
+	call := macro.Stop()
+	defer op.Save(li.ctx.Ops).Load()
+	bounds := image.Rectangle{Max: dims}
+	pointer.Rect(bounds).Add(ops)
+	li.scroll.Add(ops, bounds)
+	call.Add(ops)
+	return l.Dimensions{Size: dims}
+}
+
+// Everything below is extensions on the original from gioui.org/layout
 
 // Position returns the current position of the scroller
 func (li *List) Position() Position {
@@ -479,208 +685,4 @@ func (li *List) grabber(dims DimensionList, x, y, viewAxis, viewCross int) func(
 			).
 			Fn(gtx)
 	}
-}
-
-// init prepares the list for iterating through its children with next.
-func (li *List) init(gtx l.Context, len int) {
-	if li.more() {
-		panic("unfinished child")
-	}
-	li.ctx = gtx
-	li.maxSize = 0
-	li.children = li.children[:0]
-	li.len = len
-	li.update()
-	if li.canScrollToEnd() || li.position.First > len {
-		li.position.Offset = 0
-		li.position.First = len
-	}
-}
-
-// Layout the List.
-func (li *List) Layout(gtx l.Context, len int, w ListElement) l.Dimensions {
-	li.init(gtx, len)
-	crossMin, crossMax := axisCrossConstraint(li.axis, gtx.Constraints)
-	gtx.Constraints = axisConstraints(li.axis, 0, Inf, crossMin, crossMax)
-	macro := op.Record(gtx.Ops)
-	for li.next(); li.more(); li.next() {
-		child := op.Record(gtx.Ops)
-		dims := w(gtx, li.index())
-		call := child.Stop()
-		li.end(dims, call)
-	}
-	return li.layout(macro)
-}
-
-// canScrollToEnd returns true if there is room to scroll further towards the end
-func (li *List) canScrollToEnd() bool {
-	return li.scrollToEnd && !li.position.BeforeEnd
-}
-
-// Dragging reports whether the List is being dragged.
-func (li *List) Dragging() bool {
-	return li.scroll.State() == gesture.StateDragging
-}
-
-// update the scrolling
-func (li *List) update() {
-	d := li.scroll.Scroll(li.ctx.Metric, li.ctx, li.ctx.Now, gesture.Axis(li.axis))
-	d += li.sideScroll.Scroll(li.ctx.Metric, li.ctx, li.ctx.Now, gesture.Axis(li.axis))
-	li.scrollDelta = d
-	li.position.Offset += d
-}
-
-// next advances to the next child.
-func (li *List) next() {
-	li.dir = li.nextDir()
-	// The user scroll offset is applied after scrolling to list end.
-	if li.canScrollToEnd() && !li.more() && li.scrollDelta < 0 {
-		li.position.BeforeEnd = true
-		li.position.Offset += li.scrollDelta
-		li.dir = li.nextDir()
-	}
-}
-
-// index is current child's position in the underlying list.
-func (li *List) index() int {
-	switch li.dir {
-	case iterateBackward:
-		return li.position.First - 1
-	case iterateForward:
-		return li.position.First + len(li.children)
-	default:
-		panic("Index called before Next")
-	}
-}
-
-// more reports whether more children are needed.
-func (li *List) more() bool {
-	return li.dir != iterateNone
-}
-
-func (li *List) nextDir() iterationDir {
-	_, vsize := axisMainConstraint(li.axis, li.ctx.Constraints)
-	last := li.position.First + len(li.children)
-	// Clamp offset.
-	if li.maxSize-li.position.Offset < vsize && last == li.len {
-		li.position.Offset = li.maxSize - vsize
-	}
-	if li.position.Offset < 0 && li.position.First == 0 {
-		li.position.Offset = 0
-	}
-	switch {
-	case len(li.children) == li.len:
-		return iterateNone
-	case li.maxSize-li.position.Offset < vsize:
-		return iterateForward
-	case li.position.Offset < 0:
-		return iterateBackward
-	}
-	return iterateNone
-}
-
-// End the current child by specifying its dimensions.
-func (li *List) end(dims l.Dimensions, call op.CallOp) {
-	child := scrollChild{dims.Size, call}
-	mainSize := axisMain(li.axis, child.size)
-	li.maxSize += mainSize
-	switch li.dir {
-	case iterateForward:
-		li.children = append(li.children, child)
-	case iterateBackward:
-		li.children = append([]scrollChild{child}, li.children...)
-		li.position.First--
-		li.position.Offset += mainSize
-	default:
-		panic("call Next before End")
-	}
-	li.dir = iterateNone
-}
-
-// layout the List and return its dimensions.
-func (li *List) layout(macro op.MacroOp) l.Dimensions {
-	if li.more() {
-		panic("unfinished child")
-	}
-	mainMin, mainMax := axisMainConstraint(li.axis, li.ctx.Constraints)
-	children := li.children
-	// Skip invisible children
-	for len(children) > 0 {
-		sz := children[0].size
-		mainSize := axisMain(li.axis, sz)
-		if li.position.Offset <= mainSize {
-			break
-		}
-		li.position.First++
-		li.position.Offset -= mainSize
-		children = children[1:]
-	}
-	size := -li.position.Offset
-	var maxCross int
-	for i, child := range children {
-		sz := child.size
-		if c := axisCross(li.axis, sz); c > maxCross {
-			maxCross = c
-		}
-		size += axisMain(li.axis, sz)
-		if size >= mainMax {
-			children = children[:i+1]
-			break
-		}
-	}
-	ops := li.ctx.Ops
-	pos := -li.position.Offset
-	// ScrollToEnd lists are end aligned.
-	if space := mainMax - size; li.scrollToEnd && space > 0 {
-		pos += space
-	}
-	for _, child := range children {
-		sz := child.size
-		var cross int
-		switch li.alignment {
-		case l.End:
-			cross = maxCross - axisCross(li.axis, sz)
-		case l.Middle:
-			cross = (maxCross - axisCross(li.axis, sz)) / 2
-		}
-		childSize := axisMain(li.axis, sz)
-		max := childSize + pos
-		if max > mainMax {
-			max = mainMax
-		}
-		min := pos
-		if min < 0 {
-			min = 0
-		}
-		r := image.Rectangle{
-			Min: axisPoint(li.axis, min, -Inf),
-			Max: axisPoint(li.axis, max, Inf),
-		}
-		stack := op.Save(ops)
-		clip.Rect(r).Add(ops)
-		op.Offset(toPointF(axisPoint(li.axis, pos, cross))).Add(ops)
-		child.call.Add(ops)
-		stack.Load()
-		pos += childSize
-	}
-	atStart := li.position.First == 0 && li.position.Offset <= 0
-	atEnd := li.position.First+len(children) == li.len && mainMax >= pos
-	if atStart && li.scrollDelta < 0 || atEnd && li.scrollDelta > 0 {
-		li.scroll.Stop()
-	}
-	li.position.BeforeEnd = !atEnd
-	if pos < mainMin {
-		pos = mainMin
-	}
-	if pos > mainMax {
-		pos = mainMax
-	}
-	dims := axisPoint(li.axis, pos, maxCross)
-	call := macro.Stop()
-	defer op.Save(li.ctx.Ops).Load()
-	bounds := image.Rectangle{Max: dims}
-	pointer.Rect(bounds).Add(ops)
-	li.scroll.Add(ops, bounds)
-	call.Add(ops)
-	return l.Dimensions{Size: dims}
 }
