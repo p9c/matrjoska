@@ -28,12 +28,11 @@ func main() {
 		Size(48, 32).
 		Title("glom, the visual code editor").
 		Open().
-		Run(func(gtx l.Context) l.Dimensions { return folderView.Fn(gtx) },
-			nil, func() {
-				interrupt.Request()
-				quit.Q()
-			}, quit,
-		); E.Chk(e) {
+		Run(func(gtx l.Context) l.Dimensions { return folderView.Fn(gtx) }, func() {
+		interrupt.Request()
+		quit.Q()
+	}, quit,
+	); E.Chk(e) {
 		
 	}
 }
