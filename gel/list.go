@@ -11,6 +11,11 @@ import (
 	"gioui.org/op/clip"
 )
 
+type scrollChild struct {
+	size image.Point
+	call op.CallOp
+}
+
 // List displays a subsection of a potentially infinitely large underlying list. List accepts user input to scroll the
 // subsection.
 type List struct {
@@ -57,6 +62,31 @@ type List struct {
 	notFirst            bool
 	leftSide            bool
 }
+
+// ListElement is a function that computes the dimensions of a list element.
+type ListElement func(gtx l.Context, index int) l.Dimensions
+
+type iterationDir uint8
+
+// Position is a List scroll offset represented as an offset from the top edge of a child element.
+type Position struct {
+	// BeforeEnd tracks whether the List position is before the very end. We use "before end" instead of "at end" so
+	// that the zero value of a Position struct is useful.
+	//
+	// When laying out a list, if ScrollToEnd is true and BeforeEnd is false, then First and Offset are ignored, and the
+	// list is drawn with the last item at the bottom. If ScrollToEnd is false then BeforeEnd is ignored.
+	BeforeEnd bool
+	// First is the index of the first visible child.
+	First int
+	// Offset is the distance in pixels from the top edge to the child at index First.
+	Offset int
+}
+
+const (
+	iterateNone iterationDir = iota
+	iterateForward
+	iterateBackward
+)
 
 // List returns a new scrollable List widget
 func (w *Window) List() (li *List) {
@@ -450,36 +480,6 @@ func (li *List) grabber(dims DimensionList, x, y, viewAxis, viewCross int) func(
 			Fn(gtx)
 	}
 }
-
-type scrollChild struct {
-	size image.Point
-	call op.CallOp
-}
-
-// ListElement is a function that computes the dimensions of a list element.
-type ListElement func(gtx l.Context, index int) l.Dimensions
-
-type iterationDir uint8
-
-// Position is a List scroll offset represented as an offset from the top edge of a child element.
-type Position struct {
-	// BeforeEnd tracks whether the List position is before the very end. We use "before end" instead of "at end" so
-	// that the zero value of a Position struct is useful.
-	//
-	// When laying out a list, if ScrollToEnd is true and BeforeEnd is false, then First and Offset are ignored, and the
-	// list is drawn with the last item at the bottom. If ScrollToEnd is false then BeforeEnd is ignored.
-	BeforeEnd bool
-	// First is the index of the first visible child.
-	First int
-	// Offset is the distance in pixels from the top edge to the child at index First.
-	Offset int
-}
-
-const (
-	iterateNone iterationDir = iota
-	iterateForward
-	iterateBackward
-)
 
 // init prepares the list for iterating through its children with next.
 func (li *List) init(gtx l.Context, len int) {
