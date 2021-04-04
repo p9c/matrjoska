@@ -25,15 +25,10 @@ func main() {
 		Size(48, 32).
 		Title("hello world").
 		Open().
-		Run(
-			rootWidget,
-			nil,
-			quit.Q,
-			quit,
-		); E.Chk(e) {
+		Run(rootWidget, quit.Q, quit); E.Chk(e) {
 	}
 }
 
 func (s *State) rootWidget() l.Widget {
-	return s.Direction().Center().Embed(s.H2("hello world!").Fn).Fn
+	return func(gtx l.Context) l.Dimensions { return s.Direction().Center().Embed(s.H2("hello world!").Fn).Fn(gtx) }
 }
