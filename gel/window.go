@@ -5,6 +5,10 @@ import (
 	"github.com/p9c/monorepo/opts/binary"
 	"github.com/p9c/monorepo/opts/meta"
 	"math"
+	"os/exec"
+	"runtime"
+	"strconv"
+	"strings"
 	"time"
 	
 	"gioui.org/io/event"
@@ -51,23 +55,38 @@ type Window struct {
 	ops     op.Ops
 	evQ     system.FrameEvent
 	Runner  CallbackQueue
-	overlay []func(gtx l.Context)
+	overlay []*func(gtx l.Context)
 }
 
-func (w *Window) PushOverlay(overlay func(gtx l.Context)) {
+func (w *Window) PushOverlay(overlay *func(gtx l.Context)) {
 	w.overlay = append(w.overlay, overlay)
 }
 
-func (w *Window) PopOverlay() {
+func (w *Window) PopOverlay(overlay *func(gtx l.Context)) {
 	if len(w.overlay) == 0 {
 		return
 	}
-	w.overlay = w.overlay[:len(w.overlay)-1]
+	index := -1
+	for i := range w.overlay {
+		if overlay == w.overlay[i] {
+			index = i
+			break
+		}
+	}
+	if index != -1 {
+		if index == len(w.overlay)-1 {
+			w.overlay = w.overlay[:index]
+		} else if index == 0 {
+			w.overlay = w.overlay[1:]
+		} else {
+			w.overlay = append(w.overlay[:index], w.overlay[index+1:]...)
+		}
+	}
 }
 
 func (w *Window) Overlay(gtx l.Context) {
 	for _, overlay := range w.overlay {
-		overlay(gtx)
+		(*overlay)(gtx)
 	}
 }
 
@@ -129,12 +148,26 @@ func (w *Window) Open() (out *Window) {
 	return w
 }
 
-func (w *Window) Run(
-	frame func(ctx l.Context) l.Dimensions,
-	overlay func(ctx l.Context), destroy func(), quit qu.C,
-) (e error) {
+func (w *Window) Run(frame func(ctx l.Context) l.Dimensions, destroy func(), quit qu.C,) (e error) {
+	ticker := time.NewTicker(time.Second)
 	for {
 		select {
+		case <-ticker.C:
+			if runtime.GOOS == "linux" {
+				var e error
+				var b []byte
+				textSize := unit.Sp(16)
+				runner := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "text-scaling-factor")
+				if b, e = runner.CombinedOutput(); D.Chk(e) {
+				}
+				var factor float64
+				numberString := strings.TrimSpace(string(b))
+				if factor, e = strconv.ParseFloat(numberString, 10); D.Chk(e) {
+				}
+				w.TextSize = textSize.Scale(float32(factor))
+				// I.Ln(w.TextSize)
+			}
+			w.Invalidate()
 		case fn := <-w.Runner:
 			if e = fn(); E.Chk(e) {
 				return
