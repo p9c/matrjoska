@@ -19,7 +19,6 @@ type scrollChild struct {
 // List displays a subsection of a potentially infinitely large underlying list. List accepts user input to scroll the
 // subsection.
 type List struct {
-	*Window
 	axis l.Axis
 	// ScrollToEnd instructs the list to stay scrolled to the far end position once reached. A List with ScrollToEnd ==
 	// true and Position.BeforeEnd == false draws its content with the last item at the bottom of the list area.
@@ -27,27 +26,31 @@ type List struct {
 	// Alignment is the cross axis alignment of list elements.
 	alignment     l.Alignment
 	disableScroll bool
-	ctx           l.Context
 	scroll        gesture.Scroll
-	sideScroll    gesture.Scroll
 	scrollDelta   int
-	// Position is updated during Layout. To save the list scroll position, just save Position after Layout finishes. To
+	// position is updated during Layout. To save the list scroll position, just save Position after Layout finishes. To
 	// scroll the list programmatically, update Position (e.g. restore it from a saved value) before calling Layout.
-	position Position
 	// nextUp, nextDown Position
-	len             int
-	drag            gesture.Drag
-	recentPageClick time.Time
-	color           string
-	active          string
-	background      string
-	currentColor    string
-	scrollWidth     int
-	setScrollWidth  int
+	position Position
+	Len      int
 	// maxSize is the total size of visible children.
-	maxSize             int
-	children            []scrollChild
-	dir                 iterationDir
+	maxSize  int
+	children []scrollChild
+	dir      iterationDir
+	
+	// all below are additional fields to implement the scrollbar
+	*Window
+	// we store the constraints here instead of in the `cs` field
+	ctx                 l.Context
+	sideScroll          gesture.Scroll
+	drag                gesture.Drag
+	recentPageClick     time.Time
+	color               string
+	active              string
+	background          string
+	currentColor        string
+	scrollWidth         int
+	setScrollWidth      int
 	length              int
 	prevLength          int
 	w                   ListElement
@@ -67,8 +70,8 @@ type List struct {
 func (w *Window) List() (li *List) {
 	li = &List{
 		Window:          w,
-		pageUp:          w.Clickable(),
-		pageDown:        w.Clickable(),
+		pageUp:          w.WidgetPool.GetClickable(),
+		pageDown:        w.WidgetPool.GetClickable(),
 		color:           "DocText",
 		background:      "Transparent",
 		active:          "Primary",
@@ -98,6 +101,11 @@ type Position struct {
 	First int
 	// Offset is the distance in pixels from the top edge to the child at index First.
 	Offset int
+	// OffsetLast is the signed distance in pixels from the bottom edge to the
+	// bottom edge of the child at index First+Count.
+	OffsetLast int
+	// Count is the number of visible children.
+	Count int
 }
 
 const (
@@ -107,18 +115,18 @@ const (
 )
 
 // init prepares the list for iterating through its children with next.
-func (li *List) init(gtx l.Context, len int) {
+func (li *List) init(gtx l.Context, length int) {
 	if li.more() {
 		panic("unfinished child")
 	}
 	li.ctx = gtx
 	li.maxSize = 0
 	li.children = li.children[:0]
-	li.len = len
+	li.Len = length
 	li.update()
-	if li.canScrollToEnd() || li.position.First > len {
+	if li.canScrollToEnd() || li.position.First > length {
 		li.position.Offset = 0
-		li.position.First = len
+		li.position.First = length
 	}
 }
 
@@ -187,14 +195,14 @@ func (li *List) nextDir() iterationDir {
 	_, vsize := axisMainConstraint(li.axis, li.ctx.Constraints)
 	last := li.position.First + len(li.children)
 	// Clamp offset.
-	if li.maxSize-li.position.Offset < vsize && last == li.len {
+	if li.maxSize-li.position.Offset < vsize && last == li.Len {
 		li.position.Offset = li.maxSize - vsize
 	}
 	if li.position.Offset < 0 && li.position.First == 0 {
 		li.position.Offset = 0
 	}
 	switch {
-	case len(li.children) == li.len:
+	case len(li.children) == li.Len:
 		return iterateNone
 	case li.maxSize-li.position.Offset < vsize:
 		return iterateForward
@@ -289,7 +297,7 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 		pos += childSize
 	}
 	atStart := li.position.First == 0 && li.position.Offset <= 0
-	atEnd := li.position.First+len(children) == li.len && mainMax >= pos
+	atEnd := li.position.First+len(children) == li.Len && mainMax >= pos
 	if atStart && li.scrollDelta < 0 || atEnd && li.scrollDelta > 0 {
 		li.scroll.Stop()
 	}
