@@ -74,10 +74,10 @@ func (s *State) rootWidget() (o l.Widget) {
 			// Rigid(s.Inset(0.5, gel.EmptySpace(0, 0)).Fn).
 			Rigid(
 				s.ButtonLayout(clicks[index]).Embed(
-					s.VFlex().AlignMiddle().
+					s.Flex().AlignMiddle().
 						Rigid(
 							s.Icon().
-								Scale(gel.Scales["H1"]).
+								Scale(gel.Scales["H3"]).
 								Color("DocText").
 								Src(ow[index].data).
 								Fn,
