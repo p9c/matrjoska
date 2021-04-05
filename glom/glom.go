@@ -2,10 +2,10 @@ package main
 
 import (
 	l "gioui.org/layout"
-	"github.com/p9c/monorepo/gel"
 	"github.com/p9c/monorepo/glom/pkg/pathtree"
-	"github.com/p9c/monorepo/interrupt"
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/monorepo/pkg/interrupt"
+	"github.com/p9c/monorepo/pkg/qu"
 )
 
 type State struct {

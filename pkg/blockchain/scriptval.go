@@ -6,7 +6,7 @@ import (
 	"math"
 	"runtime"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/hardfork"
 	"github.com/p9c/monorepo/pkg/txscript"

@@ -2,12 +2,12 @@ package peer_test
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/version"
 	"net"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/peer"

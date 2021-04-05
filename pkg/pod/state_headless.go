@@ -7,23 +7,23 @@ import (
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/chainclient"
 	"github.com/p9c/monorepo/pkg/control"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"math/rand"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"go.uber.org/atomic"
 	
 	"github.com/urfave/cli"
 	
+	"github.com/p9c/monorepo/node/state"
 	"github.com/p9c/monorepo/pkg/chainrpc"
 	"github.com/p9c/monorepo/pkg/util/lang"
 	"github.com/p9c/monorepo/pkg/wallet"
-	"github.com/p9c/pod/cmd/node/state"
 )
 
 type _dtype int
@@ -40,7 +40,7 @@ type State struct {
 	// AppContext is the urfave/cli app context
 	AppContext *cli.Context
 	// Config is the pod all-in-one server config
-	Config *opts.Config
+	Config *podopts.Config
 	// ConfigMap
 	ConfigMap map[string]interface{}
 	// StateCfg is a reference to the main node state configuration struct
@@ -126,7 +126,7 @@ func (cx *State) PrintWaitChangers() string {
 
 // GetNewContext returns a fresh new context
 func GetNewContext() (s *State, e error) {
-	config := opts.GetDefaultConfig()
+	config := podopts.GetDefaultConfig()
 	if e = config.Initialize(); E.Chk(e) {
 		return
 	}

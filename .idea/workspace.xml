@@ -96,10 +96,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pkg" />
+      <recent name="$PROJECT_DIR$/pkg/app" />
       <recent name="$PROJECT_DIR$/pkg/chainclient" />
       <recent name="$PROJECT_DIR$/node/state" />
       <recent name="$PROJECT_DIR$/pkg/pod" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pkg" />

@@ -4,7 +4,7 @@ package fork
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/monorepo/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/bits"
 	"math/big"
 	"math/rand"

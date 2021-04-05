@@ -5,10 +5,10 @@ import (
 	"github.com/p9c/log"
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/pod/pkg/util/interrupt"
+	"github.com/p9c/monorepo/pkg/util/interrupt"
 	"github.com/p9c/qu"
 	
-	"github.com/p9c/pod/pkg/pipe"
+	"github.com/p9c/monorepo/pkg/pipe"
 )
 
 // Log starts up a handler to listen to logs from the child process worker

@@ -9,7 +9,7 @@ import (
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"sync"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/chainhash"

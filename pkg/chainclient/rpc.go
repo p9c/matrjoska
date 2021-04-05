@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/btcjson"
 	"github.com/p9c/monorepo/pkg/chainhash"

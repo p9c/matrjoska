@@ -3,13 +3,13 @@ package wallet
 import (
 	"errors"
 	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"os"
 	"path/filepath"
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/util/prompt"
 	"github.com/p9c/monorepo/pkg/waddrmgr"
@@ -53,7 +53,7 @@ func (ld *Loader) CreateNewWallet(
 	pubPassphrase, privPassphrase, seed []byte,
 	bday time.Time,
 	noStart bool,
-	podConfig *opts.Config,
+	podConfig *podopts.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	ld.Mutex.Lock()
@@ -114,7 +114,7 @@ func (ld *Loader) LoadedWallet() (*Wallet, bool) {
 func (ld *Loader) OpenExistingWallet(
 	pubPassphrase []byte,
 	canConsolePrompt bool,
-	podConfig *opts.Config,
+	podConfig *podopts.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	defer ld.Mutex.Unlock()

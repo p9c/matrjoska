@@ -5,9 +5,9 @@ import (
 	"io"
 	"os"
 	
-	"github.com/p9c/pod/pkg/pipe/stdconn"
-	"github.com/p9c/pod/pkg/pipe/stdconn/worker"
-	"github.com/p9c/pod/pkg/util/interrupt"
+	"github.com/p9c/monorepo/pkg/pipe/stdconn"
+	"github.com/p9c/monorepo/pkg/pipe/stdconn/worker"
+	"github.com/p9c/monorepo/pkg/util/interrupt"
 	"github.com/p9c/qu"
 )
 

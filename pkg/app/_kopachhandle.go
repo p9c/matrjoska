@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/log"
-	"github.com/p9c/pod/pkg/chaincfg"
-	"github.com/p9c/pod/pkg/fork"
-	"github.com/p9c/pod/pkg/opts"
-	"github.com/p9c/pod/pkg/pod"
+	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/pod"
 	"os"
 	
-	"github.com/p9c/pod/pkg/util/interrupt"
+	"github.com/p9c/monorepo/pkg/util/interrupt"
 	
-	"github.com/p9c/pod/pkg/podconfig"
+	"github.com/p9c/monorepo/pkg/podconfig"
 	
-	"github.com/p9c/pod/cmd/kopach"
+	"github.com/p9c/monorepo/cmd/kopach"
 )
 
 // KopachHandle runs the kopach miner

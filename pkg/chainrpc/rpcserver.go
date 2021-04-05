@@ -15,7 +15,7 @@ import (
 	"github.com/p9c/monorepo/pkg/btcaddr"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"io"
 	"io/ioutil"
 	"math/big"
@@ -29,7 +29,7 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/btcsuite/websocket"
 	uberatomic "go.uber.org/atomic"
@@ -71,7 +71,7 @@ type GBTWorkState struct {
 	TimeSource    blockchain.MedianTimeSource
 	Algo          string
 	StateCfg      *state.Config
-	Config        *opts.Config
+	Config        *podopts.Config
 }
 
 // ParsedRPCCmd represents a JSON-RPC request object that has been parsed into a known concrete command along with any
@@ -101,7 +101,7 @@ type RetrievedTx struct {
 type Server struct {
 	Cfg                             ServerConfig
 	StateCfg                        *state.Config
-	Config                          *opts.Config
+	Config                          *podopts.Config
 	NtfnMgr                         *WSNtfnMgr
 	StatusLines                     map[int]string
 	StatusLock                      sync.RWMutex
@@ -121,7 +121,7 @@ type Server struct {
 // ServerConfig is a descriptor containing the RPC server configuration.
 type ServerConfig struct {
 	// Cx passes through the context variable for setting up a server
-	Cfg *opts.Config
+	Cfg *podopts.Config
 	// Listeners defines a slice of listeners for which the RPC server will take ownership of and accept connections.
 	//
 	// Since the RPC server takes ownership of these listeners, they will be closed when the RPC server is stopped.
@@ -2056,7 +2056,7 @@ func NewGbtWorkState(
 // NewRPCServer returns a new instance of the RPCServer struct.
 func NewRPCServer(
 	config *ServerConfig, statecfg *state.Config,
-	podcfg *opts.Config,
+	podcfg *podopts.Config,
 ) (*Server, error) {
 	rpc := Server{
 		Cfg:                    *config,

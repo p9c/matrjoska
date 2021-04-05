@@ -1,8 +1,8 @@
 package constant
 
 import (
-	"github.com/p9c/monorepo/appdata"
 	"github.com/p9c/monorepo/pkg/amt"
+	"github.com/p9c/monorepo/pkg/appdata"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/peer"
 	"time"

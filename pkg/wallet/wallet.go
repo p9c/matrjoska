@@ -8,13 +8,13 @@ import (
 	"github.com/p9c/monorepo/pkg/amt"
 	"github.com/p9c/monorepo/pkg/btcaddr"
 	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"sort"
 	"strings"
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/davecgh/go-spew/spew"
 	
@@ -93,7 +93,7 @@ type Wallet struct {
 	// reorganizeToHash chainhash.Hash
 	// reorganizing     bool
 	NtfnServer  *NotificationServer
-	PodConfig   *opts.Config
+	PodConfig   *podopts.Config
 	chainParams *chaincfg.Params
 	wg          sync.WaitGroup
 	started     bool
@@ -3206,7 +3206,7 @@ func Open(
 	cbs *waddrmgr.OpenCallbacks,
 	params *chaincfg.Params,
 	recoveryWindow uint32,
-	podConfig *opts.Config,
+	podConfig *podopts.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	// debug.PrintStack()

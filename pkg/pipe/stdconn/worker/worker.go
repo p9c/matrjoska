@@ -9,7 +9,7 @@ import (
 	
 	"github.com/p9c/qu"
 	
-	"github.com/p9c/pod/pkg/pipe/stdconn"
+	"github.com/p9c/monorepo/pkg/pipe/stdconn"
 )
 
 type Worker struct {

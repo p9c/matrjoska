@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/appdata"
+	"github.com/p9c/monorepo/pkg/appdata"
 	"github.com/p9c/monorepo/pkg/rpcclient"
 )
 

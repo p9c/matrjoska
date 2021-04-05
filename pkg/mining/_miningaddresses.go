@@ -2,16 +2,16 @@ package mining
 
 import (
 	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	
-	"github.com/p9c/pod/cmd/node/state"
+	"github.com/p9c/monorepo/cmd/node/state"
 	wm "github.com/p9c/monorepo/pkg/waddrmgr"
 	"github.com/p9c/monorepo/pkg/wallet"
 )
 
 // RefillMiningAddresses adds new addresses to the mining address pool for the miner
 // todo: make this remove ones that have been used or received a payment or mined
-func RefillMiningAddresses(w *wallet.Wallet, cfg *opts.Config, stateCfg *state.Config) {
+func RefillMiningAddresses(w *wallet.Wallet, cfg *podopts.Config, stateCfg *state.Config) {
 	if w == nil {
 		D.Ln("trying to refill without a wallet")
 		return

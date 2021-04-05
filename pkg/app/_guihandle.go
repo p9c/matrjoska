@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/log"
-	"github.com/p9c/pod/pkg/opts"
-	"github.com/p9c/pod/pkg/pod"
+	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/pod"
 	
-	"github.com/p9c/pod/cmd/gui"
-	"github.com/p9c/pod/pkg/podconfig"
+	"github.com/p9c/monorepo/cmd/gui"
+	"github.com/p9c/monorepo/pkg/podconfig"
 )
 
 // GUIHandle starts up the GUI wallet

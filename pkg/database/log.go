@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/p9c/monorepo/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/version"
 )
 

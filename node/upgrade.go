@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/apputil"
+	"github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/database/blockdb"
 )
 

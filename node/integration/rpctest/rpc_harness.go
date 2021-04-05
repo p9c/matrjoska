@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/chainhash"
 	"github.com/p9c/monorepo/pkg/rpcclient"

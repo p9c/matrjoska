@@ -2,7 +2,7 @@ package snacl
 
 import (
 	"github.com/p9c/log"
-	"github.com/p9c/pod/version"
+	"github.com/p9c/monorepo/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

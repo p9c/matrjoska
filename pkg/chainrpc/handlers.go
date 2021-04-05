@@ -6,19 +6,18 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/log"
 	"github.com/p9c/monorepo/pkg/amt"
 	block2 "github.com/p9c/monorepo/pkg/block"
 	"github.com/p9c/monorepo/pkg/btcaddr"
 	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/monorepo/version"
+	"github.com/p9c/monorepo/pkg/log"
 	"math/big"
 	"net"
 	"strconv"
 	"strings"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/node/mempool"
 	"github.com/p9c/monorepo/pkg/blockchain"
@@ -1438,11 +1437,12 @@ func HandleGetInfo(
 		default:
 		}
 		ret = &btcjson.InfoChainResult0{
-			Version: int32(
-				1000000*version.AppMajor +
-					10000*version.AppMinor +
-					100*version.AppPatch,
-			),
+			// Version: int32(
+			// version.Tag,
+			// 1000000*version.AppMajor +
+			// 	10000*version.AppMinor +
+			// 	100*version.AppPatch,
+			// ),
 			ProtocolVersion:   int32(MaxProtocolVersion),
 			Blocks:            best.Height,
 			TimeOffset:        int64(s.Cfg.TimeSource.Offset().Seconds()),
@@ -1492,11 +1492,11 @@ func HandleGetInfo(
 		default:
 		}
 		ret = &btcjson.InfoChainResult{
-			Version: int32(
-				1000000*version.AppMajor +
-					10000*version.AppMinor +
-					100*version.AppPatch,
-			),
+			// Version: int32(
+			// 	1000000*version.AppMajor +
+			// 		10000*version.AppMinor +
+			// 		100*version.AppPatch,
+			// ),
 			ProtocolVersion:     int32(MaxProtocolVersion),
 			Blocks:              best.Height,
 			TimeOffset:          int64(s.Cfg.TimeSource.Offset().Seconds()),

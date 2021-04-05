@@ -3,12 +3,12 @@ package app
 import (
 	"github.com/gookit/color"
 	"github.com/p9c/log"
-	"github.com/p9c/pod/pkg/opts"
-	"github.com/p9c/pod/pkg/pod"
+	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/pod"
 	"os"
 	"os/exec"
 	
-	"github.com/p9c/pod/pkg/podconfig"
+	"github.com/p9c/monorepo/pkg/podconfig"
 	
 	"github.com/urfave/cli"
 )

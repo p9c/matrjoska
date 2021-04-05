@@ -20,13 +20,13 @@ import (
 	"github.com/p9c/monorepo/pkg/control/templates"
 	"github.com/p9c/monorepo/pkg/fork"
 	"github.com/p9c/monorepo/pkg/mining"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/monorepo/pkg/qu"
 	rav "github.com/p9c/monorepo/pkg/ring"
 	"github.com/p9c/monorepo/pkg/rpcclient"
 	"github.com/p9c/monorepo/pkg/transport"
 	"github.com/p9c/monorepo/pkg/util/routeable"
 	"github.com/p9c/monorepo/pkg/wire"
-	"github.com/p9c/monorepo/qu"
 	"github.com/urfave/cli"
 	"go.uber.org/atomic"
 	"math/rand"
@@ -44,7 +44,7 @@ const (
 // State stores the state of the controller
 type State struct {
 	sync.Mutex
-	cfg               *opts.Config
+	cfg               *podopts.Config
 	node              *chainrpc.Node
 	connMgr           chainrpc.ServerConnManager
 	stateCfg          *state.Config
@@ -73,7 +73,7 @@ type nodeSpec struct {
 // New creates a new controller
 func New(
 	syncing *atomic.Bool,
-	cfg *opts.Config,
+	cfg *podopts.Config,
 	stateCfg *state.Config,
 	node *chainrpc.Node,
 	connMgr chainrpc.ServerConnManager,

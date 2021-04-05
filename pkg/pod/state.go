@@ -4,16 +4,16 @@ package pod
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/opts/opt"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/chainclient"
 	"github.com/p9c/monorepo/pkg/control"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"runtime"
 	"strings"
 	"sync"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"go.uber.org/atomic"
 	
@@ -37,7 +37,7 @@ type State struct {
 	// // AppContext is the urfave/cli app context
 	// AppContext *cli.Context
 	// Config is the pod all-in-one server config
-	Config *opts.Config
+	Config *podopts.Config
 	// ConfigMap
 	ConfigMap map[string]opt.Option
 	// StateCfg is a reference to the main node state configuration struct

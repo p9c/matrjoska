@@ -2,9 +2,9 @@
 package txsizes
 
 import (
-	blockchain "github.com/p9c/pod/pkg/blockchain"
-	"github.com/p9c/pod/pkg/wire"
-	h "github.com/p9c/pod/pkg/util/helpers"
+	blockchain "github.com/p9c/monorepo/pkg/blockchain"
+	"github.com/p9c/monorepo/pkg/wire"
+	h "github.com/p9c/monorepo/pkg/util/helpers"
 )
 
 // Worst case script and input/output size estimates.

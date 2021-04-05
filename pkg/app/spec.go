@@ -1,19 +1,19 @@
 package app
 
 import (
-	"github.com/p9c/monorepo/appdata"
-	"github.com/p9c/monorepo/opts/binary"
-	"github.com/p9c/monorepo/opts/cmds"
-	"github.com/p9c/monorepo/opts/duration"
-	"github.com/p9c/monorepo/opts/float"
-	"github.com/p9c/monorepo/opts/integer"
-	"github.com/p9c/monorepo/opts/list"
-	"github.com/p9c/monorepo/opts/meta"
-	"github.com/p9c/monorepo/opts/text"
+	"github.com/p9c/monorepo/pkg/appdata"
 	"github.com/p9c/monorepo/pkg/base58"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
-	"github.com/p9c/monorepo/pkg/opts"
+	"github.com/p9c/monorepo/pkg/opts/binary"
+	"github.com/p9c/monorepo/pkg/opts/cmds"
+	"github.com/p9c/monorepo/pkg/opts/duration"
+	"github.com/p9c/monorepo/pkg/opts/float"
+	"github.com/p9c/monorepo/pkg/opts/integer"
+	"github.com/p9c/monorepo/pkg/opts/list"
+	"github.com/p9c/monorepo/pkg/opts/meta"
+	"github.com/p9c/monorepo/pkg/opts/text"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"github.com/p9c/monorepo/pkg/util/hdkeychain"
 	uberatomic "go.uber.org/atomic"
 	"math/rand"
@@ -87,12 +87,12 @@ func GetCommands() (c cmds.Commands) {
 }
 
 // GetConfigs returns configuration options for Parallelcoin Pod
-func GetConfigs() (c opts.Configs) {
+func GetConfigs() (c podopts.Configs) {
 	network := "mainnet"
 	rand.Seed(time.Now().Unix())
 	var datadir = &atomic.Value{}
 	datadir.Store([]byte(appdata.Dir(constant.Name, false)))
-	c = opts.Configs{
+	c = podopts.Configs{
 		"AddCheckpoints": list.New(meta.Data{
 			Aliases: []string{"AC"},
 			Group:   "debug",

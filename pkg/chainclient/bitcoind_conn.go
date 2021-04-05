@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/tstranex/gozmq"
 	

@@ -3,13 +3,13 @@ package connmgr
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 )
 
 // maxFailedAttempts is the maximum number of successive failed connection

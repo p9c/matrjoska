@@ -1,10 +1,10 @@
 package node
 
 import (
-	"github.com/p9c/monorepo/log"
 	"github.com/p9c/monorepo/pkg/control"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	"net"
 	"net/http"
 	// // This enables pprof
@@ -12,29 +12,26 @@ import (
 	"os"
 	"runtime/pprof"
 	
-	"github.com/p9c/monorepo/apputil"
-	"github.com/p9c/monorepo/interrupt"
 	"github.com/p9c/monorepo/node/path"
+	"github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/chainrpc"
 	"github.com/p9c/monorepo/pkg/database"
 	"github.com/p9c/monorepo/pkg/database/blockdb"
 	"github.com/p9c/monorepo/pkg/indexers"
+	"github.com/p9c/monorepo/pkg/interrupt"
 )
 
-// winServiceMain is only invoked on Windows. It detects when pod is running as
-// a service and reacts accordingly.
+// winServiceMain is only invoked on Windows. It detects when pod is running as a service and reacts accordingly.
 var winServiceMain func() (bool, error)
 
 // Main is the real main function for pod.
 //
-// The optional serverChan parameter is mainly used by the service code to be
-// notified with the server once it is setup so it can gracefully stop it when requested from the service control
-// manager.
+// The optional serverChan parameter is mainly used by the service code to be notified with the server once it is setup
+// so it can gracefully stop it when requested from the service control manager.
 func Main(cx *pod.State) (e error) {
 	T.Ln("starting up node main")
 	// cx.WaitGroup.Add(1)
 	cx.WaitAdd()
-	// show version at startup
 	// enable http profiling server if requested
 	if cx.Config.Profile.V() != "" {
 		D.Ln("profiling requested")
@@ -104,8 +101,10 @@ func Main(cx *pod.State) (e error) {
 	if interrupt.Requested() {
 		return nil
 	}
-	// drop indexes and exit if requested. NOTE: The order is important here because
-	// dropping the tx index also drops the address index since it relies on it
+	// drop indexes and exit if requested.
+	//
+	// NOTE: The order is important here because dropping the tx index also drops the address index since it relies on
+	// it
 	if cx.StateCfg.DropAddrIndex {
 		W.Ln("dropping address index")
 		if e = indexers.DropAddrIndex(db, interrupt.ShutdownRequestChan); E.Chk(e) {
@@ -218,15 +217,12 @@ func Main(cx *pod.State) (e error) {
 	return nil
 }
 
-// loadBlockDB loads (or creates when needed) the block database taking into
-// account the selected database backend and returns a handle to it. It also
-// additional logic such warning the user if there are multiple databases which
-// consume space on the file system and ensuring the regression test database is
-// clean when in regression test mode.
+// loadBlockDB loads (or creates when needed) the block database taking into account the selected database backend and
+// returns a handle to it. It also additional logic such warning the user if there are multiple databases which consume
+// space on the file system and ensuring the regression test database is clean when in regression test mode.
 func loadBlockDB(cx *pod.State) (db database.DB, e error) {
-	// The memdb backend does not have a file path associated with it, so handle it
-	// uniquely. We also don't want to worry about the multiple database type
-	// warnings when running with the memory database.
+	// The memdb backend does not have a file path associated with it, so handle it uniquely. We also don't want to
+	// worry about the multiple database type warnings when running with the memory database.
 	if cx.Config.DbType.V() == "memdb" {
 		I.Ln("creating block database in memory")
 		if db, e = database.Create(cx.Config.DbType.V()); E.Chk(e) {

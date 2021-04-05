@@ -11,14 +11,16 @@ func TestHelp(t *testing.T) {
 	for k := range RPCHandlers {
 		if _, ok := ResultTypes[k]; !ok {
 			t.Errorf("RPC handler defined for method '%v' without "+
-				"also specifying result types", k)
+				"also specifying result types", k,
+			)
 			continue
 		}
 	}
 	for k := range WSHandlers {
 		if _, ok := ResultTypes[k]; !ok {
 			t.Errorf("RPC handler defined for method '%v' without "+
-				"also specifying result types", k)
+				"also specifying result types", k,
+			)
 			continue
 		}
 	}
@@ -35,24 +37,28 @@ func TestHelp(t *testing.T) {
 	for k := range RPCHandlers {
 		if _, e = helpCacher.RPCMethodHelp(k); E.Chk(e) {
 			t.Errorf("Failed to generate help for method '%v': %v",
-				k, e)
+				k, e,
+			)
 			continue
 		}
 		if _, e = helpCacher.RPCMethodHelp(k); E.Chk(e) {
 			t.Errorf("Failed to generate help for method '%v'"+
-				"(cached): %v", k, e)
+				"(cached): %v", k, e,
+			)
 			continue
 		}
 	}
 	for k := range WSHandlers {
 		if _, e = helpCacher.RPCMethodHelp(k); E.Chk(e) {
 			t.Errorf("Failed to generate help for method '%v': %v",
-				k, e)
+				k, e,
+			)
 			continue
 		}
 		if _, e = helpCacher.RPCMethodHelp(k); E.Chk(e) {
 			t.Errorf("Failed to generate help for method '%v'"+
-				"(cached): %v", k, e)
+				"(cached): %v", k, e,
+			)
 			continue
 		}
 	}

@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/log"
-	"github.com/p9c/pod/pkg/pod"
+	"github.com/p9c/monorepo/pkg/pod"
 	"os"
 	
-	"github.com/p9c/pod/pkg/podconfig"
+	"github.com/p9c/monorepo/pkg/podconfig"
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/pod/cmd/ctl"
+	"github.com/p9c/monorepo/cmd/ctl"
 )
 
 const slash = string(os.PathSeparator)

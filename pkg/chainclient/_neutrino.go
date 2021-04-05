@@ -8,8 +8,9 @@ import (
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
+	sac "github.com/p9c/monorepo/cmd/spv"
 	"github.com/p9c/monorepo/pkg/chainhash"
 	"github.com/p9c/monorepo/pkg/gcs"
 	"github.com/p9c/monorepo/pkg/gcs/builder"
@@ -19,7 +20,6 @@ import (
 	"github.com/p9c/monorepo/pkg/waddrmgr"
 	"github.com/p9c/monorepo/pkg/wire"
 	"github.com/p9c/monorepo/pkg/wtxmgr"
-	sac "github.com/p9c/pod/cmd/spv"
 )
 
 // NeutrinoClient is an implementation of the btcwallet chainclient.Interface interface.

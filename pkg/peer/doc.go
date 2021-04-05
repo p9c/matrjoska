@@ -133,6 +133,6 @@ hexdump -C.
 
 Bitcoin Improvement Proposals
 
-This package supports all BIPs supported by the wire package. (https://godoc.org/github.com/p9c/pod/wire#hdr-Bitcoin_Improvement_Proposals)
+This package supports all BIPs supported by the wire package. (https://godoc.org/github.com/p9c/monorepo/wire#hdr-Bitcoin_Improvement_Proposals)
 */
 package peer
