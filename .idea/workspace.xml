@@ -90,15 +90,15 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/gel/cmd/iconchooser/gen" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/gel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gel" />
       <recent name="$PROJECT_DIR$/gel/cmd/iconchooser/gen" />
       <recent name="$PROJECT_DIR$/gel/cmd" />
       <recent name="$PROJECT_DIR$/gel/cmd/iconchooser" />
-      <recent name="$PROJECT_DIR$/gel" />
       <recent name="$PROJECT_DIR$/glom/pkg/pathtree" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

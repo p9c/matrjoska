@@ -24,10 +24,9 @@ type List struct {
 	// true and Position.BeforeEnd == false draws its content with the last item at the bottom of the list area.
 	scrollToEnd bool
 	// Alignment is the cross axis alignment of list elements.
-	alignment     l.Alignment
-	disableScroll bool
-	scroll        gesture.Scroll
-	scrollDelta   int
+	alignment   l.Alignment
+	scroll      gesture.Scroll
+	scrollDelta int
 	// position is updated during Layout. To save the list scroll position, just save Position after Layout finishes. To
 	// scroll the list programmatically, update Position (e.g. restore it from a saved value) before calling Layout.
 	// nextUp, nextDown Position
@@ -43,6 +42,7 @@ type List struct {
 	// we store the constraints here instead of in the `cs` field
 	ctx                 l.Context
 	sideScroll          gesture.Scroll
+	disableScroll       bool
 	drag                gesture.Drag
 	recentPageClick     time.Time
 	color               string
@@ -152,7 +152,8 @@ func (li *List) canScrollToEnd() bool {
 
 // Dragging reports whether the List is being dragged.
 func (li *List) Dragging() bool {
-	return li.scroll.State() == gesture.StateDragging
+	return li.scroll.State() == gesture.StateDragging ||
+		li.sideScroll.State() == gesture.StateDragging
 }
 
 // update the scrolling
@@ -192,11 +193,11 @@ func (li *List) more() bool {
 }
 
 func (li *List) nextDir() iterationDir {
-	_, vsize := axisMainConstraint(li.axis, li.ctx.Constraints)
+	_, vSize := axisMainConstraint(li.axis, li.ctx.Constraints)
 	last := li.position.First + len(li.children)
 	// Clamp offset.
-	if li.maxSize-li.position.Offset < vsize && last == li.Len {
-		li.position.Offset = li.maxSize - vsize
+	if li.maxSize-li.position.Offset < vSize && last == li.Len {
+		li.position.Offset = li.maxSize - vSize
 	}
 	if li.position.Offset < 0 && li.position.First == 0 {
 		li.position.Offset = 0
@@ -204,7 +205,7 @@ func (li *List) nextDir() iterationDir {
 	switch {
 	case len(li.children) == li.Len:
 		return iterateNone
-	case li.maxSize-li.position.Offset < vsize:
+	case li.maxSize-li.position.Offset < vSize:
 		return iterateForward
 	case li.position.Offset < 0:
 		return iterateBackward
@@ -215,13 +216,15 @@ func (li *List) nextDir() iterationDir {
 // End the current child by specifying its dimensions.
 func (li *List) end(dims l.Dimensions, call op.CallOp) {
 	child := scrollChild{dims.Size, call}
-	mainSize := axisMain(li.axis, child.size)
+	mainSize := axisConvert(li.axis, child.size).X
 	li.maxSize += mainSize
 	switch li.dir {
 	case iterateForward:
 		li.children = append(li.children, child)
 	case iterateBackward:
-		li.children = append([]scrollChild{child}, li.children...)
+		li.children = append(li.children, scrollChild{})
+		copy(li.children[1:], li.children)
+		li.children[0] = child
 		li.position.First--
 		li.position.Offset += mainSize
 	default:
@@ -240,8 +243,9 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 	// Skip invisible children
 	for len(children) > 0 {
 		sz := children[0].size
-		mainSize := axisMain(li.axis, sz)
-		if li.position.Offset <= mainSize {
+		mainSize := axisConvert(li.axis, sz).X
+		if li.position.Offset < mainSize {
+			// First child is partially visible.
 			break
 		}
 		li.position.First++
@@ -251,32 +255,34 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 	size := -li.position.Offset
 	var maxCross int
 	for i, child := range children {
-		sz := child.size
-		if c := axisCross(li.axis, sz); c > maxCross {
+		sz := axisConvert(li.axis, child.size)
+		if c := sz.Y; c > maxCross {
 			maxCross = c
 		}
-		size += axisMain(li.axis, sz)
+		size += sz.X
 		if size >= mainMax {
 			children = children[:i+1]
 			break
 		}
 	}
+	li.position.Count = len(children)
+	li.position.OffsetLast = mainMax - size
 	ops := li.ctx.Ops
 	pos := -li.position.Offset
 	// ScrollToEnd lists are end aligned.
-	if space := mainMax - size; li.scrollToEnd && space > 0 {
+	if space := li.position.OffsetLast; li.scrollToEnd && space > 0 {
 		pos += space
 	}
 	for _, child := range children {
-		sz := child.size
+		sz := axisConvert(li.axis, child.size)
 		var cross int
 		switch li.alignment {
 		case l.End:
-			cross = maxCross - axisCross(li.axis, sz)
+			cross = maxCross - sz.Y
 		case l.Middle:
-			cross = (maxCross - axisCross(li.axis, sz)) / 2
+			cross = (maxCross - sz.Y) / 2
 		}
-		childSize := axisMain(li.axis, sz)
+		childSize := sz.X
 		max := childSize + pos
 		if max > mainMax {
 			max = mainMax
@@ -286,12 +292,13 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 			min = 0
 		}
 		r := image.Rectangle{
-			Min: axisPoint(li.axis, min, -Inf),
-			Max: axisPoint(li.axis, max, Inf),
+			Min: axisConvert(li.axis, image.Pt(min, -Inf)),
+			Max: axisConvert(li.axis, image.Pt(max, Inf)),
 		}
 		stack := op.Save(ops)
 		clip.Rect(r).Add(ops)
-		op.Offset(toPointF(axisPoint(li.axis, pos, cross))).Add(ops)
+		pt := axisConvert(li.axis, image.Pt(pos, cross))
+		op.Offset(Fpt(pt)).Add(ops)
 		child.call.Add(ops)
 		stack.Load()
 		pos += childSize
@@ -300,6 +307,7 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 	atEnd := li.position.First+len(children) == li.Len && mainMax >= pos
 	if atStart && li.scrollDelta < 0 || atEnd && li.scrollDelta > 0 {
 		li.scroll.Stop()
+		li.sideScroll.Stop()
 	}
 	li.position.BeforeEnd = !atEnd
 	if pos < mainMin {
@@ -308,12 +316,33 @@ func (li *List) layout(macro op.MacroOp) l.Dimensions {
 	if pos > mainMax {
 		pos = mainMax
 	}
-	dims := axisPoint(li.axis, pos, maxCross)
+	dims := axisConvert(li.axis, image.Pt(pos, maxCross))
 	call := macro.Stop()
-	defer op.Save(li.ctx.Ops).Load()
+	defer op.Save(ops).Load()
 	bounds := image.Rectangle{Max: dims}
 	pointer.Rect(bounds).Add(ops)
-	li.scroll.Add(ops, bounds)
+	// li.sideScroll.Add(ops, bounds)
+	// li.scroll.Add(ops, bounds)
+	
+	var min, max int
+	if o := li.position.Offset; o > 0 {
+		// Use the size of the invisible part as scroll boundary.
+		min = -o
+	} else if li.position.First > 0 {
+		min = -Inf
+	}
+	if o := li.position.OffsetLast; o < 0 {
+		max = -o
+	} else if li.position.First+li.position.Count < li.Len {
+		max = Inf
+	}
+	scrollRange := image.Rectangle{
+		Min: axisConvert(li.axis, image.Pt(min, 0)),
+		Max: axisConvert(li.axis, image.Pt(max, 0)),
+	}
+	li.scroll.Add(ops, scrollRange)
+	li.sideScroll.Add(ops, scrollRange)
+	
 	call.Add(ops)
 	return l.Dimensions{Size: dims}
 }
@@ -342,7 +371,6 @@ func (li *List) JumpToEnd() {
 		First:     len(li.dims),
 		Offset:    axisMain(li.axis, li.dims[len(li.dims)-1].Size),
 	}
-	
 }
 
 // Vertical sets the axis to vertical (default implicit is horizontal)

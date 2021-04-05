@@ -70,7 +70,7 @@ func (i *Icon) Fn(gtx l.Context) l.Dimensions {
 	ico.Add(gtx.Ops)
 	paint.PaintOp{
 		// Rect: f32.Rectangle{
-		// 	Max: toPointF(ico.Size()),
+		// 	Max: Fpt(ico.Size()),
 		// },
 	}.Add(gtx.Ops)
 	return l.Dimensions{Size: ico.Size()}
