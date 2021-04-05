@@ -83,6 +83,8 @@ func (w *Window) Input(txt, hint, borderColorFocused, borderColorUnfocused, back
 		// does something other than directly paste into the field. If it returns
 		// true, this means it has captured input that is processed other than as
 		// a simple paste
+		// todo: this looks like it is just removing linebreaks, comment is lies?
+		// todo: looks like just unimplemented... also the other closures in the struct at the top
 		cb = findSpaceRegexp.ReplaceAllString(cb, " ")
 		txt = txt[:col] + cb + txt[col:]
 		p.editor.SetText(txt)
@@ -139,40 +141,43 @@ func (in *Input) Fn(gtx l.Context) l.Dimensions {
 	// gtx.Constraints.Min.X = 0
 	// width := int(in.Theme.TextSize.Scale(in.size).True)
 	// gtx.Constraints.Max.X, gtx.Constraints.Min.X = width, width
-	return in.Border().Width(0.125).CornerRadius(0.0).
-		Corners(0).Color(in.borderColor).Embed(
-		in.Fill(
-			in.backgroundColor, l.Center, in.TextSize.V, 0,
-			in.Inset(
-				0.25,
-				in.Flex().
-					Flexed(
-						1,
-						in.Inset(0.125, in.input.Color("DocText").Fn).Fn,
-					).
-					Rigid(
-						in.copyButton.
-							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentCopy)).
-							ButtonInset(0.25).
-							Fn,
-					).
-					Rigid(
-						in.pasteButton.
-							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentPaste)).
-							ButtonInset(0.25).
-							Fn,
-					).
-					Rigid(
-						in.clearButton.
-							Background("").
-							Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentBackspace)).
-							ButtonInset(0.25).
-							Fn,
-					).
-					Fn,
+	return in.Border().
+		Width(0.125).
+		CornerRadius(0.0).
+		Color(in.borderColor).
+		Embed(
+			in.Fill(
+				in.backgroundColor, l.Center, in.TextSize.V, 0,
+				in.Inset(
+					0.25,
+					in.Flex().
+						Flexed(
+							1,
+							in.Inset(0.125, in.input.Color("DocText").Fn).Fn,
+						).
+						Rigid(
+							in.copyButton.
+								Background("").
+								Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentCopy)).
+								ButtonInset(0.25).
+								Fn,
+						).
+						Rigid(
+							in.pasteButton.
+								Background("").
+								Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentContentPaste)).
+								ButtonInset(0.25).
+								Fn,
+						).
+						Rigid(
+							in.clearButton.
+								Background("").
+								Icon(in.Icon().Color(in.borderColor).Scale(Scales["H6"]).Src(&icons.ContentBackspace)).
+								ButtonInset(0.25).
+								Fn,
+						).
+						Fn,
+				).Fn,
 			).Fn,
-		).Fn,
-	).Fn(gtx)
+		).Fn(gtx)
 }

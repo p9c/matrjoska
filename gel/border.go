@@ -17,19 +17,12 @@ type Border struct {
 	cornerRadius unit.Value
 	width        unit.Value
 	w            l.Widget
-	corners      int
 }
 
 // Border creates a border with configurable color, width and corner radius.
 func (w *Window) Border() *Border {
 	b := &Border{Window: w}
 	b.CornerRadius(0.25).Color("Primary").Width(0.125)
-	return b
-}
-
-// Corners sets the corners that are rounded
-func (b *Border) Corners(corners int) *Border {
-	b.corners = corners
 	return b
 }
 
