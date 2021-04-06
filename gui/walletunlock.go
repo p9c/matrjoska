@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pod"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"io/ioutil"
 	"path/filepath"
 	"time"
@@ -28,7 +28,7 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 	wg.cx.Config.WalletOff.F()
 	// wg.cx.Config.Unlock()
 	// load config into a fresh variable
-	cfg := pod.GetDefaultConfig()
+	cfg := podopts.GetDefaultConfig()
 	var cfgFile []byte
 	var e error
 	if cfgFile, e = ioutil.ReadFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {

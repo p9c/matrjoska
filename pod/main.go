@@ -9,7 +9,6 @@ import (
 	"github.com/p9c/monorepo/pkg/qu"
 	"go.uber.org/atomic"
 	"math/rand"
-	"reflect"
 	"time"
 )
 
@@ -18,7 +17,7 @@ func Main() int {
 	log.SetLogLevel("trace")
 	var e error
 	var cx *pod.State
-	if cx, e = GetNewContext(GetDefaultConfig()); F.Chk(e) {
+	if cx, e = GetNewContext(podopts.GetDefaultConfig()); F.Chk(e) {
 		return 1
 	}
 	if e = cx.Config.Initialize(); E.Chk(e) {
@@ -32,28 +31,6 @@ func Main() int {
 		return 1
 	}
 	return 0
-}
-
-// GetDefaultConfig returns a Config struct pristine factory fresh
-func GetDefaultConfig() (c *podopts.Config) {
-	c = &podopts.Config{
-		Commands: GetCommands(),
-		Map:      GetConfigs(),
-	}
-	c.RunningCommand = c.Commands[0]
-	// I.S(c.Commands[0])
-	// I.S(c.Map)
-	t := reflect.ValueOf(c)
-	t = t.Elem()
-	for i := range c.Map {
-		tf := t.FieldByName(i)
-		if tf.IsValid() && tf.CanSet() && tf.CanAddr() {
-			val := reflect.ValueOf(c.Map[i])
-			tf.Set(val)
-		}
-	}
-	// I.S(c)
-	return
 }
 
 // GetNewContext returns a fresh new context

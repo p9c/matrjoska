@@ -50,7 +50,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -74,7 +74,6 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -87,31 +86,38 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable..is.expanded" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg" />
-    <property name="settings.editor.selected.configurable" value="goland.project.structure" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/podopts" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
+      <recent name="$PROJECT_DIR$/pkg/podstate" />
+      <recent name="$PROJECT_DIR$/pod/spec" />
+      <recent name="$PROJECT_DIR$/pkg/rpchelp" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="GoMoveDeclarationDialog.RECENT_KEY">
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
       <recent name="$PROJECT_DIR$/pkg" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/pod" />
       <recent name="$PROJECT_DIR$/pod/pod" />
-      <recent name="$PROJECT_DIR$/pkg/app" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg/rpchelp" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/pkg" />
-      <recent name="$PROJECT_DIR$/node/app" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/glom">
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod/pod">
     <configuration name="go build github.com/p9c/monorepo/gel/cmd/hello" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
@@ -130,15 +136,6 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build github.com/p9c/monorepo/gel/cmd/iconchooser/gen" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/gel/cmd/iconchooser/gen/main.go" />
-      <package value="github.com/p9c/monorepo/gel/cmd/iconchooser/gen" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build github.com/p9c/monorepo/glom" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
@@ -148,18 +145,37 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build github.com/p9c/monorepo/pkg/podopts/genopts" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="monorepo" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pkg/podopts/genopts/main.go" />
+      <package value="github.com/p9c/monorepo/pkg/podopts/genopts" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/p9c/monorepo/pod/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="monorepo" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pod/pod/main.go" />
+      <package value="github.com/p9c/monorepo/pod/pod" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/hello" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser/gen" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -189,5 +205,39 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="3806" height="471" key="GridCell.Tab.0.bottom" timestamp="1617747458473">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state width="3806" height="471" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458473" />
+    <state width="3806" height="471" key="GridCell.Tab.0.center" timestamp="1617747458472">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state width="3806" height="471" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
+    <state width="3806" height="471" key="GridCell.Tab.0.left" timestamp="1617747458472">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state width="3806" height="471" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
+    <state width="3806" height="471" key="GridCell.Tab.0.right" timestamp="1617747458472">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state width="3806" height="471" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
+    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617721688865">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor/0.34.3840.2126@0.34.3840.2126" timestamp="1617721688865" />
+    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1617747410346">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617747410346" />
+    <state x="1529" y="725" width="782" height="744" key="find.popup" timestamp="1617745097864">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state x="1529" y="725" width="782" height="744" key="find.popup/0.34.3840.2126@0.34.3840.2126" timestamp="1617745097864" />
+    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog" timestamp="1617746464981">
+      <screen x="0" y="34" width="3840" height="2126" />
+    </state>
+    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617746464981" />
   </component>
 </project>

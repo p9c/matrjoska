@@ -1,4 +1,4 @@
-package pod
+package podopts
 
 import (
 	"github.com/p9c/monorepo/pkg/appdata"
@@ -13,7 +13,6 @@ import (
 	"github.com/p9c/monorepo/pkg/opts/list"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/text"
-	"github.com/p9c/monorepo/pkg/podopts"
 	"github.com/p9c/monorepo/pkg/util/hdkeychain"
 	uberatomic "go.uber.org/atomic"
 	"math/rand"
@@ -87,12 +86,12 @@ func GetCommands() (c cmds.Commands) {
 }
 
 // GetConfigs returns configuration options for Parallelcoin Pod
-func GetConfigs() (c podopts.Configs) {
+func GetConfigs() (c Configs) {
 	network := "mainnet"
 	rand.Seed(time.Now().Unix())
 	var datadir = &atomic.Value{}
 	datadir.Store([]byte(appdata.Dir(constant.Name, false)))
-	c = podopts.Configs{
+	c = Configs{
 		"AddCheckpoints": list.New(meta.Data{
 			Aliases: []string{"AC"},
 			Group:   "debug",
