@@ -136,7 +136,7 @@ func (w *Window) Scale(s float32) *Window {
 	return w
 }
 
-// Open sets the window options and initialise the app.window
+// Open sets the window options and initialise the node.window
 func (w *Window) Open() (out *Window) {
 	if w.scale == nil {
 		w.Scale(1)

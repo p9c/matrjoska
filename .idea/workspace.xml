@@ -90,23 +90,24 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pod" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pod" />
+      <recent name="$PROJECT_DIR$/pod/pod" />
       <recent name="$PROJECT_DIR$/pkg" />
       <recent name="$PROJECT_DIR$/pkg/app" />
       <recent name="$PROJECT_DIR$/pkg/chainclient" />
-      <recent name="$PROJECT_DIR$/node/state" />
-      <recent name="$PROJECT_DIR$/pkg/pod" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pkg" />
+      <recent name="$PROJECT_DIR$/node/app" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser">
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/glom">
     <configuration name="go build github.com/p9c/monorepo/gel/cmd/hello" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
@@ -145,10 +146,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/hello" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser/gen" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
       </list>
     </recent_temporary>
   </component>

@@ -3,8 +3,8 @@ package main
 
 import (
 	"fmt"
-	app2 "github.com/p9c/monorepo/pkg/app"
 	"github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/monorepo/pod"
 	"go/format"
 	"io/ioutil"
 	"os"
@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	c := app2.GetConfigs()
+	c := pod.GetConfigs()
 	var o string
 	var cc podopts.ConfigSlice
 	for i := range c {

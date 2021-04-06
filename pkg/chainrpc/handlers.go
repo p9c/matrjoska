@@ -19,7 +19,7 @@ import (
 	
 	"github.com/p9c/monorepo/pkg/qu"
 	
-	"github.com/p9c/monorepo/node/mempool"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/btcjson"
 	"github.com/p9c/monorepo/pkg/chainhash"

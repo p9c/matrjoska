@@ -1,4 +1,4 @@
-package app
+package pod
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ import (
 	"github.com/p9c/monorepo/pkg/util/interrupt"
 )
 
-// getApp defines the pod app
+// getApp defines the pod node
 func getApp(cx *pod.State) (a *cli.App) {
 	return &cli.App{
 		Name:        "pod",

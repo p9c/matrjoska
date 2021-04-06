@@ -344,7 +344,7 @@ func (c *Config) UnmarshalJSON(data []byte) (e error) {
 func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []opt.Option, optVals []string, e error) {
 	// I.S(c.Commands)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
-	// arbitrary for the app
+	// arbitrary for the node
 	commands := make(map[int]cmds.Command)
 	var commandsStart, commandsEnd int
 	var found bool

@@ -1,4 +1,4 @@
-package app
+package pod
 
 import (
 	"encoding/json"

@@ -90,6 +90,8 @@ func (w *Window) App(size *atomic.Int32, activePage *atomic.String, Break1 float
 		Size:                size,
 		mainDirection:       l.Center + 1,
 		Break1:              Break1,
+		LogoClickable:       w.WidgetPool.GetClickable(),
+		sideBarList:         w.WidgetPool.GetList(),
 	}
 	a.SideBarSize = &unit.Value{}
 	return a
@@ -122,7 +124,7 @@ func (a *App) MainDirection() l.Direction {
 	return a.mainDirection
 }
 
-// Fn renders the app widget
+// Fn renders the node widget
 func (a *App) Fn() func(gtx l.Context) l.Dimensions {
 	return func(gtx l.Context) l.Dimensions {
 		return a.Fill(a.bodyBackground, l.Center, 0, 0,

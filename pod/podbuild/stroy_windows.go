@@ -8,8 +8,10 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"syscall"
 	"time"
 	
+	"github.com/davecgh/go-spew/spew"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
@@ -180,7 +182,7 @@ var (
 	GitCommit = "%s"
 	// BuildTime stores the time when the current binary was built
 	BuildTime = "%s"
-	// Tag lists the Tag on the build, adding a + to the newest Tag if the commit is
+	// Tag lists the Tag on the podbuild, adding a + to the newest Tag if the commit is
 	// not that commit
 	Tag = "%s"
 	// PathBase is the path base returned from runtime caller
@@ -326,7 +328,7 @@ var (
 
 func GetVersion() string {
 	return fmt.Sprintf(
-		"node information: repo: %s branch: %s commit: %s built"+
+		"app information: repo: %s branch: %s commit: %s built"+
 			": %s tag: %s...\n", URL, GitRef, GitCommit, BuildTime, Tag,
 	)
 }

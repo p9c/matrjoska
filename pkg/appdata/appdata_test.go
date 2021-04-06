@@ -39,7 +39,7 @@ func TestAppDataDir(t *testing.T) {
 		return
 	}
 	homeDir = usr.HomeDir
-	// Mac app data directory.
+	// Mac node data directory.
 	macAppData := filepath.Join(homeDir, "Library", "Application Support")
 	tests := []struct {
 		goos    string

@@ -196,7 +196,7 @@ func (w *Widget) PageTopBarButton(
 ) func(gtx l.Context) l.Dimensions {
 	return func(gtx l.Context) l.Dimensions {
 		background := "Transparent"
-		// background := app.TitleBarBackgroundGet()
+		// background := node.TitleBarBackgroundGet()
 		color := app.MenuColorGet()
 		
 		if app.ActivePageGet() == name {

@@ -341,7 +341,7 @@ func Get() string {
 
 func GetVersion() string {
 	return fmt.Sprintf(
-		"app information: repo: %s branch: %s commit: %s built"+
+		"node information: repo: %s branch: %s commit: %s built"+
 			": %s tag: %s...\n", URL, GitRef, GitCommit, BuildTime, Tag,
 	)
 }

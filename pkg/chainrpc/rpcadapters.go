@@ -4,7 +4,7 @@ import (
 	"github.com/p9c/monorepo/pkg/block"
 	"sync/atomic"
 	
-	"github.com/p9c/monorepo/node/mempool"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/chainhash"
 	"github.com/p9c/monorepo/pkg/netsync"

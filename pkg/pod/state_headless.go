@@ -37,7 +37,7 @@ type State struct {
 	KillAll   qu.C
 	// App is the heart of the application system, this creates and initialises it.
 	App *cli.App
-	// AppContext is the urfave/cli app context
+	// AppContext is the urfave/cli node context
 	AppContext *cli.Context
 	// Config is the pod all-in-one server config
 	Config *podopts.Config

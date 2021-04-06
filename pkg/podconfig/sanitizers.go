@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/p9c/monorepo/node/node"
 	"github.com/p9c/monorepo/pkg/amt"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
@@ -23,7 +24,6 @@ import (
 	
 	"github.com/p9c/monorepo/pkg/util/routeable"
 	
-	"github.com/p9c/monorepo/node"
 	"github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/connmgr"

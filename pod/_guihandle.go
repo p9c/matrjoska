@@ -1,6 +1,6 @@
 // +build !headless
 
-package app
+package pod
 
 import (
 	"fmt"

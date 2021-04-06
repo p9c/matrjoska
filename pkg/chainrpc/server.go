@@ -31,7 +31,7 @@ import (
 	
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/node/mempool"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/node/state"
 	"github.com/p9c/monorepo/pkg/addrmgr"
 	"github.com/p9c/monorepo/pkg/blockchain"

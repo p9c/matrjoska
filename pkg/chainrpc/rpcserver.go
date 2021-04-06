@@ -34,7 +34,7 @@ import (
 	"github.com/btcsuite/websocket"
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/node/mempool"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/node/state"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/btcjson"

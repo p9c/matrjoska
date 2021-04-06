@@ -1,4 +1,4 @@
-package app
+package pod
 
 import (
 	"github.com/p9c/monorepo/pkg/appdata"
@@ -28,7 +28,7 @@ func GetCommands() (c cmds.Commands) {
 	c = cmds.Commands{
 		{Name: "gui", Description:
 		"ParallelCoin GUI Wallet/Miner/Explorer",
-			Entrypoint: nodeHandle,
+			Entrypoint: func(c interface{}) error { return nil },
 		},
 		{Name: "version", Description:
 		"print version and exit",
