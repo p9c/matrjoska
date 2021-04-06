@@ -16,7 +16,7 @@ import (
 // API stores the channel, parameters and result values from calls via
 // the channel
 type API struct {
-	Ch interface{}
+	Ch     interface{}
 	Params interface{}
 	Result interface{}
 }

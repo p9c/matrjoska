@@ -9,23 +9,20 @@ import (
 	"strings"
 )
 
-// loadS256BytePoints decompresses and deserializes the pre-computed byte points
-// used to accelerate scalar base multiplication for the secp256k1 curve.
+// loadS256BytePoints decompresses and deserializes the pre-computed byte points used to accelerate scalar base
+// multiplication for the secp256k1 curve.
 //
-// This approach is used since it allows the compile to use significantly less
-// ram and be performed much faster than it is with hard-coding the final
-// in-memory data structure.
+// This approach is used since it allows the compile to use significantly less ram and be performed much faster than it
+// is with hard-coding the final in-memory data structure.
 //
-// At the same time, it is quite fast to generate the in-memory data structure
-// at init time with this approach versus computing the table.
+// At the same time, it is quite fast to generate the in-memory data structure at init time with this approach versus
+// computing the table.
 func loadS256BytePoints() (e error) {
 	// There will be no byte points to load when generating them.
 	bp := secp256k1BytePoints
 	// if len(bp) == 0 {
 	// 	return nil
-	// }
-	// Decompress the pre-computed table used to accelerate scalar base
-	// multiplication.
+	// } Decompress the pre-computed table used to accelerate scalar base multiplication.
 	decoder := base64.NewDecoder(base64.StdEncoding, strings.NewReader(bp))
 	var r io.ReadCloser
 	if r, e = zlib.NewReader(decoder); E.Chk(e) {

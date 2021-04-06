@@ -5,7 +5,7 @@ import (
 	"net/rpc"
 	"os"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/pipe/stdconn"
 )
@@ -36,7 +36,7 @@ func main() {
 	hello := NewHello()
 	stdConn := stdconn.New(os.Stdin, os.Stdout, hello.Quit)
 	e := rpc.Register(hello)
-	if e != nil  {
+	if e != nil {
 		printlnE(e)
 		return
 	}

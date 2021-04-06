@@ -3,21 +3,21 @@ package pod
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/log"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/opts"
 	"github.com/p9c/monorepo/pkg/pod"
 	"os"
 	
-	"github.com/p9c/monorepo/pkg/util/interrupt"
+	"github.com/p9c/monorepo/pkg/interrupt"
 	
 	"github.com/p9c/monorepo/pkg/podconfig"
 	
 	"github.com/p9c/monorepo/cmd/kopach"
 )
 
-// KopachHandle runs the kopach miner
+// kopachHandle runs the kopach miner
 func KopachHandle(ifc interface{}) (e error) {
 	var cx *pod.State
 	var ok bool

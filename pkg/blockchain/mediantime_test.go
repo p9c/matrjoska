@@ -54,7 +54,8 @@ func TestMedianTime(t *testing.T) {
 			if test.useDupID {
 				// Modify the offsets to ensure the final median would be different if the duplicate is added.
 				tOffset = tOffset.Add(time.Duration(offset) *
-					time.Second)
+					time.Second,
+				)
 				filter.AddTimeSample(id, tOffset)
 			}
 		}
@@ -66,7 +67,8 @@ func TestMedianTime(t *testing.T) {
 		if gotOffset != wantOffset && gotOffset != wantOffset2 {
 			t.Errorf("Offset #%d: unexpected offset -- got %v, "+
 				"want %v or %v", i, gotOffset, wantOffset,
-				wantOffset2)
+				wantOffset2,
+			)
 			continue
 		}
 		// Since it is possible that the time.Now call in AdjustedTime and the time.Now call here in the tests will be
@@ -78,7 +80,8 @@ func TestMedianTime(t *testing.T) {
 		if !adjustedTime.Equal(wantTime) && !adjustedTime.Equal(wantTime2) {
 			t.Errorf("AdjustedTime #%d: unexpected result -- got %v, "+
 				"want %v or %v", i, adjustedTime, wantTime,
-				wantTime2)
+				wantTime2,
+			)
 			continue
 		}
 	}

@@ -12,14 +12,15 @@ var mainNetGenesisHash = Hash([HashSize]byte{ // Make go vet happy.
 	0xc1, 0xa6, 0xa2, 0x46, 0xae, 0x63, 0xf7, 0x4f,
 	0x93, 0x1e, 0x83, 0x65, 0xe1, 0x5a, 0x08, 0x9c,
 	0x68, 0xd6, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00,
-})
+},
+)
 
 // TestHash tests the Hash API.
 func TestHash(t *testing.T) {
 	// Hash of block 234439.
 	blockHashStr := "14a0810ac680a3eb3f82edc878cea25ec41d6b790744e5daeef"
 	blockHash, e := NewHashFromStr(blockHashStr)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("NewHashFromStr: %v", e)
 	}
 	// Hash of block 234440 as byte slice.
@@ -30,32 +31,36 @@ func TestHash(t *testing.T) {
 		0xa6, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	}
 	hash, e := NewHash(buf)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("NewHash: unexpected error %v", e)
 	}
 	// Ensure proper size.
 	if len(hash) != HashSize {
 		t.Errorf("NewHash: hash length mismatch - got: %v, want: %v",
-			len(hash), HashSize)
+			len(hash), HashSize,
+		)
 	}
 	// Ensure contents match.
 	if !bytes.Equal(hash[:], buf) {
 		t.Errorf("NewHash: hash contents mismatch - got: %v, want: %v",
-			hash[:], buf)
+			hash[:], buf,
+		)
 	}
 	// Ensure contents of hash of block 234440 don't match 234439.
 	if hash.IsEqual(blockHash) {
 		t.Errorf("IsEqual: hash contents should not match - got: %v, want: %v",
-			hash, blockHash)
+			hash, blockHash,
+		)
 	}
 	// Set hash from byte slice and ensure contents match.
 	e = hash.SetBytes(blockHash.CloneBytes())
-	if e != nil  {
+	if e != nil {
 		t.Errorf("SetBytes: %v", e)
 	}
 	if !hash.IsEqual(blockHash) {
 		t.Errorf("IsEqual: hash contents mismatch - got: %v, want: %v",
-			hash, blockHash)
+			hash, blockHash,
+		)
 	}
 	// Ensure nil hashes are handled properly.
 	if !(*Hash)(nil).IsEqual(nil) {
@@ -66,13 +71,13 @@ func TestHash(t *testing.T) {
 	}
 	// Invalid size for SetBytes.
 	e = hash.SetBytes([]byte{0x00})
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("SetBytes: failed to received expected e - got: nil")
 	}
 	// Invalid size for NewHash.
 	invalidHash := make([]byte, HashSize+1)
 	_, e = NewHash(invalidHash)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("NewHash: failed to received expected e - got: nil")
 	}
 }
@@ -86,11 +91,13 @@ func TestHashString(t *testing.T) {
 		0x1f, 0x3f, 0x6c, 0x34, 0x32, 0x04, 0xb0, 0xd2,
 		0x78, 0xd4, 0xaa, 0xec, 0x1c, 0x0b, 0x20, 0xaa,
 		0x27, 0xba, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00,
-	})
+	},
+	)
 	hashStr := hash.String()
 	if hashStr != wantStr {
 		t.Errorf("String: wrong hash string - got %v, want %v",
-			hashStr, wantStr)
+			hashStr, wantStr,
+		)
 	}
 }
 
@@ -99,7 +106,7 @@ func TestNewHashFromStr(t *testing.T) {
 	tests := []struct {
 		in   string
 		want Hash
-		e  error
+		e    error
 	}{
 		// Genesis hash.
 		{
@@ -127,7 +134,8 @@ func TestNewHashFromStr(t *testing.T) {
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-			}),
+			},
+			),
 			nil,
 		},
 		// Block 203707 with stripped leading zeros.
@@ -138,7 +146,8 @@ func TestNewHashFromStr(t *testing.T) {
 				0xe7, 0x67, 0x13, 0xd0, 0x75, 0xd4, 0xa1, 0x0b,
 				0x79, 0x40, 0x08, 0xa6, 0x36, 0xac, 0xc2, 0x4b,
 				0x26, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-			}),
+			},
+			),
 			nil,
 		},
 		// Hash string that is too long.
@@ -162,8 +171,8 @@ func TestNewHashFromStr(t *testing.T) {
 		if e != test.e {
 			t.Errorf(unexpectedErrStr, i, e, test.e)
 			continue
-		} else if e != nil  {
-
+		} else if e != nil {
+			
 			// Got expected error. Move on to the next test.
 			continue
 		}

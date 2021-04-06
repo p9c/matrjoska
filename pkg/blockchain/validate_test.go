@@ -146,7 +146,7 @@ func TestCheckBlockSanity(t *testing.T) {
 		1,
 		block.WireBlock().Header.Timestamp.Truncate(time.Second).Add(-time.Second),
 	)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("CheckBlockSanity: %v", e)
 	}
 	// Ensure a block that has a timestamp with a precision higher than one second fails.
@@ -160,7 +160,7 @@ func TestCheckBlockSanity(t *testing.T) {
 		1,
 		block.WireBlock().Header.Timestamp.Truncate(time.Second).Add(-time.Second),
 	)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("CheckBlockSanity: error is nil when it shouldn't be")
 	}
 }
@@ -182,7 +182,7 @@ func TestCheckSerializedHeight(t *testing.T) {
 	tests := []struct {
 		sigScript  []byte // Serialized data
 		wantHeight int32  // Expected height
-		e        error  // Expected error type
+		e          error  // Expected error type
 	}{
 		// No serialized height length.
 		{[]byte{}, 0, missingHeightError},

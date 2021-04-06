@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
+	
 	"github.com/davecgh/go-spew/spew"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // mainNetGenesisHash is the hash of the first block in the block chain for the main network (genesis block).
@@ -19,7 +19,8 @@ var mainNetGenesisHash = chainhash.Hash([chainhash.HashSize]byte{
 	0xc1, 0xa6, 0xa2, 0x46, 0xae, 0x63, 0xf7, 0x4f,
 	0x93, 0x1e, 0x83, 0x65, 0xe1, 0x5a, 0x08, 0x9c,
 	0x68, 0xd6, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00,
-})
+},
+)
 
 // mainNetGenesisMerkleRoot is the hash of the first transaction in the genesis block for the main network.
 var mainNetGenesisMerkleRoot = chainhash.Hash([chainhash.HashSize]byte{
@@ -27,11 +28,12 @@ var mainNetGenesisMerkleRoot = chainhash.Hash([chainhash.HashSize]byte{
 	0x7a, 0xc7, 0x2c, 0x3e, 0x67, 0x76, 0x8f, 0x61,
 	0x7f, 0xc8, 0x1b, 0xc3, 0x88, 0x8a, 0x51, 0x32,
 	0x3a, 0x9f, 0xb8, 0xaa, 0x4b, 0x1e, 0x5e, 0x4a,
-})
+},
+)
 
 // fakeRandReader implements the io.Reader interface and is used to force errors in the RandomUint64 function.
 type fakeRandReader struct {
-	n   int
+	n int
 	e error
 }
 
@@ -197,7 +199,8 @@ func TestElementWireErrors(t *testing.T) {
 				0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10,
 				0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
 				0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20,
-			}),
+			},
+			),
 			0, io.ErrShortWrite, io.EOF,
 		},
 		{SFNodeNetwork, 0, io.ErrShortWrite, io.EOF},
@@ -211,7 +214,8 @@ func TestElementWireErrors(t *testing.T) {
 		e := writeElement(w, test.in)
 		if e != test.writeErr {
 			t.Errorf("writeElement #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// Decode from wire format.
@@ -223,7 +227,8 @@ func TestElementWireErrors(t *testing.T) {
 		e = readElement(r, val)
 		if e != test.readErr {
 			t.Errorf("readElement #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 	}
@@ -269,25 +274,27 @@ func TestVarIntWire(t *testing.T) {
 		// Encode to wire format.
 		var buf bytes.Buffer
 		e := WriteVarInt(&buf, test.pver, test.in)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("WriteVarInt #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("WriteVarInt #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode from wire format.
 		rbuf := bytes.NewReader(test.buf)
 		val, e := ReadVarInt(rbuf, test.pver)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("ReadVarInt #%d error %v", i, e)
 			continue
 		}
 		if val != test.out {
 			t.Errorf("ReadVarInt #%d\n got: %d want: %d", i,
-				val, test.out)
+				val, test.out,
+			)
 			continue
 		}
 	}
@@ -321,7 +328,8 @@ func TestVarIntWireErrors(t *testing.T) {
 		e := WriteVarInt(w, test.pver, test.in)
 		if e != test.writeErr {
 			t.Errorf("WriteVarInt #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// Decode from wire format.
@@ -329,7 +337,8 @@ func TestVarIntWireErrors(t *testing.T) {
 		_, e = ReadVarInt(r, test.pver)
 		if e != test.readErr {
 			t.Errorf("ReadVarInt #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 	}
@@ -377,12 +386,14 @@ func TestVarIntNonCanonical(t *testing.T) {
 		val, e := ReadVarInt(rbuf, test.pver)
 		if _, ok := e.(*MessageError); !ok {
 			t.Errorf("ReadVarInt #%d (%s) unexpected error %v", i,
-				test.name, e)
+				test.name, e,
+			)
 			continue
 		}
 		if val != 0 {
 			t.Errorf("ReadVarInt #%d (%s)\n got: %d want: 0", i,
-				test.name, val)
+				test.name, val,
+			)
 			continue
 		}
 	}
@@ -416,7 +427,8 @@ func TestVarIntSerializeSize(t *testing.T) {
 		serializedSize := VarIntSerializeSize(test.val)
 		if serializedSize != test.size {
 			t.Errorf("VarIntSerializeSize #%d got: %d, want: %d", i,
-				serializedSize, test.size)
+				serializedSize, test.size,
+			)
 			continue
 		}
 	}
@@ -446,25 +458,27 @@ func TestVarStringWire(t *testing.T) {
 		// Encode to wire format.
 		var buf bytes.Buffer
 		e := WriteVarString(&buf, test.pver, test.in)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("WriteVarString #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("WriteVarString #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode from wire format.
 		rbuf := bytes.NewReader(test.buf)
 		val, e := ReadVarString(rbuf, test.pver)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("ReadVarString #%d error %v", i, e)
 			continue
 		}
 		if val != test.out {
 			t.Errorf("ReadVarString #%d\n got: %s want: %s", i,
-				val, test.out)
+				val, test.out,
+			)
 			continue
 		}
 	}
@@ -498,7 +512,8 @@ func TestVarStringWireErrors(t *testing.T) {
 		e := WriteVarString(w, test.pver, test.in)
 		if e != test.writeErr {
 			t.Errorf("WriteVarString #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// Decode from wire format.
@@ -506,7 +521,8 @@ func TestVarStringWireErrors(t *testing.T) {
 		_, e = ReadVarString(r, test.pver)
 		if e != test.readErr {
 			t.Errorf("ReadVarString #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 	}
@@ -520,12 +536,14 @@ func TestVarStringOverflowErrors(t *testing.T) {
 	tests := []struct {
 		buf  []byte // Wire encoding
 		pver uint32 // Protocol version for wire encoding
-		e  error  // Expected error
+		e    error  // Expected error
 	}{
 		{[]byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff},
-			pver, &MessageError{}},
+			pver, &MessageError{},
+		},
 		{[]byte{0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01},
-			pver, &MessageError{}},
+			pver, &MessageError{},
+		},
 	}
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
@@ -534,7 +552,8 @@ func TestVarStringOverflowErrors(t *testing.T) {
 		_, e := ReadVarString(rbuf, test.pver)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.e) {
 			t.Errorf("ReadVarString #%d wrong error got: %v, "+
-				"want: %v", i, e, reflect.TypeOf(test.e))
+				"want: %v", i, e, reflect.TypeOf(test.e),
+			)
 			continue
 		}
 	}
@@ -563,26 +582,29 @@ func TestVarBytesWire(t *testing.T) {
 		// Encode to wire format.
 		var buf bytes.Buffer
 		e := WriteVarBytes(&buf, test.pver, test.in)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("WriteVarBytes #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("WriteVarBytes #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode from wire format.
 		rbuf := bytes.NewReader(test.buf)
 		val, e := ReadVarBytes(rbuf, test.pver, MaxMessagePayload,
-			"test payload")
-		if e != nil  {
+			"test payload",
+		)
+		if e != nil {
 			t.Errorf("ReadVarBytes #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("ReadVarBytes #%d\n got: %s want: %s", i,
-				val, test.buf)
+				val, test.buf,
+			)
 			continue
 		}
 	}
@@ -617,16 +639,19 @@ func TestVarBytesWireErrors(t *testing.T) {
 		e := WriteVarBytes(w, test.pver, test.in)
 		if e != test.writeErr {
 			t.Errorf("WriteVarBytes #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// Decode from wire format.
 		r := newFixedReader(test.max, test.buf)
 		_, e = ReadVarBytes(r, test.pver, MaxMessagePayload,
-			"test payload")
+			"test payload",
+		)
 		if e != test.readErr {
 			t.Errorf("ReadVarBytes #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 	}
@@ -640,22 +665,26 @@ func TestVarBytesOverflowErrors(t *testing.T) {
 	tests := []struct {
 		buf  []byte // Wire encoding
 		pver uint32 // Protocol version for wire encoding
-		e  error  // Expected error
+		e    error  // Expected error
 	}{
 		{[]byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff},
-			pver, &MessageError{}},
+			pver, &MessageError{},
+		},
 		{[]byte{0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01},
-			pver, &MessageError{}},
+			pver, &MessageError{},
+		},
 	}
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		// Decode from wire format.
 		rbuf := bytes.NewReader(test.buf)
 		_, e := ReadVarBytes(rbuf, test.pver, MaxMessagePayload,
-			"test payload")
+			"test payload",
+		)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.e) {
 			t.Errorf("ReadVarBytes #%d wrong error got: %v, "+
-				"want: %v", i, e, reflect.TypeOf(test.e))
+				"want: %v", i, e, reflect.TypeOf(test.e),
+			)
 			continue
 		}
 	}
@@ -675,9 +704,10 @@ func TestRandomUint64(t *testing.T) {
 	numHits := 0
 	for i := 0; i < tries; i++ {
 		nonce, e := RandomUint64()
-		if e != nil  {
+		if e != nil {
 			t.Errorf("RandomUint64 iteration %d failed - e %v",
-				i, e)
+				i, e,
+			)
 			return
 		}
 		if nonce < watermark {
@@ -686,7 +716,8 @@ func TestRandomUint64(t *testing.T) {
 		if numHits > maxHits {
 			str := fmt.Sprintf(badRNG, numHits, watermark, tries, maxHits)
 			t.Errorf("Random Uint64 iteration %d failed - %v %v", i,
-				str, numHits)
+				str, numHits,
+			)
 			return
 		}
 	}
@@ -699,7 +730,8 @@ func TestRandomUint64Errors(t *testing.T) {
 	nonce, e := randomUint64(fr)
 	if e != io.ErrUnexpectedEOF {
 		t.Errorf("Error not expected value of %v [%v]",
-			io.ErrUnexpectedEOF, e)
+			io.ErrUnexpectedEOF, e,
+		)
 	}
 	if nonce != 0 {
 		t.Errorf("Nonce is not 0 [%v]", nonce)

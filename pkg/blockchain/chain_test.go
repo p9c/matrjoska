@@ -612,9 +612,11 @@ func TestLocateInventory(t *testing.T) {
 			locator:  unrelatedView.BlockLocator(nil),
 			hashStop: chainhash.Hash{},
 			headers: nodeHeaders(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 			hashes: nodeHashes(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 		},
 		{
 			// Locators from remote for second block in main chain and no stop hash, but with an overridden max limit.
@@ -634,9 +636,11 @@ func TestLocateInventory(t *testing.T) {
 			locator:  locatorHashes(branch1Nodes, 1),
 			hashStop: chainhash.Hash{},
 			headers: nodeHeaders(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 			hashes: nodeHashes(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 		},
 		{
 			// Poorly formed locator. Locator from remote that only includes multiple blocks on a side chain the local
@@ -647,9 +651,11 @@ func TestLocateInventory(t *testing.T) {
 			locator:  locatorHashes(branch1Nodes, 1),
 			hashStop: chainhash.Hash{},
 			headers: nodeHeaders(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 			hashes: nodeHashes(branch0Nodes, 0, 1, 2, 3, 4, 5, 6,
-				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+			),
 		},
 		{
 			// Poorly formed locator. Locator from remote that only includes multiple blocks on a side chain the local
@@ -670,15 +676,18 @@ func TestLocateInventory(t *testing.T) {
 			// Need to use the unexported function to override the max allowed for headers.
 			chain.ChainLock.RLock()
 			headers = chain.locateHeaders(test.locator,
-				&test.hashStop, test.maxAllowed)
+				&test.hashStop, test.maxAllowed,
+			)
 			chain.ChainLock.RUnlock()
 		} else {
 			headers = chain.LocateHeaders(test.locator,
-				&test.hashStop)
+				&test.hashStop,
+			)
 		}
 		if !reflect.DeepEqual(headers, test.headers) {
 			t.Errorf("%s: unxpected headers -- got %v, want %v",
-				test.name, headers, test.headers)
+				test.name, headers, test.headers,
+			)
 			continue
 		}
 		// Ensure the expected block hashes are located.
@@ -687,10 +696,12 @@ func TestLocateInventory(t *testing.T) {
 			maxAllowed = test.maxAllowed
 		}
 		hashes := chain.LocateBlocks(test.locator, &test.hashStop,
-			maxAllowed)
+			maxAllowed,
+		)
 		if !reflect.DeepEqual(hashes, test.hashes) {
 			t.Errorf("%s: unxpected hashes -- got %v, want %v",
-				test.name, hashes, test.hashes)
+				test.name, hashes, test.hashes,
+			)
 			continue
 		}
 	}
@@ -749,7 +760,8 @@ func TestHeightToHashRange(t *testing.T) {
 			endHash:     branch1Nodes[1].hash,
 			maxResults:  10,
 			hashes: append(nodeHashes(branch0Nodes, 14),
-				nodeHashes(branch1Nodes, 0, 1)...),
+				nodeHashes(branch1Nodes, 0, 1)...,
+			),
 		},
 		{
 			name:        "invalid start height",
@@ -775,8 +787,9 @@ func TestHeightToHashRange(t *testing.T) {
 	}
 	for _, test := range tests {
 		hashes, e := chain.HeightToHashRange(test.startHeight, &test.endHash,
-			test.maxResults)
-		if e != nil  {
+			test.maxResults,
+		)
+		if e != nil {
 			if !test.expectError {
 				t.Errorf("%s: unexpected error: %v", test.name, e)
 			}
@@ -784,7 +797,8 @@ func TestHeightToHashRange(t *testing.T) {
 		}
 		if !reflect.DeepEqual(hashes, test.hashes) {
 			t.Errorf("%s: unxpected hashes -- got %v, want %v",
-				test.name, hashes, test.hashes)
+				test.name, hashes, test.hashes,
+			)
 		}
 	}
 }
@@ -828,7 +842,8 @@ func TestIntervalBlockHashes(t *testing.T) {
 			endHash:  branch1Nodes[1].hash,
 			interval: 8,
 			hashes: append(nodeHashes(branch0Nodes, 7),
-				nodeHashes(branch1Nodes, 0)...),
+				nodeHashes(branch1Nodes, 0)...,
+			),
 		},
 		{
 			name:     "no results",
@@ -845,7 +860,7 @@ func TestIntervalBlockHashes(t *testing.T) {
 	}
 	for _, test := range tests {
 		hashes, e := chain.IntervalBlockHashes(&test.endHash, test.interval)
-		if e != nil  {
+		if e != nil {
 			if !test.expectError {
 				t.Errorf("%s: unexpected error: %v", test.name, e)
 			}
@@ -853,7 +868,8 @@ func TestIntervalBlockHashes(t *testing.T) {
 		}
 		if !reflect.DeepEqual(hashes, test.hashes) {
 			t.Errorf("%s: unxpected hashes -- got %v, want %v",
-				test.name, hashes, test.hashes)
+				test.name, hashes, test.hashes,
+			)
 		}
 	}
 }

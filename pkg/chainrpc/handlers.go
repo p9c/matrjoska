@@ -19,15 +19,15 @@ import (
 	
 	"github.com/p9c/monorepo/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/btcjson"
 	"github.com/p9c/monorepo/pkg/chainhash"
 	"github.com/p9c/monorepo/pkg/database"
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/monorepo/pkg/interrupt"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/txscript"
 	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/util/interrupt"
 	"github.com/p9c/monorepo/pkg/wire"
 )
 
@@ -2877,8 +2877,8 @@ func HandleVerifyMessage(s *Server, cmd interface{}, closeChan qu.C) (interface{
 		
 	}
 	expectedMessageHash := chainhash.DoubleHashB(buf.Bytes())
-	pk, wasCompressed, e := ec.RecoverCompact(
-		ec.S256(), sig,
+	pk, wasCompressed, e := ecc.RecoverCompact(
+		ecc.S256(), sig,
 		expectedMessageHash,
 	)
 	if e != nil {

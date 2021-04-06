@@ -14,7 +14,8 @@ type MsgFilterClear struct{}
 func (msg *MsgFilterClear) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (e error) {
 	if pver < BIP0037Version {
 		str := fmt.Sprintf("filterclear message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgFilterClear.BtcDecode", str)
 	}
 	return nil
@@ -25,7 +26,8 @@ func (msg *MsgFilterClear) BtcDecode(r io.Reader, pver uint32, enc MessageEncodi
 func (msg *MsgFilterClear) BtcEncode(w io.Writer, pver uint32, enc MessageEncoding) (e error) {
 	if pver < BIP0037Version {
 		str := fmt.Sprintf("filterclear message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgFilterClear.BtcEncode", str)
 	}
 	return nil

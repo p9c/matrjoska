@@ -6,18 +6,17 @@ import (
 	"github.com/p9c/monorepo/pkg/btcaddr"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/monorepo/pkg/ecc"
 	"github.com/p9c/monorepo/pkg/wire"
 )
 
-// RawTxInWitnessSignature returns the serialized ECDSA signature for the input
-// idx of the given transaction, with the hashType appended to it. This function
-// is identical to RawTxInSignature, however the signature generated signs a new
+// RawTxInWitnessSignature returns the serialized ECDSA signature for the input idx of the given transaction, with the
+// hashType appended to it. This function is identical to RawTxInSignature, however the signature generated signs a new
 // sighash digest defined in BIP0143.
 func RawTxInWitnessSignature(
 	tx *wire.MsgTx, sigHashes *TxSigHashes, idx int,
 	amt int64, subScript []byte, hashType SigHashType,
-	key *ec.PrivateKey,
+	key *ecc.PrivateKey,
 ) ([]byte, error) {
 	parsedScript, e := parseScript(subScript)
 	if e != nil {
@@ -37,14 +36,12 @@ func RawTxInWitnessSignature(
 	return append(signature.Serialize(), byte(hashType)), nil
 }
 
-// WitnessSignature creates an input witness stack for tx to spend DUO sent from
-// a previous output to the owner of privKey using the p2wkh script template.
-// The passed transaction must contain all the inputs and outputs as dictated by
-// the passed hashType. The signature generated observes the new transaction
-// digest algorithm defined within BIP0143.
+// WitnessSignature creates an input witness stack for tx to spend DUO sent from a previous output to the owner of
+// privKey using the p2wkh script template. The passed transaction must contain all the inputs and outputs as dictated
+// by the passed hashType. The signature generated observes the new transaction digest algorithm defined within BIP0143.
 func WitnessSignature(
 	tx *wire.MsgTx, sigHashes *TxSigHashes, idx int, amt int64,
-	subscript []byte, hashType SigHashType, privKey *ec.PrivateKey,
+	subscript []byte, hashType SigHashType, privKey *ecc.PrivateKey,
 	compress bool,
 ) (wire.TxWitness, error) {
 	sig, e := RawTxInWitnessSignature(
@@ -54,15 +51,14 @@ func WitnessSignature(
 	if e != nil {
 		return nil, e
 	}
-	pk := (*ec.PublicKey)(&privKey.PublicKey)
+	pk := (*ecc.PublicKey)(&privKey.PublicKey)
 	var pkData []byte
 	if compress {
 		pkData = pk.SerializeCompressed()
 	} else {
 		pkData = pk.SerializeUncompressed()
 	}
-	// A witness script is actually a stack, so we return an array of byte slices
-	// here, rather than a single byte slice.
+	// A witness script is actually a stack, so we return an array of byte slices here, rather than a single byte slice.
 	return wire.TxWitness{sig, pkData}, nil
 }
 
@@ -70,7 +66,7 @@ func WitnessSignature(
 // appended to it.
 func RawTxInSignature(
 	tx *wire.MsgTx, idx int, subScript []byte,
-	hashType SigHashType, key *ec.PrivateKey,
+	hashType SigHashType, key *ecc.PrivateKey,
 ) ([]byte, error) {
 	hash, e := CalcSignatureHash(subScript, hashType, tx, idx)
 	if e != nil {
@@ -90,14 +86,14 @@ func RawTxInSignature(
 // based on compress. This format must match the same format used to generate the payment address, or the script
 // validation will fail.
 func SignatureScript(
-	tx *wire.MsgTx, idx int, subscript []byte, hashType SigHashType, privKey *ec.PrivateKey,
+	tx *wire.MsgTx, idx int, subscript []byte, hashType SigHashType, privKey *ecc.PrivateKey,
 	compress bool,
 ) ([]byte, error) {
 	sig, e := RawTxInSignature(tx, idx, subscript, hashType, privKey)
 	if e != nil {
 		return nil, e
 	}
-	pk := (*ec.PublicKey)(&privKey.PublicKey)
+	pk := (*ecc.PublicKey)(&privKey.PublicKey)
 	var pkData []byte
 	if compress {
 		pkData = pk.SerializeCompressed()
@@ -108,7 +104,7 @@ func SignatureScript(
 }
 
 func p2pkSignatureScript(
-	tx *wire.MsgTx, idx int, subScript []byte, hashType SigHashType, privKey *ec.PrivateKey,
+	tx *wire.MsgTx, idx int, subScript []byte, hashType SigHashType, privKey *ecc.PrivateKey,
 ) ([]byte, error) {
 	sig, e := RawTxInSignature(tx, idx, subScript, hashType, privKey)
 	if e != nil {
@@ -164,7 +160,7 @@ func sign(
 	switch class {
 	case PubKeyTy:
 		// look up key for address
-		var key *ec.PrivateKey
+		var key *ecc.PrivateKey
 		key, _, e = kdb.GetKey(addresses[0])
 		if e != nil {
 			E.Ln(e)
@@ -315,7 +311,7 @@ sigLoop:
 		}
 		tSig := sig[:len(sig)-1]
 		hashType := SigHashType(sig[len(sig)-1])
-		pSig, e := ec.ParseDERSignature(tSig, ec.S256())
+		pSig, e := ecc.ParseDERSignature(tSig, ecc.S256())
 		if e != nil {
 			continue
 		}
@@ -364,15 +360,15 @@ sigLoop:
 // KeyDB is an interface type provided to SignTxOutput, it encapsulates any user state required to get the private keys
 // for an address.
 type KeyDB interface {
-	GetKey(btcaddr.Address) (*ec.PrivateKey, bool, error)
+	GetKey(btcaddr.Address) (*ecc.PrivateKey, bool, error)
 }
 
 // KeyClosure implements KeyDB with a closure.
-type KeyClosure func(btcaddr.Address) (*ec.PrivateKey, bool, error)
+type KeyClosure func(btcaddr.Address) (*ecc.PrivateKey, bool, error)
 
 // GetKey implements KeyDB by returning the result of calling the closure.
 func (kc KeyClosure) GetKey(address btcaddr.Address) (
-	*ec.PrivateKey,
+	*ecc.PrivateKey,
 	bool, error,
 ) {
 	return kc(address)

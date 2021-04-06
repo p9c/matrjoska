@@ -6,7 +6,6 @@ import (
 	"github.com/p9c/monorepo/node/node"
 	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
-	opts "github.com/p9c/monorepo/pkg/podopts"
 	
 	"github.com/p9c/monorepo/cmd/walletmain"
 	"github.com/p9c/monorepo/pkg/apputil"
@@ -22,7 +21,7 @@ func nodeHandle(ifc interface{}) (e error) {
 	}
 	log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
 	log.App = "  node"
-	opts.F.Ln("running node handler")
+	F.Ln("running node handler")
 	podconfig.Configure(cx, true)
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
@@ -38,7 +37,7 @@ func nodeHandle(ifc interface{}) (e error) {
 	// Perform service command and exit if specified. Invalid service commands show an appropriate error. Only runs
 	// on Windows since the runServiceCommand function will be nil when not on Windows.
 	if serviceOpts.ServiceCommand != "" && runServiceCommand != nil {
-		if e = runServiceCommand(serviceOpts.ServiceCommand); opts.E.Chk(e) {
+		if e = runServiceCommand(serviceOpts.ServiceCommand); E.Chk(e) {
 			return e
 		}
 		return nil
@@ -51,26 +50,26 @@ func nodeHandle(ifc interface{}) (e error) {
 			apputil.FileExists(cx.Config.RPCKey.V()) &&
 			apputil.FileExists(cx.Config.CAFile.V()) {
 		} else {
-			if _, e = walletmain.GenerateRPCKeyPair(cx.Config, true); opts.E.Chk(e) {
+			if _, e = walletmain.GenerateRPCKeyPair(cx.Config, true); E.Chk(e) {
 			}
 		}
 	}
 	// if cx.Config.NodeOff.False() {
 	// go func() {
-	if e := node.Main(cx); opts.E.Chk(e) {
-		opts.E.Ln("error starting node ", e)
+	if e := node.Main(cx); E.Chk(e) {
+		E.Ln("error starting node ", e)
 	}
 	// }()
-	opts.I.Ln("starting node")
+	I.Ln("starting node")
 	if cx.Config.DisableRPC.False() {
 		cx.RPCServer = <-cx.NodeChan
 		cx.NodeReady.Q()
 		cx.Node.Store(true)
-		opts.I.Ln("node started")
+		I.Ln("node started")
 	}
 	// }
 	cx.WaitWait()
-	opts.I.Ln("node is now fully shut down")
+	I.Ln("node is now fully shut down")
 	cx.WaitGroup.Wait()
 	<-cx.KillAll
 	return nil

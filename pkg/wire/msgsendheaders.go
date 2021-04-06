@@ -15,7 +15,8 @@ type MsgSendHeaders struct{}
 func (msg *MsgSendHeaders) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (e error) {
 	if pver < SendHeadersVersion {
 		str := fmt.Sprintf("sendheaders message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgSendHeaders.BtcDecode", str)
 	}
 	return nil
@@ -26,7 +27,8 @@ func (msg *MsgSendHeaders) BtcDecode(r io.Reader, pver uint32, enc MessageEncodi
 func (msg *MsgSendHeaders) BtcEncode(w io.Writer, pver uint32, enc MessageEncoding) (e error) {
 	if pver < SendHeadersVersion {
 		str := fmt.Sprintf("sendheaders message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgSendHeaders.BtcEncode", str)
 	}
 	return nil

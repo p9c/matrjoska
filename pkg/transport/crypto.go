@@ -13,7 +13,7 @@ import (
 func DecryptMessage(creator string, ciph cipher.AEAD, data []byte) (msg []byte, e error) {
 	nonceSize := ciph.NonceSize()
 	msg, e = ciph.Open(nil, data[:nonceSize], data[nonceSize:], nil)
-	if e != nil  {
+	if e != nil {
 		e = errors.New(fmt.Sprintf("%s %s", creator, e.Error()))
 	} else {
 		D.Ln("decrypted message", hex.EncodeToString(data[:nonceSize]))

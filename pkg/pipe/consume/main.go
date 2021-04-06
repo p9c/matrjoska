@@ -2,10 +2,10 @@ package consume
 
 import (
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pipe"
 	"github.com/p9c/monorepo/pkg/pipe/stdconn/worker"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 )
 
 // FilterNone is a filter that doesn't

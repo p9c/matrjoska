@@ -22,7 +22,9 @@ var stringTests = []struct {
 	{"abc", "ZiCa"},
 	{"1234598760", "3mJr7AoUXx2Wqd"},
 	{"abcdefghijklmnopqrstuvwxyz", "3yxU3u1igY8WkgtjK92fbJQCd4BZiiT1v25f"},
-	{"00000000000000000000000000000000000000000000000000000000000000", "3sN2THZeE9Eh9eYrwkvZqNstbHGvrxSAM7gXUXvyFQP8XvQLUqNCS27icwUeDT7ckHm4FUHM2mTVh1vbLmk7y"},
+	{"00000000000000000000000000000000000000000000000000000000000000",
+		"3sN2THZeE9Eh9eYrwkvZqNstbHGvrxSAM7gXUXvyFQP8XvQLUqNCS27icwUeDT7ckHm4FUHM2mTVh1vbLmk7y",
+	},
 }
 var invalidStringTests = []struct {
 	in  string
@@ -62,20 +64,22 @@ func TestBase58(t *testing.T) {
 		tmp := []byte(test.in)
 		if res := base58.Encode(tmp); res != test.out {
 			t.Errorf("Encode test #%d failed: got: %s want: %s",
-				x, res, test.out)
+				x, res, test.out,
+			)
 			continue
 		}
 	}
 	// Decode tests
 	for x, test := range hexTests {
 		b, e := hex.DecodeString(test.in)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("hex.DecodeString failed failed #%d: got: %s", x, test.in)
 			continue
 		}
 		if res := base58.Decode(test.out); !bytes.Equal(res, b) {
 			t.Errorf("Decode test #%d failed: got: %q want: %q",
-				x, res, test.in)
+				x, res, test.in,
+			)
 			continue
 		}
 	}
@@ -83,7 +87,8 @@ func TestBase58(t *testing.T) {
 	for x, test := range invalidStringTests {
 		if res := base58.Decode(test.in); string(res) != test.out {
 			t.Errorf("Decode invalidString test #%d failed: got: %q want: %q",
-				x, res, test.out)
+				x, res, test.out,
+			)
 			continue
 		}
 	}

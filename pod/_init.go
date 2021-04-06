@@ -2,7 +2,7 @@ package pod
 
 import (
 	"github.com/gookit/color"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/opts"
 	"github.com/p9c/monorepo/pkg/pod"
 	"os"

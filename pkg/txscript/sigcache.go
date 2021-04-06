@@ -4,7 +4,7 @@ import (
 	"sync"
 	
 	"github.com/p9c/monorepo/pkg/chainhash"
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/monorepo/pkg/ecc"
 )
 
 // sigCacheEntry represents an entry in the SigCache. Entries within the SigCache are keyed according to the sigHash of
@@ -12,8 +12,8 @@ import (
 // and public key will be executed in order to ensure a complete match. In the occasion that two sigHashes collide, the
 // newer sigHash will simply overwrite the existing entry.
 type sigCacheEntry struct {
-	sig    *ec.Signature
-	pubKey *ec.PublicKey
+	sig    *ecc.Signature
+	pubKey *ecc.PublicKey
 }
 
 // SigCache implements an ECDSA signature verification cache with a randomized entry eviction policy. Only valid
@@ -42,7 +42,7 @@ func NewSigCache(maxEntries uint) *SigCache {
 // Exists returns true if an existing entry of 'sig' over 'sigHash' for public key 'pubKey' is found within the
 // SigCache. Otherwise, false is returned. NOTE: This function is safe for concurrent access. Readers won't be blocked
 // unless there exists a writer, adding an entry to the SigCache.
-func (s *SigCache) Exists(sigHash chainhash.Hash, sig *ec.Signature, pubKey *ec.PublicKey) bool {
+func (s *SigCache) Exists(sigHash chainhash.Hash, sig *ecc.Signature, pubKey *ecc.PublicKey) bool {
 	s.RLock()
 	entry, ok := s.validSigs[sigHash]
 	s.RUnlock()
@@ -53,7 +53,7 @@ func (s *SigCache) Exists(sigHash chainhash.Hash, sig *ec.Signature, pubKey *ec.
 // the SigCache is 'full', an existing entry is randomly chosen to be evicted in order to make space for the new entry.
 // NOTE: This function is safe for concurrent access. Writers will block simultaneous readers until function execution
 // has concluded.
-func (s *SigCache) Add(sigHash chainhash.Hash, sig *ec.Signature, pubKey *ec.PublicKey) {
+func (s *SigCache) Add(sigHash chainhash.Hash, sig *ecc.Signature, pubKey *ecc.PublicKey) {
 	s.Lock()
 	defer s.Unlock()
 	if s.maxEntries <= 0 {

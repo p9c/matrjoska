@@ -4,9 +4,9 @@ import (
 	"github.com/p9c/monorepo/pkg/block"
 	"sync/atomic"
 	
-	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/netsync"
 	"github.com/p9c/monorepo/pkg/peer"
 	"github.com/p9c/monorepo/pkg/wire"
@@ -190,7 +190,8 @@ func (cm *ConnManager) BroadcastMessage(msg wire.Message) {
 //
 // This function is safe for concurrent access and is part of the RPCServerConnManager interface implementation.
 func (cm *ConnManager) AddRebroadcastInventory(iv *wire.InvVect,
-	data interface{}) {
+	data interface{},
+) {
 	cm.server.AddRebroadcastInventory(iv, data)
 }
 
@@ -220,7 +221,8 @@ func (b *SyncManager) IsCurrent() bool {
 //
 // This function is safe for concurrent access and is part of the RPCServerSyncManager interface implementation.
 func (b *SyncManager) SubmitBlock(block *block.Block,
-	flags blockchain.BehaviorFlags) (bool, error) {
+	flags blockchain.BehaviorFlags,
+) (bool, error) {
 	return b.syncMgr.ProcessBlock(block, flags)
 }
 
@@ -244,6 +246,7 @@ func (b *SyncManager) SyncPeerID() int32 {
 //
 // This function is safe for concurrent access and is part of the RPCServerSyncManager interface implementation.
 func (b *SyncManager) LocateHeaders(locators []*chainhash.Hash,
-	hashStop *chainhash.Hash) []wire.BlockHeader {
+	hashStop *chainhash.Hash,
+) []wire.BlockHeader {
 	return b.server.Chain.LocateHeaders(locators, hashStop)
 }

@@ -15,7 +15,8 @@ type MsgMemPool struct{}
 func (msg *MsgMemPool) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (e error) {
 	if pver < BIP0035Version {
 		str := fmt.Sprintf("mempool message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgMemPool.BtcDecode", str)
 	}
 	return nil
@@ -26,7 +27,8 @@ func (msg *MsgMemPool) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) 
 func (msg *MsgMemPool) BtcEncode(w io.Writer, pver uint32, enc MessageEncoding) (e error) {
 	if pver < BIP0035Version {
 		str := fmt.Sprintf("mempool message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgMemPool.BtcEncode", str)
 	}
 	return nil

@@ -35,7 +35,8 @@ func TestTimeSorter(t *testing.T) {
 		sort.Sort(timeSorter(result))
 		if !reflect.DeepEqual(result, test.want) {
 			t.Errorf("timeSorter #%d got %v want %v", i, result,
-				test.want)
+				test.want,
+			)
 			continue
 		}
 	}

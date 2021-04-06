@@ -5,13 +5,13 @@ import (
 	"testing"
 	
 	"github.com/p9c/monorepo/pkg/chainhash"
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/monorepo/pkg/ecc"
 )
 
 // genRandomSig returns a random message, a signature of the message under the public key and the public key. This
 // function is used to generate randomized test data.
-func genRandomSig() (*chainhash.Hash, *ec.Signature, *ec.PublicKey, error) {
-	privKey, e := ec.NewPrivateKey(ec.S256())
+func genRandomSig() (*chainhash.Hash, *ecc.Signature, *ecc.PublicKey, error) {
+	privKey, e := ecc.NewPrivateKey(ecc.S256())
 	if e != nil {
 		return nil, nil, nil, e
 	}
@@ -38,8 +38,8 @@ func TestSigCacheAddExists(t *testing.T) {
 	// Add the triplet to the signature cache.
 	sigCache.Add(*msg1, sig1, key1)
 	// The previously added triplet should now be found within the sigcache.
-	sig1Copy, _ := ec.ParseSignature(sig1.Serialize(), ec.S256())
-	key1Copy, _ := ec.ParsePubKey(key1.SerializeCompressed(), ec.S256())
+	sig1Copy, _ := ecc.ParseSignature(sig1.Serialize(), ecc.S256())
+	key1Copy, _ := ecc.ParsePubKey(key1.SerializeCompressed(), ecc.S256())
 	if !sigCache.Exists(*msg1, sig1Copy, key1Copy) {
 		t.Errorf("previously added item not found in signature cache")
 	}
@@ -58,8 +58,8 @@ func TestSigCacheAddEvictEntry(t *testing.T) {
 			t.Fatalf("unable to generate random signature test data")
 		}
 		sigCache.Add(*msg, sig, key)
-		sigCopy, _ := ec.ParseSignature(sig.Serialize(), ec.S256())
-		keyCopy, _ := ec.ParsePubKey(key.SerializeCompressed(), ec.S256())
+		sigCopy, _ := ecc.ParseSignature(sig.Serialize(), ecc.S256())
+		keyCopy, _ := ecc.ParsePubKey(key.SerializeCompressed(), ecc.S256())
 		if !sigCache.Exists(*msg, sigCopy, keyCopy) {
 			t.Errorf("previously added item not found in signature" +
 				"cache",
@@ -85,8 +85,8 @@ func TestSigCacheAddEvictEntry(t *testing.T) {
 		)
 	}
 	// The entry added above should be found within the sigcache.
-	sigNewCopy, _ := ec.ParseSignature(sigNew.Serialize(), ec.S256())
-	keyNewCopy, _ := ec.ParsePubKey(keyNew.SerializeCompressed(), ec.S256())
+	sigNewCopy, _ := ecc.ParseSignature(sigNew.Serialize(), ecc.S256())
+	keyNewCopy, _ := ecc.ParsePubKey(keyNew.SerializeCompressed(), ecc.S256())
 	if !sigCache.Exists(*msgNew, sigNewCopy, keyNewCopy) {
 		t.Fatalf("previously added item not found in signature cache")
 	}
@@ -105,8 +105,8 @@ func TestSigCacheAddMaxEntriesZeroOrNegative(t *testing.T) {
 	// Add the triplet to the signature cache.
 	sigCache.Add(*msg1, sig1, key1)
 	// The generated triplet should not be found.
-	sig1Copy, _ := ec.ParseSignature(sig1.Serialize(), ec.S256())
-	key1Copy, _ := ec.ParsePubKey(key1.SerializeCompressed(), ec.S256())
+	sig1Copy, _ := ecc.ParseSignature(sig1.Serialize(), ecc.S256())
+	key1Copy, _ := ecc.ParsePubKey(key1.SerializeCompressed(), ecc.S256())
 	if sigCache.Exists(*msg1, sig1Copy, key1Copy) {
 		t.Errorf("previously added signature found in sigcache, but" +
 			"shouldn't have been",

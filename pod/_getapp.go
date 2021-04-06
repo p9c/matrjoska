@@ -21,7 +21,7 @@ import (
 	"github.com/p9c/monorepo/pkg/database/blockdb"
 	"github.com/p9c/monorepo/pkg/podconfig"
 	"github.com/p9c/monorepo/pkg/util/hdkeychain"
-	"github.com/p9c/monorepo/pkg/util/interrupt"
+	"github.com/p9c/monorepo/pkg/interrupt"
 )
 
 // getApp defines the pod node
@@ -212,7 +212,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 			),
 			au.Command(
 				"wallet", "start parallelcoin wallet server",
-				WalletHandle(cx), au.SubCommands(
+				walletHandle(cx), au.SubCommands(
 					au.Command(
 						"drophistory", "drop the transaction history in the wallet (for "+
 							"development and testing as well as clearing up transaction mess)",
@@ -242,7 +242,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 			),
 			au.Command(
 				"kopach", "standalone miner for clusters",
-				KopachHandle(cx), au.SubCommands(), nil, "k",
+				kopachHandle(cx), au.SubCommands(), nil, "k",
 			),
 			au.Command(
 				"worker",

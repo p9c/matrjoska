@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
+	
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -19,7 +19,8 @@ func TestAddr(t *testing.T) {
 	msg := NewMsgAddr()
 	if cmd := msg.Command(); cmd != wantCmd {
 		t.Errorf("NewMsgAddr: wrong command - got %v want %v",
-			cmd, wantCmd)
+			cmd, wantCmd,
+		)
 	}
 	// Ensure max payload is expected value for latest protocol version. Num addresses (varInt) + max allowed addresses.
 	wantPayload := uint32(30009)
@@ -27,38 +28,43 @@ func TestAddr(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("MaxPayloadLength: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 	// Ensure NetAddresses are added properly.
 	tcpAddr := &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 11047}
 	na := NewNetAddress(tcpAddr, SFNodeNetwork)
 	e := msg.AddAddress(na)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("AddAddress: %v", e)
 	}
 	if msg.AddrList[0] != na {
 		t.Errorf("AddAddress: wrong address added - got %v, want %v",
-			spew.Sprint(msg.AddrList[0]), spew.Sprint(na))
+			spew.Sprint(msg.AddrList[0]), spew.Sprint(na),
+		)
 	}
 	// Ensure the address list is cleared properly.
 	msg.ClearAddresses()
 	if len(msg.AddrList) != 0 {
 		t.Errorf("ClearAddresses: address list is not empty - "+
 			"got %v [%v], want %v", len(msg.AddrList),
-			spew.Sprint(msg.AddrList[0]), 0)
+			spew.Sprint(msg.AddrList[0]), 0,
+		)
 	}
 	// Ensure adding more than the max allowed addresses per message returns error.
 	for i := 0; i < MaxAddrPerMsg+1; i++ {
 		e = msg.AddAddress(na)
 	}
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("AddAddress: expected error on too many addresses " +
-			"not received")
+			"not received",
+		)
 	}
 	e = msg.AddAddresses(na)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("AddAddresses: expected error on too many addresses " +
-			"not received")
+			"not received",
+		)
 	}
 	// Ensure max payload is expected value for protocol versions before timestamp was added to NetAddress. Num
 	// addresses (varInt) + max allowed addresses.
@@ -68,7 +74,8 @@ func TestAddr(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("MaxPayloadLength: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 	// Ensure max payload is expected value for protocol versions before multiple addresses were allowed. Num addresses
 	// (varInt) + a single net addresses.
@@ -78,7 +85,8 @@ func TestAddr(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("MaxPayloadLength: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 }
 
@@ -155,26 +163,28 @@ func TestAddrWire(t *testing.T) {
 		// Encode the message to wire format.
 		var buf bytes.Buffer
 		e := test.in.BtcEncode(&buf, test.pver, test.enc)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("BtcEncode #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("BtcEncode #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode the message from wire format.
 		var msg MsgAddr
 		rbuf := bytes.NewReader(test.buf)
 		e = msg.BtcDecode(rbuf, test.pver, test.enc)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("BtcDecode #%d error %v", i, e)
 			continue
 		}
 		if !reflect.DeepEqual(&msg, test.out) {
 			t.Errorf("BtcDecode #%d\n got: %s want: %s", i,
-				spew.Sdump(msg), spew.Sdump(test.out))
+				spew.Sdump(msg), spew.Sdump(test.out),
+			)
 			continue
 		}
 	}
@@ -201,7 +211,7 @@ func TestAddrWireErrors(t *testing.T) {
 	// Address message with multiple addresses.
 	baseAddr := NewMsgAddr()
 	e := baseAddr.AddAddresses(na, na2)
-	if e != nil  {
+	if e != nil {
 		t.Log(e)
 	}
 	baseAddrEncoded := []byte{
@@ -221,7 +231,7 @@ func TestAddrWireErrors(t *testing.T) {
 	maxAddr := NewMsgAddr()
 	for i := 0; i < MaxAddrPerMsg; i++ {
 		e := maxAddr.AddAddress(na)
-		if e != nil  {
+		if e != nil {
 			t.Log(e)
 		}
 	}
@@ -256,14 +266,16 @@ func TestAddrWireErrors(t *testing.T) {
 		e := test.in.BtcEncode(w, test.pver, test.enc)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.writeErr) {
 			t.Errorf("BtcEncode #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// For errors which are not of type MessageError, check them for equality.
 		if _, ok := e.(*MessageError); !ok {
 			if e != test.writeErr {
 				t.Errorf("BtcEncode #%d wrong error got: %v, "+
-					"want: %v", i, e, test.writeErr)
+					"want: %v", i, e, test.writeErr,
+				)
 				continue
 			}
 		}
@@ -273,14 +285,16 @@ func TestAddrWireErrors(t *testing.T) {
 		e = msg.BtcDecode(r, test.pver, test.enc)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.readErr) {
 			t.Errorf("BtcDecode #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 		// For errors which are not of type MessageError, check them for equality.
 		if _, ok := e.(*MessageError); !ok {
 			if e != test.readErr {
 				t.Errorf("BtcDecode #%d wrong error got: %v, "+
-					"want: %v", i, e, test.readErr)
+					"want: %v", i, e, test.readErr,
+				)
 				continue
 			}
 		}

@@ -32,11 +32,11 @@ const (
 
 // thresholdStateStrings is a map of ThresholdState values back to their constant names for pretty printing.
 var thresholdStateStrings = map[ThresholdState]string{
-	ThresholdDefined: "ThresholdDefined",
-	ThresholdStarted: "ThresholdStarted",
+	ThresholdDefined:  "ThresholdDefined",
+	ThresholdStarted:  "ThresholdStarted",
 	ThresholdLockedIn: "ThresholdLockedIn",
-	ThresholdActive: "ThresholdActive",
-	ThresholdFailed: "ThresholdFailed",
+	ThresholdActive:   "ThresholdActive",
+	ThresholdFailed:   "ThresholdFailed",
 }
 
 // String returns the ThresholdState as a human-readable name.
@@ -93,6 +93,7 @@ func newThresholdCaches(numCaches uint32) []thresholdStateCache {
 	}
 	return caches
 }
+
 //
 // // thresholdState returns the current rule change threshold state for the block AFTER the given node and deployment ID.
 // // The cache is used to ensure the threshold states for previous windows are only calculated once. This function MUST be

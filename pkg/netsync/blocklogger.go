@@ -14,7 +14,7 @@ type blockProgressLogger struct {
 	receivedLogTx     int64
 	lastBlockLogTime  time.Time
 	// subsystemLogger   *log.Logger
-	progressAction    string
+	progressAction string
 	sync.Mutex
 }
 

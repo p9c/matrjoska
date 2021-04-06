@@ -1,7 +1,7 @@
 package consume
 
 import (
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/version"
 )
 

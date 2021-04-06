@@ -31,16 +31,16 @@ func Blake2b(bytes []byte) []byte {
 	b := blake2b.Sum256(bytes)
 	return b[:]
 }
-
-// X11 takes bytes and returns a X11 256 bit hash
-func X11(bytes []byte) (out []byte) {
-	hf := x11.New()
-	out = make([]byte, 32)
-	hf.Hash(bytes, out)
-	// D.F("x11 %x", out)
-	return
-	// return cryptonight.Sum(bytes, 2)
-}
+//
+// // X11 takes bytes and returns a X11 256 bit hash
+// func X11(bytes []byte) (out []byte) {
+// 	hf := x11.New()
+// 	out = make([]byte, 32)
+// 	hf.Hash(bytes, out)
+// 	// D.F("x11 %x", out)
+// 	return
+// 	// return cryptonight.Sum(bytes, 2)
+// }
 
 func reverse(b []byte) []byte {
 	out := make([]byte, len(b))

@@ -67,8 +67,8 @@ func GetSigOpCost(tx *util.Tx, isCoinBaseTx bool, utxoView *UtxoViewpoint, bip16
 	numSigOps := CountSigOps(tx) * WitnessScaleFactor
 	if bip16 {
 		numP2SHSigOps, e := CountP2SHSigOps(tx, isCoinBaseTx, utxoView)
-		if e != nil  {
-						return 0, nil
+		if e != nil {
+			return 0, nil
 		}
 		numSigOps += numP2SHSigOps * WitnessScaleFactor
 	}

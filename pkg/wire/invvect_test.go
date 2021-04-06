@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
-
+	
 	"github.com/davecgh/go-spew/spew"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // TestInvVectStringer tests the stringized output for inventory vector types.
@@ -26,7 +26,8 @@ func TestInvTypeStringer(t *testing.T) {
 		result := test.in.String()
 		if result != test.want {
 			t.Errorf("String #%d\n got: %s want: %s", i, result,
-				test.want)
+				test.want,
+			)
 			continue
 		}
 	}
@@ -40,11 +41,13 @@ func TestInvVect(t *testing.T) {
 	iv := NewInvVect(ivType, &hash)
 	if iv.Type != ivType {
 		t.Errorf("NewInvVect: wrong type - got %v, want %v",
-			iv.Type, ivType)
+			iv.Type, ivType,
+		)
 	}
 	if !iv.Hash.IsEqual(&hash) {
 		t.Errorf("NewInvVect: wrong hash - got %v, want %v",
-			spew.Sdump(iv.Hash), spew.Sdump(hash))
+			spew.Sdump(iv.Hash), spew.Sdump(hash),
+		)
 	}
 }
 
@@ -53,7 +56,7 @@ func TestInvVectWire(t *testing.T) {
 	// Block 203707 hash.
 	hashStr := "3264bc2ac36a60840790ba1d475d01367e7c723da941069e9dc"
 	baseHash, e := chainhash.NewHashFromStr(hashStr)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("NewHashFromStr: %v", e)
 	}
 	// errInvVect is an inventory vector with an error.
@@ -212,26 +215,28 @@ func TestInvVectWire(t *testing.T) {
 		// Encode to wire format.
 		var buf bytes.Buffer
 		e := writeInvVect(&buf, test.pver, &test.in)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("writeInvVect #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("writeInvVect #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode the message from wire format.
 		var iv InvVect
 		rbuf := bytes.NewReader(test.buf)
 		e = readInvVect(rbuf, test.pver, &iv)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("readInvVect #%d error %v", i, e)
 			continue
 		}
 		if !reflect.DeepEqual(iv, test.out) {
 			t.Errorf("readInvVect #%d\n got: %s want: %s", i,
-				spew.Sdump(iv), spew.Sdump(test.out))
+				spew.Sdump(iv), spew.Sdump(test.out),
+			)
 			continue
 		}
 	}

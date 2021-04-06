@@ -2,11 +2,11 @@ package serve
 
 import (
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/pkg/util/interrupt"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/interrupt"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/pipe"
 )

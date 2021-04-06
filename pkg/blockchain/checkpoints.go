@@ -65,7 +65,8 @@ func (b *BlockChain) verifyCheckpoint(height int32, hash *chainhash.Hash) bool {
 		return false
 	}
 	I.F("Verified checkpoint at height %d/block %s", checkpoint.Height,
-		checkpoint.Hash)
+		checkpoint.Hash,
+	)
 	return true
 }
 
@@ -126,7 +127,9 @@ func (b *BlockChain) findPreviousCheckpoint() (*BlockNode, error) {
 	if checkpointNode == nil {
 		return nil, AssertError(fmt.Sprintf("findPreviousCheckpoint "+
 			"failed lookup of known good block node %s",
-			b.nextCheckpoint.Hash))
+			b.nextCheckpoint.Hash,
+		),
+		)
 	}
 	b.checkpointNode = checkpointNode
 	// Set the next expected checkpoint.
@@ -185,7 +188,8 @@ func (b *BlockChain) IsCheckpointCandidate(block *block.Block) (bool, error) {
 	if node.height != block.Height() {
 		return false, fmt.Errorf("passed block height of %d does not "+
 			"match the main chain height of %d", block.Height(),
-			node.height)
+			node.height,
+		)
 	}
 	// A checkpoint must be at least CheckpointConfirmations blocks before the end of the main chain.
 	mainChainHeight := b.BestChain.Tip().height

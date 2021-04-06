@@ -109,7 +109,8 @@ func (m *medianTime) AddTimeSample(sourceID string, timeVal time.Time) {
 	sort.Sort(int64Sorter(sortedOffsets))
 	offsetDuration := time.Duration(offsetSecs) * time.Second
 	T.F("Added time sample of %v (total: %v)", offsetDuration,
-		numOffsets)
+		numOffsets,
+	)
 	T.Ln("samples:", sortedOffsets)
 	// NOTE: The following code intentionally has a bug to mirror the buggy behavior in Bitcoin Core since the median
 	// time is used in the consensus rules. In particular, the offset is only updated when the number of entries is odd,
@@ -143,7 +144,8 @@ func (m *medianTime) AddTimeSample(sourceID string, timeVal time.Time) {
 			// Warn if none of the time samples are close.
 			if !remoteHasCloseTime {
 				W.Ln("Please check your date and time are correct!  pod " +
-					"will not work properly with an invalid time")
+					"will not work properly with an invalid time",
+				)
 			}
 		}
 	}

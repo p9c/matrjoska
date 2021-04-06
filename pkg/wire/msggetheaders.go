@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // MsgGetHeaders implements the Message interface and represents a bitcoin
@@ -91,7 +91,7 @@ func (msg *MsgGetHeaders) BtcEncode(w io.Writer, pver uint32, enc MessageEncodin
 		return
 	}
 	for _, hash := range msg.BlockLocatorHashes {
-		if e = writeElement(w, hash);E.Chk(e){
+		if e = writeElement(w, hash); E.Chk(e) {
 			return
 		}
 	}

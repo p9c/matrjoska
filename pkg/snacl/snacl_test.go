@@ -16,8 +16,8 @@ var (
 func TestNewSecretKey(t *testing.T) {
 	var e error
 	key, e = NewSecretKey(&password, DefaultN, DefaultR, DefaultP)
-	if e != nil  {
-			return
+	if e != nil {
+		return
 	}
 }
 func TestMarshalSecretKey(t *testing.T) {
@@ -52,13 +52,13 @@ func TestUnmarshalSecretKeyInvalid(t *testing.T) {
 func TestEncrypt(t *testing.T) {
 	var e error
 	blob, e = key.Encrypt(message)
-	if e != nil  {
-				return
+	if e != nil {
+		return
 	}
 }
 func TestDecrypt(t *testing.T) {
 	decryptedMessage, e := key.Decrypt(blob)
-	if e != nil  {
+	if e != nil {
 		return
 	}
 	if !bytes.Equal(decryptedMessage, message) {
@@ -69,7 +69,7 @@ func TestDecrypt(t *testing.T) {
 func TestDecryptCorrupt(t *testing.T) {
 	blob[len(blob)-15] = blob[len(blob)-15] + 1
 	_, e := key.Decrypt(blob)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("corrupt message decrypted")
 		return
 	}

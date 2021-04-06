@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // RejectCode represents a numeric value by which a remote peer indicates why a message was rejected.
@@ -82,7 +82,7 @@ func (msg *MsgReject) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (
 	// Human readable string with specific details (over and above the reject code above) about why the command was
 	// rejected.
 	var reason string
-	if reason, e = ReadVarString(r, pver);E.Chk(e){
+	if reason, e = ReadVarString(r, pver); E.Chk(e) {
 		return
 	}
 	msg.Reason = reason
@@ -122,7 +122,7 @@ func (msg *MsgReject) BtcEncode(w io.Writer, pver uint32, enc MessageEncoding) (
 	}
 	// CmdBlock and CmdTx messages have an additional hash field that identifies the specific block or transaction.
 	if msg.Cmd == CmdBlock || msg.Cmd == CmdTx {
-		if e = writeElement(w, &msg.Hash);E.Chk(e){
+		if e = writeElement(w, &msg.Hash); E.Chk(e) {
 			return
 		}
 	}

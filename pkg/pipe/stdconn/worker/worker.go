@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"syscall"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/pipe/stdconn"
 )

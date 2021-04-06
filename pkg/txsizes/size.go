@@ -2,9 +2,9 @@
 package txsizes
 
 import (
-	blockchain "github.com/p9c/monorepo/pkg/blockchain"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/monorepo/pkg/blockchain"
 	h "github.com/p9c/monorepo/pkg/util/helpers"
+	"github.com/p9c/monorepo/pkg/wire"
 )
 
 // Worst case script and input/output size estimates.
@@ -119,7 +119,8 @@ func EstimateSerializeSize(inputCount int, txOuts []*wire.TxOut, addChangeOutput
 // of P2PKH, P2WPKH and (nested) P2SH-P2WPKH outputs, and contains each transaction output from txOuts. The estimate is
 // incremented for an additional P2PKH change output if addChangeOutput is true.
 func EstimateVirtualSize(numP2PKHIns, numP2WPKHIns, numNestedP2WPKHIns int,
-	txOuts []*wire.TxOut, addChangeOutput bool) int {
+	txOuts []*wire.TxOut, addChangeOutput bool,
+) int {
 	changeSize := 0
 	// outputCount := len(txOuts)
 	if addChangeOutput {
@@ -131,7 +132,8 @@ func EstimateVirtualSize(numP2PKHIns, numP2WPKHIns, numNestedP2WPKHIns int,
 	// size of redeem scripts + the size out the serialized outputs and change.
 	baseSize := 8 +
 		wire.VarIntSerializeSize(
-			uint64(numP2PKHIns+numP2WPKHIns+numNestedP2WPKHIns)) +
+			uint64(numP2PKHIns+numP2WPKHIns+numNestedP2WPKHIns),
+		) +
 		wire.VarIntSerializeSize(uint64(len(txOuts))) +
 		numP2PKHIns*RedeemP2PKHInputSize +
 		// numP2WPKHIns*RedeemP2PKHInputSize +

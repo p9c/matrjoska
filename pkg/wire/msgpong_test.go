@@ -5,7 +5,7 @@ import (
 	"io"
 	"reflect"
 	"testing"
-
+	
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -14,19 +14,21 @@ func TestPongLatest(t *testing.T) {
 	enc := BaseEncoding
 	pver := ProtocolVersion
 	nonce, e := RandomUint64()
-	if e != nil  {
+	if e != nil {
 		t.Errorf("RandomUint64: error generating nonce: %v", e)
 	}
 	msg := NewMsgPong(nonce)
 	if msg.Nonce != nonce {
 		t.Errorf("NewMsgPong: wrong nonce - got %v, want %v",
-			msg.Nonce, nonce)
+			msg.Nonce, nonce,
+		)
 	}
 	// Ensure the command is expected value.
 	wantCmd := "pong"
 	if cmd := msg.Command(); cmd != wantCmd {
 		t.Errorf("NewMsgPong: wrong command - got %v want %v",
-			cmd, wantCmd)
+			cmd, wantCmd,
+		)
 	}
 	// Ensure max payload is expected value for latest protocol version.
 	wantPayload := uint32(8)
@@ -34,18 +36,19 @@ func TestPongLatest(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("MaxPayloadLength: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 	// Test encode with latest protocol version.
 	var buf bytes.Buffer
 	e = msg.BtcEncode(&buf, pver, enc)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("encode of MsgPong failed %v e <%v>", msg, e)
 	}
 	// Test decode with latest protocol version.
 	readmsg := NewMsgPong(0)
 	e = readmsg.BtcDecode(&buf, pver, enc)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("decode of MsgPong failed [%v] e <%v>", buf, e)
 	}
 	// Ensure nonce is the same.
@@ -60,7 +63,7 @@ func TestPongBIP0031(t *testing.T) {
 	pver := BIP0031Version
 	enc := BaseEncoding
 	nonce, e := RandomUint64()
-	if e != nil  {
+	if e != nil {
 		t.Errorf("Error generating nonce: %v", e)
 	}
 	msg := NewMsgPong(nonce)
@@ -71,21 +74,24 @@ func TestPongBIP0031(t *testing.T) {
 	size := msg.MaxPayloadLength(pver)
 	if size != 0 {
 		t.Errorf("Max length should be 0 for pong protocol version %d.",
-			pver)
+			pver,
+		)
 	}
 	// Test encode with old protocol version.
 	var buf bytes.Buffer
 	e = msg.BtcEncode(&buf, pver, enc)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("encode of MsgPong succeeded when it shouldn't have %v",
-			msg)
+			msg,
+		)
 	}
 	// Test decode with old protocol version.
 	readmsg := NewMsgPong(0)
 	e = readmsg.BtcDecode(&buf, pver, enc)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("decode of MsgPong succeeded when it shouldn't have %v",
-			spew.Sdump(buf))
+			spew.Sdump(buf),
+		)
 	}
 	// Since this protocol version doesn't support pong, make sure the nonce didn't get encoded and decoded back out.
 	if msg.Nonce == readmsg.Nonce {
@@ -97,7 +103,7 @@ func TestPongBIP0031(t *testing.T) {
 // BIP0031Version.
 func TestPongCrossProtocol(t *testing.T) {
 	nonce, e := RandomUint64()
-	if e != nil  {
+	if e != nil {
 		t.Errorf("Error generating nonce: %v", e)
 	}
 	msg := NewMsgPong(nonce)
@@ -107,15 +113,16 @@ func TestPongCrossProtocol(t *testing.T) {
 	// Encode with latest protocol version.
 	var buf bytes.Buffer
 	e = msg.BtcEncode(&buf, ProtocolVersion, BaseEncoding)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("encode of MsgPong failed %v e <%v>", msg, e)
 	}
 	// Decode with old protocol version.
 	readmsg := NewMsgPong(0)
 	e = readmsg.BtcDecode(&buf, BIP0031Version, BaseEncoding)
-	if e ==  nil {
+	if e == nil {
 		t.Errorf("encode of MsgPong succeeded when it shouldn't have %v",
-			msg)
+			msg,
+		)
 	}
 	// Since one of the protocol versions doesn't support the pong message, make sure the nonce didn't get encoded and
 	// decoded back out.
@@ -155,26 +162,28 @@ func TestPongWire(t *testing.T) {
 		// Encode the message to wire format.
 		var buf bytes.Buffer
 		e := test.in.BtcEncode(&buf, test.pver, test.enc)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("BtcEncode #%d error %v", i, e)
 			continue
 		}
 		if !bytes.Equal(buf.Bytes(), test.buf) {
 			t.Errorf("BtcEncode #%d\n got: %s want: %s", i,
-				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf))
+				spew.Sdump(buf.Bytes()), spew.Sdump(test.buf),
+			)
 			continue
 		}
 		// Decode the message from wire format.
 		var msg MsgPong
 		rbuf := bytes.NewReader(test.buf)
 		e = msg.BtcDecode(rbuf, test.pver, test.enc)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("BtcDecode #%d error %v", i, e)
 			continue
 		}
 		if !reflect.DeepEqual(msg, test.out) {
 			t.Errorf("BtcDecode #%d\n got: %s want: %s", i,
-				spew.Sdump(msg), spew.Sdump(test.out))
+				spew.Sdump(msg), spew.Sdump(test.out),
+			)
 			continue
 		}
 	}
@@ -211,14 +220,16 @@ func TestPongWireErrors(t *testing.T) {
 		e := test.in.BtcEncode(w, test.pver, test.enc)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.writeErr) {
 			t.Errorf("BtcEncode #%d wrong error got: %v, want: %v",
-				i, e, test.writeErr)
+				i, e, test.writeErr,
+			)
 			continue
 		}
 		// For errors which are not of type MessageError, check them for equality.
 		if _, ok := e.(*MessageError); !ok {
 			if e != test.writeErr {
 				t.Errorf("BtcEncode #%d wrong error got: %v, "+
-					"want: %v", i, e, test.writeErr)
+					"want: %v", i, e, test.writeErr,
+				)
 				continue
 			}
 		}
@@ -228,14 +239,16 @@ func TestPongWireErrors(t *testing.T) {
 		e = msg.BtcDecode(r, test.pver, test.enc)
 		if reflect.TypeOf(e) != reflect.TypeOf(test.readErr) {
 			t.Errorf("BtcDecode #%d wrong error got: %v, want: %v",
-				i, e, test.readErr)
+				i, e, test.readErr,
+			)
 			continue
 		}
 		// For errors which are not of type MessageError, check them for equality.
 		if _, ok := e.(*MessageError); !ok {
 			if e != test.readErr {
 				t.Errorf("BtcDecode #%d wrong error got: %v, "+
-					"want: %v", i, e, test.readErr)
+					"want: %v", i, e, test.readErr,
+				)
 				continue
 			}
 		}

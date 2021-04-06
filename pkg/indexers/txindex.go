@@ -390,7 +390,7 @@ func (idx *TxIndex) DisconnectBlock(
 // When there is no entry for the provided hash, nil will be returned for the both the entry and the error.
 //
 // This function is safe for concurrent access.
-func (idx *TxIndex) TxBlockRegion(hash *chainhash.Hash) (region *database.BlockRegion,e error) {
+func (idx *TxIndex) TxBlockRegion(hash *chainhash.Hash) (region *database.BlockRegion, e error) {
 	e = idx.db.View(
 		func(dbTx database.Tx) (e error) {
 			region, e = dbFetchTxIndexEntry(dbTx, hash)

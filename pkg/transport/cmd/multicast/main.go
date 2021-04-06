@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"time"
-
+	
 	"golang.org/x/net/ipv4"
 )
 
@@ -12,11 +12,11 @@ var ipv4Addr = &net.UDPAddr{IP: net.IPv4(224, 0, 0, 1), Port: 1234}
 
 func main() {
 	conn, e := net.ListenUDP("udp4", ipv4Addr)
-	if e != nil  {
+	if e != nil {
 		fmt.Printf("ListenUDP error %v\n", e)
 		return
 	}
-
+	
 	pc := ipv4.NewPacketConn(conn)
 	var ifaces []net.Interface
 	var iface net.Interface
@@ -36,7 +36,7 @@ func main() {
 	}
 	// test
 	var loop bool
-	if loop, e = pc.MulticastLoopback(); e ==  nil {
+	if loop, e = pc.MulticastLoopback(); e == nil {
 		fmt.Printf("MulticastLoopback status:%v\n", loop)
 		if !loop {
 			if e = pc.SetMulticastLoopback(true); E.Chk(e) {
@@ -52,7 +52,7 @@ func main() {
 			time.Sleep(time.Second)
 		}
 	}()
-
+	
 	buf := make([]byte, 1024)
 	for {
 		if n, addr, e := conn.ReadFrom(buf); E.Chk(e) {
@@ -61,7 +61,7 @@ func main() {
 			fmt.Printf("recv %s from %v\n", string(buf[:n]), addr)
 		}
 	}
-
+	
 	// return
 }
 

@@ -14,7 +14,7 @@ func TestCheckBlockScripts(t *testing.T) {
 	testBlockNum := 277647
 	blockDataFile := fmt.Sprintf("%d.dat.bz2", testBlockNum)
 	blocks, e := loadBlocks(blockDataFile)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("ScriptError loading file: %v\n", e)
 		return
 	}
@@ -28,13 +28,13 @@ func TestCheckBlockScripts(t *testing.T) {
 	}
 	storeDataFile := fmt.Sprintf("%d.utxostore.bz2", testBlockNum)
 	view, e := loadUtxoView(storeDataFile)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("ScriptError loading txstore: %v\n", e)
 		return
 	}
 	scriptFlags := txscript.ScriptBip16
 	e = checkBlockScripts(blocks[0], view, scriptFlags, nil, nil)
-	if e != nil  {
+	if e != nil {
 		t.Errorf("Transaction script validation failed: %v\n", e)
 		return
 	}

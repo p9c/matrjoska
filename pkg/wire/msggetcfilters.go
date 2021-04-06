@@ -3,7 +3,7 @@ package wire
 import (
 	"io"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // MaxGetCFiltersReqRange the maximum number of filters that may be requested in a getcfheaders message.

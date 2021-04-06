@@ -17,14 +17,17 @@ func TestServiceFlagStringer(t *testing.T) {
 		{SFNodeBit5, "SFNodeBit5"},
 		{SFNodeCF, "SFNodeCF"},
 		{SFNode2X, "SFNode2X"},
-		{0xffffffff, "SFNodeNetwork|SFNodeGetUTXO|SFNodeBloom|SFNodeWitness|SFNodeXthin|SFNodeBit5|SFNodeCF|SFNode2X|0xffffff00"},
+		{0xffffffff,
+			"SFNodeNetwork|SFNodeGetUTXO|SFNodeBloom|SFNodeWitness|SFNodeXthin|SFNodeBit5|SFNodeCF|SFNode2X|0xffffff00",
+		},
 	}
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		result := test.in.String()
 		if result != test.want {
 			t.Errorf("String #%d\n got: %s want: %s", i, result,
-				test.want)
+				test.want,
+			)
 			continue
 		}
 	}
@@ -47,7 +50,8 @@ func TestBitcoinNetStringer(t *testing.T) {
 		result := test.in.String()
 		if result != test.want {
 			t.Errorf("String #%d\n got: %s want: %s", i, result,
-				test.want)
+				test.want,
+			)
 			continue
 		}
 	}

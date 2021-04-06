@@ -1,4 +1,5 @@
 package mining
+
 //
 // import (
 // 	"container/heap"

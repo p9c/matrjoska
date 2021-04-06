@@ -3,7 +3,7 @@ package pod
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/fork"
 	"github.com/p9c/monorepo/pkg/opts"
 	"io/ioutil"

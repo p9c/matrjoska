@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 	
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/pipe"
 )
@@ -19,7 +19,7 @@ func main() {
 	)
 	for {
 		_, e := p.StdConn.Write([]byte("ping"))
-		if e != nil  {
+		if e != nil {
 			fmt.Println("err:", e)
 		}
 		time.Sleep(time.Second)

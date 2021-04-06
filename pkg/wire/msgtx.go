@@ -157,7 +157,7 @@ type TxIn struct {
 	PreviousOutPoint OutPoint
 	SignatureScript  []byte
 	// Witness          TxWitness
-	Sequence         uint32
+	Sequence uint32
 }
 
 // SerializeSize returns the number of bytes it would take to serialize the the transaction input.
@@ -175,7 +175,7 @@ func NewTxIn(prevOut *OutPoint, signatureScript []byte, witness [][]byte) *TxIn 
 		PreviousOutPoint: *prevOut,
 		SignatureScript:  signatureScript,
 		// Witness:          witness,
-		Sequence:         MaxTxInSequenceNum,
+		Sequence: MaxTxInSequenceNum,
 	}
 }
 
@@ -330,12 +330,12 @@ func (msg *MsgTx) Copy() *MsgTx {
 // decoding transactions from the wire.
 func (msg *MsgTx) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (e error) {
 	var version uint32
-	if version, e = binarySerializer.Uint32(r, littleEndian);E.Chk(e){
+	if version, e = binarySerializer.Uint32(r, littleEndian); E.Chk(e) {
 		return
 	}
 	msg.Version = int32(version)
 	var count uint64
-	if count, e = ReadVarInt(r, pver);E.Chk(e){
+	if count, e = ReadVarInt(r, pver); E.Chk(e) {
 		return
 	}
 	// // A count of zero (meaning no TxIn's to the uninitiated) indicates this is a

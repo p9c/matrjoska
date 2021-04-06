@@ -17,11 +17,13 @@ func TestNetAddress(t *testing.T) {
 	}
 	if na.Port != uint16(port) {
 		t.Errorf("NetNetAddress: wrong port - got %v, want %v", na.Port,
-			port)
+			port,
+		)
 	}
 	if na.Services != 0 {
 		t.Errorf("NetNetAddress: wrong services - got %v, want %v",
-			na.Services, 0)
+			na.Services, 0,
+		)
 	}
 	if na.HasService(SFNodeNetwork) {
 		t.Errorf("HasService: SFNodeNetwork service is set")
@@ -30,7 +32,8 @@ func TestNetAddress(t *testing.T) {
 	na.AddService(SFNodeNetwork)
 	if na.Services != SFNodeNetwork {
 		t.Errorf("AddService: wrong services - got %v, want %v",
-			na.Services, SFNodeNetwork)
+			na.Services, SFNodeNetwork,
+		)
 	}
 	if !na.HasService(SFNodeNetwork) {
 		t.Errorf("HasService: SFNodeNetwork service not set")
@@ -42,7 +45,8 @@ func TestNetAddress(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("maxNetAddressPayload: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 	// Protocol version before NetAddressTimeVersion when timestamp was added. Ensure max payload is expected value for
 	// it.
@@ -52,7 +56,8 @@ func TestNetAddress(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("maxNetAddressPayload: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 }
 

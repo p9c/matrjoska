@@ -31,7 +31,6 @@ import (
 	
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/node/state"
 	"github.com/p9c/monorepo/pkg/addrmgr"
 	"github.com/p9c/monorepo/pkg/blockchain"
@@ -41,6 +40,7 @@ import (
 	"github.com/p9c/monorepo/pkg/connmgr"
 	"github.com/p9c/monorepo/pkg/database"
 	"github.com/p9c/monorepo/pkg/indexers"
+	"github.com/p9c/monorepo/pkg/mempool"
 	"github.com/p9c/monorepo/pkg/netsync"
 	"github.com/p9c/monorepo/pkg/peer"
 	"github.com/p9c/monorepo/pkg/txscript"

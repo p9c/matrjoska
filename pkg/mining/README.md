@@ -5,7 +5,8 @@
 
 ## Overview
 
-This package contains an implementation of block construction for mining purposes. This package is currently a work in progress.
+This package contains an implementation of block construction for mining
+purposes. This package is currently a work in progress.
 
 ## Installation and Updating
 
@@ -15,4 +16,5 @@ $ go get -u github.com/p9c/pod/mining
 
 ## License
 
-Package mining is licensed under the [copyfree](http://copyfree.org) ISC License.
+Package mining is licensed under the [copyfree](http://copyfree.org) ISC
+License.

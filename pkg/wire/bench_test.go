@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for the main network, regression test network,
@@ -290,7 +290,7 @@ func BenchmarkDeserializeTxSmall(b *testing.B) {
 func BenchmarkDeserializeTxLarge(b *testing.B) {
 	// tx bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08 from the main block chain.
 	fi, e := os.Open("tstdata/megatx.bin.bz2")
-	if e != nil  {
+	if e != nil {
 		b.Fatalf("Failed to read transaction data: %v", e)
 	}
 	defer func() {
@@ -299,7 +299,7 @@ func BenchmarkDeserializeTxLarge(b *testing.B) {
 	}()
 	var buf []byte
 	buf, e = ioutil.ReadAll(bzip2.NewReader(fi))
-	if e != nil  {
+	if e != nil {
 		b.Fatalf("Failed to read transaction data: %v", e)
 	}
 	r := bytes.NewReader(buf)
@@ -359,7 +359,7 @@ func BenchmarkDecodeGetHeaders(b *testing.B) {
 	var m MsgGetHeaders
 	for i := 0; i < MaxBlockLocatorsPerMsg; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddBlockLocatorHash(hash)
@@ -387,7 +387,7 @@ func BenchmarkDecodeHeaders(b *testing.B) {
 	var m MsgHeaders
 	for i := 0; i < MaxBlockHeadersPerMsg; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddBlockHeader(NewBlockHeader(1, hash, hash, 0, uint32(i)))
@@ -415,7 +415,7 @@ func BenchmarkDecodeGetBlocks(b *testing.B) {
 	var m MsgGetBlocks
 	for i := 0; i < MaxBlockLocatorsPerMsg; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddBlockLocatorHash(hash)
@@ -468,7 +468,7 @@ func BenchmarkDecodeInv(b *testing.B) {
 	var m MsgInv
 	for i := 0; i < MaxInvPerMsg; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddInvVect(NewInvVect(InvTypeBlock, hash))
@@ -496,7 +496,7 @@ func BenchmarkDecodeNotFound(b *testing.B) {
 	var m MsgNotFound
 	for i := 0; i < MaxInvPerMsg; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddInvVect(NewInvVect(InvTypeBlock, hash))
@@ -523,13 +523,13 @@ func BenchmarkDecodeMerkleBlock(b *testing.B) {
 	pver := ProtocolVersion
 	var m MsgMerkleBlock
 	hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", 10000))
-	if e != nil  {
+	if e != nil {
 		b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 	}
 	m.Header = *NewBlockHeader(1, hash, hash, 0, uint32(10000))
 	for i := 0; i < 105; i++ {
 		hash, e := chainhash.NewHashFromStr(fmt.Sprintf("%x", i))
-		if e != nil  {
+		if e != nil {
 			b.Fatalf("NewHashFromStr: unexpected error: %v", e)
 		}
 		_ = m.AddTxHash(hash)

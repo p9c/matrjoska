@@ -49,7 +49,7 @@ func (msg *MsgGetData) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) 
 			return
 		}
 		e = msg.AddInvVect(iv)
-		if e != nil  {
+		if e != nil {
 		}
 	}
 	return nil

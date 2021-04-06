@@ -93,9 +93,10 @@ func TestDeserializeUtxoEntryV0(t *testing.T) {
 	for i, test := range tests {
 		// Deserialize to map of utxos keyed by the output index.
 		entries, e := deserializeUtxoEntryV0(test.serialized)
-		if e != nil  {
+		if e != nil {
 			t.Errorf("deserializeUtxoEntryV0 #%d (%s) unexpected "+
-				"error: %v", i, test.name, e)
+				"error: %v", i, test.name, e,
+			)
 			continue
 		}
 		// Ensure the deserialized entry has the same properties as the
@@ -103,7 +104,8 @@ func TestDeserializeUtxoEntryV0(t *testing.T) {
 		if !reflect.DeepEqual(entries, test.entries) {
 			t.Errorf("deserializeUtxoEntryV0 #%d (%s) unexpected "+
 				"entries: got %v, want %v", i, test.name,
-				entries, test.entries)
+				entries, test.entries,
+			)
 			continue
 		}
 	}

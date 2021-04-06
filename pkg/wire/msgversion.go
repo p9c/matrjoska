@@ -94,7 +94,7 @@ func (msg *MsgVersion) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) 
 	// Protocol versions >= 209 added a last known block field. It is only
 	// considered present if there are bytes remaining in the message.
 	if buf.Len() > 0 {
-		if e = readElement(buf, &msg.LastBlock);E.Chk(e){
+		if e = readElement(buf, &msg.LastBlock); E.Chk(e) {
 			return
 		}
 	}

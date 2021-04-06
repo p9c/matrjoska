@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
+	
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -19,68 +19,81 @@ func TestVersion(t *testing.T) {
 	tcpAddrYou := &net.TCPAddr{IP: net.ParseIP("192.168.0.1"), Port: 11047}
 	you := NewNetAddress(tcpAddrYou, SFNodeNetwork)
 	nonce, e := RandomUint64()
-	if e != nil  {
+	if e != nil {
 		t.Errorf("RandomUint64: error generating nonce: %v", e)
 	}
 	// Ensure we get the correct data back out.
 	msg := NewMsgVersion(me, you, nonce, lastBlock)
 	if msg.ProtocolVersion != int32(pver) {
 		t.Errorf("NewMsgVersion: wrong protocol version - got %v, want %v",
-			msg.ProtocolVersion, pver)
+			msg.ProtocolVersion, pver,
+		)
 	}
 	if !reflect.DeepEqual(&msg.AddrMe, me) {
 		t.Errorf("NewMsgVersion: wrong me address - got %v, want %v",
-			spew.Sdump(&msg.AddrMe), spew.Sdump(me))
+			spew.Sdump(&msg.AddrMe), spew.Sdump(me),
+		)
 	}
 	if !reflect.DeepEqual(&msg.AddrYou, you) {
 		t.Errorf("NewMsgVersion: wrong you address - got %v, want %v",
-			spew.Sdump(&msg.AddrYou), spew.Sdump(you))
+			spew.Sdump(&msg.AddrYou), spew.Sdump(you),
+		)
 	}
 	if msg.Nonce != nonce {
 		t.Errorf("NewMsgVersion: wrong nonce - got %v, want %v",
-			msg.Nonce, nonce)
+			msg.Nonce, nonce,
+		)
 	}
 	if msg.UserAgent != DefaultUserAgent {
 		t.Errorf("NewMsgVersion: wrong user agent - got %v, want %v",
-			msg.UserAgent, DefaultUserAgent)
+			msg.UserAgent, DefaultUserAgent,
+		)
 	}
 	if msg.LastBlock != lastBlock {
 		t.Errorf("NewMsgVersion: wrong last block - got %v, want %v",
-			msg.LastBlock, lastBlock)
+			msg.LastBlock, lastBlock,
+		)
 	}
 	if msg.DisableRelayTx {
 		t.Errorf("NewMsgVersion: disable relay tx is not false by "+
-			"default - got %v, want %v", msg.DisableRelayTx, false)
+			"default - got %v, want %v", msg.DisableRelayTx, false,
+		)
 	}
 	e = msg.AddUserAgent("myclient", "1.2.3", "optional", "comments")
-	if e != nil  {
+	if e != nil {
 		t.Log(e)
 	}
 	customUserAgent := DefaultUserAgent + "myclient:1.2.3(optional; comments)/"
 	if msg.UserAgent != customUserAgent {
 		t.Errorf("AddUserAgent: wrong user agent - got %s, want %s",
-			msg.UserAgent, customUserAgent)
+			msg.UserAgent, customUserAgent,
+		)
 	}
 	e = msg.AddUserAgent("mygui", "3.4.5")
-	if e != nil  {
+	if e != nil {
 		t.Log(e)
 	}
 	customUserAgent += "mygui:3.4.5/"
 	if msg.UserAgent != customUserAgent {
 		t.Errorf("AddUserAgent: wrong user agent - got %s, want %s",
-			msg.UserAgent, customUserAgent)
+			msg.UserAgent, customUserAgent,
+		)
 	}
 	// accounting for ":", "/"
 	e = msg.AddUserAgent(strings.Repeat("t",
-		MaxUserAgentLen-len(customUserAgent)-2+1), "")
+		MaxUserAgentLen-len(customUserAgent)-2+1,
+	), "",
+	)
 	if _, ok := e.(*MessageError); !ok {
 		t.Errorf("AddUserAgent: expected error not received "+
-			"- got %v, want %T", e, MessageError{})
+			"- got %v, want %T", e, MessageError{},
+		)
 	}
 	// Version message should not have any services set by default.
 	if msg.Services != 0 {
 		t.Errorf("NewMsgVersion: wrong default services - got %v, want %v",
-			msg.Services, 0)
+			msg.Services, 0,
+		)
 	}
 	if msg.HasService(SFNodeNetwork) {
 		t.Errorf("HasService: SFNodeNetwork service is set")
@@ -89,7 +102,8 @@ func TestVersion(t *testing.T) {
 	wantCmd := "version"
 	if cmd := msg.Command(); cmd != wantCmd {
 		t.Errorf("NewMsgVersion: wrong command - got %v want %v",
-			cmd, wantCmd)
+			cmd, wantCmd,
+		)
 	}
 	// Ensure max payload is expected value. Protocol version 4 bytes + services 8 bytes + timestamp 8 bytes + remote
 	// and local net addresses + nonce 8 bytes + length of user agent (varInt) + max allowed user agent length + last
@@ -99,13 +113,15 @@ func TestVersion(t *testing.T) {
 	if maxPayload != wantPayload {
 		t.Errorf("MaxPayloadLength: wrong max payload length for "+
 			"protocol version %d - got %v, want %v", pver,
-			maxPayload, wantPayload)
+			maxPayload, wantPayload,
+		)
 	}
 	// Ensure adding the full service node flag works.
 	msg.AddService(SFNodeNetwork)
 	if msg.Services != SFNodeNetwork {
 		t.Errorf("AddService: wrong services - got %v, want %v",
-			msg.Services, SFNodeNetwork)
+			msg.Services, SFNodeNetwork,
+		)
 	}
 	if !msg.HasService(SFNodeNetwork) {
 		t.Errorf("HasService: SFNodeNetwork service not set")

@@ -8,10 +8,10 @@ import (
 	"errors"
 	"io"
 	"runtime/debug"
-
+	
 	"github.com/btcsuite/golangcrypto/nacl/secretbox"
 	"github.com/btcsuite/golangcrypto/scrypt"
-
+	
 	"github.com/p9c/monorepo/pkg/util/zero"
 )
 
@@ -21,7 +21,7 @@ var (
 	// ErrInvalidPassword ...
 	ErrInvalidPassword = errors.New("invalid password")
 	// ErrMalformed ...
-	ErrMalformed     = errors.New("malformed data")
+	ErrMalformed = errors.New("malformed data")
 	// ErrDecryptFailed ...
 	ErrDecryptFailed = errors.New("unable to decrypt")
 )
@@ -107,7 +107,8 @@ func (sk *SecretKey) deriveKey(password *[]byte) (e error) {
 		sk.Parameters.N,
 		sk.Parameters.R,
 		sk.Parameters.P,
-		len(sk.Key))
+		len(sk.Key),
+	)
 	if e != nil {
 		E.Ln(e)
 		return e

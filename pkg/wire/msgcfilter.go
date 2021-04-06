@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 // FilterType is used to represent a filter type.

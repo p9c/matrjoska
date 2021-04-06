@@ -114,17 +114,20 @@ func (b *addrIndexBucket) sanityCheck(addrKey [addrKeySize]byte, expectedTotal i
 			if (highestLevel != 0 && numEntries == 0) ||
 				numEntries > maxEntries {
 				return fmt.Errorf("level %d has %d entries",
-					level, numEntries)
+					level, numEntries,
+				)
 			}
 		} else if numEntries != maxEntries && numEntries != maxEntries/2 {
 			return fmt.Errorf("level %d has %d entries", level,
-				numEntries)
+				numEntries,
+			)
 		}
 		maxEntries *= 2
 	}
 	if totalEntries != expectedTotal {
 		return fmt.Errorf("expected %d entries - got %d", expectedTotal,
-			totalEntries)
+			totalEntries,
+		)
 	}
 	// Ensure all of the numbers are in order starting from the highest level moving to the lowest level.
 	expectedNum := uint32(0)
@@ -138,7 +141,8 @@ func (b *addrIndexBucket) sanityCheck(addrKey [addrKeySize]byte, expectedTotal i
 				return fmt.Errorf("level %d offset %d does "+
 					"not contain the expected number of "+
 					"%d - got %d", level, i, num,
-					expectedNum)
+					expectedNum,
+				)
 			}
 			expectedNum++
 		}
@@ -202,11 +206,13 @@ nextTest:
 		for i := 0; i < test.numInsert; i++ {
 			txLoc := wire.TxLoc{TxStart: i * 2}
 			e := dbPutAddrIndexEntry(populatedBucket, test.key,
-				uint32(i), txLoc)
-			if e != nil  {
+				uint32(i), txLoc,
+			)
+			if e != nil {
 				t.Errorf("dbPutAddrIndexEntry #%d (%s) - "+
 					"unexpected error: %v", testNum,
-					test.name, e)
+					test.name, e,
+				)
 				continue nextTest
 			}
 		}
@@ -221,12 +227,14 @@ nextTest:
 			bucket := populatedBucket.Clone()
 			// Remove the number of entries for this iteration.
 			e := dbRemoveAddrIndexEntries(bucket, test.key,
-				numDelete)
-			if e != nil  {
+				numDelete,
+			)
+			if e != nil {
 				if numDelete <= test.numInsert {
 					t.Errorf("dbRemoveAddrIndexEntries (%s) "+
 						" delete %d - unexpected error: "+
-						"%v", test.name, numDelete, e)
+						"%v", test.name, numDelete, e,
+					)
 					continue nextTest
 				}
 			}
@@ -239,9 +247,10 @@ nextTest:
 				numExpected -= numDelete
 			}
 			e = bucket.sanityCheck(test.key, numExpected)
-			if e != nil  {
+			if e != nil {
 				t.Errorf("sanity check fail (%s) delete %d: %v",
-					test.name, numDelete, e)
+					test.name, numDelete, e,
+				)
 				continue nextTest
 			}
 		}

@@ -8,7 +8,7 @@ import (
 	"math"
 	"time"
 	
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/monorepo/pkg/chainhash"
 )
 
 const (
@@ -88,7 +88,7 @@ func (l binaryFreeList) Uint16(r io.Reader, byteOrder binary.ByteOrder) (rv uint
 // Uint32 reads four bytes from the provided reader using a buffer from the free
 // list, converts it to a number using the provided byte order, and returns the
 // resulting uint32.
-func (l binaryFreeList) Uint32(r io.Reader, byteOrder binary.ByteOrder) (rv uint32,e error) {
+func (l binaryFreeList) Uint32(r io.Reader, byteOrder binary.ByteOrder) (rv uint32, e error) {
 	buf := l.Borrow()[:4]
 	if _, e = io.ReadFull(r, buf); E.Chk(e) {
 		l.Return(buf)
@@ -102,7 +102,7 @@ func (l binaryFreeList) Uint32(r io.Reader, byteOrder binary.ByteOrder) (rv uint
 // Uint64 reads eight bytes from the provided reader using a buffer from the
 // free list, converts it to a number using the provided byte order, and returns
 // the resulting uint64.
-func (l binaryFreeList) Uint64(r io.Reader, byteOrder binary.ByteOrder) (rv uint64,e error) {
+func (l binaryFreeList) Uint64(r io.Reader, byteOrder binary.ByteOrder) (rv uint64, e error) {
 	buf := l.Borrow()[:8]
 	if _, e = io.ReadFull(r, buf); E.Chk(e) {
 		l.Return(buf)
@@ -565,6 +565,6 @@ func randomUint64(r io.Reader) (rv uint64, e error) {
 }
 
 // RandomUint64 returns a cryptographically random uint64 value.
-func RandomUint64() (rv uint64,e error) {
+func RandomUint64() (rv uint64, e error) {
 	return randomUint64(rand.Reader)
 }

@@ -26,8 +26,8 @@ import (
 	
 	"github.com/p9c/monorepo/pkg/chain/config/netparams"
 	
-	"git.parallelcoin.io/util"
-	"github.com/p9c/pod/pkg/chain/config"
+	"github.com/p9c/monorepo/pkg/util"
+	"github.com/p9c/monorepo/pkg/chaincfg"
 )
 
 var testnet = flag.Bool("testnet", false,

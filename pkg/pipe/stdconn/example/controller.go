@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/p9c/log"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pipe/stdconn/example/hello/hello"
 	"github.com/p9c/monorepo/pkg/pipe/stdconn/worker"
-	"github.com/p9c/qu"
+	"github.com/p9c/monorepo/pkg/qu"
 )
 
 func main() {

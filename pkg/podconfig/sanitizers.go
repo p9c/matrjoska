@@ -27,8 +27,8 @@ import (
 	"github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/connmgr"
+	"github.com/p9c/monorepo/pkg/interrupt"
 	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/util/interrupt"
 	"github.com/p9c/monorepo/pkg/util/normalize"
 	
 	"github.com/btcsuite/go-socks/socks"

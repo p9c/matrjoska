@@ -17,7 +17,8 @@ type MsgFeeFilter struct {
 func (msg *MsgFeeFilter) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding) (e error) {
 	if pver < FeeFilterVersion {
 		str := fmt.Sprintf("feefilter message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgFeeFilter.BtcDecode", str)
 	}
 	return readElement(r, &msg.MinFee)
@@ -28,7 +29,8 @@ func (msg *MsgFeeFilter) BtcDecode(r io.Reader, pver uint32, enc MessageEncoding
 func (msg *MsgFeeFilter) BtcEncode(w io.Writer, pver uint32, enc MessageEncoding) (e error) {
 	if pver < FeeFilterVersion {
 		str := fmt.Sprintf("feefilter message invalid for protocol "+
-			"version %d", pver)
+			"version %d", pver,
+		)
 		return messageError("MsgFeeFilter.BtcEncode", str)
 	}
 	return writeElement(w, msg.MinFee)

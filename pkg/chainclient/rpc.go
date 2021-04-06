@@ -16,9 +16,9 @@ import (
 	"github.com/p9c/monorepo/pkg/gcs/builder"
 	"github.com/p9c/monorepo/pkg/rpcclient"
 	"github.com/p9c/monorepo/pkg/util"
-	wm "github.com/p9c/monorepo/pkg/waddrmgr"
+	"github.com/p9c/monorepo/pkg/waddrmgr"
 	"github.com/p9c/monorepo/pkg/wire"
-	tm "github.com/p9c/monorepo/pkg/wtxmgr"
+	"github.com/p9c/monorepo/pkg/wtxmgr"
 )
 
 // RPCClient represents a persistent client connection to a bitcoin RPC server for information regarding the current
@@ -30,7 +30,7 @@ type RPCClient struct {
 	reconnectAttempts   int
 	enqueueNotification chan interface{}
 	dequeueNotification chan interface{}
-	currentBlock        chan *wm.BlockStamp
+	currentBlock        chan *waddrmgr.BlockStamp
 	quit                qu.C
 	wg                  sync.WaitGroup
 	started             bool
@@ -68,7 +68,7 @@ func NewRPCClient(
 		reconnectAttempts:   reconnectAttempts,
 		enqueueNotification: make(chan interface{}),
 		dequeueNotification: make(chan interface{}),
-		currentBlock:        make(chan *wm.BlockStamp),
+		currentBlock:        make(chan *waddrmgr.BlockStamp),
 		quit:                quit,
 	}
 	ntfnCallbacks := &rpcclient.NotificationHandlers{
@@ -164,7 +164,7 @@ func (c *RPCClient) Notifications() <-chan interface{} {
 }
 
 // BlockStamp returns the latest block notified by the client, or an error if the client has been shut down.
-func (c *RPCClient) BlockStamp() (*wm.BlockStamp, error) {
+func (c *RPCClient) BlockStamp() (*waddrmgr.BlockStamp, error) {
 	select {
 	case bs := <-c.currentBlock:
 		return bs, nil
@@ -275,9 +275,9 @@ func (c *RPCClient) FilterBlocks(req *FilterBlocksRequest,) (*FilterBlocksRespon
 	return nil, nil
 }
 
-// parseBlock parses a btcws definition of the block a tx is mined it to the Block structure of the tm package, and the
+// parseBlock parses a btcws definition of the block a tx is mined it to the Block structure of the wtxmgr package, and the
 // block index. This is done here since rpcclient doesn't parse this nicely for us.
-func parseBlock(block *btcjson.BlockDetails) (*tm.BlockMeta, error) {
+func parseBlock(block *btcjson.BlockDetails) (*wtxmgr.BlockMeta, error) {
 	if block == nil {
 		return nil, nil
 	}
@@ -285,8 +285,8 @@ func parseBlock(block *btcjson.BlockDetails) (*tm.BlockMeta, error) {
 	if e != nil {
 		return nil, e
 	}
-	blk := &tm.BlockMeta{
-		Block: tm.Block{
+	blk := &wtxmgr.BlockMeta{
+		Block: wtxmgr.Block{
 			Height: block.Height,
 			Hash:   *blkHash,
 		},
@@ -303,7 +303,7 @@ func (c *RPCClient) onClientConnect() {
 func (c *RPCClient) onBlockConnected(hash *chainhash.Hash, height int32, time time.Time) {
 	select {
 	case c.enqueueNotification <- BlockConnected{
-		Block: tm.Block{
+		Block: wtxmgr.Block{
 			Hash:   *hash,
 			Height: height,
 		},
@@ -315,7 +315,7 @@ func (c *RPCClient) onBlockConnected(hash *chainhash.Hash, height int32, time ti
 func (c *RPCClient) onBlockDisconnected(hash *chainhash.Hash, height int32, time time.Time) {
 	select {
 	case c.enqueueNotification <- BlockDisconnected{
-		Block: tm.Block{
+		Block: wtxmgr.Block{
 			Hash:   *hash,
 			Height: height,
 		},
@@ -333,7 +333,7 @@ func (c *RPCClient) onRecvTx(tx *util.Tx, block *btcjson.BlockDetails) {
 		)
 		return
 	}
-	rec, e := tm.NewTxRecordFromMsgTx(tx.MsgTx(), time.Now())
+	rec, e := wtxmgr.NewTxRecordFromMsgTx(tx.MsgTx(), time.Now())
 	if e != nil {
 		E.Ln("cannot create transaction record for relevant tx:", e)
 		return
@@ -369,7 +369,7 @@ func (c *RPCClient) handler() {
 		c.wg.Done()
 		return
 	}
-	bs := &wm.BlockStamp{Hash: *hash, Height: height}
+	bs := &waddrmgr.BlockStamp{Hash: *hash, Height: height}
 	// TODO: Rather than leaving this as an unbounded queue for all types of notifications, try dropping ones where a
 	//  later enqueued notification can fully invalidate one waiting to be processed. For example, blockconnected
 	//  notifications for greater block heights can remove the need to process earlier blockconnected notifications still
@@ -398,7 +398,7 @@ out:
 			notifications = append(notifications, n)
 		case dequeue <- next:
 			if n, ok := next.(BlockConnected); ok {
-				bs = &wm.BlockStamp{
+				bs = &waddrmgr.BlockStamp{
 					Height: n.Height,
 					Hash:   n.Hash,
 				}

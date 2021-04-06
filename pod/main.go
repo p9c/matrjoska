@@ -5,7 +5,7 @@ import (
 	"github.com/p9c/monorepo/pkg/chainrpc"
 	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
-	opts "github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"github.com/p9c/monorepo/pkg/qu"
 	"go.uber.org/atomic"
 	"math/rand"
@@ -35,8 +35,8 @@ func Main() int {
 }
 
 // GetDefaultConfig returns a Config struct pristine factory fresh
-func GetDefaultConfig() (c *opts.Config) {
-	c = &opts.Config{
+func GetDefaultConfig() (c *podopts.Config) {
+	c = &podopts.Config{
 		Commands: GetCommands(),
 		Map:      GetConfigs(),
 	}
@@ -57,7 +57,7 @@ func GetDefaultConfig() (c *opts.Config) {
 }
 
 // GetNewContext returns a fresh new context
-func GetNewContext(config *opts.Config) (s *pod.State, e error) {
+func GetNewContext(config *podopts.Config) (s *pod.State, e error) {
 	if e = config.Initialize(); E.Chk(e) {
 		// return
 		panic(e)
