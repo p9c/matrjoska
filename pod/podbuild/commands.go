@@ -11,7 +11,7 @@ var commands = map[string][]string{
 		"go install -v -tags headless ./pod/pod/.",
 	},
 	"docker": {
-		"go install -v -tags headless",
+		"go install -v -tags headless ./pod/pod/.",
 	},
 	"tests": {
 		"go test ./...",

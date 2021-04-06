@@ -14,4 +14,5 @@ func main() {
 	if cx, e = pod.GetNewContext(podopts.GetDefaultConfig()); E.Chk(e) {
 	}
 	_ = cx
+	I.S(cx)
 }

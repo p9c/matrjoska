@@ -99,13 +99,6 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-      <recent name="$PROJECT_DIR$/pkg/podstate" />
-      <recent name="$PROJECT_DIR$/pod/spec" />
-      <recent name="$PROJECT_DIR$/pkg/rpchelp" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
       <recent name="$PROJECT_DIR$/pkg/podopts" />
     </key>
@@ -116,15 +109,22 @@
       <recent name="$PROJECT_DIR$/pod" />
       <recent name="$PROJECT_DIR$/pod/pod" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pod/pod" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
+      <recent name="$PROJECT_DIR$/pkg/podstate" />
+      <recent name="$PROJECT_DIR$/pod/spec" />
+    </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod/pod">
-    <configuration name="go build github.com/p9c/monorepo/gel/cmd/hello" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo">
+    <configuration name="go build github.com/p9c/monorepo" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/gel/cmd/hello/main.go" />
-      <package value="github.com/p9c/monorepo/gel/cmd/hello" />
-      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="github.com/p9c/monorepo" />
+      <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/gel/cmd/iconchooser" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -165,11 +165,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/hello" />
       </list>
     </recent_temporary>
   </component>
@@ -207,22 +207,22 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state width="3806" height="471" key="GridCell.Tab.0.bottom" timestamp="1617747458473">
+    <state width="3806" height="471" key="GridCell.Tab.0.bottom" timestamp="1617751882436">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458473" />
-    <state width="3806" height="471" key="GridCell.Tab.0.center" timestamp="1617747458472">
+    <state width="3806" height="471" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
+    <state width="3806" height="471" key="GridCell.Tab.0.center" timestamp="1617751882436">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
-    <state width="3806" height="471" key="GridCell.Tab.0.left" timestamp="1617747458472">
+    <state width="3806" height="471" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
+    <state width="3806" height="471" key="GridCell.Tab.0.left" timestamp="1617751882435">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
-    <state width="3806" height="471" key="GridCell.Tab.0.right" timestamp="1617747458472">
+    <state width="3806" height="471" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882435" />
+    <state width="3806" height="471" key="GridCell.Tab.0.right" timestamp="1617751882436">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617747458472" />
+    <state width="3806" height="471" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
     <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617721688865">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>

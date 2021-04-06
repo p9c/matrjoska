@@ -18,7 +18,7 @@ func getAllOptionStrings(c *Config) (s map[string][]string, e error) {
 	},
 	) {
 	}
-	s["commandslist"] = c.Commands.GetAllCommands()
+	// s["commandslist"] = c.Commands.GetAllCommands()
 	return
 }
 

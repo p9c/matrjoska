@@ -6,6 +6,7 @@ import (
 
 // GetDefaultConfig returns a Config struct pristine factory fresh
 func GetDefaultConfig() (c *Config) {
+	I.Ln("getting default config")
 	c = &Config{
 		Commands: GetCommands(),
 		Map:      GetConfigs(),
