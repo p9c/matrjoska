@@ -58,7 +58,7 @@ type App struct {
 
 type WidgetMap map[string]l.Widget
 
-func (w *Window) App(size *atomic.Int32, activePage *atomic.String, Break1 float32,) *App {
+func (w *Window) App(size *atomic.Int32, activePage *atomic.String, Break1 float32, ) *App {
 	// mc := w.Clickable()
 	a := &App{
 		Window:              w,
@@ -163,7 +163,7 @@ func (a *App) RenderHeader(gtx l.Context) l.Dimensions {
 	return a.Flex().AlignMiddle().
 		Rigid(
 			a.Theme.Responsive(
-				int(a.Size.Load()),
+				a.Size.Load(),
 				Widgets{
 					{Widget: If(len(a.sideBar) > 0, a.MenuButton, a.NoMenuButton)},
 					{Size: a.Break1, Widget: a.NoMenuButton},
@@ -201,7 +201,7 @@ func (a *App) MainFrame(gtx l.Context) l.Dimensions {
 				Flexed(
 					1,
 					a.Responsive(
-						int(a.Size.Load()), Widgets{
+						a.Size.Load(), Widgets{
 							{
 								Widget: func(gtx l.Context) l.Dimensions {
 									return If(
@@ -265,7 +265,7 @@ func (a *App) NoMenuButton(_ l.Context) l.Dimensions {
 
 func (a *App) LogoAndTitle(gtx l.Context) l.Dimensions {
 	return a.Theme.Responsive(
-		int(a.Size.Load()), Widgets{
+		a.Size.Load(), Widgets{
 			{
 				Widget: a.Theme.Flex().AlignMiddle().
 					Rigid(

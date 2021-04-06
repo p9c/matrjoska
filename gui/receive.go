@@ -34,7 +34,7 @@ func (wg *WalletGUI) GetReceivePage() (rp *ReceivePage) {
 func (rp *ReceivePage) Fn(gtx l.Context) l.Dimensions {
 	wg := rp.wg
 	return wg.Responsive(
-		*wg.Size, gel.Widgets{
+		wg.Size.Load(), gel.Widgets{
 			{
 				Widget: rp.SmallList,
 			},

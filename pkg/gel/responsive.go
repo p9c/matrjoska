@@ -33,10 +33,10 @@ func (w Widgets) Swap(i, j int) {
 type Responsive struct {
 	*Theme
 	Widgets
-	size int
+	size int32
 }
 
-func (th *Theme) Responsive(size int, widgets Widgets) *Responsive {
+func (th *Theme) Responsive(size int32, widgets Widgets) *Responsive {
 	return &Responsive{Theme: th, size: size, Widgets: widgets}
 }
 

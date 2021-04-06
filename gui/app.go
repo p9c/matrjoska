@@ -265,7 +265,7 @@ func (wg *WalletGUI) Page(title string, widget gel.Widgets) func(gtx l.Context) 
 			// SpaceEvenly().
 			Rigid(
 				wg.Responsive(
-					*wg.Size, gel.Widgets{
+					wg.Size.Load(), gel.Widgets{
 						// p9.WidgetSize{
 						// 	Widget: a.ButtonInset(0.25, a.H5(title).Color(wg.App.BodyColorGet()).Fn).Fn,
 						// },
@@ -281,7 +281,7 @@ func (wg *WalletGUI) Page(title string, widget gel.Widgets) func(gtx l.Context) 
 				1,
 				wg.Inset(
 					0.25,
-					wg.Responsive(*wg.Size, widget).Fn,
+					wg.Responsive(wg.Size.Load(), widget).Fn,
 				).Fn,
 			).Fn(gtx)
 	}

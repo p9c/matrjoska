@@ -36,7 +36,7 @@ func (wg *WalletGUI) GetSendPage() (sp *SendPage) {
 func (sp *SendPage) Fn(gtx l.Context) l.Dimensions {
 	wg := sp.wg
 	return wg.Responsive(
-		*wg.Size, gel.Widgets{
+		wg.Size.Load(), gel.Widgets{
 			{
 				Widget: sp.SmallList,
 			},

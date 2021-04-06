@@ -149,7 +149,7 @@ func (wg *WalletGUI) OverviewPage() l.Widget {
 	}
 	return func(gtx l.Context) l.Dimensions {
 		return wg.Responsive(
-			*wg.Size, gel.Widgets{
+			wg.Size.Load(), gel.Widgets{
 				{
 					Size: 0,
 					Widget:

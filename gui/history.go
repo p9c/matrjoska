@@ -75,7 +75,7 @@ func (wg *WalletGUI) HistoryPage() l.Widget {
 				// wg.Fill("DocBg", l.Center, 0, 0,
 				// 	wg.Inset(0.25,
 				wg.Responsive(
-					*wg.Size, gel.Widgets{
+					wg.Size.Load(), gel.Widgets{
 						{
 							Widget: wg.VFlex().
 								Flexed(1, wg.HistoryPageView()).

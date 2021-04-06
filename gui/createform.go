@@ -6,6 +6,7 @@ import (
 	"gioui.org/text"
 	"github.com/p9c/monorepo/pkg/gel"
 	"github.com/p9c/monorepo/pkg/p9icons"
+	"github.com/tyler-smith/go-bip39"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 	"strings"
 )
