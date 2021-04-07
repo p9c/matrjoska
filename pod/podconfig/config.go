@@ -1,4 +1,4 @@
-package node
+package podconfig
 
 import (
 	"fmt"
@@ -250,6 +250,7 @@ func validLogLevel(logLevel string) bool {
 // 	}
 // 	return nil
 // }
+
 /*
 // loadConfig initializes and parses the config using a config file and command line options.
 // The configuration proceeds as follows:

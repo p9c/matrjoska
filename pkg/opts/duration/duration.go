@@ -13,14 +13,16 @@ import (
 // Opt stores an time.Duration configuration value
 type Opt struct {
 	meta.Data
-	hook  []func(d time.Duration)
+	hook  []Hook
 	Value *uberatomic.Duration
 	Def   time.Duration
 }
 
+type Hook func(d time.Duration) error
+
 // New creates a new Opt with a given default value set
-func New(m meta.Data, def time.Duration) *Opt {
-	return &Opt{Value: uberatomic.NewDuration(def), Data: m, Def: def}
+func New(m meta.Data, def time.Duration, hook ...Hook) *Opt {
+	return &Opt{Value: uberatomic.NewDuration(def), Data: m, Def: def, hook: hook}
 }
 
 // SetName sets the name for the generator
@@ -67,12 +69,12 @@ func (x *Opt) Name() string {
 }
 
 // AddHooks appends callback hooks to be run when the value is changed
-func (x *Opt) AddHooks(hook ...func(d time.Duration)) {
+func (x *Opt) AddHooks(hook ...Hook) {
 	x.hook = append(x.hook, hook...)
 }
 
 // SetHooks sets a new slice of hooks
-func (x *Opt) SetHooks(hook ...func(d time.Duration)) {
+func (x *Opt) SetHooks(hook ...Hook) {
 	x.hook = hook
 }
 
@@ -81,17 +83,21 @@ func (x *Opt) V() time.Duration {
 	return x.Value.Load()
 }
 
-func (x *Opt) runHooks() {
+func (x *Opt) runHooks(d time.Duration) (e error) {
 	for i := range x.hook {
-		x.hook[i](x.V())
+		if e = x.hook[i](d); E.Chk(e) {
+			break
+		}
 	}
+	return
 }
 
 // Set the value stored
-func (x *Opt) Set(d time.Duration) *Opt {
-	x.Value.Store(d)
-	x.runHooks()
-	return x
+func (x *Opt) Set(d time.Duration) (e error) {
+	if e = x.runHooks(d); !E.Chk(e) {
+		x.Value.Store(d)
+	}
+	return
 }
 
 // String returns a string representation of the value

@@ -12,16 +12,18 @@ import (
 // Opt stores a string configuration value
 type Opt struct {
 	meta.Data
-	hook  []func(s string)
+	hook  []Hook
 	Value *atomic.Value
 	Def   string
 }
 
+type Hook func(s []byte) error
+
 // New creates a new Opt with a given default value set
-func New(m meta.Data, def string) *Opt {
+func New(m meta.Data, def string, hook ...Hook) *Opt {
 	v := &atomic.Value{}
 	v.Store([]byte(def))
-	return &Opt{Value: v, Data: m, Def: def}
+	return &Opt{Value: v, Data: m, Def: def, hook: hook}
 }
 
 // SetName sets the name for the generator
@@ -47,10 +49,10 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		return
 	}
 	if strings.HasPrefix(input, "=") {
-		// the following removes leading and trailing characters
+		// the following removes leading `=` and retains any following instances of `=`
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
-	x.Set(input)
+	e = x.Set(input)
 	return x, e
 }
 
@@ -65,12 +67,12 @@ func (x *Opt) Name() string {
 }
 
 // AddHooks appends callback hooks to be run when the value is changed
-func (x *Opt) AddHooks(hook ...func(f string)) {
+func (x *Opt) AddHooks(hook ...Hook) {
 	x.hook = append(x.hook, hook...)
 }
 
 // SetHooks sets a new slice of hooks
-func (x *Opt) SetHooks(hook ...func(f string)) {
+func (x *Opt) SetHooks(hook ...Hook) {
 	x.hook = hook
 }
 
@@ -89,24 +91,29 @@ func (x *Opt) Bytes() []byte {
 	return x.Value.Load().([]byte)
 }
 
-func (x *Opt) runHooks() {
+func (x *Opt) runHooks(s []byte) (e error) {
 	for i := range x.hook {
-		x.hook[i](x.V())
+		if e = x.hook[i](s); E.Chk(e) {
+			break
+		}
 	}
+	return
 }
 
 // Set the value stored
-func (x *Opt) Set(s string) *Opt {
-	x.runHooks()
-	x.Value.Store([]byte(s))
-	return x
+func (x *Opt) Set(s string) (e error) {
+	if e = x.runHooks([]byte(s)); !E.Chk(e) {
+		x.Value.Store([]byte(s))
+	}
+	return
 }
 
 // SetBytes sets the string from bytes
-func (x *Opt) SetBytes(s []byte) *Opt {
-	x.runHooks()
-	x.Value.Store(s)
-	return x
+func (x *Opt) SetBytes(s []byte) (e error) {
+	if e = x.runHooks(s); !E.Chk(e) {
+		x.Value.Store(s)
+	}
+	return
 }
 
 // Opt returns a string representation of the value

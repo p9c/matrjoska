@@ -12,16 +12,18 @@ import (
 // Opt stores a string slice configuration value
 type Opt struct {
 	meta.Data
-	hook  []func(s []string)
-	value *atomic.Value
+	hook  []Hook
+	Value *atomic.Value
 	Def   []string
 }
 
+type Hook func(s []string) error
+
 // New  creates a new Opt with default values set
-func New(m meta.Data, def []string, hook ...func(s []string)) *Opt {
+func New(m meta.Data, def []string, hook ...Hook) *Opt {
 	as := &atomic.Value{}
 	as.Store(def)
-	return &Opt{value: as, Data: m, Def: def, hook: hook}
+	return &Opt{Value: as, Data: m, Def: def, hook: hook}
 }
 
 // SetName sets the name for the generator
@@ -49,12 +51,12 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 	if strings.HasPrefix(input, "=") {
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
-	// if value has a comma in it, it's a list of items, so split them and join them
+	// if value has a comma in it, it's a list of items, so split them and append them
 	slice := x.S()
 	if strings.Contains(input, ",") {
-		x.Set(append(slice, strings.Split(input, ",")...))
+		e = x.Set(append(slice, strings.Split(input, ",")...))
 	} else {
-		x.Set(append(slice, input))
+		e = x.Set(append(slice, input))
 	}
 	return x, e
 }
@@ -70,18 +72,18 @@ func (x *Opt) Name() string {
 }
 
 // AddHooks appends callback hooks to be run when the value is changed
-func (x *Opt) AddHooks(hook ...func(b []string)) {
+func (x *Opt) AddHooks(hook ...Hook) {
 	x.hook = append(x.hook, hook...)
 }
 
 // SetHooks sets a new slice of hooks
-func (x *Opt) SetHooks(hook ...func(b []string)) {
+func (x *Opt) SetHooks(hook ...Hook) {
 	x.hook = hook
 }
 
 // V returns the stored value
 func (x *Opt) V() []string {
-	return x.value.Load().([]string)
+	return x.Value.Load().([]string)
 }
 
 // Len returns the length of the slice of strings
@@ -89,22 +91,26 @@ func (x *Opt) Len() int {
 	return len(x.S())
 }
 
-func (x *Opt) runHooks() {
+func (x *Opt) runHooks(s []string) (e error) {
 	for i := range x.hook {
-		x.hook[i](x.V())
+		if e = x.hook[i](s); E.Chk(e) {
+			break
+		}
 	}
+	return
 }
 
 // Set the slice of strings stored
-func (x *Opt) Set(ss []string) *Opt {
-	x.value.Store(ss)
-	x.runHooks()
-	return x
+func (x *Opt) Set(ss []string) (e error) {
+	if e = x.runHooks(ss); !E.Chk(e) {
+		x.Value.Store(ss)
+	}
+	return
 }
 
 // S returns the value as a slice of string
 func (x *Opt) S() []string {
-	return x.value.Load().([]string)
+	return x.Value.Load().([]string)
 }
 
 // String returns a string representation of the value
@@ -114,7 +120,7 @@ func (x *Opt) String() string {
 
 // MarshalJSON returns the json representation of
 func (x *Opt) MarshalJSON() (b []byte, e error) {
-	xs := x.value.Load().([]string)
+	xs := x.Value.Load().([]string)
 	return json.Marshal(xs)
 }
 
@@ -122,6 +128,6 @@ func (x *Opt) MarshalJSON() (b []byte, e error) {
 func (x *Opt) UnmarshalJSON(data []byte) (e error) {
 	var v []string
 	e = json.Unmarshal(data, &v)
-	x.value.Store(v)
+	x.Value.Store(v)
 	return
 }

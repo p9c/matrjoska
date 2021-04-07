@@ -13,14 +13,15 @@ import (
 // Opt stores an int configuration value
 type Opt struct {
 	meta.Data
-	hook  []func(i int64)
+	hook  []Hook
 	Value *uberatomic.Int64
 	Def   int64
 }
+type Hook func(i int) error
 
 // New creates a new Opt with a given default value
-func New(m meta.Data, def int64) *Opt {
-	return &Opt{Value: uberatomic.NewInt64(def), Data: m, Def: def}
+func New(m meta.Data, def int64, hook ...Hook) *Opt {
+	return &Opt{Value: uberatomic.NewInt64(def), Data: m, Def: def, hook: hook}
 }
 
 // SetName sets the name for the generator
@@ -68,12 +69,12 @@ func (x *Opt) Name() string {
 }
 
 // AddHooks appends callback hooks to be run when the value is changed
-func (x *Opt) AddHooks(hook ...func(f int64)) {
+func (x *Opt) AddHooks(hook ...Hook) {
 	x.hook = append(x.hook, hook...)
 }
 
 // SetHooks sets a new slice of hooks
-func (x *Opt) SetHooks(hook ...func(f int64)) {
+func (x *Opt) SetHooks(hook ...Hook) {
 	x.hook = hook
 }
 
@@ -82,17 +83,21 @@ func (x *Opt) V() int {
 	return int(x.Value.Load())
 }
 
-func (x *Opt) runHooks() {
+func (x *Opt) runHooks(ii int) (e error) {
 	for i := range x.hook {
-		x.hook[i](int64(x.V()))
+		if e = x.hook[i](ii); E.Chk(e) {
+			break
+		}
 	}
+	return
 }
 
 // Set the value stored
-func (x *Opt) Set(i int) *Opt {
-	x.Value.Store(int64(i))
-	x.runHooks()
-	return x
+func (x *Opt) Set(i int) (e error) {
+	if e = x.runHooks(i); !E.Chk(e) {
+		x.Value.Store(int64(i))
+	}
+	return
 }
 
 // String returns the string stored

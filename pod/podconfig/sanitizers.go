@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/node/node"
 	"github.com/p9c/monorepo/pkg/amt"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
@@ -373,13 +372,13 @@ func setRelayReject(cfg *opts.Config) {
 func validateDBtype(cfg *opts.Config) {
 	// Validate database type.
 	T.Ln("validating database type")
-	if !node.ValidDbType(cfg.DbType.V()) {
+	if !ValidDbType(cfg.DbType.V()) {
 		str := "%s: The specified database type [%v] is invalid -- " +
 			"supported types %v"
-		e := fmt.Errorf(str, funcName, *cfg.DbType, node.KnownDbTypes)
+		e := fmt.Errorf(str, funcName, *cfg.DbType, KnownDbTypes)
 		E.Ln(funcName, e)
 		// set to default
-		cfg.DbType.Set(node.KnownDbTypes[0])
+		cfg.DbType.Set(KnownDbTypes[0])
 	}
 }
 
@@ -396,6 +395,7 @@ func validateProfilePort(cfg *opts.Config) {
 		}
 	}
 }
+
 func validateBanDuration(cfg *opts.Config) {
 	// Don't allow ban durations that are too short.
 	T.Ln("validating ban duration")
@@ -457,6 +457,7 @@ func validatePeerLists(cfg *opts.Config) {
 		// os.Exit(1)
 	}
 }
+
 func configListener(cfg *opts.Config, params *chaincfg.Params) {
 	// --proxy or --connect without --listen disables listening.
 	T.Ln("checking proxy/connect for disabling listening")
@@ -626,7 +627,7 @@ func validatePolicies(cfg *opts.Config, stateConfig *state.Config) {
 	}
 	// Chk the checkpoints for syntax errors.
 	T.Ln("checking the checkpoints")
-	stateConfig.AddedCheckpoints, e = node.ParseCheckpoints(
+	stateConfig.AddedCheckpoints, e = ParseCheckpoints(
 		cfg.AddCheckpoints.S(),
 	)
 	if e != nil {
@@ -636,6 +637,7 @@ func validatePolicies(cfg *opts.Config, stateConfig *state.Config) {
 		_, _ = fmt.Fprintln(os.Stderr, e)
 	}
 }
+
 func validateOnions(cfg *opts.Config) {
 	// --onionproxy and not --onion are contradictory
 	// TODO: this is kinda stupid hm? switch *and* toggle by presence of flag value, one should be enough

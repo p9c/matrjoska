@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
 	"github.com/p9c/monorepo/pkg/podopts"
 	"github.com/p9c/monorepo/pod/launchers"
@@ -21,10 +22,11 @@ func main() {
 	if e = debugConfig(cx.Config); E.Chk(e) {
 		fail()
 	}
-}
-
-func fail() {
-	os.Exit(1)
+	log.AppColorizer = cx.Config.RunningCommand.Colorizer
+	log.App = cx.Config.RunningCommand.AppText
+	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
+		fail()
+	}
 }
 
 func debugConfig(c *podopts.Config) (e error) {
@@ -41,4 +43,8 @@ func debugConfig(c *podopts.Config) (e error) {
 	}
 	I.Ln(jj.String())
 	return
+}
+
+func fail() {
+	os.Exit(1)
 }

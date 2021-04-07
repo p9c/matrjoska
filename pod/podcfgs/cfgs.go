@@ -58,11 +58,14 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"add custom checkpoints",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
 			[]string{},
+			func(chkPts *list.Opt) bool {
+				
+				return true
+			},
 		),
 		"AddPeers": list.New(meta.Data{
 			Aliases: []string{"AP"},
@@ -72,7 +75,6 @@ func GetConfigs() (c podopts.Configs) {
 			"manually adds addresses to try to connect to",
 			Type:   "ipaddress",
 			Widget: "multi",
-			// Hook:        "addpeer",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -85,7 +87,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maintain a full address-based transaction index which makes the searchrawtransactions RPC available",
 			Widget: "toggle",
-			// Hook:        "dropaddrindex",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -97,7 +98,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"RPC and controller ports are randomized, use with controller for automatic peer discovery",
 			Widget: "toggle",
-			// Hook: "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -110,7 +110,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"automatically update inbound addresses dynamically according to discovered network interfaces",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -123,7 +122,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"how long a ban of a misbehaving peer lasts",
 			Widget: "duration",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -136,7 +134,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"ban score that triggers a ban (default 100)",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -149,7 +146,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum block size in bytes to be used when creating a block",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -162,7 +158,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum block weight to be used when creating a block",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -175,7 +170,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"minimum block size in bytes to be used when creating a block",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -188,7 +182,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"minimum block weight to be used when creating a block",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -201,7 +194,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"size in bytes for high-priority/low-fee transactions when creating a block",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -214,7 +206,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"do not accept transactions from remote peers",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -228,7 +219,6 @@ func GetConfigs() (c podopts.Configs) {
 			"certificate authority file for TLS certificate validation",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -241,7 +231,6 @@ func GetConfigs() (c podopts.Configs) {
 			"location of configuration file, cannot actually be changed",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -255,7 +244,6 @@ func GetConfigs() (c podopts.Configs) {
 			"connect ONLY to these addresses (disables inbound connections)",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -268,7 +256,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"delivers mining jobs over multicast",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -282,7 +269,6 @@ func GetConfigs() (c podopts.Configs) {
 			"write cpu profile to this file",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -295,7 +281,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"sets dark theme for GUI",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -322,7 +307,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"type of database storage engine to use (only one right now, ffldb)",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -335,7 +319,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disables banning of misbehaving peers",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -348,7 +331,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disables all checkpoints",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -361,7 +343,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disable seeding of addresses to peers",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -374,7 +355,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disables inbound connections for the peer to peer network",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -387,7 +367,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disable rpc servers, as well as kopach controller",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -400,7 +379,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable LAN peer discovery in GUI",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -414,20 +392,18 @@ func GetConfigs() (c podopts.Configs) {
 			"extra addresses to tell peers they can connect to",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
 			[]string{},
 		),
-		"FreeTxRelayLimit": float.NewFloat(meta.Data{
+		"FreeTxRelayLimit": float.New(meta.Data{
 			Aliases: []string{"LR"},
 			Group:   "policy",
 			Label:   "Free Tx Relay Limit",
 			Description:
 			"limit relay of transactions with no transaction fee to the given amount in thousands of bytes per minute",
 			Widget: "float",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -440,7 +416,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"turn on Kopach CPU miner",
 			Widget: "toggle",
-			// Hook:        "generate",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -453,7 +428,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"number of threads to mine with",
 			Widget: "integer",
-			// Hook:        "genthreads",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -467,7 +441,6 @@ func GetConfigs() (c podopts.Configs) {
 			"list of packages that will print with attention getters",
 			Type:   "string",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -479,7 +452,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"run without any connection to nodes on the internet (does not apply on mainnet)",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -492,7 +464,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"user interface language i18 localization",
 			Widget: "string",
-			// Hook:        "language",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -505,7 +476,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"limited user password",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -518,7 +488,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"limited user name",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -532,7 +501,6 @@ func GetConfigs() (c podopts.Configs) {
 			"folder where log files are written",
 			Type:   "directory",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -546,7 +514,6 @@ func GetConfigs() (c podopts.Configs) {
 			"list of packages that will not print logs",
 			Type:   "string",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -567,11 +534,11 @@ func GetConfigs() (c podopts.Configs) {
 				"debug",
 				"trace",
 			},
-			// Hook:        "loglevel",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
 			"info",
+			
 		),
 		"MaxOrphanTxs": integer.New(meta.Data{
 			Aliases: []string{"MO"},
@@ -580,7 +547,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"max number of orphan transactions to keep in memory",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -593,7 +559,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of peers to hold connections with",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -606,20 +571,18 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"password that encrypts the connection to the mining controller",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
 			"pa55word",
 		),
-		"MinRelayTxFee": float.NewFloat(meta.Data{
+		"MinRelayTxFee": float.New(meta.Data{
 			Aliases: []string{"MRTF"},
 			Group:   "policy",
 			Label:   "Min Relay Transaction Fee",
 			Description:
 			"the minimum transaction fee in DUO/kB to be considered a non-zero fee",
 			Widget: "float",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -637,7 +600,6 @@ func GetConfigs() (c podopts.Configs) {
 				"regtestnet",
 				"simnet",
 			},
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -650,7 +612,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disable committed filtering (CF) support",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -663,7 +624,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"turn off the node backend",
 			Widget: "toggle",
-			// Hook:        "node",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -675,7 +635,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"do not load a wallet at startup",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -688,7 +647,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"disable bloom filtering support",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -701,7 +659,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"do not require free or low-fee transactions to have high priority for relaying",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -714,7 +671,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"generate a new TLS certificate pair at startup, but only write the certificate to disk",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -727,7 +683,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable tor proxy",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -741,7 +696,6 @@ func GetConfigs() (c podopts.Configs) {
 			"address of tor proxy you want to connect to",
 			Type:   "address",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -754,7 +708,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"password for tor proxy",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -767,7 +720,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"tor proxy username",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -781,7 +733,6 @@ func GetConfigs() (c podopts.Configs) {
 			"list of addresses reachable from connected networks",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -795,7 +746,6 @@ func GetConfigs() (c podopts.Configs) {
 			"list of addresses to bind the node listener to",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -812,7 +762,6 @@ func GetConfigs() (c podopts.Configs) {
 			"password for client RPC connections",
 			Type:   "password",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -824,7 +773,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable pipe based logger IPC",
 			Widget: "toggle",
-			// Hook:        "",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -838,7 +786,6 @@ func GetConfigs() (c podopts.Configs) {
 			"http profiling on given port (1024-40000)",
 			// Type:        "",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -852,7 +799,6 @@ func GetConfigs() (c podopts.Configs) {
 			"address of proxy to connect to for outbound connections",
 			Type:   "url",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -866,7 +812,6 @@ func GetConfigs() (c podopts.Configs) {
 			"proxy password, if required",
 			Type:   "password",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -879,7 +824,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"proxy username, if required",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -892,7 +836,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"reject non-standard transactions regardless of the default settings for the active network",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -905,7 +848,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"relay non-standard transactions regardless of the default settings for the active network",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -919,7 +861,6 @@ func GetConfigs() (c podopts.Configs) {
 			"location of RPC TLS certificate",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -933,7 +874,6 @@ func GetConfigs() (c podopts.Configs) {
 			"full node RPC for wallet",
 			Type:   "address",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -947,7 +887,6 @@ func GetConfigs() (c podopts.Configs) {
 			"location of rpc TLS key",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -961,7 +900,6 @@ func GetConfigs() (c podopts.Configs) {
 			"addresses to listen for RPC connections",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -975,7 +913,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of clients for regular RPC",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -988,7 +925,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of requests to process concurrently",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1001,7 +937,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of websocket clients to allow",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1014,7 +949,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable bugs that replicate bitcoin core RPC's JSON",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1026,7 +960,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"shuts down on lock timeout",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1038,7 +971,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"save opts given on commandline",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1052,7 +984,6 @@ func GetConfigs() (c podopts.Configs) {
 			"password for server connections",
 			Type:   "password",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1065,7 +996,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable TLS for the wallet connection to node RPC server",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1078,7 +1008,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"username for chain server connections",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1091,7 +1020,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"the maximum number of entries in the signature verification cache",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1103,7 +1031,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"mine even if not connected to a network",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1116,7 +1043,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable TLS for RPC client connections",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1129,7 +1055,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"skip TLS certificate verification (ignore CA errors)",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1142,7 +1067,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"makes a separate proxy connection for each connection",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1155,7 +1079,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"minimum time between attempts to send new inventory to a connected peer",
 			Widget: "duration",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1168,7 +1091,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maintain a full hash-based transaction index which makes all transactions available via the getrawtransaction RPC",
 			Widget: "toggle",
-			// Hook:        "droptxindex",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1181,7 +1103,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"enable UPNP for NAT traversal",
 			Widget: "toggle",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1194,7 +1115,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"comment to add to the user agent -- See BIP 14 for more information",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1207,7 +1127,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"password for client RPC connections",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1243,7 +1162,6 @@ func GetConfigs() (c podopts.Configs) {
 			"wallet database file",
 			Type:   "path",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1256,7 +1174,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"turn off the wallet backend",
 			Widget: "toggle",
-			// Hook:        "wallet",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1269,7 +1186,6 @@ func GetConfigs() (c podopts.Configs) {
 			"password encrypting public data in wallet - hash is stored so give on command line",
 			Type:   "password",
 			Widget: "password",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1283,7 +1199,6 @@ func GetConfigs() (c podopts.Configs) {
 			"addresses for wallet RPC server to listen on",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1299,7 +1214,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of RPC clients allowed for wallet RPC",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1312,7 +1226,6 @@ func GetConfigs() (c podopts.Configs) {
 			Description:
 			"maximum number of websocket clients allowed for wallet RPC",
 			Widget: "integer",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1326,7 +1239,6 @@ func GetConfigs() (c podopts.Configs) {
 			"node address to connect wallet server to",
 			Type:   "address",
 			Widget: "string",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1342,7 +1254,6 @@ func GetConfigs() (c podopts.Configs) {
 			"peers that you don't want to ever ban",
 			Type:   "address",
 			Widget: "multi",
-			// Hook:        "restart",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},

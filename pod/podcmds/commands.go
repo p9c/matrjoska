@@ -1,6 +1,7 @@
 package podcmds
 
 import (
+	"github.com/gookit/color"
 	"github.com/p9c/monorepo/pkg/opts/cmds"
 )
 
@@ -10,6 +11,8 @@ func GetCommands() (c cmds.Commands) {
 		{Name: "gui", Description:
 		"ParallelCoin GUI Wallet/Miner/Explorer",
 			Entrypoint: func(c interface{}) error { return nil },
+			Colorizer:  color.Bit24(128, 255, 255, false).Sprint,
+			AppText:    "   gui",
 		},
 		{Name: "version", Description:
 		"print version and exit",
@@ -22,6 +25,7 @@ func GetCommands() (c cmds.Commands) {
 		{Name: "node", Description:
 		"ParallelCoin blockchain node",
 			Entrypoint: func(c interface{}) error { return nil },
+			Colorizer:  color.Bit24(128, 128, 255, false).Sprint,
 			Commands: []cmds.Command{
 				{Name: "dropaddrindex", Description:
 				"drop the address database index",
@@ -54,16 +58,21 @@ func GetCommands() (c cmds.Commands) {
 					Entrypoint: func(c interface{}) error { return nil },
 				},
 			},
+			Colorizer: color.Bit24(255, 255, 128, false).Sprint,
+			AppText:   "wallet",
 		},
 		{Name: "kopach", Description:
 		"standalone multicast miner for easy mining farm deployment",
 			Entrypoint: func(c interface{}) error { return nil },
+			Colorizer:  color.Bit24(255, 128, 128, false).Sprint,
+			AppText:    "kopach",
 		},
 		{Name: "worker", Description:
 		"single thread worker process, normally started by kopach",
 			Entrypoint: func(c interface{}) error { return nil },
+			Colorizer:  color.Bit24(255, 128, 128, false).Sprint,
+			AppText:    "worker",
 		},
 	}
 	return
 }
-

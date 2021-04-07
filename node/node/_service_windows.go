@@ -2,6 +2,7 @@ package node
 
 import (
 	"fmt"
+	"github.com/p9c/monorepo/pod/podconfig"
 	"os"
 	"path/filepath"
 	"time"
@@ -288,6 +289,6 @@ func serviceMain() (bool, error) {
 
 // Set windows specific functions to real functions.
 func init() {
-	runServiceCommand = performServiceCommand
+	podconfig.runServiceCommand = performServiceCommand
 	winServiceMain = serviceMain
 }

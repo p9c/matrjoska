@@ -21,8 +21,7 @@ func Main() int {
 	if cx, e = GetNewContext(podcfgs.GetDefaultConfig()); F.Chk(e) {
 		return 1
 	}
-	if e = cx.Config.Initialize(); E.Chk(e) {
-	}
+
 	T.Ln("running command", cx.
 		Config.
 		RunningCommand.

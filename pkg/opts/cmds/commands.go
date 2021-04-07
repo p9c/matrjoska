@@ -10,6 +10,8 @@ type Command struct {
 	Documentation string
 	Entrypoint    func(c interface{}) error
 	Commands      Commands
+	Colorizer     func(a ...interface{}) string
+	AppText       string
 }
 
 // GetAllCommands returns all of the available command names
