@@ -1,59 +1,44 @@
-package pod
+package main
 
 import (
-	"github.com/p9c/monorepo/node/state"
-	"github.com/p9c/monorepo/pkg/chainrpc"
-	"github.com/p9c/monorepo/pkg/log"
+	"bytes"
+	"encoding/json"
 	"github.com/p9c/monorepo/pkg/pod"
 	"github.com/p9c/monorepo/pkg/podopts"
-	"github.com/p9c/monorepo/pkg/qu"
-	"go.uber.org/atomic"
-	"math/rand"
-	"time"
+	"github.com/p9c/monorepo/pod/launchers"
+	"github.com/p9c/monorepo/pod/podcfgs"
+	"github.com/p9c/monorepo/version"
+	"os"
 )
 
-// Main is the entrypoint for the pod suite
-func Main() int {
-	log.SetLogLevel("trace")
-	var e error
+func main() {
+	I.Ln(version.Get())
 	var cx *pod.State
-	if cx, e = GetNewContext(podopts.GetDefaultConfig()); F.Chk(e) {
-		return 1
+	var e error
+	if cx, e = launchers.GetNewContext(podcfgs.GetDefaultConfig()); E.Chk(e) {
+		fail()
 	}
-	if e = cx.Config.Initialize(); E.Chk(e) {
+	if e = debugConfig(cx.Config); E.Chk(e) {
+		fail()
 	}
-	T.Ln("running command", cx.
-		Config.
-		RunningCommand.
-		Name,
-	)
-	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
-		return 1
-	}
-	return 0
 }
 
-// GetNewContext returns a fresh new context
-func GetNewContext(config *podopts.Config) (s *pod.State, e error) {
-	if e = config.Initialize(); E.Chk(e) {
-		// return
-		panic(e)
+func fail() {
+	os.Exit(1)
+}
+
+func debugConfig(c *podopts.Config) (e error) {
+	c.ShowAll = true
+	defer func() { c.ShowAll = false }()
+	var j []byte
+	if j, e = c.MarshalJSON(); E.Chk(e) {
+		return
 	}
-	config.RunningCommand = config.Commands[0]
-	chainClientReady := qu.T()
-	rand.Seed(time.Now().UnixNano())
-	rand.Seed(rand.Int63())
-	s = &pod.State{
-		ChainClientReady: chainClientReady,
-		KillAll:          qu.T(),
-		// App:              cli.NewApp(),
-		Config:    config,
-		ConfigMap: config.Map,
-		StateCfg:  new(state.Config),
-		// Language:         lang.ExportLanguage(appLang),
-		// DataDir:          appdata.Dir(appName, false),
-		NodeChan: make(chan *chainrpc.Server),
-		Syncing:  atomic.NewBool(true),
+	var b []byte
+	jj := bytes.NewBuffer(b)
+	if e = json.Indent(jj, j, "", "\t"); E.Chk(e) {
+		return
 	}
+	I.Ln(jj.String())
 	return
 }

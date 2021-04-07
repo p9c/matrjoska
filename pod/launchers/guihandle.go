@@ -1,6 +1,6 @@
 // +build !headless
 
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/p9c/monorepo/pkg/pod"
 	
 	"github.com/p9c/monorepo/gui"
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 )
 
 // GUIHandle starts up the GUI wallet

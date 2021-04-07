@@ -8,6 +8,7 @@ import (
 	"github.com/p9c/monorepo/pkg/chainclient"
 	"github.com/p9c/monorepo/pkg/control"
 	"github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/monorepo/pod/podcfgs"
 	"math/rand"
 	"runtime"
 	"strings"
@@ -126,7 +127,7 @@ func (cx *State) PrintWaitChangers() string {
 
 // GetNewContext returns a fresh new context
 func GetNewContext() (s *State, e error) {
-	config := podopts.GetDefaultConfig()
+	config := podcfgs.GetDefaultConfig()
 	if e = config.Initialize(); E.Chk(e) {
 		return
 	}

@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/p9c/monorepo/pkg/pod"
 	"os"
 	
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 	
 	"github.com/urfave/cli"
 	

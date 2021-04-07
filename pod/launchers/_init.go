@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"github.com/gookit/color"
@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/exec"
 	
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 	
 	"github.com/urfave/cli"
 )

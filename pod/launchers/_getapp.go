@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -19,9 +19,9 @@ import (
 	au "github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/base58"
 	"github.com/p9c/monorepo/pkg/database/blockdb"
-	"github.com/p9c/monorepo/pkg/podconfig"
-	"github.com/p9c/monorepo/pkg/util/hdkeychain"
 	"github.com/p9c/monorepo/pkg/interrupt"
+	"github.com/p9c/monorepo/pkg/util/hdkeychain"
+	"github.com/p9c/monorepo/pod/podconfig"
 )
 
 // getApp defines the pod node

@@ -1,6 +1,6 @@
 // +build headless
 
-package pod
+package launchers
 
 import (
 	"os"

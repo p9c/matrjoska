@@ -1,4 +1,4 @@
-package podopts
+package podcfgs
 
 import (
 	"github.com/p9c/monorepo/pkg/appdata"
@@ -6,92 +6,51 @@ import (
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
 	"github.com/p9c/monorepo/pkg/opts/binary"
-	"github.com/p9c/monorepo/pkg/opts/cmds"
 	"github.com/p9c/monorepo/pkg/opts/duration"
 	"github.com/p9c/monorepo/pkg/opts/float"
 	"github.com/p9c/monorepo/pkg/opts/integer"
 	"github.com/p9c/monorepo/pkg/opts/list"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/text"
+	"github.com/p9c/monorepo/pkg/podopts"
 	"github.com/p9c/monorepo/pkg/util/hdkeychain"
+	"github.com/p9c/monorepo/pod/podcmds"
 	uberatomic "go.uber.org/atomic"
 	"math/rand"
 	"net"
 	"path/filepath"
+	"reflect"
 	"sync/atomic"
 	"time"
 )
 
-// GetCommands returns available subcommands in Parallelcoin Pod
-func GetCommands() (c cmds.Commands) {
-	c = cmds.Commands{
-		{Name: "gui", Description:
-		"ParallelCoin GUI Wallet/Miner/Explorer",
-			Entrypoint: func(c interface{}) error { return nil },
-		},
-		{Name: "version", Description:
-		"print version and exit",
-			Entrypoint: func(c interface{}) error { return nil },
-		},
-		{Name: "ctl", Description:
-		"command line wallet and chain RPC client",
-			Entrypoint: func(c interface{}) error { return nil },
-		},
-		{Name: "node", Description:
-		"ParallelCoin blockchain node",
-			Entrypoint: func(c interface{}) error { return nil },
-			Commands: []cmds.Command{
-				{Name: "dropaddrindex", Description:
-				"drop the address database index",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-				{Name: "droptxindex", Description:
-				"drop the transaction database index",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-				{Name: "dropcfindex", Description:
-				"drop the cfilter database index",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-				{Name: "dropindexes", Description:
-				"drop all of the indexes",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-				{Name: "resetchain", Description:
-				"deletes the current blockchain cache to force redownload",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-			},
-		},
-		{Name: "wallet", Description:
-		"run the wallet server (requires a chain node to function)",
-			Entrypoint: func(c interface{}) error { return nil },
-			Commands: []cmds.Command{
-				{Name: "drophistory", Description:
-				"reset the wallet transaction history",
-					Entrypoint: func(c interface{}) error { return nil },
-				},
-			},
-		},
-		{Name: "kopach", Description:
-		"standalone multicast miner for easy mining farm deployment",
-			Entrypoint: func(c interface{}) error { return nil },
-		},
-		{Name: "worker", Description:
-		"single thread worker process, normally started by kopach",
-			Entrypoint: func(c interface{}) error { return nil },
-		},
+// GetDefaultConfig returns a Config struct pristine factory fresh
+func GetDefaultConfig() (c *podopts.Config) {
+	I.Ln("getting default config")
+	c = &podopts.Config{
+		Commands: podcmds.GetCommands(),
+		Map:      GetConfigs(),
+	}
+	c.RunningCommand = c.Commands[0]
+	t := reflect.ValueOf(c)
+	t = t.Elem()
+	for i := range c.Map {
+		tf := t.FieldByName(i)
+		if tf.IsValid() && tf.CanSet() && tf.CanAddr() {
+			val := reflect.ValueOf(c.Map[i])
+			tf.Set(val)
+		}
 	}
 	return
 }
 
 // GetConfigs returns configuration options for Parallelcoin Pod
-func GetConfigs() (c Configs) {
+func GetConfigs() (c podopts.Configs) {
 	network := "mainnet"
 	rand.Seed(time.Now().Unix())
 	var datadir = &atomic.Value{}
 	datadir.Store([]byte(appdata.Dir(constant.Name, false)))
-	c = Configs{
+	c = podopts.Configs{
 		"AddCheckpoints": list.New(meta.Data{
 			Aliases: []string{"AC"},
 			Group:   "debug",
@@ -118,7 +77,6 @@ func GetConfigs() (c Configs) {
 			OmitEmpty:     true,
 		},
 			[]string{},
-			// []string{"127.0.0.1:12345", "127.0.0.1:12345", "127.0.0.1:12345", "127.0.0.1:12344"},
 		),
 		"AddrIndex": binary.New(meta.Data{
 			Aliases: []string{"AI"},

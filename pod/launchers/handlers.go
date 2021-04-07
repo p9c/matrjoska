@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ import (
 	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 	"github.com/p9c/monorepo/walletmain"
 )
 
@@ -37,23 +37,23 @@ func nodeHandle(ifc interface{}) (e error) {
 	podconfig.Configure(cx, true)
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
-	// serviceOptions defines the configuration options for the daemon as a service on Windows.
-	type serviceOptions struct {
-		ServiceCommand string `short:"s" long:"service" description:"Service command {install, remove, start, stop}"`
-	}
-	// runServiceCommand is only set to a real function on Windows. It is used to parse and execute service commands
-	// specified via the -s flag.
-	runServiceCommand := func(string) (e error) { return nil }
-	// Service options which are only added on Windows.
-	serviceOpts := serviceOptions{}
-	// Perform service command and exit if specified. Invalid service commands show an appropriate error. Only runs
-	// on Windows since the runServiceCommand function will be nil when not on Windows.
-	if serviceOpts.ServiceCommand != "" && runServiceCommand != nil {
-		if e = runServiceCommand(serviceOpts.ServiceCommand); E.Chk(e) {
-			return e
-		}
-		return nil
-	}
+	// // serviceOptions defines the configuration options for the daemon as a service on Windows.
+	// type serviceOptions struct {
+	// 	ServiceCommand string `short:"s" long:"service" description:"Service command {install, remove, start, stop}"`
+	// }
+	// // runServiceCommand is only set to a real function on Windows. It is used to parse and execute service commands
+	// // specified via the -s flag.
+	// runServiceCommand := func(string) (e error) { return nil }
+	// // Service options which are only added on Windows.
+	// serviceOpts := serviceOptions{}
+	// // Perform service command and exit if specified. Invalid service commands show an appropriate error. Only runs
+	// // on Windows since the runServiceCommand function will be nil when not on Windows.
+	// if serviceOpts.ServiceCommand != "" && runServiceCommand != nil {
+	// 	if e = runServiceCommand(serviceOpts.ServiceCommand); E.Chk(e) {
+	// 		return e
+	// 	}
+	// 	return nil
+	// }
 	// config.Configure(cx, c.Command.Name, true)
 	// D.Ln("starting shell")
 	if cx.Config.ClientTLS.True() || cx.Config.ServerTLS.True() {

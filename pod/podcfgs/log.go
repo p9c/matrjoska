@@ -1,4 +1,4 @@
-package pod
+package podcfgs
 
 import (
 	"github.com/p9c/monorepo/pkg/log"

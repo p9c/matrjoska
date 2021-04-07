@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ import (
 	
 	"github.com/p9c/monorepo/cmd/walletmain"
 	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 )
 
 // walletHandle runs the wallet server

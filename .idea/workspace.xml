@@ -95,29 +95,31 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/podopts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pod/podcfgs" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
+      <recent name="$PROJECT_DIR$/pod/podcfgs" />
+      <recent name="$PROJECT_DIR$/pod/podcmds" />
       <recent name="$PROJECT_DIR$/pkg/podopts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pod/podcfgs" />
       <recent name="$PROJECT_DIR$/pkg/podopts" />
       <recent name="$PROJECT_DIR$/pkg" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/pod" />
-      <recent name="$PROJECT_DIR$/pod/pod" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pod/pod" />
+      <recent name="$PROJECT_DIR$/pod" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-      <recent name="$PROJECT_DIR$/pkg/podstate" />
-      <recent name="$PROJECT_DIR$/pod/spec" />
+      <recent name="$PROJECT_DIR$/launchers/pod" />
+      <recent name="$PROJECT_DIR$/pod/podcfgs" />
+      <recent name="$PROJECT_DIR$/pod/pod" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo">
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod">
     <configuration name="go build github.com/p9c/monorepo" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
@@ -125,15 +127,6 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="github.com/p9c/monorepo" />
       <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/gel/cmd/iconchooser" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/gel/cmd/iconchooser/main.go" />
-      <package value="github.com/p9c/monorepo/gel/cmd/iconchooser" />
-      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/glom" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -154,6 +147,15 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build github.com/p9c/monorepo/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="monorepo" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pod/main.go" />
+      <package value="github.com/p9c/monorepo/pod" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build github.com/p9c/monorepo/pod/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
@@ -165,11 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/gel/cmd/iconchooser" />
       </list>
     </recent_temporary>
   </component>
@@ -207,30 +209,30 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state width="3806" height="471" key="GridCell.Tab.0.bottom" timestamp="1617751882436">
+    <state width="3840" height="479" key="GridCell.Tab.0.bottom" timestamp="1617755521374">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
-    <state width="3806" height="471" key="GridCell.Tab.0.center" timestamp="1617751882436">
+    <state width="3840" height="479" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617755521374" />
+    <state width="3840" height="479" key="GridCell.Tab.0.center" timestamp="1617755521373">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
-    <state width="3806" height="471" key="GridCell.Tab.0.left" timestamp="1617751882435">
+    <state width="3840" height="479" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617755521373" />
+    <state width="3840" height="479" key="GridCell.Tab.0.left" timestamp="1617755521373">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882435" />
-    <state width="3806" height="471" key="GridCell.Tab.0.right" timestamp="1617751882436">
+    <state width="3840" height="479" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617755521373" />
+    <state width="3840" height="479" key="GridCell.Tab.0.right" timestamp="1617755521374">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="471" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617751882436" />
+    <state width="3840" height="479" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617755521374" />
     <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617721688865">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
     <state x="1262" y="644" width="1316" height="918" key="SettingsEditor/0.34.3840.2126@0.34.3840.2126" timestamp="1617721688865" />
-    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1617747410346">
+    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1617752782001">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617747410346" />
+    <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617752782001" />
     <state x="1529" y="725" width="782" height="744" key="find.popup" timestamp="1617745097864">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>

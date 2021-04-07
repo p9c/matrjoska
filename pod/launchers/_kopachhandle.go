@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 	
 	"github.com/p9c/monorepo/pkg/interrupt"
 	
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 	
 	"github.com/p9c/monorepo/cmd/kopach"
 )

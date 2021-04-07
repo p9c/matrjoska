@@ -1,4 +1,4 @@
-package pod
+package launchers
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/monorepo/pkg/podconfig"
+	"github.com/p9c/monorepo/pod/podconfig"
 	
 	"github.com/p9c/monorepo/cmd/node"
 	"github.com/p9c/monorepo/cmd/walletmain"
