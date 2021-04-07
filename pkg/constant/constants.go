@@ -13,7 +13,7 @@ const (
 	// defaultConfigFilename        = "conf.json"
 	// defaultDataDirname           = "node"
 	
-	DefaultPort                  = "11047"
+	DefaultP2PPort               = 11047
 	DefaultRPCListener           = "127.0.0.1"
 	DefaultMaxPeers              = 23
 	DefaultBanDuration           = time.Hour * 24

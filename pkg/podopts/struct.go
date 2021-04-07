@@ -22,6 +22,7 @@ type Config struct {
 	Map                    map[string]opt.Option
 	Commands               cmds.Commands
 	RunningCommand         cmds.Command
+	ExtraArgs              []string
 	AddCheckpoints         *list.Opt
 	AddPeers               *list.Opt
 	AddrIndex              *binary.Opt

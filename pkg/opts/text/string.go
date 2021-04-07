@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/opts/sanitizers"
 	"strings"
 	"sync/atomic"
 )
@@ -56,18 +57,31 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		var matched string
 		e = fmt.Errorf("option value not found '%s'", input)
 		for _, i := range x.Data.Options {
-			// options
-			if input == i[:len(input)] {
+			opt := i
+			if len(i) >= len(input) {
+				opt = i[:len(input)]
+			}
+			if input == opt {
 				if e == nil {
 					return x, fmt.Errorf("ambiguous short option value '%s' matches multiple options: %s, %s", input, matched, i)
 				}
 				matched = i
 				e = nil
+			} else {
+				continue
 			}
 		}
 		if E.Chk(e) {
 			return
 		}
+	}
+	var cleaned string
+	if cleaned, e = sanitizers.StringType(x.Data.Type, input, x.Data.DefaultPort); E.Chk(e) {
+		return
+	}
+	if cleaned != "" {
+		I.Ln("setting value for", x.Data.Name, cleaned)
+		input = cleaned
 	}
 	e = x.Set(input)
 	return x, e

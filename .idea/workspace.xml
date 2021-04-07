@@ -74,7 +74,6 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -96,28 +95,28 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pod/podcfgs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/opts/sanitizers" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="GoMoveDeclarationDialog.RECENT_KEY">
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-      <recent name="$PROJECT_DIR$/pod/podcmds" />
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-      <recent name="$PROJECT_DIR$/pkg" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/pod" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pod/podconfig" />
       <recent name="$PROJECT_DIR$/pod" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/launchers/pod" />
       <recent name="$PROJECT_DIR$/pod/podcfgs" />
+    </key>
+    <key name="GoMoveDeclarationDialog.RECENT_KEY">
+      <recent name="$PROJECT_DIR$/pod/podcfgs" />
+      <recent name="$PROJECT_DIR$/pod/podcmds" />
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/opts/sanitizers" />
+      <recent name="$PROJECT_DIR$/pod/podcfgs" />
+      <recent name="$PROJECT_DIR$/pkg/podopts" />
+      <recent name="$PROJECT_DIR$/pkg" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod">
@@ -210,22 +209,22 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state width="3806" height="371" key="GridCell.Tab.0.bottom" timestamp="1617758579791">
+    <state width="3806" height="371" key="GridCell.Tab.0.bottom" timestamp="1617812565184">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617758579791" />
-    <state width="3806" height="371" key="GridCell.Tab.0.center" timestamp="1617758579790">
+    <state width="3806" height="371" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
+    <state width="3806" height="371" key="GridCell.Tab.0.center" timestamp="1617812565184">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617758579790" />
-    <state width="3806" height="371" key="GridCell.Tab.0.left" timestamp="1617758579789">
+    <state width="3806" height="371" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
+    <state width="3806" height="371" key="GridCell.Tab.0.left" timestamp="1617812565183">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617758579789" />
-    <state width="3806" height="371" key="GridCell.Tab.0.right" timestamp="1617758579790">
+    <state width="3806" height="371" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565183" />
+    <state width="3806" height="371" key="GridCell.Tab.0.right" timestamp="1617812565184">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617758579790" />
+    <state width="3806" height="371" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
     <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617763627070">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
@@ -234,13 +233,13 @@
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
     <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617752782001" />
-    <state x="1529" y="725" width="782" height="828" key="find.popup" timestamp="1617762819475">
+    <state x="1529" y="725" width="782" height="828" key="find.popup" timestamp="1617807096856">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state x="1529" y="725" width="782" height="828" key="find.popup/0.34.3840.2126@0.34.3840.2126" timestamp="1617762819475" />
-    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog" timestamp="1617760962246">
+    <state x="1529" y="725" width="782" height="828" key="find.popup/0.34.3840.2126@0.34.3840.2126" timestamp="1617807096856" />
+    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog" timestamp="1617812305650">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617760962246" />
+    <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617812305650" />
   </component>
 </project>

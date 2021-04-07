@@ -66,7 +66,7 @@ func (c *Config) Initialize() (e error) {
 	var cm *cmds.Command
 	var options []opt.Option
 	var optVals []string
-	if cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
+	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
 	if cm != nil {
@@ -76,6 +76,7 @@ func (c *Config) Initialize() (e error) {
 	}
 	// if the user sets the configfile directly, or the datadir on the commandline we need to load it from that path
 	T.Ln("checking from where to load the configuration file")
+	I.S(options, optVals)
 	datadir := c.DataDir.V()
 	var configPath string
 	for i := range options {
@@ -96,7 +97,8 @@ func (c *Config) Initialize() (e error) {
 		resolvedConfigPath = configPath
 	} else {
 		if datadir != "" {
-			resolvedConfigPath = filepath.Join(datadir, constant.PodConfigFilename)
+			if resolvedConfigPath, e = filepath.Abs(filepath.Clean(filepath.Join(datadir, constant.PodConfigFilename))); E.Chk(e) {
+			}
 			T.Ln("loading config from", resolvedConfigPath)
 		}
 	}
@@ -341,42 +343,37 @@ func (c *Config) UnmarshalJSON(data []byte) (e error) {
 	return
 }
 
-func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []opt.Option, optVals []string, e error) {
+func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cmds.Command, op []opt.Option, optVals []string, e error) {
 	// I.S(c.Commands)
+	I.S(args)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
 	// arbitrary for the node
 	commands := make(map[int]cmds.Command)
-	var commandsStart, commandsEnd int
+	var commandsStart, commandsEnd int = -1, -1
 	var found bool
 	for i := range args {
-		// if i == 0 {
-		// 	// commandsStart = i
-		// 	// commandsEnd = i
-		// 	continue
-		// }
-		T.Ln("checking for commands:", args[i])
-		T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
+		T.Ln("checking for commands:", args[i], commandsStart, commandsEnd)
 		var depth, dist int
 		if found, depth, dist, cm, e = c.Commands.Find(args[i], depth, dist); E.Chk(e) {
 			continue
 		}
 		if found {
-			if commandsStart == 0 {
+			if commandsStart == -1 {
 				commandsStart = i
 				commandsEnd = i + 1
 			}
-			T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 			if oc, ok := commands[depth]; ok {
 				e = fmt.Errorf("second command found at same depth '%s' and '%s'", oc.Name, cm.Name)
 				return
 			}
 			commandsEnd = i + 1
+			T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 			T.Ln("found command", cm.Name, "argument number", i, "at depth", depth, "distance", dist)
 			commands[depth] = *cm
 		} else {
-			T.Ln("not found:", args[i], "commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
-			// commandsStart++
-			// commandsEnd++
+			// commandsStart=i+1
+			// commandsEnd=i+1
+			// T.Ln("not found:", args[i], "commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 			T.Ln("argument", args[i], "is not a command")
 		}
 	}
@@ -385,6 +382,7 @@ func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []o
 	if len(commands) == 0 {
 		commands[0] = c.Commands[0]
 	} else {
+		I.Ln("checking commands")
 		for i := range commands {
 			cmds = append(cmds, i)
 		}
@@ -418,16 +416,16 @@ func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []o
 				}
 			}
 		}
-		T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
+		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 	}
-	if commandsStart > 1 {
+	if commandsStart > 0 {
 		T.Ln("opt found", args[:commandsStart])
 		// we have opt to check
 		for i := range args {
 			// if i == 0 {
 			// 	continue
 			// }
-			if i == commandsStart {
+			if i >= commandsStart {
 				break
 			}
 			var val string
@@ -436,9 +434,9 @@ func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []o
 				e = fmt.Errorf("argument %d: '%s' lacks a valid opt prefix", i, args[i])
 				return
 			}
-			// if _, e = opt.ReadInput(val); E.Chk(e) {
-			// 	return
-			// }
+			if _, e = o.ReadInput(val); E.Chk(e) {
+				return
+			}
 			T.Ln("found opt:", o.String())
 			op = append(op, o)
 			optVals = append(optVals, val)
@@ -448,6 +446,8 @@ func (c *Config) processCommandlineArgs(args []string) (cm *cmds.Command, op []o
 		cmds = []int{0}
 		commands[0] = c.Commands[0]
 	}
+	remArgs = args[commandsEnd:]
+	I.F("args that will pass to command: %v", remArgs)
 	// I.S(commands[cmds[len(cmds)-1]], op, args[commandsEnd:])
 	return
 }

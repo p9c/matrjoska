@@ -42,7 +42,7 @@ func (x *Opt) GetMetadata() *meta.Data {
 	return &x.Data
 }
 
-// ReadInput sets the value from a string. For this opt this means appending to the list
+// ReadInput adds the value from a string. For this opt this means appending to the list
 func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 	if input == "" {
 		e = fmt.Errorf("string opt %s %v may not be empty", x.Name(), x.Data.Aliases)

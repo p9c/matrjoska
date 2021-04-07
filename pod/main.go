@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	log.SetLogLevel("trace")
 	I.Ln(version.Get())
 	var cx *pod.State
 	var e error
@@ -30,8 +31,8 @@ func main() {
 }
 
 func debugConfig(c *podopts.Config) (e error) {
-	c.ShowAll = true
-	defer func() { c.ShowAll = false }()
+	// c.ShowAll = true
+	// defer func() { c.ShowAll = false }()
 	var j []byte
 	if j, e = c.MarshalJSON(); E.Chk(e) {
 		return

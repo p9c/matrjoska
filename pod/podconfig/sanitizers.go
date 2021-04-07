@@ -342,7 +342,7 @@ func initLogLevel(cfg *opts.Config) {
 
 func normalizeAddresses(cfg *opts.Config) {
 	T.Ln("normalising addresses")
-	port := constant.DefaultPort
+	port := fmt.Sprint(constant.DefaultP2PPort)
 	nrm := normalize.StringSliceAddresses
 	nrm(cfg.AddPeers.V(), port)
 	nrm(cfg.ConnectPeers.V(), port)
