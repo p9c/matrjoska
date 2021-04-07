@@ -3,6 +3,7 @@ package podcfgs
 import (
 	"github.com/p9c/monorepo/pkg/appdata"
 	"github.com/p9c/monorepo/pkg/base58"
+	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
 	"github.com/p9c/monorepo/pkg/database"
@@ -18,11 +19,12 @@ import (
 	"github.com/p9c/monorepo/pkg/util/hdkeychain"
 	"github.com/p9c/monorepo/pod/podcmds"
 	"github.com/p9c/monorepo/pod/podconfig/checkpoints"
-	uberatomic "go.uber.org/atomic"
+	"math"
 	"math/rand"
 	"net"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"sync/atomic"
 	"time"
 )
@@ -126,6 +128,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			time.Hour*24,
+			time.Second, time.Hour*24*365,
 		),
 		"BanThreshold": integer.New(meta.Data{
 			Aliases: []string{"BT"},
@@ -137,6 +140,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultBanThreshold,
+			1, 10000,
 		),
 		"BlockMaxSize": integer.New(meta.Data{
 			Aliases: []string{"BMXS"},
@@ -147,7 +151,8 @@ func GetConfigs() (c podopts.Configs) {
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			constant.BlockMaxSizeMax,
+			blockchain.MaxBlockBaseSize-1000,
+			constant.BlockMaxSizeMin, constant.BlockMaxSizeMax,
 		),
 		"BlockMaxWeight": integer.New(meta.Data{
 			Aliases: []string{"BMXW"},
@@ -159,6 +164,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.BlockMaxWeightMax,
+			constant.BlockMaxWeightMin, constant.BlockMaxWeightMax,
 		),
 		"BlockMinSize": integer.New(meta.Data{
 			Aliases: []string{"BMS"},
@@ -170,6 +176,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.BlockMaxSizeMin,
+			constant.BlockMaxSizeMin, constant.BlockMaxSizeMax,
 		),
 		"BlockMinWeight": integer.New(meta.Data{
 			Aliases: []string{"BMW"},
@@ -181,6 +188,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.BlockMaxWeightMin,
+			constant.BlockMaxWeightMin, constant.BlockMaxWeightMax,
 		),
 		"BlockPrioritySize": integer.New(meta.Data{
 			Aliases: []string{"BPS"},
@@ -192,6 +200,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultBlockPrioritySize,
+			constant.BlockMaxSizeMin, constant.BlockMaxSizeMax,
 		),
 		"BlocksOnly": binary.New(meta.Data{
 			Aliases: []string{"BO"},
@@ -210,7 +219,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Certificate Authority File",
 			Description:
 			"certificate authority file for TLS certificate validation",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -221,7 +230,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Configuration File",
 			Description:
 			"location of configuration file, cannot actually be changed",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -233,7 +242,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Connect Peers",
 			Description:
 			"connect ONLY to these addresses (disables inbound connections)",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 			DefaultPort:   constant.DefaultP2PPort,
@@ -257,7 +266,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "CPU Profile",
 			Description:
 			"write cpu profile to this file",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -274,19 +283,17 @@ func GetConfigs() (c podopts.Configs) {
 		},
 			false,
 		),
-		"DataDir": &text.Opt{
-			Value: datadir,
-			Data: meta.Data{
-				Aliases: []string{"DD"},
-				Label:   "Data Directory",
-				Description:
-				"root folder where application data is stored",
-				Type: sanitizers.Directory,
-				Documentation: "<placeholder for detailed documentation>",
-				OmitEmpty:     true,
-			},
-			Def: appdata.Dir(constant.Name, false),
+		"DataDir": text.New(meta.Data{
+			Aliases: []string{"DD"},
+			Label:   "Data Directory",
+			Description:
+			"root folder where application data is stored",
+			Type:          sanitizers.Directory,
+			Documentation: "<placeholder for detailed documentation>",
+			OmitEmpty:     true,
 		},
+			appdata.Dir(constant.Name, false),
+		),
 		"DbType": text.New(meta.Data{
 			Aliases: []string{"DB"},
 			Group:   "debug",
@@ -371,7 +378,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "External IP Addresses",
 			Description:
 			"extra addresses to tell peers they can connect to",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -387,6 +394,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultFreeTxRelayLimit,
+			0, math.MaxFloat64,
 		),
 		"Generate": binary.New(meta.Data{
 			Aliases: []string{"GB"},
@@ -409,6 +417,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			-1,
+			-math.MaxInt64, runtime.NumCPU(),
 		),
 		"Hilite": list.New(meta.Data{
 			Aliases: []string{"HL"},
@@ -416,7 +425,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Hilite",
 			Description:
 			"list of packages that will print with attention getters",
-			Type: "",
+			Type:          "",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -472,7 +481,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Log Directory",
 			Description:
 			"folder where log files are written",
-			Type: sanitizers.Directory,
+			Type:          sanitizers.Directory,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -484,7 +493,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Log Filter",
 			Description:
 			"list of packages that will not print logs",
-			Type: "",
+			Type:          "",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -521,6 +530,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMaxOrphanTransactions,
+			0, math.MaxInt64,
 		),
 		"MaxPeers": integer.New(meta.Data{
 			Aliases: []string{"MP"},
@@ -532,6 +542,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMaxPeers,
+			1, 256,
 		),
 		"MulticastPass": text.New(meta.Data{
 			Aliases: []string{"PM"},
@@ -555,6 +566,8 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMinRelayTxFee.ToDUO(),
+			0, math.MaxFloat64,
+		
 		),
 		"Network": text.New(meta.Data{
 			Aliases: []string{"NW"},
@@ -655,7 +668,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Onion Proxy Address",
 			Description:
 			"address of tor proxy you want to connect to",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -667,7 +680,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Onion Proxy Password",
 			Description:
 			"password for tor proxy",
-			Type: sanitizers.Password,
+			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -690,7 +703,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "P2P Connect",
 			Description:
 			"list of addresses reachable from connected networks",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -702,7 +715,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "P2PListeners",
 			Description:
 			"list of addresses to bind the node listener to",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -717,7 +730,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Password",
 			Description:
 			"password for client RPC connections",
-			Type: sanitizers.Password,
+			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -751,7 +764,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Proxy",
 			Description:
 			"address of proxy to connect to for outbound connections",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -763,7 +776,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Proxy Pass",
 			Description:
 			"proxy password, if required",
-			Type: sanitizers.Password,
+			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -808,7 +821,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "RPC Cert",
 			Description:
 			"location of RPC TLS certificate",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -820,7 +833,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "RPC Connect",
 			Description:
 			"full node RPC for wallet",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -832,7 +845,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "RPC Key",
 			Description:
 			"location of rpc TLS key",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -844,7 +857,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "RPC Listeners",
 			Description:
 			"addresses to listen for RPC connections",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -861,6 +874,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMaxRPCClients,
+			0, 256,
 		),
 		"RPCMaxConcurrentReqs": integer.New(meta.Data{
 			Aliases: []string{"RMCR"},
@@ -872,6 +886,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMaxRPCConcurrentReqs,
+			0, 4096,
 		),
 		"RPCMaxWebsockets": integer.New(meta.Data{
 			Aliases: []string{"RMWS"},
@@ -883,6 +898,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultMaxRPCWebsockets,
+			0, 4096,
 		),
 		"RPCQuirks": binary.New(meta.Data{
 			Aliases: []string{"RQ"},
@@ -921,7 +937,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Server Pass",
 			Description:
 			"password for server connections",
-			Type: sanitizers.Password,
+			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -959,6 +975,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultSigCacheMaxSize,
+			constant.DefaultSigCacheMaxSize, constant.BlockMaxSizeMax,
 		),
 		"Solo": binary.New(meta.Data{
 			Group: "mining",
@@ -1013,6 +1030,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultTrickleInterval,
+			time.Second, time.Second*30,
 		),
 		"TxIndex": binary.New(meta.Data{
 			Aliases: []string{"TXI"},
@@ -1058,15 +1076,16 @@ func GetConfigs() (c podopts.Configs) {
 		},
 			"username",
 		),
-		"UUID": &integer.Opt{Data: meta.Data{
+		"UUID": integer.New(meta.Data{
 			Label: "UUID",
 			Description:
 			"instance unique id (64bit random value)",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			Value: uberatomic.NewInt64(rand.Int63()),
-		},
+			rand.Int63(),
+			-math.MaxInt64, math.MaxInt64,
+		),
 		"UseWallet": binary.New(meta.Data{
 			Aliases: []string{"WC"},
 			Group:   "debug",
@@ -1084,7 +1103,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Wallet File",
 			Description:
 			"wallet database file",
-			Type: sanitizers.FilePath,
+			Type:          sanitizers.FilePath,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1106,7 +1125,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Wallet Pass",
 			Description:
 			"password encrypting public data in wallet - hash is stored so give on command line",
-			Type: sanitizers.Password,
+			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1118,7 +1137,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Wallet RPC Listeners",
 			Description:
 			"addresses for wallet RPC server to listen on",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1137,6 +1156,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultRPCMaxClients,
+			0, 4096,
 		),
 		"WalletRPCMaxWebsockets": integer.New(meta.Data{
 			Aliases: []string{"WRMWS"},
@@ -1148,6 +1168,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			constant.DefaultRPCMaxWebsockets,
+			0, 4096,
 		),
 		"WalletServer": text.New(meta.Data{
 			Aliases: []string{"WS"},
@@ -1155,7 +1176,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Wallet Server",
 			Description:
 			"node address to connect wallet server to",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
@@ -1169,7 +1190,7 @@ func GetConfigs() (c podopts.Configs) {
 			Label:   "Whitelists",
 			Description:
 			"peers that you don't want to ever ban",
-			Type: sanitizers.NetAddress,
+			Type:          sanitizers.NetAddress,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},

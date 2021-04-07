@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/opts/sanitizers"
 	uberatomic "go.uber.org/atomic"
 	"strconv"
 	"strings"
@@ -13,15 +14,17 @@ import (
 // Opt stores an int configuration value
 type Opt struct {
 	meta.Data
-	hook  []Hook
-	Value *uberatomic.Int64
-	Def   int64
+	hook     []Hook
+	Min, Max int
+	clamp    func(input int) (result int)
+	Value    *uberatomic.Int64
+	Def      int64
 }
 type Hook func(i int) error
 
 // New creates a new Opt with a given default value
-func New(m meta.Data, def int64, hook ...Hook) *Opt {
-	return &Opt{Value: uberatomic.NewInt64(def), Data: m, Def: def, hook: hook}
+func New(m meta.Data, def int64, min, max int, hook ...Hook) *Opt {
+	return &Opt{Value: uberatomic.NewInt64(def), Data: m, Def: def, hook: hook, clamp: sanitizers.ClampInt(min, max)}
 }
 
 // SetName sets the name for the generator
@@ -47,14 +50,15 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		return
 	}
 	if strings.HasPrefix(input, "=") {
-		// the following removes leading and trailing characters
+		// the following removes leading and trailing '='
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
 	var v int64
 	if v, e = strconv.ParseInt(input, 10, 64); E.Chk(e) {
 		return
 	}
-	x.Value.Store(v)
+	if e = x.Set(int(v)); E.Chk(e) {
+	}
 	return x, e
 }
 
@@ -94,6 +98,7 @@ func (x *Opt) runHooks(ii int) (e error) {
 
 // Set the value stored
 func (x *Opt) Set(i int) (e error) {
+	i = x.clamp(i)
 	if e = x.runHooks(i); !E.Chk(e) {
 		x.Value.Store(int64(i))
 	}

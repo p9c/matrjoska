@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/opts/sanitizers"
 	"strings"
 	"sync/atomic"
 )
@@ -54,8 +55,27 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 	// if value has a comma in it, it's a list of items, so split them and append them
 	slice := x.S()
 	if strings.Contains(input, ",") {
-		e = x.Set(append(slice, strings.Split(input, ",")...))
+		split := strings.Split(input, ",")
+		for i := range split {
+			var cleaned string
+			if cleaned, e = sanitizers.StringType(x.Data.Type, split[i], x.Data.DefaultPort); E.Chk(e) {
+				return
+			}
+			if cleaned != "" {
+				I.Ln("setting value for", x.Data.Name, cleaned)
+				split[i] = cleaned
+			}
+		}
+		e = x.Set(append(slice, split...))
 	} else {
+		var cleaned string
+		if cleaned, e = sanitizers.StringType(x.Data.Type, input, x.Data.DefaultPort); E.Chk(e) {
+			return
+		}
+		if cleaned != "" {
+			I.Ln("setting value for", x.Data.Name, cleaned)
+			input = cleaned
+		}
 		e = x.Set(append(slice, input))
 	}
 	return x, e
@@ -63,7 +83,13 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 
 // LoadInput sets the value from a string. For this opt this means appending to the list
 func (x *Opt) LoadInput(input string) (o opt.Option, e error) {
-	return x.ReadInput(input)
+	old := x.V()
+	_ = x.Set([]string{})
+	if o, e = x.ReadInput(input); E.Chk(e) {
+		// if input failed to parse, restore its prior state
+		_ = x.Set(old)
+	}
+	return
 }
 
 // Name returns the name of the opt

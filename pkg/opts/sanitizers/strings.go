@@ -28,6 +28,7 @@ func StringType(typ, input string, defaultPort int) (cleaned string, e error) {
 			cleaned = net.JoinHostPort(h, fmt.Sprint(defaultPort))
 		}
 	case Password:
+		// password type is mainly here for the input method of the app using this config library
 	case FilePath:
 		if strings.HasPrefix(input, "~") {
 			var homeDir string

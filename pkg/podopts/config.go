@@ -155,6 +155,7 @@ func (c *Config) loadConfig(path string) (e error) {
 	var cf []byte
 	if !apputil.FileExists(path) {
 	} else if cf, e = ioutil.ReadFile(path); !D.Chk(e) {
+		I.Ln(string(cf))
 		if e = json.Unmarshal(cf, c); D.Chk(e) {
 		}
 	}
@@ -165,6 +166,7 @@ func (c *Config) loadConfig(path string) (e error) {
 func (c *Config) WriteToFile(filename string) (e error) {
 	// always load first and ensure written changes propagated or if one is manually running components independently
 	if e = c.loadConfig(filename); E.Chk(e) {
+		return
 	}
 	var j []byte
 	if j, e = json.MarshalIndent(c, "", "  "); E.Chk(e) {

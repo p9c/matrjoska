@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/opts/sanitizers"
 	
 	uberatomic "go.uber.org/atomic"
 	"strconv"
@@ -14,16 +15,18 @@ import (
 // Opt stores an float64 configuration value
 type Opt struct {
 	meta.Data
-	hook  []Hook
-	Value *uberatomic.Float64
-	Def   float64
+	hook     []Hook
+	Min, Max float64
+	clamp    func(input float64) (result float64)
+	Value    *uberatomic.Float64
+	Def      float64
 }
 
 type Hook func(f float64) error
 
 // New returns a new Opt value set to a default value
-func New(m meta.Data, def float64, hook ...Hook) *Opt {
-	return &Opt{Value: uberatomic.NewFloat64(def), Data: m, Def: def, hook: hook}
+func New(m meta.Data, def float64, min, max float64, hook ...Hook) *Opt {
+	return &Opt{Value: uberatomic.NewFloat64(def), Data: m, Def: def, hook: hook, clamp: sanitizers.ClampFloat(min, max)}
 }
 
 // SetName sets the name for the generator
@@ -49,14 +52,15 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		return
 	}
 	if strings.HasPrefix(input, "=") {
-		// the following removes leading and trailing characters
+		// the following removes leading and trailing '='
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
 	var v float64
 	if v, e = strconv.ParseFloat(input, 64); E.Chk(e) {
 		return
 	}
-	x.Value.Store(v)
+	if e = x.Set(v); E.Chk(e) {
+	}
 	return x, e
 }
 
@@ -96,6 +100,7 @@ func (x *Opt) runHooks(f float64) (e error) {
 
 // Set the value stored
 func (x *Opt) Set(f float64) (e error) {
+	f = x.clamp(f)
 	if e = x.runHooks(f); !E.Chk(e) {
 		x.Value.Store(f)
 	}

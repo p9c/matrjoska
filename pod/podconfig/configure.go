@@ -29,7 +29,7 @@ func Configure(cx *pod.State, initial bool) {
 	setRelayReject(cx.Config)
 	validateDBtype(cx.Config)
 	validateProfilePort(cx.Config)
-	validateBanDuration(cx.Config)
+	// validateBanDuration(cx.Config)
 	validateWhitelists(cx.Config, cx.StateCfg)
 	validatePeerLists(cx.Config)
 	configListener(cx.Config, cx.ActiveNet)

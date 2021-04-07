@@ -24,7 +24,6 @@ import (
 	"github.com/p9c/monorepo/pkg/util/routeable"
 	
 	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/connmgr"
 	"github.com/p9c/monorepo/pkg/interrupt"
 	"github.com/p9c/monorepo/pkg/util"
@@ -396,18 +395,18 @@ func validateProfilePort(cfg *opts.Config) {
 	}
 }
 
-func validateBanDuration(cfg *opts.Config) {
-	// Don't allow ban durations that are too short.
-	T.Ln("validating ban duration")
-	if cfg.BanDuration.V() < time.Second {
-		e := fmt.Errorf(
-			"%s: The banduration opt may not be less than 1s -- parsed [%v]",
-			funcName, *cfg.BanDuration,
-		)
-		I.Ln(funcName, e)
-		cfg.BanDuration.Set(constant.DefaultBanDuration)
-	}
-}
+// func validateBanDuration(cfg *opts.Config) {
+// 	// Don't allow ban durations that are too short.
+// 	T.Ln("validating ban duration")
+// 	if cfg.BanDuration.V() < time.Second {
+// 		e := fmt.Errorf(
+// 			"%s: The banduration opt may not be less than 1s -- parsed [%v]",
+// 			funcName, *cfg.BanDuration,
+// 		)
+// 		I.Ln(funcName, e)
+// 		cfg.BanDuration.Set(constant.DefaultBanDuration)
+// 	}
+// }
 
 func validateWhitelists(cfg *opts.Config, st *state.Config) {
 	// Validate any given whitelisted IP addresses and networks.
@@ -546,28 +545,28 @@ func validatePolicies(cfg *opts.Config, stateConfig *state.Config) {
 		e = fmt.Errorf(str, funcName, e)
 		_, _ = fmt.Fprintln(os.Stderr, e)
 	}
-	// Limit the max block size to a sane value.
-	T.Ln("checking max block size")
-	if cfg.BlockMaxSize.V() < constant.BlockMaxSizeMin ||
-		cfg.BlockMaxSize.V() > constant.BlockMaxSizeMax {
-		str := "%s: The blockmaxsize opt must be in between %d and %d -- parsed [%d]"
-		e = fmt.Errorf(
-			str, funcName, constant.BlockMaxSizeMin,
-			constant.BlockMaxSizeMax, cfg.BlockMaxSize.V(),
-		)
-		_, _ = fmt.Fprintln(os.Stderr, e)
-	}
+	// // Limit the max block size to a sane value.
+	// T.Ln("checking max block size")
+	// if cfg.BlockMaxSize.V() < constant.BlockMaxSizeMin ||
+	// 	cfg.BlockMaxSize.V() > constant.BlockMaxSizeMax {
+	// 	str := "%s: The blockmaxsize opt must be in between %d and %d -- parsed [%d]"
+	// 	e = fmt.Errorf(
+	// 		str, funcName, constant.BlockMaxSizeMin,
+	// 		constant.BlockMaxSizeMax, cfg.BlockMaxSize.V(),
+	// 	)
+	// 	_, _ = fmt.Fprintln(os.Stderr, e)
+	// }
 	// Limit the max block weight to a sane value.
-	T.Ln("checking max block weight")
-	if cfg.BlockMaxWeight.V() < constant.BlockMaxWeightMin ||
-		cfg.BlockMaxWeight.V() > constant.BlockMaxWeightMax {
-		str := "%s: The blockmaxweight opt must be in between %d and %d -- parsed [%d]"
-		e = fmt.Errorf(
-			str, funcName, constant.BlockMaxWeightMin,
-			constant.BlockMaxWeightMax, cfg.BlockMaxWeight.V(),
-		)
-		_, _ = fmt.Fprintln(os.Stderr, e)
-	}
+	// T.Ln("checking max block weight")
+	// if cfg.BlockMaxWeight.V() < constant.BlockMaxWeightMin ||
+	// 	cfg.BlockMaxWeight.V() > constant.BlockMaxWeightMax {
+	// 	str := "%s: The blockmaxweight opt must be in between %d and %d -- parsed [%d]"
+	// 	e = fmt.Errorf(
+	// 		str, funcName, constant.BlockMaxWeightMin,
+	// 		constant.BlockMaxWeightMax, cfg.BlockMaxWeight.V(),
+	// 	)
+	// 	_, _ = fmt.Fprintln(os.Stderr, e)
+	// }
 	// Limit the max orphan count to a sane vlue.
 	T.Ln("checking max orphan limit")
 	if cfg.MaxOrphanTxs.V() < 0 {
@@ -601,18 +600,18 @@ func validatePolicies(cfg *opts.Config, stateConfig *state.Config) {
 			),
 		),
 	)
-	switch {
-	// If the max block size isn't set, but the max weight is, then we'll set the
-	// limit for the max block size to a safe limit so weight takes precedence.
-	case cfg.BlockMaxSize.V() == constant.DefaultBlockMaxSize &&
-		cfg.BlockMaxWeight.V() != constant.DefaultBlockMaxWeight:
-		cfg.BlockMaxSize.Set(blockchain.MaxBlockBaseSize - 1000)
-		// If the max block weight isn't set, but the block size is, then we'll scale
-		// the set weight accordingly based on the max block size value.
-	case cfg.BlockMaxSize.V() != constant.DefaultBlockMaxSize &&
-		cfg.BlockMaxWeight.V() == constant.DefaultBlockMaxWeight:
-		cfg.BlockMaxWeight.Set(cfg.BlockMaxSize.V() * blockchain.WitnessScaleFactor)
-	}
+	// switch {
+	// // If the max block size isn't set, but the max weight is, then we'll set the
+	// // limit for the max block size to a safe limit so weight takes precedence.
+	// case cfg.BlockMaxSize.V() == constant.DefaultBlockMaxSize &&
+	// 	cfg.BlockMaxWeight.V() != constant.DefaultBlockMaxWeight:
+	// 	cfg.BlockMaxSize.Set(blockchain.MaxBlockBaseSize - 1000)
+	// 	// If the max block weight isn't set, but the block size is, then we'll scale
+	// 	// the set weight accordingly based on the max block size value.
+	// case cfg.BlockMaxSize.V() != constant.DefaultBlockMaxSize &&
+	// 	cfg.BlockMaxWeight.V() == constant.DefaultBlockMaxWeight:
+	// 	cfg.BlockMaxWeight.Set(cfg.BlockMaxSize.V() * blockchain.WitnessScaleFactor)
+	// }
 	// Look for illegal characters in the user agent comments.
 	T.Ln("checking user agent comments", cfg.UserAgentComments)
 	for _, uaComment := range cfg.UserAgentComments.S() {

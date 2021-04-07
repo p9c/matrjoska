@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
+	"github.com/p9c/monorepo/pkg/opts/sanitizers"
 	uberatomic "go.uber.org/atomic"
 	"strings"
 	"time"
@@ -13,16 +14,18 @@ import (
 // Opt stores an time.Duration configuration value
 type Opt struct {
 	meta.Data
-	hook  []Hook
-	Value *uberatomic.Duration
-	Def   time.Duration
+	hook     []Hook
+	clamp    func(input time.Duration) (result time.Duration)
+	Min, Max time.Duration
+	Value    *uberatomic.Duration
+	Def      time.Duration
 }
 
 type Hook func(d time.Duration) error
 
 // New creates a new Opt with a given default value set
-func New(m meta.Data, def time.Duration, hook ...Hook) *Opt {
-	return &Opt{Value: uberatomic.NewDuration(def), Data: m, Def: def, hook: hook}
+func New(m meta.Data, def time.Duration, min, max time.Duration, hook ...Hook) *Opt {
+	return &Opt{Value: uberatomic.NewDuration(def), Data: m, Def: def, hook: hook, clamp: sanitizers.ClampDuration(min, max)}
 }
 
 // SetName sets the name for the generator
@@ -48,12 +51,14 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		return
 	}
 	if strings.HasPrefix(input, "=") {
-		// the following removes leading and trailing characters
+		// the following removes leading and trailing '='
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
 	var v time.Duration
-	if v, e = time.ParseDuration(input); !E.Chk(e) {
-		x.Value.Store(v)
+	if v, e = time.ParseDuration(input); E.Chk(e) {
+		return
+	}
+	if e = x.Set(v); E.Chk(e) {
 	}
 	return
 }
@@ -94,6 +99,7 @@ func (x *Opt) runHooks(d time.Duration) (e error) {
 
 // Set the value stored
 func (x *Opt) Set(d time.Duration) (e error) {
+	d = x.clamp(d)
 	if e = x.runHooks(d); !E.Chk(e) {
 		x.Value.Store(d)
 	}
