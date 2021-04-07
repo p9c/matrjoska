@@ -625,17 +625,17 @@ func validatePolicies(cfg *opts.Config, stateConfig *state.Config) {
 			_, _ = fmt.Fprintln(os.Stderr, e)
 		}
 	}
-	// Chk the checkpoints for syntax errors.
-	T.Ln("checking the checkpoints")
-	stateConfig.AddedCheckpoints, e = ParseCheckpoints(
-		cfg.AddCheckpoints.S(),
-	)
-	if e != nil {
-		E.Ln(e)
-		str := "%s: err parsing checkpoints: %v"
-		e = fmt.Errorf(str, funcName, e)
-		_, _ = fmt.Fprintln(os.Stderr, e)
-	}
+	// // Chk the checkpoints for syntax errors.
+	// T.Ln("checking the checkpoints")
+	// stateConfig.AddedCheckpoints, e = ParseCheckpoints(
+	// 	cfg.AddCheckpoints.S(),
+	// )
+	// if e != nil {
+	// 	E.Ln(e)
+	// 	str := "%s: err parsing checkpoints: %v"
+	// 	e = fmt.Errorf(str, funcName, e)
+	// 	_, _ = fmt.Fprintln(os.Stderr, e)
+	// }
 }
 
 func validateOnions(cfg *opts.Config) {

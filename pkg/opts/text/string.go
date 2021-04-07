@@ -52,6 +52,23 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		// the following removes leading `=` and retains any following instances of `=`
 		input = strings.Join(strings.Split(input, "=")[1:], "=")
 	}
+	if x.Data.Options != nil {
+		var matched string
+		e = fmt.Errorf("option value not found '%s'", input)
+		for _, i := range x.Data.Options {
+			// options
+			if input == i[:len(input)] {
+				if e == nil {
+					return x, fmt.Errorf("ambiguous short option value '%s' matches multiple options: %s, %s", input, matched, i)
+				}
+				matched = i
+				e = nil
+			}
+		}
+		if E.Chk(e) {
+			return
+		}
+	}
 	e = x.Set(input)
 	return x, e
 }
