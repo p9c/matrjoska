@@ -76,7 +76,6 @@ func (c *Config) Initialize() (e error) {
 	}
 	// if the user sets the configfile directly, or the datadir on the commandline we need to load it from that path
 	T.Ln("checking from where to load the configuration file")
-	I.S(options, optVals)
 	datadir := c.DataDir.V()
 	var configPath string
 	for i := range options {
@@ -156,7 +155,6 @@ func (c *Config) loadConfig(path string) (e error) {
 	if !apputil.FileExists(path) {
 		return
 	} else if cf, e = ioutil.ReadFile(path); !D.Chk(e) {
-		I.Ln(string(cf))
 		if e = json.Unmarshal(cf, c); D.Chk(e) {
 		}
 	}

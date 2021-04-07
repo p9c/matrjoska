@@ -25,7 +25,15 @@ type Hook func(d time.Duration) error
 
 // New creates a new Opt with a given default value set
 func New(m meta.Data, def time.Duration, min, max time.Duration, hook ...Hook) *Opt {
-	return &Opt{Value: uberatomic.NewDuration(def), Data: m, Def: def, hook: hook, clamp: sanitizers.ClampDuration(min, max)}
+	return &Opt{
+		Value: uberatomic.NewDuration(def),
+		Data:  m,
+		Def:   def,
+		Min:   min,
+		Max:   max,
+		hook:  hook,
+		clamp: sanitizers.ClampDuration(min, max),
+	}
 }
 
 // SetName sets the name for the generator
@@ -121,6 +129,6 @@ func (x *Opt) MarshalJSON() (b []byte, e error) {
 func (x *Opt) UnmarshalJSON(data []byte) (e error) {
 	v := x.Value.Load()
 	e = json.Unmarshal(data, &v)
-	x.Value.Store(v)
+	e = x.Set(v)
 	return
 }

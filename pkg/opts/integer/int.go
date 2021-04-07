@@ -20,11 +20,20 @@ type Opt struct {
 	Value    *uberatomic.Int64
 	Def      int64
 }
+
 type Hook func(i int) error
 
 // New creates a new Opt with a given default value
 func New(m meta.Data, def int64, min, max int, hook ...Hook) *Opt {
-	return &Opt{Value: uberatomic.NewInt64(def), Data: m, Def: def, hook: hook, clamp: sanitizers.ClampInt(min, max)}
+	return &Opt{
+		Value: uberatomic.NewInt64(def),
+		Data:  m,
+		Def:   def,
+		Min:   min,
+		Max:   max,
+		hook:  hook,
+		clamp: sanitizers.ClampInt(min, max),
+	}
 }
 
 // SetName sets the name for the generator
@@ -120,6 +129,6 @@ func (x *Opt) MarshalJSON() (b []byte, e error) {
 func (x *Opt) UnmarshalJSON(data []byte) (e error) {
 	v := x.Value.Load()
 	e = json.Unmarshal(data, &v)
-	x.Value.Store(v)
+	e = x.Set(int(v))
 	return
 }

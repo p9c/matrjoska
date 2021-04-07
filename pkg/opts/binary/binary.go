@@ -12,13 +12,15 @@ import (
 // Opt stores an boolean configuration value
 type Opt struct {
 	meta.Data
-	hook  []func(b bool)
+	hook  []Hook
 	value *uberatomic.Bool
 	Def   bool
 }
 
+type Hook func(b bool) error
+
 // New creates a new Opt with default values set
-func New(m meta.Data, def bool, hook ...func(b bool)) *Opt {
+func New(m meta.Data, def bool, hook ...Hook) *Opt {
 	return &Opt{value: uberatomic.NewBool(def), Data: m, Def: def, hook: hook}
 }
 
@@ -53,9 +55,9 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 	input = strings.ToLower(input)
 	switch input {
 	case "t", "true", "+":
-		x.value.Store(true)
+		e = x.Set(true)
 	case "f", "false", "-":
-		x.value.Store(false)
+		e = x.Set(false)
 	default:
 		e = fmt.Errorf("input on opt %s: '%s' is not valid for a boolean flag", x.Name(), input)
 	}
@@ -73,20 +75,18 @@ func (x *Opt) Name() string {
 }
 
 // AddHooks appends callback hooks to be run when the value is changed
-func (x *Opt) AddHooks(hook ...func(b bool)) {
+func (x *Opt) AddHooks(hook ...Hook) {
 	x.hook = append(x.hook, hook...)
 }
 
 // SetHooks sets a new slice of hooks
-func (x *Opt) SetHooks(hook ...func(b bool)) {
+func (x *Opt) SetHooks(hook ...Hook) {
 	x.hook = hook
 }
 
 // True returns whether the value is set to true (it returns the value)
 func (x *Opt) True() bool {
-	return x.
-		value.
-		Load()
+	return x.value.Load()
 }
 
 // False returns whether the value is false (it returns the inverse of the value)
@@ -99,17 +99,21 @@ func (x *Opt) Flip() {
 	x.value.Toggle()
 }
 
-func (x *Opt) runHooks() {
+func (x *Opt) runHooks(b bool) (e error) {
 	for i := range x.hook {
-		x.hook[i](x.True())
+		if e = x.hook[i](b); E.Chk(e) {
+			break
+		}
 	}
+	return
 }
 
 // Set changes the value currently stored
-func (x *Opt) Set(b bool) *Opt {
-	x.value.Store(b)
-	x.runHooks()
-	return x
+func (x *Opt) Set(b bool) (e error) {
+	if e = x.runHooks(b); E.Chk(e) {
+		x.value.Store(b)
+	}
+	return
 }
 
 // String returns a string form of the value
@@ -138,7 +142,9 @@ func (x *Opt) MarshalJSON() (b []byte, e error) {
 // UnmarshalJSON decodes a JSON representation of a Opt
 func (x *Opt) UnmarshalJSON(data []byte) (e error) {
 	v := x.value.Load()
-	e = json.Unmarshal(data, &v)
-	x.value.Store(v)
+	if e = json.Unmarshal(data, &v); E.Chk(e) {
+		return
+	}
+	e = x.Set(v)
 	return
 }
