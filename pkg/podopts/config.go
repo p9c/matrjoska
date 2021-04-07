@@ -154,6 +154,7 @@ func (c *Config) loadConfig(path string) (e error) {
 	e = fmt.Errorf("no config found at %s", path)
 	var cf []byte
 	if !apputil.FileExists(path) {
+		return
 	} else if cf, e = ioutil.ReadFile(path); !D.Chk(e) {
 		I.Ln(string(cf))
 		if e = json.Unmarshal(cf, c); D.Chk(e) {

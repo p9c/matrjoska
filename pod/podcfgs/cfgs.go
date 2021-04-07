@@ -52,7 +52,7 @@ func GetDefaultConfig() (c *podopts.Config) {
 // GetConfigs returns configuration options for ParallelCoin Pod
 func GetConfigs() (c podopts.Configs) {
 	network := "mainnet"
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 	var datadir = &atomic.Value{}
 	datadir.Store([]byte(appdata.Dir(constant.Name, false)))
 	c = podopts.Configs{
@@ -1079,11 +1079,11 @@ func GetConfigs() (c podopts.Configs) {
 		"UUID": integer.New(meta.Data{
 			Label: "UUID",
 			Description:
-			"instance unique id (64bit random value)",
+			"instance unique id (32bit random value) (json mangles big 64 bit integers due to float64 numbers)",
 			Documentation: "<placeholder for detailed documentation>",
-			OmitEmpty:     true,
+			OmitEmpty:     false,
 		},
-			rand.Int63(),
+			int64(rand.Uint32()),
 			-math.MaxInt64, math.MaxInt64,
 		),
 		"UseWallet": binary.New(meta.Data{
