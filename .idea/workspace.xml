@@ -97,7 +97,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/opts/sanitizers" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -210,34 +210,34 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state width="3806" height="371" key="GridCell.Tab.0.bottom" timestamp="1617812565184">
+    <state width="3806" height="369" key="GridCell.Tab.0.bottom" timestamp="1617844342538">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
-    <state width="3806" height="371" key="GridCell.Tab.0.center" timestamp="1617812565184">
+    <state width="3806" height="369" key="GridCell.Tab.0.bottom/0.34.3840.2126@0.34.3840.2126" timestamp="1617844342538" />
+    <state width="3806" height="369" key="GridCell.Tab.0.center" timestamp="1617844342537">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
-    <state width="3806" height="371" key="GridCell.Tab.0.left" timestamp="1617812565183">
+    <state width="3806" height="369" key="GridCell.Tab.0.center/0.34.3840.2126@0.34.3840.2126" timestamp="1617844342537" />
+    <state width="3806" height="369" key="GridCell.Tab.0.left" timestamp="1617844342537">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565183" />
-    <state width="3806" height="371" key="GridCell.Tab.0.right" timestamp="1617812565184">
+    <state width="3806" height="369" key="GridCell.Tab.0.left/0.34.3840.2126@0.34.3840.2126" timestamp="1617844342537" />
+    <state width="3806" height="369" key="GridCell.Tab.0.right" timestamp="1617844342538">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state width="3806" height="371" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617812565184" />
-    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617763627070">
+    <state width="3806" height="369" key="GridCell.Tab.0.right/0.34.3840.2126@0.34.3840.2126" timestamp="1617844342538" />
+    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor" timestamp="1617831757192">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor/0.34.3840.2126@0.34.3840.2126" timestamp="1617763627070" />
+    <state x="1262" y="644" width="1316" height="918" key="SettingsEditor/0.34.3840.2126@0.34.3840.2126" timestamp="1617831757192" />
     <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1617752782001">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
     <state x="1605" y="868" width="619" height="470" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.34.3840.2126@0.34.3840.2126" timestamp="1617752782001" />
-    <state x="1529" y="725" width="782" height="828" key="find.popup" timestamp="1617820869020">
+    <state x="1529" y="725" width="782" height="828" key="find.popup" timestamp="1617843127922">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>
-    <state x="1529" y="725" width="782" height="828" key="find.popup/0.34.3840.2126@0.34.3840.2126" timestamp="1617820869020" />
+    <state x="1529" y="725" width="782" height="828" key="find.popup/0.34.3840.2126@0.34.3840.2126" timestamp="1617843127922" />
     <state x="1699" y="801" width="1085" height="981" key="refactoring.ChangeSignatureDialog" timestamp="1617812305650">
       <screen x="0" y="34" width="3840" height="2126" />
     </state>

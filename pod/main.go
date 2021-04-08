@@ -20,19 +20,20 @@ func main() {
 	if cx, e = launchers.GetNewContext(podcfgs.GetDefaultConfig()); E.Chk(e) {
 		fail()
 	}
-	if e = debugConfig(cx.Config); E.Chk(e) {
-		fail()
-	}
-	log.AppColorizer = cx.Config.RunningCommand.Colorizer
-	log.App = cx.Config.RunningCommand.AppText
+	
+	// if e = debugConfig(cx.Config); E.Chk(e) {
+	// 	fail()
+	// }
+	
+	D.Ln("running command", cx.Config.RunningCommand.Name)
 	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
 		fail()
 	}
 }
 
 func debugConfig(c *podopts.Config) (e error) {
-	// c.ShowAll = true
-	// defer func() { c.ShowAll = false }()
+	c.ShowAll = true
+	defer func() { c.ShowAll = false }()
 	var j []byte
 	if j, e = c.MarshalJSON(); E.Chk(e) {
 		return

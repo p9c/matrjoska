@@ -26,6 +26,7 @@ import (
 	"github.com/p9c/monorepo/pkg/opts/text"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -71,8 +72,8 @@ func (c *Config) Initialize() (e error) {
 	}
 	if cm != nil {
 		c.RunningCommand = *cm
-	} else {
-		c.RunningCommand = c.Commands[0]
+		// } else {
+		// 	c.RunningCommand = c.Commands[0]
 	}
 	// if the user sets the configfile directly, or the datadir on the commandline we need to load it from that path
 	T.Ln("checking from where to load the configuration file")
@@ -83,12 +84,55 @@ func (c *Config) Initialize() (e error) {
 			if _, e = options[i].ReadInput(optVals[i]); E.Chk(e) {
 				configPath = optVals[i]
 			}
-		} else if options[i].Name() == "datadir" {
-			if _, e = options[i].ReadInput(optVals[i]); E.Chk(e) {
-				datadir = optVals[i]
+		}
+		if options[i].Name() == "datadir" {
+			I.Ln("datadir was set", optVals[i])
+			if _, e = options[i].ReadInput(optVals[i]); !E.Chk(e) {
+				datadir = options[i].Type().(*text.Opt).V()
+				// I.Ln(datadir)
+				// if _, e = c.DataDir.ReadInput(datadir); E.Chk(e) {
+				// }
+				// D.Ln(c.DataDir.V(), c.RPCKey.V(), c.RPCKey.Def, c.RPCCert.V(), c.RPCCert.Def, c.RPCKey.V(), c.RPCKey.Def)
+				
+				// reset all defaults that base on the datadir to apply hereafter
+				// if the value is default, update it to the new datadir, and update the default field, otherwise assume
+				// it has been set in the commandline args, and if it is different in environment or config file
+				// it will be loaded in next, with the command line option value overriding at the end.
+				if c.CAFile.V() == c.CAFile.Def {
+					e = c.CAFile.Set(filepath.Join(datadir, "ca.cert"))
+				}
+				c.CAFile.Def = filepath.Join(datadir, "ca.cert")
+				if c.ConfigFile.V() == c.ConfigFile.Def {
+					e = c.ConfigFile.Set(filepath.Join(datadir, "pod.json"))
+				}
+				c.ConfigFile.Def = filepath.Join(datadir, constant.PodConfigFilename)
+				if c.RPCKey.V() == c.RPCKey.Def {
+					e = c.RPCKey.Set(filepath.Join(datadir, "rpc.key"))
+				}
+				c.RPCKey.Def = filepath.Join(datadir, "rpc.key")
+				if c.RPCCert.V() == c.RPCCert.Def {
+					e = c.RPCCert.Set(filepath.Join(datadir, "rpc.cert"))
+				}
+				c.RPCCert.Def = filepath.Join(datadir, "rpc.cert")
 			}
 		}
 	}
+	// I.Ln(c.RPCKey.V(), c.RPCKey.Def, c.RPCCert.V(), c.RPCCert.Def, c.RPCKey.V(), c.RPCKey.Def)
+	// D.Ln(c.WalletFile.V(), c.WalletFile.Def, c.LogDir.V(), c.LogDir.Def)
+	for i := range options {
+		if options[i].Name() == "network" {
+			I.Ln("network was set", optVals[i])
+			if c.WalletFile.V() == c.WalletFile.Def {
+				_, e = c.WalletFile.ReadInput(filepath.Join(datadir, optVals[i], "wallet.db"))
+			}
+			c.WalletFile.Def = filepath.Join(datadir, optVals[i], constant.DbName)
+			if c.LogDir.V() == c.LogDir.Def {
+				_, e = c.LogDir.ReadInput(filepath.Join(datadir, optVals[i]))
+			}
+			c.LogDir.Def = filepath.Join(datadir, optVals[i])
+		}
+	}
+	// D.Ln(c.WalletFile.V(), c.WalletFile.Def, c.LogDir.V(), c.LogDir.Def)
 	// load the configuration file into the config
 	resolvedConfigPath := c.ConfigFile.V()
 	if configPath != "" {
@@ -96,6 +140,22 @@ func (c *Config) Initialize() (e error) {
 		resolvedConfigPath = configPath
 	} else {
 		if datadir != "" {
+			if strings.HasPrefix(datadir, "~") {
+				var homeDir string
+				var usr *user.User
+				var e error
+				if usr, e = user.Current(); e == nil {
+					homeDir = usr.HomeDir
+				}
+				// Fall back to standard HOME environment variable that works for most POSIX OSes if the directory from the Go
+				// standard lib failed.
+				if e != nil || homeDir == "" {
+					homeDir = os.Getenv("HOME")
+				}
+				
+				datadir = strings.Replace(datadir, "~", homeDir, 1)
+			}
+			
 			if resolvedConfigPath, e = filepath.Abs(filepath.Clean(filepath.Join(datadir, constant.PodConfigFilename))); E.Chk(e) {
 			}
 			T.Ln("loading config from", resolvedConfigPath)
@@ -108,7 +168,7 @@ func (c *Config) Initialize() (e error) {
 	// read the environment variables into the config
 	if e = c.loadEnvironment(); D.Chk(e) {
 	}
-	// read in the commandline options
+	// read in the commandline options over top as they have highest priority
 	for i := range options {
 		if _, e = options[i].ReadInput(optVals[i]); E.Chk(e) {
 		}
@@ -122,6 +182,7 @@ func (c *Config) Initialize() (e error) {
 			I.F("saving config\n%s\n", string(j))
 			apputil.EnsureDir(resolvedConfigPath)
 			if e = ioutil.WriteFile(resolvedConfigPath, j, 0660); E.Chk(e) {
+				panic(e)
 			}
 		}
 		
@@ -346,7 +407,7 @@ func (c *Config) UnmarshalJSON(data []byte) (e error) {
 
 func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cmds.Command, op []opt.Option, optVals []string, e error) {
 	// I.S(c.Commands)
-	I.S(args)
+	// I.S(args)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
 	// arbitrary for the node
 	commands := make(map[int]cmds.Command)
@@ -375,7 +436,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 			// commandsStart=i+1
 			// commandsEnd=i+1
 			// T.Ln("not found:", args[i], "commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
-			T.Ln("argument", args[i], "is not a command")
+			T.Ln("argument", args[i], "is not a command", commandsStart, commandsEnd)
 		}
 	}
 	// commandsEnd++
@@ -419,6 +480,12 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		}
 		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 	}
+	// if there was no command the commands start and end after all the args
+	if commandsStart < 0 || commandsEnd < 0 {
+		commandsStart = len(args)
+		commandsEnd = commandsStart
+	}
+	I.Ln("commands section:", commandsStart, commandsEnd)
 	if commandsStart > 0 {
 		T.Ln("opt found", args[:commandsStart])
 		// we have opt to check
@@ -447,8 +514,10 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		cmds = []int{0}
 		commands[0] = c.Commands[0]
 	}
-	remArgs = args[commandsEnd:]
-	I.F("args that will pass to command: %v", remArgs)
+	if commandsEnd > 0 && len(args) > commandsEnd {
+		remArgs = args[commandsEnd:]
+	}
+	D.F("args that will pass to command: %v", remArgs)
 	// I.S(commands[cmds[len(cmds)-1]], op, args[commandsEnd:])
 	return
 }

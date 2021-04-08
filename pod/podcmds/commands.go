@@ -1,8 +1,10 @@
 package podcmds
 
 import (
+	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/monorepo/pkg/opts/cmds"
+	"github.com/p9c/monorepo/version"
 )
 
 // GetCommands returns available subcommands in Parallelcoin Pod
@@ -16,16 +18,22 @@ func GetCommands() (c cmds.Commands) {
 		},
 		{Name: "version", Description:
 		"print version and exit",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: func(c interface{}) error {
+				fmt.Println(version.Tag)
+				return nil
+			},
 		},
 		{Name: "ctl", Description:
 		"command line wallet and chain RPC client",
 			Entrypoint: func(c interface{}) error { return nil },
+			Colorizer:  color.Bit24(128, 255, 128, false).Sprint,
+			AppText:    "   ctl",
 		},
 		{Name: "node", Description:
 		"ParallelCoin blockchain node",
 			Entrypoint: func(c interface{}) error { return nil },
 			Colorizer:  color.Bit24(128, 128, 255, false).Sprint,
+			AppText:    "  node",
 			Commands: []cmds.Command{
 				{Name: "dropaddrindex", Description:
 				"drop the address database index",
@@ -70,7 +78,7 @@ func GetCommands() (c cmds.Commands) {
 		{Name: "worker", Description:
 		"single thread worker process, normally started by kopach",
 			Entrypoint: func(c interface{}) error { return nil },
-			Colorizer:  color.Bit24(255, 128, 128, false).Sprint,
+			Colorizer:  color.Bit24(255, 128, 255, false).Sprint,
 			AppText:    "worker",
 		},
 	}
