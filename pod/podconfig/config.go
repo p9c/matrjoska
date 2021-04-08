@@ -1,10 +1,9 @@
 package podconfig
 
 import (
-	"github.com/p9c/monorepo/pkg/database"
 	
 	// This ensures the database drivers get registered
-	_ "github.com/p9c/monorepo/pkg/database/ffldb"
+	// _ "github.com/p9c/monorepo/pkg/database/ffldb"
 )
 
 //
@@ -96,7 +95,7 @@ var (
 	// this should be centralised)
 	
 	// KnownDbTypes stores the currently supported database drivers
-	KnownDbTypes = database.SupportedDrivers()
+	// KnownDbTypes = database.SupportedDrivers()
 	// runServiceCommand is only set to a real function on Windows.
 	// It is used to parse and execute service commands specified via the -s flag.
 	runServiceCommand func(string) error
@@ -168,35 +167,35 @@ var (
 // 	}
 // 	return checkpoints, nil
 // }
-
-// ValidDbType returns whether or not dbType is a supported database type.
-func ValidDbType(dbType string) bool {
-	for _, knownType := range KnownDbTypes {
-		if dbType == knownType {
-			return true
-		}
-	}
-	return false
-}
-
-// validLogLevel returns whether or not logLevel is a valid debug log level.
-func validLogLevel(logLevel string) bool {
-	switch logLevel {
-	case "trace":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "info":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "error":
-		fallthrough
-	case "critical":
-		return true
-	}
-	return false
-}
+//
+// // ValidDbType returns whether or not dbType is a supported database type.
+// func ValidDbType(dbType string) bool {
+// 	for _, knownType := range KnownDbTypes {
+// 		if dbType == knownType {
+// 			return true
+// 		}
+// 	}
+// 	return false
+// }
+//
+// // validLogLevel returns whether or not logLevel is a valid debug log level.
+// func validLogLevel(logLevel string) bool {
+// 	switch logLevel {
+// 	case "trace":
+// 		fallthrough
+// 	case "debug":
+// 		fallthrough
+// 	case "info":
+// 		fallthrough
+// 	case "warn":
+// 		fallthrough
+// 	case "error":
+// 		fallthrough
+// 	case "critical":
+// 		return true
+// 	}
+// 	return false
+// }
 
 // // createDefaultConfig copies the file sample-pod.
 // conf to the given destination path, and populates it with some randomly generated RPC username and password.
