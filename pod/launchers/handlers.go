@@ -20,7 +20,6 @@ import (
 	"github.com/p9c/monorepo/pkg/qu"
 	
 	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pod/podconfig"
 	"github.com/p9c/monorepo/walletmain"
 )
 
@@ -34,7 +33,7 @@ func nodeHandle(ifc interface{}) (e error) {
 	log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
 	log.App = "  node"
 	F.Ln("running node handler")
-	podconfig.Configure(cx, true)
+	// podconfig.Configure(cx, true)
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
 	// // serviceOptions defines the configuration options for the daemon as a service on Windows.
@@ -96,7 +95,7 @@ func walletHandle(ifc interface{}) (e error) {
 	}
 	log.AppColorizer = color.Bit24(255, 255, 128, false).Sprint
 	log.App = "wallet"
-	podconfig.Configure(cx, true)
+	// podconfig.Configure(cx, true)
 	cx.Config.WalletFile.Set(filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, constant.DbName))
 	// dbFilename := *cx.Config.DataDir + slash + cx.ActiveNet.
 	// 	Params.Name + slash + wallet.WalletDbName
@@ -150,7 +149,7 @@ func kopachHandle(ifc interface{}) (e error) {
 	log.App = "kopach"
 	I.Ln("starting up kopach standalone miner for parallelcoin")
 	D.Ln(os.Args)
-	podconfig.Configure(cx, true)
+	// podconfig.Configure(cx, true)
 	if cx.ActiveNet.Name == chaincfg.TestNet3Params.Name {
 		fork.IsTestnet = true
 	}

@@ -20,12 +20,12 @@ func Addresses(addrs []string, defaultPort string) []string {
 	for i := range addrs {
 		addrs[i] = address(addrs[i], defaultPort)
 	}
-	return removeDuplicateAddresses(addrs)
+	return RemoveDuplicateAddresses(addrs)
 }
 
-// removeDuplicateAddresses returns a new slice with all duplicate entries in
+// RemoveDuplicateAddresses returns a new slice with all duplicate entries in
 // addrs removed.
-func removeDuplicateAddresses(addrs []string) (result []string) {
+func RemoveDuplicateAddresses(addrs []string) (result []string) {
 	result = make([]string, 0, len(addrs))
 	seen := map[string]struct{}{}
 	for _, val := range addrs {

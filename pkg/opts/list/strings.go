@@ -6,6 +6,7 @@ import (
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	"github.com/p9c/monorepo/pkg/opts/opt"
 	"github.com/p9c/monorepo/pkg/opts/sanitizers"
+	"github.com/p9c/monorepo/pkg/util/normalize"
 	"strings"
 	"sync/atomic"
 )
@@ -76,12 +77,16 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 			I.Ln("setting value for", x.Data.Name, cleaned)
 			input = cleaned
 		}
-		e = x.Set(append(slice, input))
+		if e = x.Set(append(slice, input)); E.Chk(e) {
+		}
+		
 	}
+	// ensure there is no duplicates
+	e = x.Set(normalize.RemoveDuplicateAddresses(x.V()))
 	return x, e
 }
 
-// LoadInput sets the value from a string. For this opt this means appending to the list
+// LoadInput sets the value from a string. For this opt this replacing the list
 func (x *Opt) LoadInput(input string) (o opt.Option, e error) {
 	old := x.V()
 	_ = x.Set([]string{})

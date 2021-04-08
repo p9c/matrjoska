@@ -9,7 +9,6 @@ import (
 	"github.com/p9c/monorepo/pkg/pod"
 	
 	"github.com/p9c/monorepo/gui"
-	"github.com/p9c/monorepo/pod/podconfig"
 )
 
 // GUIHandle starts up the GUI wallet
@@ -23,7 +22,7 @@ func GUIHandle(ifc interface{}) (e error) {
 	log.App = "   gui"
 	D.Ln("starting up parallelcoin pod gui...")
 	// fork.ForkCalc()
-	podconfig.Configure(cx, true)
+	// podconfig.Configure(cx, true)
 	// D.Ln(os.Args)
 	// interrupt.AddHandler(func() {
 	// 	D.Ln("wallet gui is shut down")

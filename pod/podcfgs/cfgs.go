@@ -116,7 +116,7 @@ func GetConfigs() (c podopts.Configs) {
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			true,
+			false,
 		),
 		"BanDuration": duration.New(meta.Data{
 			Aliases: []string{"BD"},
