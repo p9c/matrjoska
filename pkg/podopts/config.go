@@ -70,8 +70,10 @@ func (c *Config) Initialize() (e error) {
 	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
+	
 	if cm != nil {
 		c.RunningCommand = *cm
+		I.S(c.RunningCommand)
 		// } else {
 		// 	c.RunningCommand = c.Commands[0]
 	}
@@ -156,7 +158,10 @@ func (c *Config) Initialize() (e error) {
 				datadir = strings.Replace(datadir, "~", homeDir, 1)
 			}
 			
-			if resolvedConfigPath, e = filepath.Abs(filepath.Clean(filepath.Join(datadir, constant.PodConfigFilename))); E.Chk(e) {
+			if resolvedConfigPath, e = filepath.Abs(filepath.Clean(filepath.Join(datadir, constant.PodConfigFilename,
+			),
+			),
+			); E.Chk(e) {
 			}
 			T.Ln("loading config from", resolvedConfigPath)
 		}
@@ -405,7 +410,9 @@ func (c *Config) UnmarshalJSON(data []byte) (e error) {
 	return
 }
 
-func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cmds.Command, op []opt.Option, optVals []string, e error) {
+func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cmds.Command, op []opt.Option,
+	optVals []string, e error,
+) {
 	// I.S(c.Commands)
 	// I.S(args)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
@@ -439,9 +446,11 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 			T.Ln("argument", args[i], "is not a command", commandsStart, commandsEnd)
 		}
 	}
+	I.S(commands, cm)
 	// commandsEnd++
 	cmds := []int{}
 	if len(commands) == 0 {
+		I.Ln("setting default command")
 		commands[0] = c.Commands[0]
 	} else {
 		I.Ln("checking commands")
@@ -479,6 +488,12 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 			}
 		}
 		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
+		I.Ln("length of gathered commands", len(commands))
+		if len(commands) == 1 {
+			for _,x := range commands {
+				cm = &x
+			}
+		}
 	}
 	// if there was no command the commands start and end after all the args
 	if commandsStart < 0 || commandsEnd < 0 {
@@ -518,6 +533,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		remArgs = args[commandsEnd:]
 	}
 	D.F("args that will pass to command: %v", remArgs)
+	I.S(commands, cm)
 	// I.S(commands[cmds[len(cmds)-1]], op, args[commandsEnd:])
 	return
 }

@@ -3,6 +3,7 @@ package launchers
 import (
 	"fmt"
 	"github.com/gookit/color"
+	"github.com/p9c/monorepo/ctl"
 	"github.com/p9c/monorepo/kopach"
 	"github.com/p9c/monorepo/kopach/worker"
 	"github.com/p9c/monorepo/node/node"
@@ -145,8 +146,8 @@ func kopachHandle(ifc interface{}) (e error) {
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
-	log.App = "kopach"
+	// log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
+	// log.App = "kopach"
 	I.Ln("starting up kopach standalone miner for parallelcoin")
 	D.Ln(os.Args)
 	// podconfig.Configure(cx, true)
@@ -182,5 +183,32 @@ func kopachWorkerHandle(cx *pod.State) (e error) {
 	rpc.ServeConn(conn)
 	D.Ln("stopping worker IPC")
 	D.Ln("finished")
+	return nil
+}
+
+func CtlHandleList(ifc interface{}) (e error) {
+	var cx *pod.State
+	var ok bool
+	if cx, ok = ifc.(*pod.State); !ok {
+		return fmt.Errorf("cannot run without a state")
+	}
+	_ = cx
+	// fmt.Println("Here are the available commands. Pausing a moment as it is a long list...")
+	// time.Sleep(2 * time.Second)
+	ctl.ListCommands()
+	return nil
+}
+
+func CtlHandle(ifc interface{}) (e error) {
+	var cx *pod.State
+	var ok bool
+	if cx, ok = ifc.(*pod.State); !ok {
+		return fmt.Errorf("cannot run without a state")
+	}
+	// log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
+	// log.App = "   ctl"
+	cx.Config.LogLevel.Set("off")
+	// podconfig.Configure(cx, true)
+	ctl.Main(cx)
 	return nil
 }

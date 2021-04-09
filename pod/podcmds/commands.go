@@ -26,9 +26,15 @@ func GetCommands() (c cmds.Commands) {
 		},
 		{Name: "ctl", Description:
 		"command line wallet and chain RPC client",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.CtlHandle,
 			Colorizer:  color.Bit24(128, 255, 128, false).Sprint,
 			AppText:    "   ctl",
+			Commands: []cmds.Command{
+				{Name: "list", Description:
+				"list available commands",
+					Entrypoint: launchers.CtlHandleList,
+				},
+			},
 		},
 		{Name: "node", Description:
 		"ParallelCoin blockchain node",

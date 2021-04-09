@@ -18,7 +18,7 @@ import (
 )
 
 func main() {
-	log.SetLogLevel("info")
+	log.SetLogLevel("trace")
 	I.Ln(version.Get())
 	var cx *pod.State
 	var e error
@@ -26,9 +26,9 @@ func main() {
 		fail()
 	}
 	
-	// if e = debugConfig(cx.Config); E.Chk(e) {
-	// 	fail()
-	// }
+	if e = debugConfig(cx.Config); E.Chk(e) {
+		fail()
+	}
 	
 	D.Ln("running command", cx.Config.RunningCommand.Name)
 	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {

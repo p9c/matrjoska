@@ -98,9 +98,7 @@ type Config struct {
 	RelayNonStd            *binary.Opt
 	RunAsService           *binary.Opt
 	Save                   *binary.Opt
-	ServerPass             *text.Opt
 	ServerTLS              *binary.Opt
-	ServerUser             *text.Opt
 	SigCacheMaxSize        *integer.Opt
 	Solo                   *binary.Opt
 	TLSSkipVerify          *binary.Opt

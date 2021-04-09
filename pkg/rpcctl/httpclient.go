@@ -115,6 +115,7 @@ func sendPostRequest(marshalledJSON []byte, cx *pod.State, wallet bool) ([]byte,
 	httpRequest.Header.Set("Content-Type", "application/json")
 	// Configure basic access authorization.
 	httpRequest.SetBasicAuth(cx.Config.Username.V(), cx.Config.Password.V())
+	I.Ln(cx.Config.Username.V(), cx.Config.Password.V())
 	// Create the new HTTP client that is configured according to the user - specified options and submit the request.
 	var httpClient *http.Client
 	var cancel func()
