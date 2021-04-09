@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/monorepo/pkg/opts/cmds"
+	"github.com/p9c/monorepo/pod/launchers"
 	"github.com/p9c/monorepo/version"
 )
 
@@ -31,7 +32,7 @@ func GetCommands() (c cmds.Commands) {
 		},
 		{Name: "node", Description:
 		"ParallelCoin blockchain node",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.NodeHandle,
 			Colorizer:  color.Bit24(128, 128, 255, false).Sprint,
 			AppText:    "  node",
 			Commands: []cmds.Command{

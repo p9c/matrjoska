@@ -23,16 +23,16 @@ import (
 	"github.com/p9c/monorepo/walletmain"
 )
 
-// nodeHandle runs the ParallelCoin blockchain node
-func nodeHandle(ifc interface{}) (e error) {
+// NodeHandle runs the ParallelCoin blockchain node
+func NodeHandle(ifc interface{}) (e error) {
 	var cx *pod.State
 	var ok bool
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
-	log.App = "  node"
-	F.Ln("running node handler")
+	// log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
+	// log.App = "  node"
+	I.Ln("running node handler")
 	// podconfig.Configure(cx, true)
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
@@ -55,22 +55,22 @@ func nodeHandle(ifc interface{}) (e error) {
 	// }
 	// config.Configure(cx, c.Command.Name, true)
 	// D.Ln("starting shell")
-	if cx.Config.ClientTLS.True() || cx.Config.ServerTLS.True() {
-		// generate the tls certificate if configured
-		if apputil.FileExists(cx.Config.RPCCert.V()) &&
-			apputil.FileExists(cx.Config.RPCKey.V()) &&
-			apputil.FileExists(cx.Config.CAFile.V()) {
-		} else {
-			if _, e = walletmain.GenerateRPCKeyPair(cx.Config, true); E.Chk(e) {
-			}
-		}
-	}
+	// if cx.Config.ClientTLS.True() || cx.Config.ServerTLS.True() {
+	// 	// generate the tls certificate if configured
+	// 	if apputil.FileExists(cx.Config.RPCCert.V()) &&
+	// 		apputil.FileExists(cx.Config.RPCKey.V()) &&
+	// 		apputil.FileExists(cx.Config.CAFile.V()) {
+	// 	} else {
+	// 		if _, e = walletmain.GenerateRPCKeyPair(cx.Config, true); E.Chk(e) {
+	// 		}
+	// 	}
+	// }
 	// if cx.Config.NodeOff.False() {
-	// go func() {
-	if e := node.Main(cx); E.Chk(e) {
-		E.Ln("error starting node ", e)
-	}
-	// }()
+	go func() {
+		if e := node.Main(cx); E.Chk(e) {
+			E.Ln("error starting node ", e)
+		}
+	}()
 	I.Ln("starting node")
 	if cx.Config.DisableRPC.False() {
 		cx.RPCServer = <-cx.NodeChan
@@ -93,8 +93,8 @@ func walletHandle(ifc interface{}) (e error) {
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	log.AppColorizer = color.Bit24(255, 255, 128, false).Sprint
-	log.App = "wallet"
+	// log.AppColorizer = color.Bit24(255, 255, 128, false).Sprint
+	// log.App = "wallet"
 	// podconfig.Configure(cx, true)
 	cx.Config.WalletFile.Set(filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, constant.DbName))
 	// dbFilename := *cx.Config.DataDir + slash + cx.ActiveNet.

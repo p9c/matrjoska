@@ -1,4 +1,4 @@
-package launchers
+package old
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"github.com/p9c/monorepo/pkg/opts"
 	"github.com/p9c/monorepo/pkg/pod"
 	walletrpc2 "github.com/p9c/monorepo/pkg/walletrpc"
+	"github.com/p9c/monorepo/pod/launchers"
 	"github.com/p9c/monorepo/version"
 	"os"
 	"path/filepath"
@@ -75,7 +76,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropAddrIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 						},
 						au.SubCommands(),
 						nil,
@@ -85,7 +86,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropTxIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 						},
 						au.SubCommands(),
 						nil,
@@ -97,7 +98,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 							cx.StateCfg.DropAddrIndex = true
 							cx.StateCfg.DropTxIndex = true
 							cx.StateCfg.DropCfIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 						},
 						au.SubCommands(),
 						nil,
@@ -107,7 +108,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropCfIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 						},
 						au.SubCommands(),
 						nil,
@@ -129,7 +130,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 							)
 							if e = os.RemoveAll(dbPath); opts.E.Chk(e) {
 							}
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 						},
 						au.SubCommands(),
 						nil,
@@ -138,13 +139,13 @@ func getApp(cx *pod.State) (a *cli.App) {
 			),
 			au.Command(
 				"node", "start parallelcoin full node",
-				nodeHandle(cx), au.SubCommands(
+				launchers.NodeHandle(cx), au.SubCommands(
 					au.Command(
 						"dropaddrindex",
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropAddrIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 							// return nil
 						},
 						au.SubCommands(),
@@ -155,7 +156,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropTxIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 							// return nil
 						},
 						au.SubCommands(),
@@ -168,7 +169,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 							cx.StateCfg.DropAddrIndex = true
 							cx.StateCfg.DropTxIndex = true
 							cx.StateCfg.DropCfIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 							// return nil
 						},
 						au.SubCommands(),
@@ -179,7 +180,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 						"drop the address search index",
 						func(c *cli.Context) (e error) {
 							cx.StateCfg.DropCfIndex = true
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 							// return nil
 						},
 						au.SubCommands(),
@@ -202,7 +203,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 							)
 							if e = os.RemoveAll(dbPath); opts.E.Chk(e) {
 							}
-							return nodeHandle(cx)(c)
+							return launchers.NodeHandle(cx)(c)
 							// return nil
 						},
 						au.SubCommands(),
@@ -212,7 +213,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 			),
 			au.Command(
 				"wallet", "start parallelcoin wallet server",
-				walletHandle(cx), au.SubCommands(
+				launchers.walletHandle(cx), au.SubCommands(
 					au.Command(
 						"drophistory", "drop the transaction history in the wallet (for "+
 							"development and testing as well as clearing up transaction mess)",
@@ -242,7 +243,7 @@ func getApp(cx *pod.State) (a *cli.App) {
 			),
 			au.Command(
 				"kopach", "standalone miner for clusters",
-				kopachHandle(cx), au.SubCommands(), nil, "k",
+				launchers.kopachHandle(cx), au.SubCommands(), nil, "k",
 			),
 			au.Command(
 				"worker",

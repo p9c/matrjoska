@@ -3,21 +3,26 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	_ "gioui.org/app/permission/networkstate" // todo: integrate this into routeable package
+	_ "gioui.org/app/permission/storage"      // this enables the home folder appdata directory to work on android (and ios)
+	"github.com/p9c/monorepo/pod/context"
+	
+	// _ "gioui.org/app/permission/bluetooth"
+	// _ "gioui.org/app/permission/camera"
 	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
 	"github.com/p9c/monorepo/pkg/podopts"
-	"github.com/p9c/monorepo/pod/launchers"
 	"github.com/p9c/monorepo/pod/podcfgs"
 	"github.com/p9c/monorepo/version"
 	"os"
 )
 
 func main() {
-	log.SetLogLevel("trace")
+	log.SetLogLevel("info")
 	I.Ln(version.Get())
 	var cx *pod.State
 	var e error
-	if cx, e = launchers.GetNewContext(podcfgs.GetDefaultConfig()); E.Chk(e) {
+	if cx, e = context.GetNew(podcfgs.GetDefaultConfig()); E.Chk(e) {
 		fail()
 	}
 	

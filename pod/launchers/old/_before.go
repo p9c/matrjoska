@@ -1,9 +1,10 @@
-package launchers
+package old
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/monorepo/pod/launchers"
 	"io/ioutil"
 	prand "math/rand"
 	"os"
@@ -23,14 +24,14 @@ import (
 
 func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 	return func(c *cli.Context) (e error) {
-		D.Ln("running beforeFunc")
+		launchers.D.Ln("running beforeFunc")
 		cx.AppContext = c
 		// if user set datadir this is first thing to configure
 		if c.IsSet("datadir") {
 			cx.Config.DataDir.Set(c.String("datadir"))
-			D.Ln("datadir", *cx.Config.DataDir)
+			launchers.D.Ln("datadir", *cx.Config.DataDir)
 		}
-		D.Ln(c.IsSet("D"), c.IsSet("datadir"))
+		launchers.D.Ln(c.IsSet("D"), c.IsSet("datadir"))
 		// // propagate datadir path to interrupt for restart handling
 		// interrupt.DataDir = cx.DataDir
 		// if there is a delaystart requested, pause for 3 seconds
@@ -38,7 +39,7 @@ func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 			time.Sleep(time.Second * 3)
 		}
 		if c.IsSet("pipelog") {
-			D.Ln("pipe logger enabled")
+			launchers.D.Ln("pipe logger enabled")
 			cx.Config.PipeLog.Set(c.Bool("pipelog"))
 			serve.Log(cx.KillAll, fmt.Sprint(os.Args))
 		}
@@ -53,29 +54,29 @@ func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 				cx.Config, cx.ConfigMap = podcfg.New()
 				e = json.Unmarshal(b, cx.Config)
 				if e != nil {
-					E.Ln("error unmarshalling config", e)
+					launchers.E.Ln("error unmarshalling config", e)
 					// os.Exit(1)
 					return e
 				}
 			} else {
-				F.Ln("unexpected error reading configuration file:", e)
+				launchers.F.Ln("unexpected error reading configuration file:", e)
 				// os.Exit(1)
 				return e
 			}
 		} else {
 			cx.Config.ConfigFile.Set("")
-			D.Ln("will save config after configuration")
+			launchers.D.Ln("will save config after configuration")
 			cx.StateCfg.Save = true
 		}
 		if c.IsSet("loglevel") {
-			T.Ln("set loglevel", c.String("loglevel"))
+			launchers.T.Ln("set loglevel", c.String("loglevel"))
 			cx.Config.LogLevel.Set(c.String("loglevel"))
 		}
 		log.SetLogLevel(cx.Config.LogLevel.V())
 		if cx.Config.PipeLog.False() {
 			// if/when running further instances of the same version no reason
 			// to print the version message again
-			D.Ln("\nrunning", os.Args, version.Get())
+			launchers.D.Ln("\nrunning", os.Args, version.Get())
 		}
 		// if c.IsSet("network") {
 		// 	cx.Config.Network.Set(c.String("network"))
@@ -264,7 +265,7 @@ func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 			// if LAN is turned on it means by default we are on testnet
 			cx.ActiveNet = &chaincfg.TestNet3Params
 			if cx.ActiveNet.Name != "mainnet" {
-				D.Ln("set lan", c.Bool("lan"))
+				launchers.D.Ln("set lan", c.Bool("lan"))
 				cx.Config.LAN.Set(c.Bool("lan"))
 				cx.ActiveNet.DNSSeeds = []chaincfg.DNSSeed{}
 			} else {
@@ -282,7 +283,7 @@ func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 		}
 		if c.IsSet("minerpass") {
 			cx.Config.MulticastPass.Set(c.String("minerpass"))
-			D.Ln("--------- set minerpass", *cx.Config.MulticastPass)
+			launchers.D.Ln("--------- set minerpass", *cx.Config.MulticastPass)
 			cx.StateCfg.Save = true
 		}
 		if c.IsSet("blockminsize") {
@@ -383,7 +384,7 @@ func beforeFunc(cx *pod.State) func(c *cli.Context) (e error) {
 			cx.Config.Controller.Set(c.Bool("controller"))
 		}
 		if c.IsSet("save") {
-			I.Ln("saving configuration")
+			launchers.I.Ln("saving configuration")
 			cx.StateCfg.Save = true
 		}
 		// // if e = routeable.Discover(); E.Chk(e) {

@@ -1,4 +1,4 @@
-package launchers
+package context
 
 import (
 	"crypto/tls"
@@ -31,33 +31,14 @@ import (
 	"time"
 )
 
-// // Main is the entrypoint for the pod suite
-// func Main() int {
-// 	log.SetLogLevel("trace")
-// 	var e error
-// 	var cx *pod.State
-// 	if cx, e = GetNewContext(podcfgs.GetDefaultConfig()); F.Chk(e) {
-// 		return 1
-// 	}
-//
-// 	T.Ln("running command", cx.
-// 		Config.
-// 		RunningCommand.
-// 		Name,
-// 	)
-// 	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
-// 		return 1
-// 	}
-// 	return 0
-// }
-
-// GetNewContext returns a fresh new context
-func GetNewContext(config *podopts.Config) (s *pod.State, e error) {
+// GetNew returns a fresh new context
+func GetNew(config *podopts.Config) (s *pod.State, e error) {
 	// after this, all the configurations are set and mostly sanitized
 	if e = config.Initialize(); E.Chk(e) {
 		// return
 		panic(e)
 	}
+	log.SetLogLevel(config.LogLevel.V())
 	chainClientReady := qu.T()
 	rand.Seed(time.Now().UnixNano())
 	rand.Seed(rand.Int63())

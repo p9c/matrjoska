@@ -1,7 +1,15 @@
 package node
 
 import (
+	"github.com/p9c/monorepo/node/path"
+	"github.com/p9c/monorepo/pkg/apputil"
+	"github.com/p9c/monorepo/pkg/chainrpc"
 	"github.com/p9c/monorepo/pkg/control"
+	"github.com/p9c/monorepo/pkg/database"
+	"github.com/p9c/monorepo/pkg/database/blockdb"
+	_ "github.com/p9c/monorepo/pkg/database/ffldb"
+	"github.com/p9c/monorepo/pkg/indexers"
+	"github.com/p9c/monorepo/pkg/interrupt"
 	"github.com/p9c/monorepo/pkg/log"
 	"github.com/p9c/monorepo/pkg/pod"
 	"github.com/p9c/monorepo/pkg/qu"
@@ -11,14 +19,6 @@ import (
 	// _ "net/http/pprof"
 	"os"
 	"runtime/pprof"
-	
-	"github.com/p9c/monorepo/node/path"
-	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pkg/chainrpc"
-	"github.com/p9c/monorepo/pkg/database"
-	"github.com/p9c/monorepo/pkg/database/blockdb"
-	"github.com/p9c/monorepo/pkg/indexers"
-	"github.com/p9c/monorepo/pkg/interrupt"
 )
 
 // winServiceMain is only invoked on Windows. It detects when pod is running as a service and reacts accordingly.
@@ -240,6 +240,7 @@ func loadBlockDB(cx *pod.State) (db database.DB, e error) {
 		D.Ln("failed to remove regression db:", e)
 	}
 	I.F("loading block database from '%s'", dbPath)
+	I.Ln(database.SupportedDrivers())
 	if db, e = database.Open(cx.Config.DbType.V(), dbPath, cx.ActiveNet.Net); E.Chk(e) {
 		T.Ln(e) // return the error if it's not because the database doesn't exist
 		if dbErr, ok := e.(database.DBError); !ok || dbErr.ErrorCode !=
