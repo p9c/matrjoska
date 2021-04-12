@@ -3,14 +3,15 @@ package netsync
 import (
 	"container/list"
 	"fmt"
-	block2 "github.com/p9c/monorepo/pkg/block"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
-	
+
+	block2 "github.com/p9c/monorepo/pkg/block"
+
 	"github.com/p9c/monorepo/pkg/qu"
-	
+
 	"github.com/p9c/monorepo/pkg/blockchain"
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/chainhash"
@@ -420,9 +421,9 @@ func (sm *SyncManager) fetchHeaderBlocks() {
 			syncPeerState.requestedBlocks[*node.hash] = struct{}{}
 			// If we're fetching from a witness enabled peer post-fork, then ensure that we
 			// receive all the witness data in the blocks.
-			if sm.syncPeer.IsWitnessEnabled() {
-				iv.Type = wire.InvTypeWitnessBlock
-			}
+			// if sm.syncPeer.IsWitnessEnabled() {
+			// 	iv.Type = wire.InvTypeWitnessBlock
+			// }
 			ee = gdmsg.AddInvVect(iv)
 			if ee != nil {
 				D.Ln(ee)
@@ -538,32 +539,36 @@ func (sm *SyncManager) handleBlockMsg(workerNumber uint32, bmsg *blockMsg) {
 			blkHashUpdate = blockHash
 		}
 	}
-	// Process the block to include validation, best chain selection, orphan handling, etc.
+	D.Ln("current best height", sm.chain.BestChain.Height())
 	_, isOrphan, e := sm.chain.ProcessBlock(
 		workerNumber, bmsg.block,
 		behaviorFlags, heightUpdate,
 	)
 	if e != nil {
-		// When the error is a rule error, it means the block was simply rejected as
-		// opposed to something actually going wrong, so log it as such. Otherwise,
-		// something really did go wrong, so log it as an actual error.
-		if _, ok := e.(blockchain.RuleError); ok {
-			E.F(
-				"rejected block %v from %s: %v",
-				blockHash, pp, e,
-			)
-			// I.F("height %d", bmsg.block.Height())
+		if heightUpdate+1 <= sm.chain.BestChain.Height() {
+			// Process the block to include validation, best chain selection, orphan handling, etc.
+			// When the error is a rule error, it means the block was simply rejected as
+			// opposed to something actually going wrong, so log it as such. Otherwise,
+			// something really did go wrong, so log it as an actual error.
+			// Convert the error into an appropriate reject message and send it.
+			if _, ok := e.(blockchain.RuleError); ok {
+				E.F(
+					"rejected block %v from %s: %v",
+					blockHash, pp, e,
+				)
+			} else {
+				E.F("failed to process block %v: %v", blockHash, e)
+			}
+			if dbErr, ok := e.(database.DBError); ok && dbErr.ErrorCode ==
+				database.ErrCorruption {
+				panic(dbErr)
+			}
+			code, reason := mempool.ErrToRejectErr(e)
+			pp.PushRejectMsg(wire.CmdBlock, code, reason, blockHash, false)
+			return
 		} else {
-			E.F("failed to process block %v: %v", blockHash, e)
+			isOrphan=true
 		}
-		if dbErr, ok := e.(database.DBError); ok && dbErr.ErrorCode ==
-			database.ErrCorruption {
-			panic(dbErr)
-		}
-		// Convert the error into an appropriate reject message and send it.
-		code, reason := mempool.ErrToRejectErr(e)
-		pp.PushRejectMsg(wire.CmdBlock, code, reason, blockHash, false)
-		return
 	}
 	// Meta-data about the new block this peer is reporting. We use this below to
 	// update this peer's lastest block height and the heights of other peers based
@@ -961,8 +966,8 @@ func (sm *SyncManager) handleInvMsg(imsg *invMsg) {
 		switch iv.Type {
 		case wire.InvTypeBlock:
 		case wire.InvTypeTx:
-		case wire.InvTypeWitnessBlock:
-		case wire.InvTypeWitnessTx:
+		// case wire.InvTypeWitnessBlock:
+		// case wire.InvTypeWitnessTx:
 		default:
 			continue
 		}
@@ -1039,24 +1044,24 @@ func (sm *SyncManager) handleInvMsg(imsg *invMsg) {
 		requestQueue[0] = nil
 		requestQueue = requestQueue[1:]
 		switch iv.Type {
-		case wire.InvTypeWitnessBlock:
-			fallthrough
+		// case wire.InvTypeWitnessBlock:
+		// 	fallthrough
 		case wire.InvTypeBlock:
 			// Request the block if there is not already a pending request.
 			if _, exists := sm.requestedBlocks[iv.Hash]; !exists {
 				sm.requestedBlocks[iv.Hash] = struct{}{}
 				sm.limitMap(sm.requestedBlocks, maxRequestedBlocks)
 				state.requestedBlocks[iv.Hash] = struct{}{}
-				if peer.IsWitnessEnabled() {
-					iv.Type = wire.InvTypeWitnessBlock
-				}
+				// if peer.IsWitnessEnabled() {
+				// 	iv.Type = wire.InvTypeWitnessBlock
+				// }
 				e := gdmsg.AddInvVect(iv)
 				if e != nil {
 				}
 				numRequested++
 			}
-		case wire.InvTypeWitnessTx:
-			fallthrough
+		// case wire.InvTypeWitnessTx:
+		// 	fallthrough
 		case wire.InvTypeTx:
 			// Request the transaction if there is not already a pending request.
 			if _, exists := sm.requestedTxns[iv.Hash]; !exists {
@@ -1065,9 +1070,9 @@ func (sm *SyncManager) handleInvMsg(imsg *invMsg) {
 				state.requestedTxns[iv.Hash] = struct{}{}
 				// If the peer is capable, request the txn including all witness
 				// data.
-				if peer.IsWitnessEnabled() {
-					iv.Type = wire.InvTypeWitnessTx
-				}
+				// if peer.IsWitnessEnabled() {
+				// 	iv.Type = wire.InvTypeWitnessTx
+				// }
 				e := gdmsg.AddInvVect(iv)
 				if e != nil {
 				}
@@ -1189,14 +1194,14 @@ func (sm *SyncManager) handleTxMsg(tmsg *txMsg) {
 // are in the memory pool (either the main pool or orphan pool).
 func (sm *SyncManager) haveInventory(invVect *wire.InvVect) (bool, error) {
 	switch invVect.Type {
-	case wire.InvTypeWitnessBlock:
-		fallthrough
+	// case wire.InvTypeWitnessBlock:
+	// 	fallthrough
 	case wire.InvTypeBlock:
 		// Ask chain if the block is known to it in any form (main chain, side chain, or
 		// orphan).
 		return sm.chain.HaveBlock(&invVect.Hash)
-	case wire.InvTypeWitnessTx:
-		fallthrough
+	// case wire.InvTypeWitnessTx:
+	// 	fallthrough
 	case wire.InvTypeTx:
 		// Ask the transaction memory pool if the transaction is known to it in any form
 		// (main pool or orphan).

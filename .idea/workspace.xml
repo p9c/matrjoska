@@ -87,17 +87,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable..is.expanded" value="false" />
-    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
-    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
-    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pod/context" />
-    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
@@ -125,54 +122,54 @@
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
       <package value="github.com/p9c/monorepo" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/main.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/glom" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/glom/glom.go" />
       <package value="github.com/p9c/monorepo/glom" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/glom/glom.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/pkg/podopts/genopts" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pkg/podopts/genopts/main.go" />
       <package value="github.com/p9c/monorepo/pkg/podopts/genopts" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/pkg/podopts/genopts/main.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pod/main.go" />
       <package value="github.com/p9c/monorepo/pod" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/pod/main.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/p9c/monorepo/pod/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="monorepo" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pod/pod/main.go" />
       <package value="github.com/p9c/monorepo/pod/pod" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/pod/pod/main.go" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
         <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
+        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
       </list>
     </recent_temporary>
   </component>

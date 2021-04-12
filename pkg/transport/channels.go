@@ -230,7 +230,7 @@ func ListenBroadcast(
 		magics = append(magics, i)
 	}
 	// D.S(handlers)
-	D.Ln("magics", magics, PrevCallers())
+	// D.Ln("magics", magics, PrevCallers())
 	D.Ln("starting broadcast listener", channel.Creator, address, magics)
 	if e = conn.SetReadBuffer(maxDatagramSize); E.Chk(e) {
 	}

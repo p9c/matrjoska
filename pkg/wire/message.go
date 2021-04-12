@@ -162,7 +162,7 @@ func readMessageHeader(r io.Reader) (n int, mh *messageHeader, e error) {
 	var headerBytes [MessageHeaderSize]byte
 	if n, e = io.ReadFull(r, headerBytes[:]); E.Chk(e) {
 		if e != io.EOF {
-			F.Ln(e)
+			D.Ln(e)
 		}
 		return n, nil, e
 	}

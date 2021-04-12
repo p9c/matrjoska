@@ -175,9 +175,9 @@ func (a *AddrManager) updateAddress(netAddr, srcAddr *wire.NetAddress) {
 	// Add to new bucket.
 	ka.refs++
 	a.addrNew[bucket][addr] = ka
-	T.F("added new address %s for a total of %d addresses", addr,
-		a.nTried+a.nNew,
-	)
+	// T.F("added new address %s for a total of %d addresses", addr,
+	// 	a.nTried+a.nNew,
+	// )
 }
 
 // expireNew makes space in the new buckets by expiring the really bad entries. If no bad entries are available we look

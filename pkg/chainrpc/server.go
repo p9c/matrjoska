@@ -1125,7 +1125,7 @@ out:
 			// Disconnect all peers on server shutdown.
 			n.peerState.ForAllPeers(
 				func(sp *NodePeer) {
-					T.F("shutdown peer %n", sp)
+					T.F("shutdown peer %n", sp.Addr())
 					sp.Disconnect()
 				},
 			)
@@ -1465,7 +1465,8 @@ func (np *NodePeer) OnAddr(
 
 // OnBlock is invoked when a peer receives a block bitcoin message. It blocks until the bitcoin block has been fully
 // processed.
-func (np *NodePeer) OnBlock(_ *peer.Peer, msg *wire.Block, buf []byte) {
+func (np *NodePeer) OnBlock(p *peer.Peer, msg *wire.Block, buf []byte) {
+	D.Ln("OnBlock from", p.Addr())
 	// Convert the raw Block to a util.Block which provides some convenience
 	// methods and things such as hash caching.
 	block := block2.NewFromBlockAndBytes(msg, buf)

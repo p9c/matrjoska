@@ -676,14 +676,14 @@ func (p *Peer) WantsHeaders() bool {
 	return sendHeadersPreferred
 }
 
-// IsWitnessEnabled returns true if the peer has signalled that it supports
-// segregated witness. This function is safe for concurrent access.
-func (p *Peer) IsWitnessEnabled() bool {
-	p.flagsMtx.Lock()
-	witnessEnabled := p.witnessEnabled
-	p.flagsMtx.Unlock()
-	return witnessEnabled
-}
+// // IsWitnessEnabled returns true if the peer has signalled that it supports
+// // segregated witness. This function is safe for concurrent access.
+// func (p *Peer) IsWitnessEnabled() bool {
+// 	p.flagsMtx.Lock()
+// 	witnessEnabled := p.witnessEnabled
+// 	p.flagsMtx.Unlock()
+// 	return witnessEnabled
+// }
 
 // PushAddrMsg sends an addr message to the connected peer using the provided
 // addresses.
@@ -1422,8 +1422,7 @@ out:
 			// No handshake?  They'll find out soon enough.
 			if p.VersionKnown() {
 				// If this is a new block, then we'll blast it out immediately, sipping the inv trickle queue.
-				if iv.Type == wire.InvTypeBlock ||
-					iv.Type == wire.InvTypeWitnessBlock {
+				if iv.Type == wire.InvTypeBlock {
 					invMsg := wire.NewMsgInvSizeHint(1)
 					e := invMsg.AddInvVect(iv)
 					if e != nil {

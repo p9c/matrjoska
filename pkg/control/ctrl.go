@@ -128,7 +128,7 @@ func New(
 		func(n *blockchain.Notification) {
 			switch n.Type {
 			case blockchain.NTBlockConnected:
-				I.Ln("received block connected notification")
+				D.Ln("received block connected notification")
 				if b, ok := n.Data.(*block.Block); !ok {
 					W.Ln("block notification is not a block")
 					break

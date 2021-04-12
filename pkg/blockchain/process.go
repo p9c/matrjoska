@@ -6,6 +6,8 @@ import (
 	"github.com/p9c/monorepo/pkg/bits"
 	"github.com/p9c/monorepo/pkg/block"
 	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/monorepo/pkg/log"
+
 	"time"
 	
 	"github.com/p9c/monorepo/pkg/chainhash"
@@ -41,10 +43,9 @@ const (
 // This function is safe for concurrent access.
 func (b *BlockChain) ProcessBlock(
 	workerNumber uint32, candidateBlock *block.Block,
-	flags BehaviorFlags, height int32,
+	flags BehaviorFlags, blockHeight int32,
 ) (bool, bool, error,) {
-	T.Ln("blockchain.ProcessBlock", height)
-	blockHeight := height
+	D.Ln("blockchain.ProcessBlock", blockHeight, log.Caller("\nfrom", 1))
 	var prevBlock *block.Block
 	var e error
 	prevBlock, e = b.BlockByHash(&candidateBlock.WireBlock().Header.PrevBlock)
@@ -101,7 +102,7 @@ func (b *BlockChain) ProcessBlock(
 	if pb == nil {
 		DoNotCheckPow = true
 	}
-	D.Ln("checkBlockSanity powLimit %d %s %d %064x ts %v", algo, fork.GetAlgoName(algo, blockHeight), blockHeight, pl,
+	D.F("checkBlockSanity powLimit %d %s %d %064x ts %v", algo, fork.GetAlgoName(algo, blockHeight), blockHeight, pl,
 		pn.Header().Timestamp,
 	)
 	if e = checkBlockSanity(
