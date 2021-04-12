@@ -446,7 +446,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 			T.Ln("argument", args[i], "is not a command", commandsStart, commandsEnd)
 		}
 	}
-	I.S(commands, cm)
+	// I.S(commands, cm)
 	// commandsEnd++
 	cmds := []int{}
 	if len(commands) == 0 {
@@ -454,9 +454,11 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		commands[0] = c.Commands[0]
 	} else {
 		I.Ln("checking commands")
+		// I.S(commands)
 		for i := range commands {
 			cmds = append(cmds, i)
 		}
+		// I.S(cmds)
 		if len(cmds) > 0 {
 			sort.Ints(cmds)
 			var cms []string
@@ -480,6 +482,20 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 					if commands[cmds[i]].Name == commands[cmds[i-1]].Commands[j].Name {
 						found = true
 					}
+					// if the command is also an option name it is a descendent of the help command
+					var helpFound bool
+					for k := range commands {
+						if commands[k].Name == "help" {
+							helpFound = true
+						}
+						if commands[k].IsHelp {
+							found = true
+						}
+					}
+					_ = helpFound
+					// if !helpFound && commands {
+					//
+					// }
 				}
 				if !found {
 					e = fmt.Errorf("multiple commands are not a path on the command tree %v", cms)
@@ -490,7 +506,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 		I.Ln("length of gathered commands", len(commands))
 		if len(commands) == 1 {
-			for _,x := range commands {
+			for _, x := range commands {
 				cm = &x
 			}
 		}

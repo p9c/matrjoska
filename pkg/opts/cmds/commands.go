@@ -12,6 +12,7 @@ type Command struct {
 	Commands      Commands
 	Colorizer     func(a ...interface{}) string
 	AppText       string
+	IsHelp        bool
 }
 
 // GetAllCommands returns all of the available command names

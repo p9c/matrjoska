@@ -9,12 +9,12 @@ var (
 	// GitRef is the gitref, as in refs/heads/branchname
 	GitRef = "refs/heads/main"
 	// GitCommit is the commit hash of the current HEAD
-	GitCommit = "ef510cac753dc19c25ed7e3a27db9118e44baacd"
+	GitCommit = "17b3315e1651550bfc501253de7ce82231d5cde4"
 	// BuildTime stores the time when the current binary was built
-	BuildTime = "2021-04-09T14:26:23+02:00"
+	BuildTime = "2021-04-12T12:11:00+02:00"
 	// Tag lists the Tag on the podbuild, adding a + to the newest Tag if the commit is
 	// not that commit
-	Tag = "v0.0.12"
+	Tag = "v0.0.12+"
 	// PathBase is the path base returned from runtime caller
 	PathBase = "/home/loki/src/github.com/p9c/monorepo/"
 )

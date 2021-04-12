@@ -75,17 +75,17 @@ func (c *Config) getHelp() {
 				return
 			},
 			Commands: nil,
+			IsHelp:      true,
 		},
 		)
 		return true
 	},
 	)
-	// next add all the commands
-	c.Commands.ForEach(func(cm cmds.Command) bool {
-		
-		return true
-	}, 0, 0,
-	)
+	// // next add all the commands
+	// c.Commands.ForEach(func(cm cmds.Command) bool {
+	// 	return true
+	// }, 0, 0,
+	// )
 	c.Commands = append(c.Commands, cm)
 	return
 }
