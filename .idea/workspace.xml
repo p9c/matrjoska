@@ -93,8 +93,8 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pod/podcmds" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.VCS" />
   </component>
   <component name="RecentsManager">
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
@@ -103,11 +103,11 @@
       <recent name="$PROJECT_DIR$/pkg/podopts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pod/podcmds" />
       <recent name="$PROJECT_DIR$/pod/context" />
       <recent name="$PROJECT_DIR$/pkg/opts/sanitizers" />
       <recent name="$PROJECT_DIR$/pod/podcfgs" />
       <recent name="$PROJECT_DIR$/pkg/podopts" />
-      <recent name="$PROJECT_DIR$/pkg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pod/launchers/old" />

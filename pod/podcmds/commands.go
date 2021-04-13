@@ -89,5 +89,8 @@ func GetCommands() (c cmds.Commands) {
 			AppText:    "worker",
 		},
 	}
+	c.PopulateParents(nil)
+	// I.S(c)
 	return
 }
+

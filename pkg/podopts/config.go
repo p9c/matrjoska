@@ -14,6 +14,15 @@ package podopts
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/user"
+	"path/filepath"
+	"reflect"
+	"sort"
+	"strings"
+	"time"
+
 	"github.com/p9c/monorepo/pkg/apputil"
 	"github.com/p9c/monorepo/pkg/constant"
 	"github.com/p9c/monorepo/pkg/opts/binary"
@@ -24,14 +33,6 @@ import (
 	"github.com/p9c/monorepo/pkg/opts/list"
 	"github.com/p9c/monorepo/pkg/opts/opt"
 	"github.com/p9c/monorepo/pkg/opts/text"
-	"io/ioutil"
-	"os"
-	"os/user"
-	"path/filepath"
-	"reflect"
-	"sort"
-	"strings"
-	"time"
 )
 
 // Configs is the source location for the Config items, which is used to generate the Config struct
@@ -70,10 +71,10 @@ func (c *Config) Initialize() (e error) {
 	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
-	
+
 	if cm != nil {
 		c.RunningCommand = *cm
-		I.S(c.RunningCommand)
+		// I.S(c.RunningCommand)
 		// } else {
 		// 	c.RunningCommand = c.Commands[0]
 	}
@@ -95,7 +96,7 @@ func (c *Config) Initialize() (e error) {
 				// if _, e = c.DataDir.ReadInput(datadir); E.Chk(e) {
 				// }
 				// D.Ln(c.DataDir.V(), c.RPCKey.V(), c.RPCKey.Def, c.RPCCert.V(), c.RPCCert.Def, c.RPCKey.V(), c.RPCKey.Def)
-				
+
 				// reset all defaults that base on the datadir to apply hereafter
 				// if the value is default, update it to the new datadir, and update the default field, otherwise assume
 				// it has been set in the commandline args, and if it is different in environment or config file
@@ -154,10 +155,10 @@ func (c *Config) Initialize() (e error) {
 				if e != nil || homeDir == "" {
 					homeDir = os.Getenv("HOME")
 				}
-				
+
 				datadir = strings.Replace(datadir, "~", homeDir, 1)
 			}
-			
+
 			if resolvedConfigPath, e = filepath.Abs(filepath.Clean(filepath.Join(datadir, constant.PodConfigFilename,
 			),
 			),
@@ -190,7 +191,7 @@ func (c *Config) Initialize() (e error) {
 				panic(e)
 			}
 		}
-		
+
 	}
 	return
 }
@@ -210,7 +211,7 @@ func (c *Config) loadEnvironment() (e error) {
 		return true
 	},
 	)
-	
+
 	return
 }
 
@@ -410,7 +411,8 @@ func (c *Config) UnmarshalJSON(data []byte) (e error) {
 	return
 }
 
-func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cmds.Command, op []opt.Option,
+func (c *Config) processCommandlineArgs(args []string) (
+	remArgs []string, cm *cmds.Command, op []opt.Option,
 	optVals []string, e error,
 ) {
 	// I.S(c.Commands)
@@ -421,10 +423,20 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 	var commandsStart, commandsEnd int = -1, -1
 	var found bool
 	for i := range args {
-		T.Ln("checking for commands:", args[i], commandsStart, commandsEnd)
+		T.Ln("checking for commands:", args[i], commandsStart, commandsEnd, "current arg index:", i)
 		var depth, dist int
 		if found, depth, dist, cm, e = c.Commands.Find(args[i], depth, dist); E.Chk(e) {
 			continue
+		}
+		if cm != nil {
+			if cm.Parent != nil {
+				if cm.Parent.Name == "help" {
+					// I.S(commands)
+					if commands[0].Name != "help" {
+						found = false
+					}
+				}
+			}
 		}
 		if found {
 			if commandsStart == -1 {
@@ -482,20 +494,6 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 					if commands[cmds[i]].Name == commands[cmds[i-1]].Commands[j].Name {
 						found = true
 					}
-					// if the command is also an option name it is a descendent of the help command
-					var helpFound bool
-					for k := range commands {
-						if commands[k].Name == "help" {
-							helpFound = true
-						}
-						if commands[k].IsHelp {
-							found = true
-						}
-					}
-					_ = helpFound
-					// if !helpFound && commands {
-					//
-					// }
 				}
 				if !found {
 					e = fmt.Errorf("multiple commands are not a path on the command tree %v", cms)
@@ -541,6 +539,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 			optVals = append(optVals, val)
 		}
 	}
+	I.S(op)
 	if len(cmds) < 1 {
 		cmds = []int{0}
 		commands[0] = c.Commands[0]
@@ -549,7 +548,7 @@ func (c *Config) processCommandlineArgs(args []string) (remArgs []string, cm *cm
 		remArgs = args[commandsEnd:]
 	}
 	D.F("args that will pass to command: %v", remArgs)
-	I.S(commands, cm)
+	// I.S(commands, cm)
 	// I.S(commands[cmds[len(cmds)-1]], op, args[commandsEnd:])
 	return
 }

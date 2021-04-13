@@ -12,7 +12,17 @@ type Command struct {
 	Commands      Commands
 	Colorizer     func(a ...interface{}) string
 	AppText       string
-	IsHelp        bool
+	Parent        *Command
+}
+
+func (c Commands) PopulateParents(parent *Command) {
+	if parent != nil {
+		I.Ln("backlinking children of", parent.Name)
+	}
+	for i := range c {
+		c[i].Parent = parent
+		c[i].Commands.PopulateParents(&c[i])
+	}
 }
 
 // GetAllCommands returns all of the available command names

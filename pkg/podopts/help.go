@@ -2,6 +2,11 @@ package podopts
 
 import (
 	"fmt"
+	"os"
+	"sort"
+	"strings"
+	"unicode/utf8"
+
 	"github.com/p9c/monorepo/pkg/opts/binary"
 	"github.com/p9c/monorepo/pkg/opts/cmds"
 	"github.com/p9c/monorepo/pkg/opts/duration"
@@ -10,10 +15,6 @@ import (
 	"github.com/p9c/monorepo/pkg/opts/list"
 	"github.com/p9c/monorepo/pkg/opts/opt"
 	"github.com/p9c/monorepo/pkg/opts/text"
-	"os"
-	"sort"
-	"strings"
-	"unicode/utf8"
 )
 
 type details struct {
@@ -37,27 +38,33 @@ func (c *Config) getHelp() {
 		var dt details
 		switch ii := ifc.(type) {
 		case *binary.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *list.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *float.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *integer.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *text.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *duration.Opt:
-			dt = details{ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+			dt = details{
+				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		}
@@ -75,9 +82,10 @@ func (c *Config) getHelp() {
 				return
 			},
 			Commands: nil,
-			IsHelp:      true,
+			Parent:   &cm,
 		},
 		)
+		// for i := range
 		return true
 	},
 	)
