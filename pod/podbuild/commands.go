@@ -7,6 +7,10 @@ var commands = map[string][]string{
 	"install": {
 		"go install -v ./pod/.",
 	},
+	"run": {
+		"go install -v ./pod/.",
+		"pod",
+	},
 	"headless": {
 		"go install -v -tags headless ./pod/.",
 	},
