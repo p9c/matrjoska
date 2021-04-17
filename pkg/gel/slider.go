@@ -11,7 +11,7 @@ import (
 	"gioui.org/op/paint"
 	"gioui.org/unit"
 	
-	"github.com/p9c/monorepo/pkg/gel/f32color"
+	"github.com/p9c/gel/f32color"
 )
 
 type Slider struct {

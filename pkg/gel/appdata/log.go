@@ -1,8 +1,9 @@
-package clipboard
+package appdata
 
 import (
-	"github.com/p9c/gel/version"
 	"github.com/p9c/log"
+
+	"github.com/p9c/gel/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

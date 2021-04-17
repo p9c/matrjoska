@@ -1,10 +1,9 @@
 module github.com/p9c/monorepo
 
-go 1.16
+go 1.12
 
 require (
-	gioui.org v0.0.0-20210402191542-ce7f0da06ee3
-	github.com/BurntSushi/xgb v0.0.0-20210121224620-deaf085860bc
+	gioui.org v0.0.0-20210416090721-0a918581630a
 	github.com/VividCortex/ewma v1.1.1
 	github.com/aead/siphash v1.0.1
 	github.com/atotto/clipboard v0.1.4
@@ -15,6 +14,8 @@ require (
 	github.com/conformal/fastsha256 v0.0.0-20160815193821-637e65642941
 	github.com/davecgh/go-spew v1.1.1
 	github.com/enceve/crypto v0.0.0-20160707101852-34d48bb93815
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gookit/color v1.3.8
 	github.com/hpcloud/tail v1.0.0 // indirect
 	github.com/jackpal/gateway v1.0.7
@@ -22,6 +23,8 @@ require (
 	github.com/kkdai/bstream v1.0.0
 	github.com/marusama/semaphore v0.0.0-20190110074507-6952cef993b2
 	github.com/niubaoshu/gotiny v0.0.3
+	github.com/p9c/gel v0.1.15 // indirect
+	github.com/p9c/monorepo/pkg/gel v0.0.0-00010101000000-000000000000
 	github.com/programmer10110/gostreebog v0.0.0-20170704145444-a3e1d28291b2
 	github.com/tstranex/gozmq v0.0.0-20160831212417-0daa84a596ba
 	github.com/tyler-smith/go-bip39 v1.1.0
@@ -38,3 +41,7 @@ require (
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	lukechampine.com/blake3 v1.1.5
 )
+
+//replace gioui.org => github.com/p9c/gio v0.0.3
+//replace gioui.org => ../gel/gio
+replace github.com/p9c/monorepo/pkg/gel => ./gel

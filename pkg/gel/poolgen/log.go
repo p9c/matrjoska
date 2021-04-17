@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/version"
+	"github.com/p9c/log"
+	"github.com/p9c/gel/version"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

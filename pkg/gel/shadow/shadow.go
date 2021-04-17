@@ -10,7 +10,7 @@ import (
 	"gioui.org/op/paint"
 	"gioui.org/unit"
 	
-	"github.com/p9c/monorepo/pkg/gel/f32color"
+	"github.com/p9c/gel/f32color"
 )
 
 func Shadow(gtx l.Context, cornerRadius, elevation unit.Value, shadowColor color.NRGBA, content func(gtx l.Context) l.Dimensions) l.Dimensions {

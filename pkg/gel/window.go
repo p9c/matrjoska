@@ -149,71 +149,80 @@ func (w *Window) Open() (out *Window) {
 }
 
 func (w *Window) Run(frame func(ctx l.Context) l.Dimensions, destroy func(), quit qu.C,) (e error) {
-	ticker := time.NewTicker(time.Second)
-	for {
-		select {
-		case <-ticker.C:
-			if runtime.GOOS == "linux" {
-				var e error
-				var b []byte
-				textSize := unit.Sp(16)
-				runner := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "text-scaling-factor")
-				if b, e = runner.CombinedOutput(); D.Chk(e) {
+	runner := func(){
+		ticker := time.NewTicker(time.Second)
+		for {
+			select {
+			case <-ticker.C:
+				if runtime.GOOS == "linux" {
+					var e error
+					var b []byte
+					textSize := unit.Sp(16)
+					runner := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "text-scaling-factor")
+					if b, e = runner.CombinedOutput(); D.Chk(e) {
+					}
+					var factor float64
+					numberString := strings.TrimSpace(string(b))
+					if factor, e = strconv.ParseFloat(numberString, 10); D.Chk(e) {
+					}
+					w.TextSize = textSize.Scale(float32(factor))
+					// I.Ln(w.TextSize)
 				}
-				var factor float64
-				numberString := strings.TrimSpace(string(b))
-				if factor, e = strconv.ParseFloat(numberString, 10); D.Chk(e) {
+				w.Invalidate()
+			case fn := <-w.Runner:
+				if e = fn(); E.Chk(e) {
+					return
 				}
-				w.TextSize = textSize.Scale(float32(factor))
-				// I.Ln(w.TextSize)
-			}
-			w.Invalidate()
-		case fn := <-w.Runner:
-			if e = fn(); E.Chk(e) {
+			case <-quit.Wait():
 				return
-			}
-		case <-quit.Wait():
-			return
-			// by repeating selectors we decrease the chance of a runner delaying
-			// a frame event hitting the physical frame deadline
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
-			}
-		case ev := <-w.Window.Events():
-			if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
-				return
+				// by repeating selectors we decrease the chance of a runner delaying
+				// a frame event hitting the physical frame deadline
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
+			case ev := <-w.Window.Events():
+				if e = w.processEvents(ev, frame, destroy); E.Chk(e) {
+					return
+				}
 			}
 		}
 	}
+	go runner()
+	switch runtime.GOOS {
+	case "ios", "android":
+	default:
+		<-quit
+	}
+	return nil
 }
 
 func (w *Window) processEvents(e event.Event, frame func(ctx l.Context) l.Dimensions, destroy func()) error {

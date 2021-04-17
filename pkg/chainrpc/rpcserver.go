@@ -2070,13 +2070,13 @@ func NewRPCServer(
 	}
 	if podcfg.Username.V() != "" && podcfg.Password.V() != "" {
 		login := podcfg.Username.V() + ":" + podcfg.Password.V()
-		I.Ln("login:", login)
+		// I.Ln("login:", login)
 		auth := "Basic " + base64.StdEncoding.EncodeToString([]byte(login))
 		rpc.AuthSHA = sha256.Sum256([]byte(auth))
 	}
 	if podcfg.LimitUser.V() != "" && podcfg.LimitPass.V() != "" {
 		login := podcfg.LimitUser.V() + ":" + podcfg.LimitPass.V()
-		I.Ln("login:", login)
+		// I.Ln("login:", login)
 		auth := "Basic " + base64.StdEncoding.EncodeToString([]byte(login))
 		rpc.LimitAuthSHA = sha256.Sum256([]byte(auth))
 	}

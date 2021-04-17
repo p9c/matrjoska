@@ -10,7 +10,7 @@ import (
 	"gioui.org/unit"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 	
-	"github.com/p9c/monorepo/pkg/gel/f32color"
+	"github.com/p9c/gel/f32color"
 )
 
 type IconButton struct {

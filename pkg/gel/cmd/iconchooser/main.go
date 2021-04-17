@@ -1,13 +1,15 @@
 package main
 
 import (
+	"sort"
+
 	l "gioui.org/layout"
 	"github.com/atotto/clipboard"
-	"github.com/p9c/monorepo/pkg/gel"
 	"github.com/p9c/monorepo/pkg/icons"
 	"github.com/p9c/monorepo/pkg/interrupt"
 	"github.com/p9c/monorepo/pkg/qu"
-	"sort"
+
+	"github.com/p9c/gel"
 )
 
 type State struct {
