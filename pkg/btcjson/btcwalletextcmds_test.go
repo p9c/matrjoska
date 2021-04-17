@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // TestBtcWalletExtCmds tests all of the btcwallet extended commands marshal and unmarshal into valid results include

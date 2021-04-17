@@ -2,8 +2,8 @@ package cfg
 
 import (
 	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/pod"
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/qu"
 )
 
 func New(cx *pod.State, w *gel.Window) *Config {

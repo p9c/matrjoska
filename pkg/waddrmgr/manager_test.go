@@ -4,7 +4,7 @@ package waddrmgr_test
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"os"
 	"reflect"
 	"testing"
@@ -12,12 +12,12 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/snacl"
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/walletdb"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/snacl"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/walletdb"
 )
 
 // // newHash converts the passed big-endian hex string into a chainhash.Hash.

@@ -14,14 +14,14 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
 	"github.com/btcsuite/websocket"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/chainclient"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/wallet"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/chainclient"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/wallet"
 )
 
 type WebsocketClient struct {

@@ -3,9 +3,9 @@ package text
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/opts/meta"
-	"github.com/p9c/monorepo/pkg/opts/opt"
-	"github.com/p9c/monorepo/pkg/opts/sanitizers"
+	"github.com/p9c/matrjoska/pkg/opts/meta"
+	"github.com/p9c/matrjoska/pkg/opts/opt"
+	"github.com/p9c/matrjoska/pkg/opts/sanitizers"
 	"strings"
 	"sync/atomic"
 )

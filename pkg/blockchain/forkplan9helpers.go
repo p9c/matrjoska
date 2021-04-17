@@ -2,9 +2,9 @@ package blockchain
 
 import (
 	"github.com/VividCortex/ewma"
-	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/fork"
 	
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 func (b *BlockChain) GetCommonP9Averages(lastNode *BlockNode, nH int32) (

@@ -1,10 +1,10 @@
 package wallet
 
 import (
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/txscript"
-	"github.com/p9c/monorepo/pkg/walletdb"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/walletdb"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // OutputSelectionPolicy describes the rules for selecting an output from the wallet.

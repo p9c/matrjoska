@@ -3,8 +3,8 @@ package templates
 import (
 	"errors"
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/wire"
 	"time"
 )
 

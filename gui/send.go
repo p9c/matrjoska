@@ -2,18 +2,19 @@ package gui
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
 	"strconv"
 	"strings"
 	"time"
-	
+
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+
 	l "gioui.org/layout"
 	"gioui.org/text"
 	"github.com/atotto/clipboard"
-	
-	"github.com/p9c/monorepo/pkg/chainhash"
+
 	"github.com/p9c/gel"
+	"github.com/p9c/matrjoska/pkg/chainhash"
 )
 
 type SendPage struct {

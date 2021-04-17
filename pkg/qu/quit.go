@@ -1,7 +1,7 @@
 package qu
 
 import (
-	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/matrjoska/pkg/log"
 	"go.uber.org/atomic"
 	"strings"
 	"sync"

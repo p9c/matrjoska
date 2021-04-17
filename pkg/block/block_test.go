@@ -2,8 +2,8 @@ package block_test
 
 import (
 	"bytes"
-	"github.com/p9c/monorepo/pkg/block"
-	"github.com/p9c/monorepo/pkg/util"
+	"github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/util"
 	"io"
 	"reflect"
 	"testing"
@@ -11,8 +11,8 @@ import (
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // TestBlock tests the API for Block.

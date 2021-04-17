@@ -24,10 +24,10 @@ import (
 	"fmt"
 	"log"
 	
-	"github.com/p9c/monorepo/pkg/chain/config/netparams"
+	"github.com/p9c/matrjoska/pkg/chain/config/netparams"
 	
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 )
 
 var testnet = flag.Bool("testnet", false,

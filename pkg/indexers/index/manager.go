@@ -2,11 +2,11 @@ package index
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/block"
+	"github.com/p9c/matrjoska/pkg/block"
 	
-	"github.com/p9c/monorepo/pkg/blockchain"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/database"
+	"github.com/p9c/matrjoska/pkg/blockchain"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/database"
 )
 
 var (

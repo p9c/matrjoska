@@ -3,9 +3,9 @@ package gui
 import (
 	l "gioui.org/layout"
 	"golang.org/x/exp/shiny/materialdesign/icons"
-	
+
 	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/p9icons"
+	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 
 func (wg *WalletGUI) getLoadingPage() (a *gel.App) {

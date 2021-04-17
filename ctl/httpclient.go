@@ -13,7 +13,7 @@ import (
 	
 	"github.com/btcsuite/go-socks/socks"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // newHTTPClient returns a new HTTP client that is configured according to the proxy and TLS settings in the associated

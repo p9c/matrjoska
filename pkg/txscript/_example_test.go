@@ -5,10 +5,10 @@ import (
 	"fmt"
 	
 	"github.com/p9c/pod/pkg/chain/config/netparams"
-	chainhash "github.com/p9c/monorepo/pkg/chainhash"
-	txscript "github.com/p9c/monorepo/pkg/txscript"
-	"github.com/p9c/monorepo/pkg/wire"
-	ecc "github.com/p9c/monorepo/pkg/ecc"
+	chainhash "github.com/p9c/matrjoska/pkg/chainhash"
+	txscript "github.com/p9c/matrjoska/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/wire"
+	ecc "github.com/p9c/matrjoska/pkg/ecc"
 	"github.com/p9c/pod/pkg/util"
 )
 

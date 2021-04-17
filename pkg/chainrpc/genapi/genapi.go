@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/matrjoska/pkg/log"
 	"os"
 	"sort"
 	"text/template"
@@ -320,9 +320,9 @@ import (
 	"net/rpc"
 	"time"
 
-	"github.com/p9c/monorepo/qu"
+	"github.com/p9c/matrjoska/qu"
 
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // API stores the channel, parameters and result values from calls via

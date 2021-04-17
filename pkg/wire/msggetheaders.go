@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/chainhash"
 )
 
 // MsgGetHeaders implements the Message interface and represents a bitcoin

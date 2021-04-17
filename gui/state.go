@@ -3,20 +3,20 @@ package gui
 import (
 	"crypto/cipher"
 	"encoding/json"
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"io/ioutil"
 	"time"
 	
 	l "gioui.org/layout"
 	uberatomic "go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/gcm"
-	"github.com/p9c/monorepo/pkg/transport"
-	"github.com/p9c/monorepo/pkg/util/atom"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/gcm"
+	"github.com/p9c/matrjoska/pkg/transport"
+	"github.com/p9c/matrjoska/pkg/util/atom"
 )
 
 const ZeroAddress = "1111111111111111111114oLvT2"

@@ -13,10 +13,10 @@ import (
 	"golang.org/x/exp/shiny/materialdesign/icons"
 	
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
-	
+
 	"github.com/p9c/gel"
 	
-	"github.com/p9c/monorepo/pkg/rpcctl"
+	"github.com/p9c/matrjoska/pkg/rpcctl"
 )
 
 type Console struct {

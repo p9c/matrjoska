@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/wallet"
+	"github.com/p9c/matrjoska/pkg/wallet"
 )
 
 // Harness holds the BranchRecoveryState being tested, the recovery window being used, provides access to the test

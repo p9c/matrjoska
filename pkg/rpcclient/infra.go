@@ -19,12 +19,12 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
 	"github.com/btcsuite/go-socks/socks"
 	"github.com/btcsuite/websocket"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 var (

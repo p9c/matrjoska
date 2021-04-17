@@ -3,19 +3,19 @@ package old
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/monorepo/pkg/constant"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/opts"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/opts"
+	"github.com/p9c/matrjoska/pkg/pod"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/cmd/walletmain"
-	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pod/podconfig"
+	"github.com/p9c/matrjoska/cmd/walletmain"
+	"github.com/p9c/matrjoska/pkg/apputil"
+	"github.com/p9c/matrjoska/pod/podconfig"
 )
 
 // walletHandle runs the wallet server

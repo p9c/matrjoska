@@ -1,15 +1,15 @@
 package chainrpc
 
 import (
-	"github.com/p9c/monorepo/pkg/block"
+	"github.com/p9c/matrjoska/pkg/block"
 	"sync/atomic"
 	
-	"github.com/p9c/monorepo/pkg/blockchain"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/mempool"
-	"github.com/p9c/monorepo/pkg/netsync"
-	"github.com/p9c/monorepo/pkg/peer"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/blockchain"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/mempool"
+	"github.com/p9c/matrjoska/pkg/netsync"
+	"github.com/p9c/matrjoska/pkg/peer"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // Peer provides a peer for use with the RPC server and implements the RPCServerPeer interface.

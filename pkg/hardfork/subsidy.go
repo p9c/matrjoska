@@ -2,9 +2,9 @@ package hardfork
 
 import (
 	"encoding/hex"
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 )
 
 // Payee is an address and amount

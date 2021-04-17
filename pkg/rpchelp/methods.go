@@ -3,7 +3,7 @@
 package rpchelp
 
 import (
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // HelpDescs contains the locale-specific help strings along with the locale.

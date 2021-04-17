@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6994c3dc-3088-4e2b-a006-a87e8853e461" name="Default Changelist" comment="" />
+    <list default="true" id="cd316463-c1d8-4f19-b757-d6b17d5b7e6b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pkg/gel" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/button.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/button.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/buttonlayout.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/buttonlayout.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/card.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/card.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/checkable.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/checkable.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/clipboard/clipboard_x11.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/clipboard/clipboard_x11.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/cmd/hello/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/cmd/hello/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/cmd/iconchooser/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/cmd/iconchooser/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/fonts/p9fonts/fonts.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/fonts/p9fonts/fonts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/icon.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/icon.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/iconbutton.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/iconbutton.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/incdec.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/incdec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/inset.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/inset.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/label.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/label.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/multi.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/multi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/progressbar.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/progressbar.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/shadow/shadow.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/shadow/shadow.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/slider.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/slider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/switch.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/switch.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/theme.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/theme.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/window.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/window.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/wraplist.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/wraplist.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Go Application" />
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
-  <component name="GOROOT" url="file://$USER_HOME$/go" />
+  <component name="GOROOT" url="file:///usr/lib/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/gel/gio" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/pkg/gel" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
-    <option name="useGoPathFromSystemEnvironment" value="false" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/glom/pkg/pathtree/pathtree.go" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="ProjectId" id="1qd9qKmAtjYXlFb4QPQ6gcvi1Lk" />
+  <component name="ProjectId" id="1rJHAzV9Cc9raaE8TIvE91t9XMl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -48,96 +49,41 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable..is.expanded" value="false" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
-    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/gel" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pod/launchers/old" />
-      <recent name="$PROJECT_DIR$/pod/launchers" />
-      <recent name="$PROJECT_DIR$/pod/context" />
-      <recent name="$PROJECT_DIR$/pod/podconfig" />
-      <recent name="$PROJECT_DIR$/pod" />
-    </key>
-    <key name="GoMoveDeclarationDialog.RECENT_KEY">
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-      <recent name="$PROJECT_DIR$/pod/podcmds" />
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg/gel" />
-      <recent name="$PROJECT_DIR$/pod/podcmds" />
-      <recent name="$PROJECT_DIR$/pod/context" />
-      <recent name="$PROJECT_DIR$/pkg/opts/sanitizers" />
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod">
-    <configuration name="go build github.com/p9c/monorepo" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/main.go" />
-      <package value="github.com/p9c/monorepo" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/glom" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/glom/glom.go" />
-      <package value="github.com/p9c/monorepo/glom" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pkg/podopts/genopts" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/pkg/podopts/genopts/main.go" />
-      <package value="github.com/p9c/monorepo/pkg/podopts/genopts" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/matrjoska/pod">
+    <configuration name="go build github.com/p9c/matrjoska/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/pod/main.go" />
-      <package value="github.com/p9c/monorepo/pod" />
-      <directory value="$PROJECT_DIR$/" />
+      <package value="github.com/p9c/matrjoska/pod" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pod/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
+    <configuration name="go build github.com/p9c/matrjoska/version/update" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/pod/pod/main.go" />
-      <package value="github.com/p9c/monorepo/pod/pod" />
-      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/version/update/main.go" />
+      <package value="github.com/p9c/matrjoska/version/update" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
+        <item itemvalue="Go Build.go build github.com/p9c/matrjoska/pod" />
+        <item itemvalue="Go Build.go build github.com/p9c/matrjoska/version/update" />
       </list>
     </recent_temporary>
   </component>
@@ -145,30 +91,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
-      <path value="$PROJECT_DIR$" />
-      <path value="$PROJECT_DIR$/duod" />
       <path value="$PROJECT_DIR$/gel" />
-      <path value="$PROJECT_DIR$/glom" />
-      <path value="$PROJECT_DIR$/interrupt" />
-      <path value="$PROJECT_DIR$/log" />
-      <path value="$PROJECT_DIR$/logo" />
-      <path value="$PROJECT_DIR$/opts" />
-      <path value="$PROJECT_DIR$/qu" />
-      <path value="$PROJECT_DIR$/spore" />
+      <path value="$PROJECT_DIR$/gel/gio" />
     </ignored-roots>
   </component>
   <component name="VgoProject">

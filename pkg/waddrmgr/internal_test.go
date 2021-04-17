@@ -9,7 +9,7 @@ package waddrmgr
 import (
 	"errors"
 	
-	"github.com/p9c/monorepo/pkg/snacl"
+	"github.com/p9c/matrjoska/pkg/snacl"
 )
 
 // // TstLatestMgrVersion makes the unexported latestMgrVersion variable

@@ -3,14 +3,14 @@ package waddrmgr
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"sync"
 	
-	ec "github.com/p9c/monorepo/pkg/ecc"
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/util/hdkeychain"
-	"github.com/p9c/monorepo/pkg/util/zero"
-	"github.com/p9c/monorepo/pkg/walletdb"
+	ec "github.com/p9c/matrjoska/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/util/hdkeychain"
+	"github.com/p9c/matrjoska/pkg/util/zero"
+	"github.com/p9c/matrjoska/pkg/walletdb"
 )
 
 // AddressType represents the various address types waddrmgr is currently able

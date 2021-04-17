@@ -3,36 +3,38 @@ package gui
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/monorepo/pkg/control/p2padvt"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/opts/meta"
-	"github.com/p9c/monorepo/pkg/opts/text"
-	"github.com/p9c/monorepo/pkg/pod"
-	"github.com/p9c/monorepo/pkg/transport"
-	"github.com/tyler-smith/go-bip39"
 	"net"
 	"os"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
-	
+
+	"github.com/niubaoshu/gotiny"
+	"github.com/tyler-smith/go-bip39"
+
+	"github.com/p9c/matrjoska/pkg/control/p2padvt"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/opts/meta"
+	"github.com/p9c/matrjoska/pkg/opts/text"
+	"github.com/p9c/matrjoska/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/transport"
+
 	"gioui.org/op/paint"
 	uberatomic "go.uber.org/atomic"
-	
-	"github.com/p9c/monorepo/pkg/btcjson"
+
 	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/qu"
-	
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/qu"
+
 	l "gioui.org/layout"
-	
-	"github.com/p9c/monorepo/gui/cfg"
-	"github.com/p9c/monorepo/pkg/apputil"
-	"github.com/p9c/monorepo/pkg/pipe/consume"
-	"github.com/p9c/monorepo/pkg/rpcclient"
-	"github.com/p9c/monorepo/pkg/util/rununit"
+
+	"github.com/p9c/matrjoska/gui/cfg"
+	"github.com/p9c/matrjoska/pkg/apputil"
+	"github.com/p9c/matrjoska/pkg/pipe/consume"
+	"github.com/p9c/matrjoska/pkg/rpcclient"
+	"github.com/p9c/matrjoska/pkg/util/rununit"
 )
 
 // Main is the entrypoint for the wallet GUI

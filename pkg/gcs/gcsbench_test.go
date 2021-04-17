@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/gcs"
+	"github.com/p9c/matrjoska/pkg/gcs"
 )
 
 func genRandFilterElements(numElements uint) ([][]byte, error) {

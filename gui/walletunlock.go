@@ -4,20 +4,21 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pod/podcfgs"
 	"io/ioutil"
 	"path/filepath"
 	"time"
-	
+
+	"github.com/p9c/matrjoska/pod/podcfgs"
+
 	"golang.org/x/exp/shiny/materialdesign/icons"
 	"lukechampine.com/blake3"
-	
+
 	l "gioui.org/layout"
 	"gioui.org/text"
-	
+
 	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/p9icons"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 
 func (wg *WalletGUI) unlockWallet(pass string) {
@@ -239,8 +240,7 @@ func (wg *WalletGUI) getWalletUnlockAppWidget() (a *gel.App) {
 																										Rigid(
 																											wg.Icon().
 																												Scale(
-																													gel.
-																														Scales["H4"],
+																													gel.Scales["H4"],
 																												).
 																												Color("DocText").
 																												Src(

@@ -4,33 +4,33 @@ import (
 	"context"
 	"crypto/rand"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/control/templates"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/control/templates"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/pod"
 	"net"
 	"os"
 	"runtime"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/control/p2padvt"
+	"github.com/p9c/matrjoska/pkg/control/p2padvt"
 	
 	"github.com/niubaoshu/gotiny"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
 	"github.com/VividCortex/ewma"
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/kopach/client"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/control"
-	"github.com/p9c/monorepo/pkg/control/hashrate"
-	"github.com/p9c/monorepo/pkg/control/job"
-	"github.com/p9c/monorepo/pkg/control/pause"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/pipe/stdconn/worker"
-	rav "github.com/p9c/monorepo/pkg/ring"
-	"github.com/p9c/monorepo/pkg/transport"
+	"github.com/p9c/matrjoska/kopach/client"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/control"
+	"github.com/p9c/matrjoska/pkg/control/hashrate"
+	"github.com/p9c/matrjoska/pkg/control/job"
+	"github.com/p9c/matrjoska/pkg/control/pause"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
+	rav "github.com/p9c/matrjoska/pkg/ring"
+	"github.com/p9c/matrjoska/pkg/transport"
 )
 
 var maxThreads = float32(runtime.NumCPU())

@@ -6,15 +6,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/amt"
 	"io/ioutil"
 	"strconv"
 	"strings"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // scriptTestName returns a descriptive test name for the given reference script test data.

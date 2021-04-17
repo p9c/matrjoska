@@ -2,11 +2,11 @@ package wallet
 
 import (
 	"errors"
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	
-	"github.com/p9c/monorepo/pkg/txscript"
-	"github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/walletdb"
+	"github.com/p9c/matrjoska/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/walletdb"
 )
 
 // MakeMultiSigScript creates a multi-signature script that can be redeemed with nRequired signatures of the passed keys

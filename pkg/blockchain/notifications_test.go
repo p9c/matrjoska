@@ -3,7 +3,7 @@ package blockchain
 import (
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 )
 
 // TestNotifications ensures that notification callbacks are fired on events.

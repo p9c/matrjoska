@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/matrjoska/pkg/log"
 	"net"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/transport"
-	"github.com/p9c/monorepo/pkg/util/loop"
+	"github.com/p9c/matrjoska/pkg/transport"
+	"github.com/p9c/matrjoska/pkg/util/loop"
 )
 
 const (

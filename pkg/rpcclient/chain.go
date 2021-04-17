@@ -5,9 +5,9 @@ import (
 	"encoding/hex"
 	js "encoding/json"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // FutureGetBestBlockHashResult is a future promise to deliver the result of a GetBestBlockAsync RPC invocation (or an

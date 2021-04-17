@@ -2,23 +2,23 @@ package chainclient
 
 import (
 	"errors"
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/txscript"
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/gcs"
-	"github.com/p9c/monorepo/pkg/gcs/builder"
-	"github.com/p9c/monorepo/pkg/rpcclient"
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/wire"
-	"github.com/p9c/monorepo/pkg/wtxmgr"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/gcs"
+	"github.com/p9c/matrjoska/pkg/gcs/builder"
+	"github.com/p9c/matrjoska/pkg/rpcclient"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/wtxmgr"
 )
 
 // RPCClient represents a persistent client connection to a bitcoin RPC server for information regarding the current

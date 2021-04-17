@@ -1,12 +1,12 @@
 package chainclient
 
 import (
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/txscript"
-	"github.com/p9c/monorepo/pkg/util"
-	am "github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/util"
+	am "github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // BlockFilterer is used to iteratively scan blocks for a set of addresses of interest. This is done by constructing

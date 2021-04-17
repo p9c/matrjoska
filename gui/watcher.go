@@ -1,10 +1,10 @@
 package gui
 
 import (
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 )
 
 // Watcher keeps the chain and wallet and rpc clients connected

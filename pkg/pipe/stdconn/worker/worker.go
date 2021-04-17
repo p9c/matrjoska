@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"syscall"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/pipe/stdconn"
+	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
 )
 
 type Worker struct {

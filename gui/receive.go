@@ -2,13 +2,14 @@ package gui
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/amt"
 	"strconv"
-	
+
+	"github.com/p9c/matrjoska/pkg/amt"
+
 	l "gioui.org/layout"
 	"gioui.org/text"
 	"github.com/atotto/clipboard"
-	
+
 	"github.com/p9c/gel"
 )
 

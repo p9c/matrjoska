@@ -3,7 +3,7 @@ package addrmgr
 import (
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 func TstKnownAddressIsBad(ka *KnownAddress) bool {

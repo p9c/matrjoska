@@ -3,9 +3,9 @@ package podcmds
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/monorepo/pkg/opts/cmds"
-	"github.com/p9c/monorepo/pod/launchers"
-	"github.com/p9c/monorepo/version"
+	"github.com/p9c/matrjoska/pkg/opts/cmds"
+	"github.com/p9c/matrjoska/pod/launchers"
+	"github.com/p9c/matrjoska/version"
 )
 
 // GetCommands returns available subcommands in Parallelcoin Pod

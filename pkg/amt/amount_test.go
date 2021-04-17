@@ -1,7 +1,7 @@
 package amt_test
 
 import (
-	"github.com/p9c/monorepo/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/amt"
 	"math"
 	"testing"
 )
