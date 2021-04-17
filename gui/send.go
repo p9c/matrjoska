@@ -13,7 +13,7 @@ import (
 	"github.com/atotto/clipboard"
 	
 	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 )
 
 type SendPage struct {

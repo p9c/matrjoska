@@ -11,7 +11,7 @@ import (
 	l "gioui.org/layout"
 	
 	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 )
 
 func (wg *WalletGUI) balanceCard() func(gtx l.Context) l.Dimensions {

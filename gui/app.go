@@ -14,7 +14,7 @@ import (
 	"gioui.org/text"
 	
 	"github.com/p9c/monorepo/gui/cfg"
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 	"github.com/p9c/monorepo/pkg/p9icons"
 )
 

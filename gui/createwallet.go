@@ -5,7 +5,7 @@ import (
 	"github.com/p9c/monorepo/pkg/chaincfg"
 	"github.com/p9c/monorepo/pkg/constant"
 	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 	"github.com/p9c/monorepo/pkg/interrupt"
 	"github.com/p9c/monorepo/pkg/qu"
 	"golang.org/x/exp/shiny/materialdesign/icons"

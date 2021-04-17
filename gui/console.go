@@ -14,7 +14,7 @@ import (
 	
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
 	
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 	
 	"github.com/p9c/monorepo/pkg/rpcctl"
 )

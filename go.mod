@@ -23,8 +23,8 @@ require (
 	github.com/kkdai/bstream v1.0.0
 	github.com/marusama/semaphore v0.0.0-20190110074507-6952cef993b2
 	github.com/niubaoshu/gotiny v0.0.3
-	github.com/p9c/gel v0.1.15 // indirect
-	github.com/p9c/monorepo/pkg/gel v0.0.0-00010101000000-000000000000
+	github.com/p9c/gel v0.1.16
+	github.com/p9c/log v0.0.6
 	github.com/programmer10110/gostreebog v0.0.0-20170704145444-a3e1d28291b2
 	github.com/tstranex/gozmq v0.0.0-20160831212417-0daa84a596ba
 	github.com/tyler-smith/go-bip39 v1.1.0
@@ -44,4 +44,4 @@ require (
 
 //replace gioui.org => github.com/p9c/gio v0.0.3
 //replace gioui.org => ../gel/gio
-replace github.com/p9c/monorepo/pkg/gel => ./gel
+replace github.com/p9c/gel => ./gel

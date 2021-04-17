@@ -3,7 +3,7 @@ package pathtree
 import (
 	l "gioui.org/layout"
 	"gioui.org/text"
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 	"github.com/p9c/monorepo/pkg/opts/binary"
 	"github.com/p9c/monorepo/pkg/opts/meta"
 	uberatomic "go.uber.org/atomic"

@@ -61,7 +61,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../opts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/gel" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -173,15 +173,5 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="661" y="798" key="FileChooserDialogImpl" timestamp="1618442753661">
-      <screen x="0" y="34" width="3840" height="2126" />
-    </state>
-    <state x="661" y="798" key="FileChooserDialogImpl/0.34.3840.2126@0.34.3840.2126" timestamp="1618442753661" />
-    <state x="1247" y="644" width="1346" height="1313" key="SettingsEditor" timestamp="1618435401431">
-      <screen x="0" y="34" width="3840" height="2126" />
-    </state>
-    <state x="1247" y="644" width="1346" height="1313" key="SettingsEditor/0.34.3840.2126@0.34.3840.2126" timestamp="1618435401431" />
   </component>
 </project>

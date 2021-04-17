@@ -5,7 +5,7 @@ import (
 	l "gioui.org/layout"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/gel"
+	"github.com/p9c/gel"
 )
 
 func (wg *WalletGUI) HistoryPage() l.Widget {
