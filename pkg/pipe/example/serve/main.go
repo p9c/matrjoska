@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/pipe"
+	"github.com/p9c/matrjoska/pkg/pipe"
 )
 
 func main() {

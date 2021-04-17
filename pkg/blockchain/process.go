@@ -3,15 +3,15 @@ package blockchain
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/bits"
-	"github.com/p9c/monorepo/pkg/block"
-	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/matrjoska/pkg/bits"
+	"github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/log"
 
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/database"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/database"
 )
 
 // BehaviorFlags is a bitmask defining tweaks to the normal behavior when
@@ -45,7 +45,7 @@ func (b *BlockChain) ProcessBlock(
 	workerNumber uint32, candidateBlock *block.Block,
 	flags BehaviorFlags, blockHeight int32,
 ) (bool, bool, error,) {
-	D.Ln("blockchain.ProcessBlock", blockHeight, log.Caller("\nfrom", 1))
+	T.Ln("blockchain.ProcessBlock", blockHeight, log.Caller("\nfrom", 1))
 	var prevBlock *block.Block
 	var e error
 	prevBlock, e = b.BlockByHash(&candidateBlock.WireBlock().Header.PrevBlock)
@@ -102,7 +102,7 @@ func (b *BlockChain) ProcessBlock(
 	if pb == nil {
 		DoNotCheckPow = true
 	}
-	D.F("checkBlockSanity powLimit %d %s %d %064x ts %v", algo, fork.GetAlgoName(algo, blockHeight), blockHeight, pl,
+	T.F("checkBlockSanity powLimit %d %s %d %064x ts %v", algo, fork.GetAlgoName(algo, blockHeight), blockHeight, pl,
 		pn.Header().Timestamp,
 	)
 	if e = checkBlockSanity(

@@ -3,15 +3,15 @@ package old
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/pod"
 	"os"
 	
-	"github.com/p9c/monorepo/pod/podconfig"
+	"github.com/p9c/matrjoska/pod/podconfig"
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/monorepo/cmd/ctl"
+	"github.com/p9c/matrjoska/cmd/ctl"
 )
 
 const slash = string(os.PathSeparator)

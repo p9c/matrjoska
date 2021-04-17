@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/addrmgr"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/addrmgr"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 func TestChance(t *testing.T) {

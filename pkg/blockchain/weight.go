@@ -1,9 +1,9 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/pkg/block"
-	"github.com/p9c/monorepo/pkg/util"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/util"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 const (

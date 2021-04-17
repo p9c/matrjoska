@@ -3,7 +3,7 @@ package wire
 import (
 	"io"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/chainhash"
 )
 
 // MsgGetCFCheckpt is a request for filter headers at evenly spaced intervals throughout the blockchain history. It

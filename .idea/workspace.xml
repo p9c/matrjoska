@@ -1,43 +1,586 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6994c3dc-3088-4e2b-a006-a87e8853e461" name="Default Changelist" comment="" />
+    <list default="true" id="cd316463-c1d8-4f19-b757-d6b17d5b7e6b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/version/logversion.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/monorepo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/matrjoska.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctl/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/ctl/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctl/httpclient.go" beforeDir="false" afterPath="$PROJECT_DIR$/ctl/httpclient.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctl/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/ctl/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctl/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/ctl/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gel" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glom/cmd/stroy/stroy.go" beforeDir="false" afterPath="$PROJECT_DIR$/glom/cmd/stroy/stroy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/glom/glom.go" beforeDir="false" afterPath="$PROJECT_DIR$/glom/glom.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/glom/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/glom/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/glom/pkg/pathtree/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/glom/pkg/pathtree/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/glom/pkg/pathtree/pathtree.go" beforeDir="false" afterPath="$PROJECT_DIR$/glom/pkg/pathtree/pathtree.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/cfg/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/cfg/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/cfg/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/cfg/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/cfg/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/cfg/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/console.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/console.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/createform.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/createform.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/createwallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/createwallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/events.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/events.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/help.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/help.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/history.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/history.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/loadingscreen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/loadingscreen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/overview.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/overview.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/receive.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/receive.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/regenerate.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/regenerate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/send.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/send.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/state.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/state.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/walletunlock.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/walletunlock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/watcher.go" beforeDir="false" afterPath="$PROJECT_DIR$/gui/watcher.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/client/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/client/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/client/wrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/client/wrapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/worker/implementation.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/worker/implementation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kopach/worker/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/kopach/worker/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpcserver_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpcserver_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/blockgen.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/blockgen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/btcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/btcd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/memwallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/memwallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/node.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/node.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/rpc_harness.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/rpc_harness.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/rpc_harness_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/rpc_harness_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/integration/rpctest/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/integration/rpctest/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/node/_service_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/node/_service_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/node/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/node/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/node/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/node/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/node/upgrade.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/node/upgrade.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/path/path.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/path/path.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/state/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/node/state/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/addrmanager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/addrmanager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/addrmanager_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/addrmanager_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/internal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/internal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/knownaddress.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/knownaddress.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/knownaddress_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/knownaddress_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/network.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/network.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/addrmgr/network_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/addrmgr/network_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/amt/amount_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/amt/amount_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/appdata/appdata_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/appdata/appdata_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/base58_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/base58_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/base58bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/base58bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/base58check_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/base58check_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/genalphabet/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/genalphabet/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/base58/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/base58/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/block/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/block/block.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/block/block_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/block/block_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/accept.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/accept.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/blacklist.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/blacklist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/blockindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/blockindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/chain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/chain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/chain_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/chain_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/chainio.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/chainio.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/chainio_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/chainio_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/chainview_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/chainview_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/checkpoints.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/checkpoints.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/common_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/common_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/compress.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/compress.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/difficulty.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/difficulty.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/difficulty_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/difficulty_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/forkhalcyon.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/forkhalcyon.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/forkplan9.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/forkplan9.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/forkplan9controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/forkplan9controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/forkplan9helpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/forkplan9helpers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/fullblocks_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/fullblocks_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/merkle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/merkle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/merkle_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/merkle_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/notifications_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/notifications_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/process.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/scriptval.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/scriptval.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/scriptval_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/scriptval_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/subsidy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/subsidy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/thresholdstate.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/thresholdstate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/thresholdstate_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/thresholdstate_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/upgrade.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/upgrade.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/utxoviewpoint.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/utxoviewpoint.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/validate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/validate_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/validate_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/blockchain/weight.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/blockchain/weight.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/filter.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/filter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/filter_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/filter_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/merkleblock.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/merkleblock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/merkleblock_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/merkleblock_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/bloom/murmurhash3_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/bloom/murmurhash3_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcaddr/_address_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcaddr/_address_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcaddr/address.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcaddr/address.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/btcdextcmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/btcdextcmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/btcdextresults_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/btcdextresults_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/btcwalletextcmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/btcwalletextcmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrcmds.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrcmds.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrcmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrcmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrresults_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrresults_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrwscmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrwscmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrwsntfns_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrwsntfns_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/chainsvrwsresults_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/chainsvrwsresults_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/cmdinfo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/cmdinfo_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/cmdparse_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/cmdparse_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/error_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/error_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/help_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/help_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/helpers_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/helpers_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/jsonrpc_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/jsonrpc_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/register_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/register_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/walletsvrcmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/walletsvrcmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/walletsvrwscmds_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/walletsvrwscmds_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/btcjson/walletsvrwsntfns_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/btcjson/walletsvrwsntfns_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/doc.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/doc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/genesis.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/genesis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params-defs.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params-defs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params-mainnet.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params-mainnet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params-regtest.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params-regtest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params-simnet.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params-simnet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params-testnet.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params-testnet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/params.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/params.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chaincfg/register_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chaincfg/register_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/_neutrino.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/_neutrino.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/bitcoind_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/bitcoind_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/bitcoind_conn.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/bitcoind_conn.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/block_filterer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/block_filterer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/block_filterer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/block_filterer_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/queue.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/queue.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainclient/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainclient/rpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainhash/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainhash/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/genapi/genapi.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/genapi/genapi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/genapi/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/genapi/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/getwork.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/getwork.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/pod.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/pod.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/rpcadapters.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/rpcadapters.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/rpchandlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/rpchandlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/rpcserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/rpcserver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/rpcserverhelp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/rpcserverhelp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/rpcws.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/rpcws.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/chainrpc/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/chainrpc/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/connmgr/connmanager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/connmgr/connmanager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/connmgr/connmanager_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/connmgr/connmanager_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/connmgr/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/connmgr/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/connmgr/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/connmgr/seed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/constant/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/constant/constants.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/ctrl.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/ctrl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/hashrate/hashrate.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/hashrate/hashrate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/hashrate/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/hashrate/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/job/job.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/job/job.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/p2padvt/advertisment.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/p2padvt/advertisment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/p2padvt/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/p2padvt/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/sol/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/sol/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/sol/solution.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/sol/solution.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/templates/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/templates/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/control/templates/tpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/control/templates/tpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/driver_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/driver_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/error_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/error_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/blockio.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/blockio.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/dbcache.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/dbcache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/driver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/driver_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/driver_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/export_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/interface_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/interface_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/ldbtreapiter.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/ldbtreapiter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/reconcile.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/reconcile.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/ffldb/whitebox_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/ffldb/whitebox_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ecc/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ecc/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ecc/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ecc/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ecc/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ecc/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ecc/precomp/genprecomps.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ecc/precomp/genprecomps.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/fec/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/fec/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/fonts/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/fonts/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/fonts/p9fonts/fonts.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/fonts/p9fonts/fonts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/fork/fork.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/fork/fork.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/fork/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/fork/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/forkhash/hash.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/forkhash/hash.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/forkhash/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/forkhash/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcm/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcm/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/builder/builder.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/builder/builder.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/builder/builder_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/builder/builder_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/builder/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/builder/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/gcs.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/gcs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/gcs_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/gcs_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/gcsbench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/gcsbench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gcs/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gcs/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/button.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/button.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/buttonlayout.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/buttonlayout.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/card.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/card.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/checkable.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/checkable.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/clipboard/clipboard_x11.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/clipboard/clipboard_x11.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/cmd/hello/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/cmd/hello/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/cmd/iconchooser/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/cmd/iconchooser/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/fonts/p9fonts/fonts.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/fonts/p9fonts/fonts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio/app/internal/wm/os_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio/app/internal/wm/os_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio/gpu/gpu.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio/gpu/gpu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio/widget/editor_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio/widget/editor_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio/widget/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio/widget/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/gio/widget/icon_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/gio/widget/icon_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/icon.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/icon.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/iconbutton.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/iconbutton.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/incdec.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/incdec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/inset.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/inset.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/label.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/label.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/multi.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/multi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/progressbar.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/progressbar.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/shadow/shadow.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/shadow/shadow.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/slider.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/slider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/switch.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/switch.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/theme.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/theme.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/window.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/window.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel/wraplist.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel/wraplist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/hardfork/blacklist.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/hardfork/blacklist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/hardfork/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/hardfork/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/hardfork/subsidy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/hardfork/subsidy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/addrindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/addrindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/addrindex_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/addrindex_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/blocklogger.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/blocklogger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/cfindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/cfindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/addrindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/addrindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/addrindex_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/addrindex_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/blocklogger.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/blocklogger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/cfindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/cfindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/index/txindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/index/txindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/indexers/txindex.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/indexers/txindex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/interrupt/cmd/ctrlctest.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/interrupt/cmd/ctrlctest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/interrupt/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/interrupt/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/interrupt/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/interrupt/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/estimatefee.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/estimatefee.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/estimatefee_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/estimatefee_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/mempool.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/mempool.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/mempool_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/mempool_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/policy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/policy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mempool/policy_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mempool/policy_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mining/_miningaddresses.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mining/_miningaddresses.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mining/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mining/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mining/mining.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mining/mining.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mining/policy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mining/policy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/mining/templates.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/mining/templates.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/multicast/channel.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/multicast/channel.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/multicast/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/multicast/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/netsync/blocklogger.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/netsync/blocklogger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/netsync/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/netsync/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/netsync/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/netsync/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/netsync/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/netsync/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/binary/binary.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/binary/binary.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/binary/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/binary/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/cmds/commands.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/cmds/commands.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/cmds/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/cmds/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/duration/duration.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/duration/duration.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/duration/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/duration/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/float/float.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/float/float.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/float/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/float/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/integer/int.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/integer/int.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/integer/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/integer/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/list/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/list/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/list/strings.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/list/strings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/meta/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/meta/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/opt/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/opt/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/opt/option.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/opt/option.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/sanitizers/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/sanitizers/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/text/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/text/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/opts/text/string.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/text/string.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/p9icons/genicons/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/p9icons/genicons/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/logging.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/logging.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/mruinvmap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/mruinvmap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/mruinvmap_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/mruinvmap_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/peer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/peer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/peer/peer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/peer/peer_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/consume/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/consume/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/consume/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/consume/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/example/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/example/serve/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/example/serve/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/pipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/pipe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/pipelog/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/pipelog/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/pipelog/pipelog.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/pipelog/pipelog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/serve/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/serve/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/serve/serve.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/serve/serve.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/example/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/example/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/hello/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/hello/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/implementation.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/implementation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/example/hello/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/example/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/example/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/stdconn.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/stdconn.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/worker/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/worker/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pipe/stdconn/worker/worker.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pipe/stdconn/worker/worker.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pod/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pod/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pod/state.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pod/state.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/pod/state_headless.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pod/state_headless.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/genopts/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/genopts/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/genopts/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/genopts/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/help.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/help.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/lint.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/lint.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/podopts/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/podopts/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/qrcode/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qrcode/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/qu/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/qu/quit.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/quit.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ring/entry.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ring/entry.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ring/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ring/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/chain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/chain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/bitcoincorehttp/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/bitcoincorehttp/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/bitcoincorehttp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/bitcoincorehttp/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/btcdwebsockets/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/btcdwebsockets/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/btcdwebsockets/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/btcdwebsockets/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/btcwalletwebsockets/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/btcwalletwebsockets/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/examples/btcwalletwebsockets/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/examples/btcwalletwebsockets/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/exts.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/exts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/infra.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/infra.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/mining.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/mining.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/net.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/net.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/notify.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/notify.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/rawreq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/rawreq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/rawtxs.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/rawtxs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcclient/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcclient/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcctl/ctl.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcctl/ctl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcctl/httpclient.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcctl/httpclient.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcctl/listcommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcctl/listcommands.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpcctl/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpcctl/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpchelp/gen/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpchelp/gen/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpchelp/gen/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpchelp/gen/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpchelp/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpchelp/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rpchelp/methods.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rpchelp/methods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/snacl/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/snacl/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/snacl/snacl.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/snacl/snacl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/channels.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/channels.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/cmd/listenservemulticast/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/cmd/listenservemulticast/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/cmd/listenservemulticast/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/cmd/listenservemulticast/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/cmd/multicast/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/cmd/multicast/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txauthor/author.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txauthor/author.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txauthor/author_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txauthor/author_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txauthor/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txauthor/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txrules/rules.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txrules/rules.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/_example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/_example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/engine.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/engine.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/engine_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/engine_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/hashcache.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/hashcache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/hashcache_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/hashcache_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/opcode.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/opcode.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/reference_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/reference_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/script.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/script.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/sigcache.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/sigcache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/sigcache_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/sigcache_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/sign.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/sign.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/standard.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/standard.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txscript/standard_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txscript/standard_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txsizes/size.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txsizes/size.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/txsizes/size_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/txsizes/size_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/upnp/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/upnp/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/_infernal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/_infernal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/atom/atom.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/atom/atom.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/certgen_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/certgen_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/cfgutil/amount.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/cfgutil/amount.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/cfgutil/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/cfgutil/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/gobin/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/gobin/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/hdkeychain/bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/hdkeychain/bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/hdkeychain/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/hdkeychain/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/hdkeychain/extendedkey.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/hdkeychain/extendedkey.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/hdkeychain/extendedkey_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/hdkeychain/extendedkey_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/hdkeychain/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/hdkeychain/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/helpers/helpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/helpers/helpers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/helpers/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/helpers/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/lang/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/lang/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/legacy/keystore/keystore.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/legacy/keystore/keystore.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/legacy/keystore/keystore_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/legacy/keystore/keystore_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/legacy/keystore/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/legacy/keystore/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/legacy/rename/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/legacy/rename/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/limits/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/limits/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/loop/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/loop/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/normalize/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/normalize/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/prompt/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/prompt/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/prompt/prompt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/prompt/prompt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/routeable/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/routeable/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/rununit/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/rununit/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/rununit/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/rununit/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/treap/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/treap/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/tx.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/tx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/tx_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/tx_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/wif.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/wif.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/wif_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/wif_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/zero/benchmark_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/zero/benchmark_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/zero/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/zero/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/zero/zero_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/zero/zero_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/address.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/address.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/common_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/common_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/error_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/error_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/internal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/internal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/manager_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/manager_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/scoped_manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/scoped_manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/waddrmgr/sync.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/waddrmgr/sync.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/chainntfns.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/chainntfns.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/createtx.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/createtx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/loader.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/loader.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/multisig.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/multisig.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/notifications.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/notifications.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/recovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/recovery.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/recovery_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/recovery_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/rescan.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/rescan.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/unstable.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/unstable.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/utxos.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/utxos.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wallet/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wallet/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/driver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/driver_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/driver_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/interface_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/interface_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/bdb/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/bdb/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/ci/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/ci/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/ci/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/ci/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/db_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/db_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletdb/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletdb/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/dropwallethistory.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/dropwallethistory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/genapi/genapi.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/genapi/genapi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/genapi/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/genapi/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/methods.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/methods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/rpchandlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/rpchandlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/rpchelp_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/rpchelp_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/rpcserver_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/rpcserver_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/walletrpc/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/walletrpc/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/blockheader.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/blockheader.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/common_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/common_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/invvect.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/invvect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/invvect_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/invvect_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/message.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/message.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/message_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/message_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgblock.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgblock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgblock_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgblock_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgcfcheckpt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgcfcheckpt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgcfheaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgcfheaders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgcfilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgcfilter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetblocks.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetblocks.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetblocks_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetblocks_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetcfcheckpt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetcfcheckpt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetcfheaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetcfheaders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetcfilters.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetcfilters.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetdata_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetdata_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetheaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetheaders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msggetheaders_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msggetheaders_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msginv_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msginv_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgmerkleblock.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgmerkleblock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgmerkleblock_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgmerkleblock_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgnotfound_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgnotfound_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgreject.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgreject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgtx.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgtx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wire/msgtx_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wire/msgtx_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/kahnsort.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/kahnsort.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/query.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/query_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/query_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/tx.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/tx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/tx_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/tx_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/wtxmgr/unconfirmed.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/wtxmgr/unconfirmed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/context/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/context/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/context/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/context/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/guihandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/guihandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_before.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_before.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_ctlhandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_ctlhandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_getapp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_getapp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_init.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_kopachhandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_kopachhandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_nodehandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_nodehandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_shellhandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_shellhandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/launchers/old/_wallethandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/launchers/old/_wallethandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/logmain.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/logmain.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podbuild/stroy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podbuild/stroy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podcfgs/cfgs.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podcfgs/cfgs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podcfgs/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podcfgs/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podcmds/commands.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podcmds/commands.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podcmds/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podcmds/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podconfig/checkpoints/checkpoints.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podconfig/checkpoints/checkpoints.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podconfig/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podconfig/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pod/podconfig/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podconfig/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version/update/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/version/update/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version/update/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/version/update/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/version/version.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/walletmain/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/walletmain/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/walletmain/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/walletmain/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/walletmain/rpcserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/walletmain/rpcserver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/walletmain/walletsetup.go" beforeDir="false" afterPath="$PROJECT_DIR$/walletmain/walletsetup.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Go Application" />
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
-  <component name="GOROOT" url="file://$USER_HOME$/go" />
+  <component name="GOROOT" url="file:///usr/lib/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/gel/gio" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/pkg/gel" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
-    <option name="useGoPathFromSystemEnvironment" value="false" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/glom/pkg/pathtree/pathtree.go" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="ProjectId" id="1qd9qKmAtjYXlFb4QPQ6gcvi1Lk" />
+  <component name="ProjectId" id="1rJHAzV9Cc9raaE8TIvE91t9XMl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -48,96 +591,41 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable..is.expanded" value="false" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
-    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="idea.background.editor" value="$PROJECT_DIR$/logo/logo_nocircle.svg,2,scale,center" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/gel" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pod/launchers/old" />
-      <recent name="$PROJECT_DIR$/pod/launchers" />
-      <recent name="$PROJECT_DIR$/pod/context" />
-      <recent name="$PROJECT_DIR$/pod/podconfig" />
-      <recent name="$PROJECT_DIR$/pod" />
-    </key>
-    <key name="GoMoveDeclarationDialog.RECENT_KEY">
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-      <recent name="$PROJECT_DIR$/pod/podcmds" />
-      <recent name="$PROJECT_DIR$/pkg/podopts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg/gel" />
-      <recent name="$PROJECT_DIR$/pod/podcmds" />
-      <recent name="$PROJECT_DIR$/pod/context" />
-      <recent name="$PROJECT_DIR$/pkg/opts/sanitizers" />
-      <recent name="$PROJECT_DIR$/pod/podcfgs" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/monorepo/pod">
-    <configuration name="go build github.com/p9c/monorepo" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/main.go" />
-      <package value="github.com/p9c/monorepo" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/glom" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/glom/glom.go" />
-      <package value="github.com/p9c/monorepo/glom" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pkg/podopts/genopts" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/pkg/podopts/genopts/main.go" />
-      <package value="github.com/p9c/monorepo/pkg/podopts/genopts" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/matrjoska/pod">
+    <configuration name="go build github.com/p9c/matrjoska/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/pod/main.go" />
-      <package value="github.com/p9c/monorepo/pod" />
-      <directory value="$PROJECT_DIR$/" />
+      <package value="github.com/p9c/matrjoska/pod" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build github.com/p9c/monorepo/pod/pod" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="monorepo" />
+    <configuration name="go build github.com/p9c/matrjoska/version/update" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/pod/pod/main.go" />
-      <package value="github.com/p9c/monorepo/pod/pod" />
-      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/version/update/main.go" />
+      <package value="github.com/p9c/matrjoska/version/update" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/pkg/podopts/genopts" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo/glom" />
-        <item itemvalue="Go Build.go build github.com/p9c/monorepo" />
+        <item itemvalue="Go Build.go build github.com/p9c/matrjoska/pod" />
+        <item itemvalue="Go Build.go build github.com/p9c/matrjoska/version/update" />
       </list>
     </recent_temporary>
   </component>
@@ -145,30 +633,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
-      <path value="$PROJECT_DIR$" />
-      <path value="$PROJECT_DIR$/duod" />
       <path value="$PROJECT_DIR$/gel" />
-      <path value="$PROJECT_DIR$/glom" />
-      <path value="$PROJECT_DIR$/interrupt" />
-      <path value="$PROJECT_DIR$/log" />
-      <path value="$PROJECT_DIR$/logo" />
-      <path value="$PROJECT_DIR$/opts" />
-      <path value="$PROJECT_DIR$/qu" />
-      <path value="$PROJECT_DIR$/spore" />
+      <path value="$PROJECT_DIR$/gel/gio" />
     </ignored-roots>
   </component>
   <component name="VgoProject">

@@ -8,7 +8,7 @@ import (
 	"math"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/chainhash"
 )
 
 const (

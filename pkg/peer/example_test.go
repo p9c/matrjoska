@@ -2,16 +2,16 @@ package peer_test
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/version"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/version"
 	"net"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/peer"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/peer"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 var subsystem = log.AddLoggerSubsystem(version.PathBase)

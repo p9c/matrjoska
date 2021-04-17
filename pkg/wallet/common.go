@@ -1,12 +1,12 @@
 package wallet
 
 import (
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // Note: The following common types should never reference the Wallet type. Long term goal is to move these to their own

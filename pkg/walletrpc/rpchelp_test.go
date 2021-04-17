@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/rpchelp"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/rpchelp"
 )
 
 func serverMethods() map[string]struct{} {

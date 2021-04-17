@@ -7,8 +7,8 @@ import (
 	"runtime/debug"
 	"testing"
 	
-	"github.com/p9c/monorepo/node/integration/rpctest"
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/node/integration/rpctest"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 )
 
 func testGetBestBlock(r *rpctest.Harness, t *testing.T) {

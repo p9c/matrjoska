@@ -7,7 +7,7 @@ import (
 	"crypto/x509"
 	js "encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/matrjoska/pkg/podopts"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -15,8 +15,8 @@ import (
 	
 	"github.com/btcsuite/go-socks/socks"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/pod"
 )
 
 // newHTTPClient returns a new HTTP client that is configured according to the proxy and TLS settings in the associated

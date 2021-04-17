@@ -2,21 +2,21 @@ package walletmain
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/podopts"
-	"github.com/p9c/monorepo/pkg/walletrpc"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/podopts"
+	"github.com/p9c/matrjoska/pkg/walletrpc"
 	
 	// This enables pprof
 	// _ "net/http/pprof"
 	"sync"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/chainclient"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/pod"
-	"github.com/p9c/monorepo/pkg/wallet"
+	"github.com/p9c/matrjoska/pkg/chainclient"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/wallet"
 )
 
 // Main is a work-around main function that is required since deferred functions

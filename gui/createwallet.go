@@ -2,21 +2,23 @@ package gui
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/constant"
-	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/qu"
-	"golang.org/x/exp/shiny/materialdesign/icons"
 	"os"
 	"path/filepath"
 	"time"
-	
+
+	"golang.org/x/exp/shiny/materialdesign/icons"
+
+	"github.com/p9c/gel"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/qu"
+
 	l "gioui.org/layout"
 	"github.com/urfave/cli"
-	
-	"github.com/p9c/monorepo/pkg/wallet"
+
+	"github.com/p9c/matrjoska/pkg/wallet"
 )
 
 const slash = string(os.PathSeparator)
@@ -75,8 +77,7 @@ func (wg *WalletGUI) createConfirmExitBar() l.Widget {
 												Rigid(
 													wg.Icon().
 														Scale(
-															gel.
-																Scales["H4"],
+															gel.Scales["H4"],
 														).
 														Color("DocText").
 														Src(
@@ -141,8 +142,7 @@ func (wg *WalletGUI) createConfirmExitBar() l.Widget {
 												Rigid(
 													wg.Icon().
 														Scale(
-															gel.
-																Scales["H4"],
+															gel.Scales["H4"],
 														).
 														Color("DocText").
 														Src(

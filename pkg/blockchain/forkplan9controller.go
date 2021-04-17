@@ -1,8 +1,8 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/fork"
 	"sort"
 )
 

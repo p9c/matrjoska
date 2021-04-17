@@ -2,14 +2,14 @@ package walletrpc
 
 import (
 	"encoding/binary"
-	"github.com/p9c/monorepo/pkg/podopts"
-	"github.com/p9c/monorepo/pkg/wallet"
+	"github.com/p9c/matrjoska/pkg/podopts"
+	"github.com/p9c/matrjoska/pkg/wallet"
 	"path/filepath"
 	
 	"github.com/urfave/cli"
 	
-	"github.com/p9c/monorepo/pkg/walletdb"
-	"github.com/p9c/monorepo/pkg/wtxmgr"
+	"github.com/p9c/matrjoska/pkg/walletdb"
+	"github.com/p9c/matrjoska/pkg/wtxmgr"
 )
 
 func DropWalletHistory(w *wallet.Wallet, cfg *podopts.Config) func(c *cli.Context) (e error) {

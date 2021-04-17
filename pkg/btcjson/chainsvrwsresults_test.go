@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // TestChainSvrWsResults ensures any results that have custom marshalling work as intended.

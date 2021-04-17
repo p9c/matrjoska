@@ -7,14 +7,14 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/p9c/monorepo/pkg/opts/binary"
-	"github.com/p9c/monorepo/pkg/opts/cmds"
-	"github.com/p9c/monorepo/pkg/opts/duration"
-	"github.com/p9c/monorepo/pkg/opts/float"
-	"github.com/p9c/monorepo/pkg/opts/integer"
-	"github.com/p9c/monorepo/pkg/opts/list"
-	"github.com/p9c/monorepo/pkg/opts/opt"
-	"github.com/p9c/monorepo/pkg/opts/text"
+	"github.com/p9c/matrjoska/pkg/opts/binary"
+	"github.com/p9c/matrjoska/pkg/opts/cmds"
+	"github.com/p9c/matrjoska/pkg/opts/duration"
+	"github.com/p9c/matrjoska/pkg/opts/float"
+	"github.com/p9c/matrjoska/pkg/opts/integer"
+	"github.com/p9c/matrjoska/pkg/opts/list"
+	"github.com/p9c/matrjoska/pkg/opts/opt"
+	"github.com/p9c/matrjoska/pkg/opts/text"
 )
 
 type details struct {

@@ -1,13 +1,13 @@
 package chainclient
 
 import (
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/wire"
-	"github.com/p9c/monorepo/pkg/wtxmgr"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/wtxmgr"
 )
 
 // BackEnds returns a list of the available back ends.

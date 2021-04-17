@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // This example demonstrates how to create and marshal a command into a JSON-RPC request.

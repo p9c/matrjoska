@@ -3,10 +3,10 @@ package list
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/opts/meta"
-	"github.com/p9c/monorepo/pkg/opts/opt"
-	"github.com/p9c/monorepo/pkg/opts/sanitizers"
-	"github.com/p9c/monorepo/pkg/util/normalize"
+	"github.com/p9c/matrjoska/pkg/opts/meta"
+	"github.com/p9c/matrjoska/pkg/opts/opt"
+	"github.com/p9c/matrjoska/pkg/opts/sanitizers"
+	"github.com/p9c/matrjoska/pkg/util/normalize"
 	"strings"
 	"sync/atomic"
 )

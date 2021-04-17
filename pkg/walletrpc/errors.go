@@ -3,7 +3,7 @@ package walletrpc
 import (
 	"errors"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // TODO(jrick): There are several error paths which 'replace' various errors

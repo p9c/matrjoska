@@ -1,4 +1,4 @@
-module github.com/p9c/monorepo
+module github.com/p9c/matrjoska
 
 go 1.12
 
@@ -44,4 +44,4 @@ require (
 
 //replace gioui.org => github.com/p9c/gio v0.0.3
 //replace gioui.org => ../gel/gio
-replace github.com/p9c/gel => ./gel
+replace github.com/p9c/gel => ./pkg/gel

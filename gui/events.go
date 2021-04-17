@@ -2,17 +2,17 @@ package gui
 
 import (
 	"encoding/json"
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/control/p2padvt"
-	"github.com/p9c/monorepo/pkg/transport"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/control/p2padvt"
+	"github.com/p9c/matrjoska/pkg/transport"
+	"github.com/p9c/matrjoska/pkg/wire"
 	"io/ioutil"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/rpcclient"
-	"github.com/p9c/monorepo/pkg/util"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/rpcclient"
+	"github.com/p9c/matrjoska/pkg/util"
 )
 
 func (wg *WalletGUI) WalletAndClientRunning() bool {

@@ -3,9 +3,9 @@ package blockchain_test
 import (
 	"os"
 	
-	"github.com/p9c/monorepo/pkg/database"
-	_ "github.com/p9c/monorepo/pkg/database/ffldb"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/database"
+	_ "github.com/p9c/matrjoska/pkg/database/ffldb"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 const (

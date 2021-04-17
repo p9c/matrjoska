@@ -3,9 +3,9 @@ package rpcctl
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/pod"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // Call uses settings in the context to call the method with the given parameters and returns the raw json bytes

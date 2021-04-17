@@ -3,12 +3,12 @@ package util
 import (
 	"bytes"
 	"errors"
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 	
-	"github.com/p9c/monorepo/pkg/base58"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/base58"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	ec "github.com/p9c/matrjoska/pkg/ecc"
 )
 
 // ErrMalformedPrivateKey describes an error where a WIF-encoded private key cannot be decoded due to being improperly

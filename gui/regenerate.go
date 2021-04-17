@@ -1,8 +1,8 @@
 package gui
 
 import (
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"image"
 	"path/filepath"
 	"strconv"
@@ -11,7 +11,7 @@ import (
 	"gioui.org/op/paint"
 	"github.com/atotto/clipboard"
 	
-	"github.com/p9c/monorepo/pkg/qrcode"
+	"github.com/p9c/matrjoska/pkg/qrcode"
 )
 
 func (wg *WalletGUI) GetNewReceivingAddress() {

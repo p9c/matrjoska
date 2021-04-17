@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	
+
 	"gioui.org/text"
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
-	
+
 	l "gioui.org/layout"
-	
-	"github.com/p9c/monorepo/pkg/btcjson"
+
 	"github.com/p9c/gel"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 func (wg *WalletGUI) balanceCard() func(gtx l.Context) l.Dimensions {

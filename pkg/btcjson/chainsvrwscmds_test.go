@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // TestChainSvrWsCmds tests all of the chain server websocket-specific commands marshal and unmarshal into valid results

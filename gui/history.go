@@ -2,9 +2,10 @@ package gui
 
 import (
 	"fmt"
-	l "gioui.org/layout"
 	"time"
-	
+
+	l "gioui.org/layout"
+
 	"github.com/p9c/gel"
 )
 

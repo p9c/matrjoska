@@ -2,7 +2,7 @@ package client
 
 import (
 	"errors"
-	"github.com/p9c/monorepo/pkg/control/templates"
+	"github.com/p9c/matrjoska/pkg/control/templates"
 	"io"
 	"net/rpc"
 )

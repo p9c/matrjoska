@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/appdata"
-	"github.com/p9c/monorepo/pkg/apputil"
+	"github.com/p9c/matrjoska/pkg/appdata"
+	"github.com/p9c/matrjoska/pkg/apputil"
 	
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"

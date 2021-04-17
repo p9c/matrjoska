@@ -7,10 +7,10 @@ import (
 	"compress/zlib"
 	"encoding/base64"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/log"
+	"github.com/p9c/matrjoska/pkg/log"
 	"os"
 	
-	"github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/ecc"
 )
 
 func main() {

@@ -1,12 +1,12 @@
 package mining
 
 import (
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/podopts"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/podopts"
 	
-	"github.com/p9c/monorepo/cmd/node/state"
-	wm "github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/wallet"
+	"github.com/p9c/matrjoska/cmd/node/state"
+	wm "github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/wallet"
 )
 
 // RefillMiningAddresses adds new addresses to the mining address pool for the miner

@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/amt"
 	"io/ioutil"
 	"log"
 	"path/filepath"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
 	"github.com/davecgh/go-spew/spew"
 	
-	"github.com/p9c/monorepo/pkg/appdata"
-	"github.com/p9c/monorepo/pkg/rpcclient"
+	"github.com/p9c/matrjoska/pkg/appdata"
+	"github.com/p9c/matrjoska/pkg/rpcclient"
 )
 
 func main() {

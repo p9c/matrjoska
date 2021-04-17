@@ -3,7 +3,7 @@ package btcjson_test
 import (
 	"testing"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // TestErrorCodeStringer tests the stringized output for the ErrorCode type.

@@ -8,14 +8,14 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
 	"github.com/tstranex/gozmq"
 	
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/chainhash"
-	"github.com/p9c/monorepo/pkg/rpcclient"
-	"github.com/p9c/monorepo/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	"github.com/p9c/matrjoska/pkg/rpcclient"
+	"github.com/p9c/matrjoska/pkg/wire"
 )
 
 // BitcoindConn represents a persistent client connection to a bitcoind node that listens for events read from a ZMQ

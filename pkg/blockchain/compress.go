@@ -1,8 +1,8 @@
 package blockchain
 
 import (
-	"github.com/p9c/monorepo/pkg/ecc"
-	"github.com/p9c/monorepo/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/txscript"
 )
 
 // In order to reduce the size of stored scripts, a domain specific compression algorithm is used which recognizes

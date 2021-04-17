@@ -3,18 +3,18 @@ package wallet
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/amt"
-	"github.com/p9c/monorepo/pkg/btcaddr"
-	"github.com/p9c/monorepo/pkg/chainclient"
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chainclient"
 	"sort"
 	
-	ec "github.com/p9c/monorepo/pkg/ecc"
-	"github.com/p9c/monorepo/pkg/txauthor"
-	"github.com/p9c/monorepo/pkg/txscript"
-	"github.com/p9c/monorepo/pkg/waddrmgr"
-	"github.com/p9c/monorepo/pkg/walletdb"
-	"github.com/p9c/monorepo/pkg/wire"
-	"github.com/p9c/monorepo/pkg/wtxmgr"
+	ec "github.com/p9c/matrjoska/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/txauthor"
+	"github.com/p9c/matrjoska/pkg/txscript"
+	"github.com/p9c/matrjoska/pkg/waddrmgr"
+	"github.com/p9c/matrjoska/pkg/walletdb"
+	"github.com/p9c/matrjoska/pkg/wire"
+	"github.com/p9c/matrjoska/pkg/wtxmgr"
 )
 
 // byAmount defines the methods needed to satisify sort.Interface to txsort credits by their output amount.

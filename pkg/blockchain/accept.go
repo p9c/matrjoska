@@ -2,10 +2,10 @@ package blockchain
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/block"
+	"github.com/p9c/matrjoska/pkg/block"
 	
-	"github.com/p9c/monorepo/pkg/database"
-	"github.com/p9c/monorepo/pkg/hardfork"
+	"github.com/p9c/matrjoska/pkg/database"
+	"github.com/p9c/matrjoska/pkg/hardfork"
 )
 
 // maybeAcceptBlock potentially accepts a block into the block chain

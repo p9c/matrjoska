@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	
-	"github.com/p9c/monorepo/pkg/chainhash"
-	ec "github.com/p9c/monorepo/pkg/ecc"
+	"github.com/p9c/matrjoska/pkg/chainhash"
+	ec "github.com/p9c/matrjoska/pkg/ecc"
 )
 
 // This example demonstrates decrypting a message using a private key that is first parsed from raw bytes.

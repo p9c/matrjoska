@@ -2,28 +2,28 @@ package worker
 
 import (
 	"crypto/cipher"
-	"github.com/p9c/monorepo/pkg/bits"
-	"github.com/p9c/monorepo/pkg/control/templates"
-	"github.com/p9c/monorepo/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/bits"
+	"github.com/p9c/matrjoska/pkg/control/templates"
+	"github.com/p9c/matrjoska/pkg/fork"
 	"math/rand"
 	"net"
 	"os"
 	"sync"
 	"time"
 	
-	"github.com/p9c/monorepo/pkg/qu"
+	"github.com/p9c/matrjoska/pkg/qu"
 	
-	"github.com/p9c/monorepo/pkg/blockchain"
-	"github.com/p9c/monorepo/pkg/control/hashrate"
-	"github.com/p9c/monorepo/pkg/control/sol"
+	"github.com/p9c/matrjoska/pkg/blockchain"
+	"github.com/p9c/matrjoska/pkg/control/hashrate"
+	"github.com/p9c/matrjoska/pkg/control/sol"
 	
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/monorepo/pkg/control"
-	"github.com/p9c/monorepo/pkg/interrupt"
-	"github.com/p9c/monorepo/pkg/pipe/stdconn"
-	"github.com/p9c/monorepo/pkg/ring"
-	"github.com/p9c/monorepo/pkg/transport"
+	"github.com/p9c/matrjoska/pkg/control"
+	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
+	"github.com/p9c/matrjoska/pkg/ring"
+	"github.com/p9c/matrjoska/pkg/transport"
 )
 
 const CountPerRound = 500

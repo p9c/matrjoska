@@ -2,7 +2,7 @@ package index
 
 import (
 	"fmt"
-	"github.com/p9c/monorepo/pkg/block"
+	"github.com/p9c/matrjoska/pkg/block"
 	"sync"
 	"time"
 )

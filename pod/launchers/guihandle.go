@@ -4,9 +4,9 @@ package launchers
 //
 // import (
 // 	"fmt"
-// 	"github.com/p9c/monorepo/pkg/pod"
+// 	"github.com/p9c/matrjoska/pkg/pod"
 //
-// 	"github.com/p9c/monorepo/gui"
+// 	"github.com/p9c/matrjoska/gui"
 // )
 //
 // // GUIHandle starts up the GUI wallet

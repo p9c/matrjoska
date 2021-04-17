@@ -3,18 +3,18 @@ package old
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/monorepo/pkg/chaincfg"
-	"github.com/p9c/monorepo/pkg/fork"
-	"github.com/p9c/monorepo/pkg/log"
-	"github.com/p9c/monorepo/pkg/opts"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/opts"
+	"github.com/p9c/matrjoska/pkg/pod"
 	"os"
 	
-	"github.com/p9c/monorepo/pkg/interrupt"
+	"github.com/p9c/matrjoska/pkg/interrupt"
 	
-	"github.com/p9c/monorepo/pod/podconfig"
+	"github.com/p9c/matrjoska/pod/podconfig"
 	
-	"github.com/p9c/monorepo/cmd/kopach"
+	"github.com/p9c/matrjoska/cmd/kopach"
 )
 
 // kopachHandle runs the kopach miner

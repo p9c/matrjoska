@@ -5,13 +5,13 @@ import (
 	"bytes"
 	js "encoding/json"
 	"fmt"
-	"github.com/p9c/monorepo/pkg/pod"
+	"github.com/p9c/matrjoska/pkg/pod"
 	"io"
 	"os"
 	"strings"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
-	"github.com/p9c/monorepo/pkg/rpcctl"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/rpcctl"
 )
 
 // HelpPrint is the uninitialized help print function

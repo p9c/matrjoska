@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	block2 "github.com/p9c/monorepo/pkg/block"
+	block2 "github.com/p9c/matrjoska/pkg/block"
 	"testing"
 )
 

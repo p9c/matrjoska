@@ -6,16 +6,16 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	
+
 	uberatomic "go.uber.org/atomic"
 	"golang.org/x/exp/shiny/materialdesign/icons"
-	
+
 	l "gioui.org/layout"
 	"gioui.org/text"
-	
-	"github.com/p9c/monorepo/gui/cfg"
+
 	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/p9icons"
+	"github.com/p9c/matrjoska/gui/cfg"
+	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 
 func (wg *WalletGUI) GetAppWidget() (a *gel.App) {

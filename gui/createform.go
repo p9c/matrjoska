@@ -2,13 +2,15 @@ package gui
 
 import (
 	"encoding/hex"
+	"strings"
+
 	l "gioui.org/layout"
 	"gioui.org/text"
-	"github.com/p9c/gel"
-	"github.com/p9c/monorepo/pkg/p9icons"
 	"github.com/tyler-smith/go-bip39"
 	"golang.org/x/exp/shiny/materialdesign/icons"
-	"strings"
+
+	"github.com/p9c/gel"
+	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 
 func (wg *WalletGUI) centered(w l.Widget) l.Widget {
@@ -114,8 +116,7 @@ func (wg *WalletGUI) cwfRestoreButton() l.Widget {
 					Rigid(
 						wg.Icon().
 							Scale(
-								gel.
-									Scales["H6"],
+								gel.Scales["H6"],
 							).
 							Color("DocText").
 							Src(
@@ -173,8 +174,7 @@ func (wg *WalletGUI) cwfSetGenesis() l.Widget {
 							Rigid(
 								wg.Icon().
 									Scale(
-										gel.
-											Scales["H6"],
+										gel.Scales["H6"],
 									).
 									Color("DocText").
 									Src(
@@ -216,8 +216,7 @@ func (wg *WalletGUI) cwfSetAutofill() l.Widget {
 							Rigid(
 								wg.Icon().
 									Scale(
-										gel.
-											Scales["H6"],
+										gel.Scales["H6"],
 									).
 									Color("DocText").
 									Src(

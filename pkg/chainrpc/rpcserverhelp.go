@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 	
-	"github.com/p9c/monorepo/pkg/btcjson"
+	"github.com/p9c/matrjoska/pkg/btcjson"
 )
 
 // HelpDescsEnUS defines the English descriptions used for the help strings.
