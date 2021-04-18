@@ -3,7 +3,6 @@ module github.com/p9c/matrjoska
 go 1.12
 
 require (
-	gioui.org v0.0.0-20210416090721-0a918581630a
 	github.com/VividCortex/ewma v1.1.1
 	github.com/aead/siphash v1.0.1
 	github.com/atotto/clipboard v0.1.4
@@ -45,7 +44,6 @@ require (
 )
 
 //replace gioui.org => github.com/p9c/gio v0.0.3
-//replace gioui.org => ../gel/gio
 replace (
 	github.com/p9c/gel => ./pkg/gel
 	github.com/p9c/log => ./pkg/log
