@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd316463-c1d8-4f19-b757-d6b17d5b7e6b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/qu" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/qu/version/update/log.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/qu/version/update/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/opts/cmds/commands.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/opts/cmds/commands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/qubuild/apputil.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/qubuild/commands.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/qubuild/stroy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/qubuild/stroy_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/quit.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/quit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/qu/version/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/qu/version/version.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pod/podcfgs/cfgs.go" beforeDir="false" afterPath="$PROJECT_DIR$/pod/podcfgs/cfgs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/gui/console.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gui/console.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gel" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gel" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +20,7 @@
   </component>
   <component name="GOROOT" url="file:///usr/lib/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/pkg/qu" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/pkg/gel" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -70,16 +55,16 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/qu/version" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/gel/shadow" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Markdown" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/gel/shadow" />
       <recent name="$PROJECT_DIR$/pkg/qu/version" />
       <recent name="$PROJECT_DIR$/pkg/opts/version" />
       <recent name="$PROJECT_DIR$/pkg/opts" />
       <recent name="$PROJECT_DIR$/pod/launchers" />
-      <recent name="$PROJECT_DIR$/pkg/ecc" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cmd" />
@@ -89,7 +74,25 @@
       <recent name="$PROJECT_DIR$/pkg/ecc/old" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/p9c/opts/version/update">
+  <component name="RunManager" selected="Go Build.go build github.com/p9c/gel/shadow/example">
+    <configuration name="go build github.com/p9c/gel/cmd/clipboard" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
+      <working_directory value="$PROJECT_DIR$/pkg/gel" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pkg/gel/cmd/clipboard/main.go" />
+      <package value="github.com/p9c/gel/cmd/clipboard" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/p9c/gel/shadow/example" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="matrjoska" />
+      <working_directory value="$PROJECT_DIR$/pkg/gel" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pkg/gel/shadow/example/main.go" />
+      <package value="github.com/p9c/gel/shadow/example" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build github.com/p9c/matrjoska/pkg/btcec/genprecomps" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$" />
@@ -108,15 +111,6 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build github.com/p9c/matrjoska/version/update" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="matrjoska" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <filePath value="$PROJECT_DIR$/version/update/main.go" />
-      <package value="github.com/p9c/matrjoska/version/update" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build github.com/p9c/opts/version/update" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="matrjoska" />
       <working_directory value="$PROJECT_DIR$/pkg/opts" />
@@ -128,10 +122,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/p9c/gel/shadow/example" />
+        <item itemvalue="Go Build.go build github.com/p9c/gel/cmd/clipboard" />
         <item itemvalue="Go Build.go build github.com/p9c/opts/version/update" />
         <item itemvalue="Go Build.go build github.com/p9c/matrjoska/pkg/btcec/genprecomps" />
         <item itemvalue="Go Build.go build github.com/p9c/matrjoska/pod" />
-        <item itemvalue="Go Build.go build github.com/p9c/matrjoska/version/update" />
       </list>
     </recent_temporary>
   </component>

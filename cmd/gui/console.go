@@ -216,18 +216,18 @@ func (wg *WalletGUI) ConsolePage() *Console {
 		c.editor.Focus()
 	}
 	pasteClickableFn := func() {
-		col := c.editor.Caret.Col
-		go func() {
-			txt := c.editor.Text()
-			var e error
-			var cb string
-			if cb, e = clipboard.ReadAll(); E.Chk(e) {
-			}
-			cb = findSpaceRegexp.ReplaceAllString(cb, " ")
-			txt = txt[:col] + cb + txt[col:]
-			c.editor.SetText(txt)
-			c.editor.Move(col + len(cb))
-		}()
+		// // col := c.editor.Caret.Col
+		// go func() {
+		// 	txt := c.editor.Text()
+		// 	var e error
+		// 	var cb string
+		// 	if cb, e = clipboard.ReadAll(); E.Chk(e) {
+		// 	}
+		// 	cb = findSpaceRegexp.ReplaceAllString(cb, " ")
+		// 	txt = txt[:col] + cb + txt[col:]
+		// 	c.editor.SetText(txt)
+		// 	c.editor.Move(col + len(cb))
+		// }()
 	}
 	c.clearButton = wg.IconButton(c.clearClickable.SetClick(clearClickableFn)).
 		Icon(
