@@ -9,13 +9,6 @@ import (
 	js "encoding/json"
 	"errors"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/amt"
-	"github.com/p9c/matrjoska/pkg/bits"
-	"github.com/p9c/matrjoska/pkg/block"
-	"github.com/p9c/matrjoska/pkg/btcaddr"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/podopts"
 	"io"
 	"io/ioutil"
 	"math/big"
@@ -28,13 +21,21 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-	
-	"github.com/p9c/matrjoska/pkg/qu"
-	
+
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/bits"
+	"github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/podopts"
+
+	"github.com/p9c/qu"
+
 	"github.com/btcsuite/websocket"
 	uberatomic "go.uber.org/atomic"
-	
-	"github.com/p9c/matrjoska/node/state"
+
+	"github.com/p9c/matrjoska/cmd/node/state"
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"

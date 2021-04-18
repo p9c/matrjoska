@@ -11,7 +11,7 @@ import (
 	// _ "net/http/pprof"
 	"sync"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/chainclient"
 	"github.com/p9c/matrjoska/pkg/interrupt"

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/fec"
 	"github.com/p9c/matrjoska/pkg/gcm"

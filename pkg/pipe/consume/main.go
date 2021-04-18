@@ -5,7 +5,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/log"
 	"github.com/p9c/matrjoska/pkg/pipe"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 )
 
 // FilterNone is a filter that doesn't

@@ -1,4 +1,6 @@
-package genalphabet
+// +build generate
+
+package main
 
 import (
 	"github.com/p9c/matrjoska/pkg/log"

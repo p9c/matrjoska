@@ -1,9 +1,13 @@
+// Copyright (c) 2013-2016 The btcsuite developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 package ecc
 
 import (
 	"bytes"
 	"testing"
-	
+
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -212,19 +216,17 @@ var pubKeyTests = []pubKeyTest{
 
 func TestPubKeys(t *testing.T) {
 	for _, test := range pubKeyTests {
-		pk, e := ParsePubKey(test.key, S256())
-		if e != nil {
+		pk, err := ParsePubKey(test.key, S256())
+		if err != nil {
 			if test.isValid {
 				t.Errorf("%s pubkey failed when shouldn't %v",
-					test.name, e,
-				)
+					test.name, err)
 			}
 			continue
 		}
 		if !test.isValid {
 			t.Errorf("%s counted as valid when it should fail",
-				test.name,
-			)
+				test.name)
 			continue
 		}
 		var pkStr []byte
@@ -238,15 +240,15 @@ func TestPubKeys(t *testing.T) {
 		}
 		if !bytes.Equal(test.key, pkStr) {
 			t.Errorf("%s pubkey: serialized keys do not match.",
-				test.name,
-			)
+				test.name)
 			spew.Dump(test.key)
 			spew.Dump(pkStr)
 		}
 	}
 }
+
 func TestPublicKeyIsEqual(t *testing.T) {
-	pubKey1, e := ParsePubKey(
+	pubKey1, err := ParsePubKey(
 		[]byte{0x03, 0x26, 0x89, 0xc7, 0xc2, 0xda, 0xb1, 0x33,
 			0x09, 0xfb, 0x14, 0x3e, 0x0e, 0x8f, 0xe3, 0x96, 0x34,
 			0x25, 0x21, 0x88, 0x7e, 0x97, 0x66, 0x90, 0xb6, 0xb4,
@@ -254,10 +256,11 @@ func TestPublicKeyIsEqual(t *testing.T) {
 		},
 		S256(),
 	)
-	if e != nil {
-		t.Fatalf("failed to parse raw bytes for pubKey1: %v", e)
+	if err != nil {
+		t.Fatalf("failed to parse raw bytes for pubKey1: %v", err)
 	}
-	pubKey2, e := ParsePubKey(
+
+	pubKey2, err := ParsePubKey(
 		[]byte{0x02, 0xce, 0x0b, 0x14, 0xfb, 0x84, 0x2b, 0x1b,
 			0xa5, 0x49, 0xfd, 0xd6, 0x75, 0xc9, 0x80, 0x75, 0xf1,
 			0x2e, 0x9c, 0x51, 0x0f, 0x8e, 0xf5, 0x2b, 0xd0, 0x21,
@@ -265,29 +268,29 @@ func TestPublicKeyIsEqual(t *testing.T) {
 		},
 		S256(),
 	)
-	if e != nil {
-		t.Fatalf("failed to parse raw bytes for pubKey2: %v", e)
+	if err != nil {
+		t.Fatalf("failed to parse raw bytes for pubKey2: %v", err)
 	}
+
 	if !pubKey1.IsEqual(pubKey1) {
 		t.Fatalf("value of IsEqual is incorrect, %v is "+
-			"equal to %v", pubKey1, pubKey1,
-		)
+			"equal to %v", pubKey1, pubKey1)
 	}
+
 	if pubKey1.IsEqual(pubKey2) {
 		t.Fatalf("value of IsEqual is incorrect, %v is not "+
-			"equal to %v", pubKey1, pubKey2,
-		)
+			"equal to %v", pubKey1, pubKey2)
 	}
 }
+
 func TestIsCompressed(t *testing.T) {
 	for _, test := range pubKeyTests {
 		isCompressed := IsCompressedPubKey(test.key)
-		wantCompressed := test.format == pubkeyCompressed
+		wantCompressed := (test.format == pubkeyCompressed)
 		if isCompressed != wantCompressed {
 			t.Fatalf("%s (%x) pubkey: unexpected compressed result, "+
 				"got %v, want %v", test.name, test.key,
-				isCompressed, wantCompressed,
-			)
+				isCompressed, wantCompressed)
 		}
 	}
 }

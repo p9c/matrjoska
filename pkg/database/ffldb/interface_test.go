@@ -10,7 +10,6 @@ import (
 	"compress/bzip2"
 	"encoding/binary"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/block"
 	"io"
 	"os"
 	"path/filepath"
@@ -18,9 +17,11 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
-	
-	"github.com/p9c/matrjoska/pkg/qu"
-	
+
+	"github.com/p9c/matrjoska/pkg/block"
+
+	"github.com/p9c/qu"
+
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/chainhash"
 	"github.com/p9c/matrjoska/pkg/database"

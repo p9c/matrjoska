@@ -1,4 +1,4 @@
-// +build ignore
+// +build generate
 
 package main
 
@@ -310,8 +310,8 @@ var handlers = handlersT{
 }
 
 func main() {
-	var NodeRPCHandlerTpl = `// generated; DO NOT EDIT
-//go:generate go run genapi/genapi.go genapi/log.go
+	var NodeRPCHandlerTpl = `//go:generate go run -tags generate ./genapi/.
+// generated; DO NOT EDIT
 
 package chainrpc
 
@@ -320,7 +320,7 @@ import (
 	"net/rpc"
 	"time"
 
-	"github.com/p9c/matrjoska/qu"
+	"github.com/p9c/qu"
 
 	"github.com/p9c/matrjoska/pkg/btcjson"
 )

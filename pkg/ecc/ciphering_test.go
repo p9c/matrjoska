@@ -1,3 +1,7 @@
+// Copyright (c) 2015-2016 The btcsuite developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 package ecc
 
 import (
@@ -7,40 +11,45 @@ import (
 )
 
 func TestGenerateSharedSecret(t *testing.T) {
-	privKey1, e := NewPrivateKey(S256())
-	if e != nil {
-		t.Errorf("private key generation error: %s", e)
+	privKey1, err := NewPrivateKey(S256())
+	if err != nil {
+		t.Errorf("private key generation error: %s", err)
 		return
 	}
-	privKey2, e := NewPrivateKey(S256())
-	if e != nil {
-		t.Errorf("private key generation error: %s", e)
+	privKey2, err := NewPrivateKey(S256())
+	if err != nil {
+		t.Errorf("private key generation error: %s", err)
 		return
 	}
+
 	secret1 := GenerateSharedSecret(privKey1, privKey2.PubKey())
 	secret2 := GenerateSharedSecret(privKey2, privKey1.PubKey())
+
 	if !bytes.Equal(secret1, secret2) {
 		t.Errorf("ECDH failed, secrets mismatch - first: %x, second: %x",
-			secret1, secret2,
-		)
+			secret1, secret2)
 	}
 }
 
 // Test 1: Encryption and decryption
 func TestCipheringBasic(t *testing.T) {
-	privkey, e := NewPrivateKey(S256())
-	if e != nil {
-		F.Ln("failed to generate private key")
+	privkey, err := NewPrivateKey(S256())
+	if err != nil {
+		t.Fatal("failed to generate private key")
 	}
+
 	in := []byte("Hey there dude. How are you doing? This is a test.")
-	out, e := Encrypt(privkey.PubKey(), in)
-	if e != nil {
-		F.Ln("failed to encrypt:", e)
+
+	out, err := Encrypt(privkey.PubKey(), in)
+	if err != nil {
+		t.Fatal("failed to encrypt:", err)
 	}
-	dec, e := Decrypt(privkey, out)
-	if e != nil {
-		F.Ln("failed to decrypt:", e)
+
+	dec, err := Decrypt(privkey, out)
+	if err != nil {
+		t.Fatal("failed to decrypt:", err)
 	}
+
 	if !bytes.Equal(in, dec) {
 		t.Error("decrypted data doesn't match original")
 	}
@@ -49,29 +58,32 @@ func TestCipheringBasic(t *testing.T) {
 // Test 2: Byte compatibility with Pyelliptic
 func TestCiphering(t *testing.T) {
 	pb, _ := hex.DecodeString("fe38240982f313ae5afb3e904fb8215fb11af1200592b" +
-		"fca26c96c4738e4bf8f",
-	)
+		"fca26c96c4738e4bf8f")
 	privkey, _ := PrivKeyFromBytes(S256(), pb)
+
 	in := []byte("This is just a test.")
 	out, _ := hex.DecodeString("b0d66e5adaa5ed4e2f0ca68e17b8f2fc02ca002009e3" +
 		"3487e7fa4ab505cf34d98f131be7bd258391588ca7804acb30251e71a04e0020ecf" +
 		"df0f84608f8add82d7353af780fbb28868c713b7813eb4d4e61f7b75d7534dd9856" +
 		"9b0ba77cf14348fcff80fee10e11981f1b4be372d93923e9178972f69937ec850ed" +
-		"6c3f11ff572ddd5b2bedf9f9c0b327c54da02a28fcdce1f8369ffec",
-	)
-	dec, e := Decrypt(privkey, out)
-	if e != nil {
-		F.Ln("failed to decrypt:", e)
+		"6c3f11ff572ddd5b2bedf9f9c0b327c54da02a28fcdce1f8369ffec")
+
+	dec, err := Decrypt(privkey, out)
+	if err != nil {
+		t.Fatal("failed to decrypt:", err)
 	}
+
 	if !bytes.Equal(in, dec) {
 		t.Error("decrypted data doesn't match original")
 	}
 }
+
 func TestCipheringErrors(t *testing.T) {
-	privkey, e := NewPrivateKey(S256())
-	if e != nil {
-		F.Ln("failed to generate private key")
+	privkey, err := NewPrivateKey(S256())
+	if err != nil {
+		t.Fatal("failed to generate private key")
 	}
+
 	tests1 := []struct {
 		ciphertext []byte // input ciphertext
 	}{
@@ -97,8 +109,7 @@ func TestCipheringErrors(t *testing.T) {
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-		},
-		}, // invalid pubkey
+		}}, // invalid pubkey
 		{[]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // IV
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x02, 0xCA, 0x00, 0x20, // curve and X length
@@ -118,8 +129,7 @@ func TestCipheringErrors(t *testing.T) {
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-		},
-		}, // errInvalidPadding
+		}}, // errInvalidPadding
 		{[]byte{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // IV
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x02, 0xCA, 0x00, 0x20, // curve and X length
@@ -138,15 +148,16 @@ func TestCipheringErrors(t *testing.T) {
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-		},
-		}, // ErrInvalidMAC
+		}}, // ErrInvalidMAC
 	}
+
 	for i, test := range tests1 {
-		_, e = Decrypt(privkey, test.ciphertext)
-		if e == nil {
+		_, err = Decrypt(privkey, test.ciphertext)
+		if err == nil {
 			t.Errorf("Decrypt #%d did not get error", i)
 		}
 	}
+
 	// test error from removePKCSPadding
 	tests2 := []struct {
 		in []byte // input data
@@ -155,8 +166,8 @@ func TestCipheringErrors(t *testing.T) {
 		{bytes.Repeat([]byte{0x07}, 15)},
 	}
 	for i, test := range tests2 {
-		_, e = removePKCSPadding(test.in)
-		if e == nil {
+		_, err = removePKCSPadding(test.in)
+		if err == nil {
 			t.Errorf("removePKCSPadding #%d did not get error", i)
 		}
 	}

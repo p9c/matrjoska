@@ -114,7 +114,7 @@ func main() {
 	// I.Ln(PathBase)
 	versionFile := `package version
 
-//go:generate go run ./update/.
+`+`//go:generate go run ./update/.
 
 import (
 	"fmt"
@@ -175,9 +175,8 @@ func Get() string {
 		Meta,
 	)
 	path := filepath.Join(filepath.Join(PathBase, "version"), "version.go")
-	// I.Ln(path)
 	if e = ioutil.WriteFile(path, []byte(versionFileOut), 0666); E.Chk(e) {
 	}
-	I.Ln("updated version.go written")
+	// I.Ln("updated version.go written")
 	return
 }

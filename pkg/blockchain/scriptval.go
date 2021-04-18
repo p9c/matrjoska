@@ -6,7 +6,7 @@ import (
 	"math"
 	"runtime"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/hardfork"
 	"github.com/p9c/matrjoska/pkg/txscript"

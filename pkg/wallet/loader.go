@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/util/prompt"
 	"github.com/p9c/matrjoska/pkg/waddrmgr"

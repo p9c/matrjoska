@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"sync"
-	
+
 	ec "github.com/p9c/matrjoska/pkg/ecc"
 	"github.com/p9c/matrjoska/pkg/util"
 	"github.com/p9c/matrjoska/pkg/util/hdkeychain"

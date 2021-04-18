@@ -3,9 +3,18 @@ package control
 import (
 	"errors"
 	"fmt"
+	"math/rand"
+	"net"
+	"sync"
+	"time"
+
 	"github.com/VividCortex/ewma"
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/matrjoska/node/state"
+	"github.com/p9c/qu"
+	"github.com/urfave/cli"
+	"go.uber.org/atomic"
+
+	"github.com/p9c/matrjoska/cmd/node/state"
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/block"
 	"github.com/p9c/matrjoska/pkg/blockchain"
@@ -21,18 +30,11 @@ import (
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/mining"
 	"github.com/p9c/matrjoska/pkg/podopts"
-	"github.com/p9c/matrjoska/pkg/qu"
 	rav "github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/rpcclient"
 	"github.com/p9c/matrjoska/pkg/transport"
 	"github.com/p9c/matrjoska/pkg/util/routeable"
 	"github.com/p9c/matrjoska/pkg/wire"
-	"github.com/urfave/cli"
-	"go.uber.org/atomic"
-	"math/rand"
-	"net"
-	"sync"
-	"time"
 )
 
 const (

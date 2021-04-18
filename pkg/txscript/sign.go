@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
-	
+
 	"github.com/p9c/matrjoska/pkg/ecc"
 	"github.com/p9c/matrjoska/pkg/wire"
 )

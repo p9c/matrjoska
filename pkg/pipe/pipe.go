@@ -8,7 +8,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/interrupt"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 )
 
 // Consume listens for messages from a child process over a stdio pipe.

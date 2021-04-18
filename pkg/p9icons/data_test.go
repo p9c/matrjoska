@@ -20,7 +20,7 @@ var list = []struct {
 	{"Mine", Mine},
 	{"NoLight", NoLight},
 	{"NoMine", NoMine},
-	{"Chk", Ok},
+	{"Ok", Ok},
 	{"Overview", Overview},
 	{"ParallelCoin", ParallelCoin},
 	{"ParallelCoinRound", ParallelCoinRound},

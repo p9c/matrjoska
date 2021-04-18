@@ -1,4 +1,6 @@
-package genapi
+// +build generate
+
+package main
 
 import (
 	"github.com/p9c/matrjoska/pkg/log"

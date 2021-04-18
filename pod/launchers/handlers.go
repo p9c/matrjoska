@@ -2,24 +2,17 @@ package launchers
 
 import (
 	"fmt"
-	"github.com/gookit/color"
-	"github.com/p9c/matrjoska/ctl"
-	"github.com/p9c/matrjoska/kopach"
-	"github.com/p9c/matrjoska/kopach/worker"
-	"github.com/p9c/matrjoska/node/node"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/interrupt"
-	"github.com/p9c/matrjoska/pkg/log"
-	"github.com/p9c/matrjoska/pkg/pod"
 	"io/ioutil"
-	"net/rpc"
 	"os"
 	"path/filepath"
-	
-	"github.com/p9c/matrjoska/pkg/qu"
-	
+
+	"github.com/p9c/matrjoska/cmd/ctl"
+	"github.com/p9c/matrjoska/cmd/node/node"
+	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/pod"
+
+	"github.com/p9c/qu"
+
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/walletmain"
 )
@@ -137,53 +130,6 @@ func walletHandle(ifc interface{}) (e error) {
 	// cx.WaitGroup.Wait()
 	cx.WaitWait()
 	return
-}
-
-// kopachHandle runs the kopach miner
-func kopachHandle(ifc interface{}) (e error) {
-	var cx *pod.State
-	var ok bool
-	if cx, ok = ifc.(*pod.State); !ok {
-		return fmt.Errorf("cannot run without a state")
-	}
-	// log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
-	// log.App = "kopach"
-	I.Ln("starting up kopach standalone miner for parallelcoin")
-	D.Ln(os.Args)
-	// podconfig.Configure(cx, true)
-	if cx.ActiveNet.Name == chaincfg.TestNet3Params.Name {
-		fork.IsTestnet = true
-	}
-	defer cx.KillAll.Q()
-	e = kopach.Run(cx)
-	<-interrupt.HandlersDone
-	D.Ln("kopach main finished")
-	return
-}
-
-func kopachWorkerHandle(cx *pod.State) (e error) {
-	log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
-	log.App = "worker"
-	if len(os.Args) > 3 {
-		if os.Args[3] == chaincfg.TestNet3Params.Name {
-			fork.IsTestnet = true
-		}
-	}
-	if len(os.Args) > 4 {
-		log.SetLogLevel(os.Args[4])
-	}
-	D.Ln("miner worker starting")
-	w, conn := worker.New(os.Args[2], cx.KillAll, uint64(cx.Config.UUID.V()))
-	e = rpc.Register(w)
-	if e != nil {
-		D.Ln(e)
-		return e
-	}
-	D.Ln("starting up worker IPC")
-	rpc.ServeConn(conn)
-	D.Ln("stopping worker IPC")
-	D.Ln("finished")
-	return nil
 }
 
 func CtlHandleList(ifc interface{}) (e error) {

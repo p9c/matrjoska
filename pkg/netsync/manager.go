@@ -10,7 +10,7 @@ import (
 
 	block2 "github.com/p9c/matrjoska/pkg/block"
 
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/chaincfg"

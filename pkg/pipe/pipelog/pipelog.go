@@ -6,7 +6,7 @@ import (
 	"time"
 	
 	"github.com/p9c/matrjoska/pkg/pipe/consume"
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 )
 
 func main() {

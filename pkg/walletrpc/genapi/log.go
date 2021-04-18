@@ -1,4 +1,4 @@
-package genapi
+package main
 
 import (
 	"github.com/p9c/matrjoska/pkg/log"
@@ -11,10 +11,10 @@ var F, E, W, I, D, T log.LevelPrinter = log.GetLogPrinterSet(subsystem)
 func init() {
 	// to filter out this package, uncomment the following
 	// var _ = logg.AddFilteredSubsystem(subsystem)
-	
+
 	// to highlight this package, uncomment the following
 	// var _ = logg.AddHighlightedSubsystem(subsystem)
-	
+
 	// these are here to test whether they are working
 	// F.Ln("F.Ln")
 	// E.Ln("E.Ln")

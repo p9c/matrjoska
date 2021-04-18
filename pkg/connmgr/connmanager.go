@@ -9,7 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 )
 
 // maxFailedAttempts is the maximum number of successive failed connection

@@ -1,11 +1,20 @@
+// Copyright (c) 2013-2016 The btcsuite developers
+// Copyright (c) 2013-2016 Dave Collins
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 package ecc
 
 import (
+	"crypto/rand"
+	"encoding/hex"
+	"fmt"
 	"reflect"
 	"testing"
 )
 
-// TestSetInt ensures that setting a field value to various native integers works as expected.
+// TestSetInt ensures that setting a field value to various native integers
+// works as expected.
 func TestSetInt(t *testing.T) {
 	tests := []struct {
 		in  uint
@@ -19,13 +28,13 @@ func TestSetInt(t *testing.T) {
 		// 2^32 - 1
 		{4294967295, [10]uint32{4294967295, 0, 0, 0, 0, 0, 0, 0, 0, 0}},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetInt(test.in)
 		if !reflect.DeepEqual(f.n, test.raw) {
 			t.Errorf("fieldVal.Set #%d wrong result\ngot: %v\n"+
-				"want: %v", i, f.n, test.raw,
-			)
+				"want: %v", i, f.n, test.raw)
 			continue
 		}
 	}
@@ -38,8 +47,7 @@ func TestZero(t *testing.T) {
 	for idx, rawInt := range f.n {
 		if rawInt != 0 {
 			t.Errorf("internal field integer at index #%d is not "+
-				"zero - got %d", idx, rawInt,
-			)
+				"zero - got %d", idx, rawInt)
 		}
 	}
 }
@@ -49,20 +57,19 @@ func TestIsZero(t *testing.T) {
 	f := new(fieldVal)
 	if !f.IsZero() {
 		t.Errorf("new field value is not zero - got %v (rawints %x)", f,
-			f.n,
-		)
+			f.n)
 	}
+
 	f.SetInt(1)
 	if f.IsZero() {
 		t.Errorf("field claims it's zero when it's not - got %v "+
-			"(raw rawints %x)", f, f.n,
-		)
+			"(raw rawints %x)", f, f.n)
 	}
+
 	f.Zero()
 	if !f.IsZero() {
 		t.Errorf("field claims it's not zero when it is - got %v "+
-			"(raw rawints %x)", f, f.n,
-		)
+			"(raw rawints %x)", f, f.n)
 	}
 }
 
@@ -131,25 +138,27 @@ func TestStringer(t *testing.T) {
 			"fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc30",
 			"0000000000000000000000000000000000000000000000000000000000000001",
 		},
+
 		// Invalid hex
 		{"g", "0000000000000000000000000000000000000000000000000000000000000000"},
 		{"1h", "0000000000000000000000000000000000000000000000000000000000000000"},
 		{"i1", "0000000000000000000000000000000000000000000000000000000000000000"},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in)
 		result := f.String()
 		if result != test.expected {
 			t.Errorf("fieldVal.String #%d wrong result\ngot: %v\n"+
-				"want: %v", i, result, test.expected,
-			)
+				"want: %v", i, result, test.expected)
 			continue
 		}
 	}
 }
 
-// TestNormalize ensures that normalizing the internal field words works as expected.
+// TestNormalize ensures that normalizing the internal field words works as
+// expected.
 func TestNormalize(t *testing.T) {
 	tests := []struct {
 		raw        [10]uint32 // Intentionally denormalized value
@@ -221,121 +230,88 @@ func TestNormalize(t *testing.T) {
 		},
 		// 2^256 - 4294968273 (secp256k1 prime)
 		{
-			[10]uint32{0xfffffc2f, 0xffffff80, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0,
-				0xffffffc0, 0x3fffc0,
-			},
-			[10]uint32{0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x000000,
-			},
+			[10]uint32{0xfffffc2f, 0xffffff80, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0x3fffc0},
+			[10]uint32{0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000000},
 		},
-		// Prime larger than P where both first and second words are larger than P's first and second words
+		// Prime larger than P where both first and second words are larger
+		// than P's first and second words
 		{
-			[10]uint32{0xfffffc30, 0xffffff86, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0,
-				0xffffffc0, 0x3fffc0,
-			},
-			[10]uint32{0x00000001, 0x00000006, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x000000,
-			},
+			[10]uint32{0xfffffc30, 0xffffff86, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0x3fffc0},
+			[10]uint32{0x00000001, 0x00000006, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000000},
 		},
-		// Prime larger than P where only the second word is larger than P's second words.
+		// Prime larger than P where only the second word is larger
+		// than P's second words.
 		{
-			[10]uint32{0xfffffc2a, 0xffffff87, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0,
-				0xffffffc0, 0x3fffc0,
-			},
-			[10]uint32{0x03fffffb, 0x00000006, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x000000,
-			},
+			[10]uint32{0xfffffc2a, 0xffffff87, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0x3fffc0},
+			[10]uint32{0x03fffffb, 0x00000006, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000000},
 		},
 		// 2^256 - 1
 		{
-			[10]uint32{0xffffffff, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0,
-				0xffffffc0, 0x3fffc0,
-			},
-			[10]uint32{0x000003d0, 0x00000040, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x000000,
-			},
+			[10]uint32{0xffffffff, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0xffffffc0, 0x3fffc0},
+			[10]uint32{0x000003d0, 0x00000040, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000000},
 		},
-		// Prime with field representation such that the initial reduction does not result in a carry to bit 256.
+		// Prime with field representation such that the initial
+		// reduction does not result in a carry to bit 256.
 		//
 		// 2^256 - 4294968273 (secp256k1 prime)
 		{
-			[10]uint32{0x03fffc2f, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x03ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000,
-			},
+			[10]uint32{0x03fffc2f, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff},
+			[10]uint32{0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// its first word and does not result in a carry to bit 256.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to its first
+		// word and does not result in a carry to bit 256.
 		//
 		// 2^256 - 4294968272 (secp256k1 prime + 1)
 		{
-			[10]uint32{0x03fffc30, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x03ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000,
-			},
+			[10]uint32{0x03fffc30, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff},
+			[10]uint32{0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// its second word and does not result in a carry to bit 256.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to its second
+		// word and does not result in a carry to bit 256.
 		//
 		// 2^256 - 4227859409 (secp256k1 prime + 0x4000000)
 		{
-			[10]uint32{0x03fffc2f, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x03ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000,
-			},
+			[10]uint32{0x03fffc2f, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff},
+			[10]uint32{0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// a carry to bit 256, but would not be without the carry. These values come from the fact that P is 2^256 -
-		// 4294968273 and 977 is the low order word in the internal field representation.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to a carry to
+		// bit 256, but would not be without the carry.  These values
+		// come from the fact that P is 2^256 - 4294968273 and 977 is
+		// the low order word in the internal field representation.
 		//
 		// 2^256 * 5 - ((4294968273 - (977+1)) * 4)
 		{
-			[10]uint32{0x03ffffff, 0x03fffeff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x03ffffff, 0x0013fffff,
-			},
-			[10]uint32{0x00001314, 0x00000040, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x000000000,
-			},
+			[10]uint32{0x03ffffff, 0x03fffeff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x0013fffff},
+			[10]uint32{0x00001314, 0x00000040, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000000000},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// both a carry to bit 256 and the first word.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to both a
+		// carry to bit 256 and the first word.
 		{
-			[10]uint32{0x03fffc30, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x07ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000001,
-			},
+			[10]uint32{0x03fffc30, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x07ffffff, 0x003fffff},
+			[10]uint32{0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// both a carry to bit 256 and the second word.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to both a
+		// carry to bit 256 and the second word.
 		//
 		{
-			[10]uint32{0x03fffc2f, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x3ffffff,
-				0x07ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000000,
-				0x00000000, 0x00000001,
-			},
+			[10]uint32{0x03fffc2f, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x3ffffff, 0x07ffffff, 0x003fffff},
+			[10]uint32{0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000000, 0x00000000, 0x00000001},
 		},
-		// Prime larger than P that reduces to a value which is still larger than P when it has a magnitude of 1 due to
-		// a carry to bit 256 and the first and second words.
+		// Prime larger than P that reduces to a value which is still
+		// larger than P when it has a magnitude of 1 due to a carry to
+		// bit 256 and the first and second words.
 		//
 		{
-			[10]uint32{0x03fffc30, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
-				0x07ffffff, 0x003fffff,
-			},
-			[10]uint32{0x00000001, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000001,
-			},
+			[10]uint32{0x03fffc30, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x07ffffff, 0x003fffff},
+			[10]uint32{0x00000001, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001},
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal)
@@ -343,8 +319,7 @@ func TestNormalize(t *testing.T) {
 		f.Normalize()
 		if !reflect.DeepEqual(f.n, test.normalized) {
 			t.Errorf("fieldVal.Normalize #%d wrong result\n"+
-				"got: %x\nwant: %x", i, f.n, test.normalized,
-			)
+				"got: %x\nwant: %x", i, f.n, test.normalized)
 			continue
 		}
 	}
@@ -366,20 +341,21 @@ func TestIsOdd(t *testing.T) {
 		// secp256k1 prime
 		{"fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f", true},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in)
 		result := f.IsOdd()
 		if result != test.expected {
 			t.Errorf("fieldVal.IsOdd #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, test.expected,
-			)
+				"got: %v\nwant: %v", i, result, test.expected)
 			continue
 		}
 	}
 }
 
-// TestEquals ensures that checking two field values for equality via Equals works as expected.
+// TestEquals ensures that checking two field values for equality via Equals
+// works as expected.
 func TestEquals(t *testing.T) {
 	tests := []struct {
 		in1      string // hex encoded value
@@ -398,6 +374,7 @@ func TestEquals(t *testing.T) {
 		// 1 == prime+1 (mod prime)?
 		{"1", "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc30", true},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -405,8 +382,7 @@ func TestEquals(t *testing.T) {
 		result := f.Equals(f2)
 		if result != test.expected {
 			t.Errorf("fieldVal.Equals #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, test.expected,
-			)
+				"got: %v\nwant: %v", i, result, test.expected)
 			continue
 		}
 	}
@@ -446,6 +422,7 @@ func TestNegate(t *testing.T) {
 			"ac3d59970f81bee5d1b8c1e3c49234b6a213edd850d898c89e2bb500a4bc2a04",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in).Normalize()
@@ -453,14 +430,14 @@ func TestNegate(t *testing.T) {
 		result := f.Negate(1).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Negate #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
 }
 
-// TestAddInt ensures that adding an integer to field values via AddInt works as expected.
+// TestAddInt ensures that adding an integer to field values via AddInt works as
+// expected.
 func TestAddInt(t *testing.T) {
 	tests := []struct {
 		in1      string // hex encoded value
@@ -496,6 +473,7 @@ func TestAddInt(t *testing.T) {
 			"8523e9edf360ca32a95aae4e57fcde5a542b471d08a974d94ea0ee0a4228484b",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -503,14 +481,14 @@ func TestAddInt(t *testing.T) {
 		result := f.AddInt(test.in2).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.AddInt #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
 }
 
-// TestAdd ensures that adding two field values together via Add works as expected.
+// TestAdd ensures that adding two field values together via Add works as
+// expected.
 func TestAdd(t *testing.T) {
 	tests := []struct {
 		in1      string // first hex encoded value
@@ -546,6 +524,7 @@ func TestAdd(t *testing.T) {
 			"a191d150d4104c76c6e10e492c6dff42fedacfcff8c61954e38a628ec541284e",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -554,14 +533,14 @@ func TestAdd(t *testing.T) {
 		result := f.Add(f2).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Add #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
 }
 
-// TestAdd2 ensures that adding two field values together via Add2 works as expected.
+// TestAdd2 ensures that adding two field values together via Add2 works as
+// expected.
 func TestAdd2(t *testing.T) {
 	tests := []struct {
 		in1      string // first hex encoded value
@@ -599,6 +578,7 @@ func TestAdd2(t *testing.T) {
 			"523a5216391b4e7685a5aea9c9f52ed32e324a601e53dec6c699eea4999390b9",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -607,14 +587,14 @@ func TestAdd2(t *testing.T) {
 		result := f.Add2(f, f2).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Add2 #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
 }
 
-// TestMulInt ensures that adding an integer to field values via MulInt works as expected.
+// TestMulInt ensures that adding an integer to field values via MulInt works as
+// expected.
 func TestMulInt(t *testing.T) {
 	tests := []struct {
 		in1      string // hex encoded value
@@ -639,8 +619,9 @@ func TestMulInt(t *testing.T) {
 			8,
 			"fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc27",
 		},
-		// Random samples for first value. The second value is limited to 8 since that is the maximum int used in the
-		// elliptic curve calculations.
+		// Random samples for first value.  The second value is limited
+		// to 8 since that is the maximum int used in the elliptic curve
+		// calculations.
 		{
 			"b75674dc9180d306c692163ac5e089f7cef166af99645c0c23568ab6d967288a",
 			6,
@@ -662,6 +643,7 @@ func TestMulInt(t *testing.T) {
 			"da294df1f013d1e8ac3ec52805b979698971abb9a077a8bafcb688a4f261820f",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -669,8 +651,7 @@ func TestMulInt(t *testing.T) {
 		result := f.MulInt(test.in2).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.MulInt #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
@@ -729,6 +710,7 @@ func TestMul(t *testing.T) {
 			"c4f016558ca8e950c21c3f7fc15f640293a979c7b01754ee7f8b3340d4902ebb",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in1).Normalize()
@@ -737,8 +719,7 @@ func TestMul(t *testing.T) {
 		result := f.Mul(f2).Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Mul #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
@@ -776,6 +757,7 @@ func TestSquare(t *testing.T) {
 			"bf86bcfc4edb3d81f916853adfda80c07c57745b008b60f560b1912f95bce8ae",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in).Normalize()
@@ -783,14 +765,14 @@ func TestSquare(t *testing.T) {
 		result := f.Square().Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Square #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
 }
 
-// TestInverse ensures that finding the multiplicative inverse via Inverse works as expected.
+// TestInverse ensures that finding the multiplicative inverse via Inverse works
+// as expected.
 func TestInverse(t *testing.T) {
 	tests := []struct {
 		in       string // hex encoded value
@@ -828,6 +810,7 @@ func TestInverse(t *testing.T) {
 			"fb848ec64d0be572a63c38fe83df5e7f3d032f60bf8c969ef67d36bf4ada22a9",
 		},
 	}
+
 	t.Logf("Running %d tests", len(tests))
 	for i, test := range tests {
 		f := new(fieldVal).SetHex(test.in).Normalize()
@@ -835,9 +818,304 @@ func TestInverse(t *testing.T) {
 		result := f.Inverse().Normalize()
 		if !result.Equals(expected) {
 			t.Errorf("fieldVal.Inverse #%d wrong result\n"+
-				"got: %v\nwant: %v", i, result, expected,
-			)
+				"got: %v\nwant: %v", i, result, expected)
 			continue
 		}
 	}
+}
+
+// randFieldVal returns a random, normalized element in the field.
+func randFieldVal(t *testing.T) fieldVal {
+	var b [32]byte
+	if _, err := rand.Read(b[:]); err != nil {
+		t.Fatalf("unable to create random element: %v", err)
+	}
+
+	var x fieldVal
+	return *x.SetBytes(&b).Normalize()
+}
+
+type sqrtTest struct {
+	name     string
+	in       string
+	expected string
+}
+
+// TestSqrt asserts that a fieldVal properly computes the square root modulo the
+// sep256k1 prime.
+func TestSqrt(t *testing.T) {
+	var tests []sqrtTest
+
+	// No valid root exists for the negative of a square.
+	for i := uint(9); i > 0; i-- {
+		var (
+			x fieldVal
+			s fieldVal // x^2 mod p
+			n fieldVal // -x^2 mod p
+		)
+
+		x.SetInt(i)
+		s.SquareVal(&x).Normalize()
+		n.NegateVal(&s, 1).Normalize()
+
+		tests = append(tests, sqrtTest{
+			name: fmt.Sprintf("-%d", i),
+			in:   fmt.Sprintf("%x", *n.Bytes()),
+		})
+	}
+
+	// A root should exist for true squares.
+	for i := uint(0); i < 10; i++ {
+		var (
+			x fieldVal
+			s fieldVal // x^2 mod p
+		)
+
+		x.SetInt(i)
+		s.SquareVal(&x).Normalize()
+
+		tests = append(tests, sqrtTest{
+			name:     fmt.Sprintf("%d", i),
+			in:       fmt.Sprintf("%x", *s.Bytes()),
+			expected: fmt.Sprintf("%x", *x.Bytes()),
+		})
+	}
+
+	// Compute a non-square element, by negating if it has a root.
+	ns := randFieldVal(t)
+	if new(fieldVal).SqrtVal(&ns).Square().Equals(&ns) {
+		ns.Negate(1).Normalize()
+	}
+
+	// For large random field values, test that:
+	//  1) its square has a valid root.
+	//  2) the negative of its square has no root.
+	//  3) the product of its square with a non-square has no root.
+	for i := 0; i < 10; i++ {
+		var (
+			x fieldVal
+			s fieldVal // x^2 mod p
+			n fieldVal // -x^2 mod p
+			m fieldVal // ns*x^2 mod p
+		)
+
+		x = randFieldVal(t)
+		s.SquareVal(&x).Normalize()
+		n.NegateVal(&s, 1).Normalize()
+		m.Mul2(&s, &ns).Normalize()
+
+		// A root should exist for true squares.
+		tests = append(tests, sqrtTest{
+			name:     fmt.Sprintf("%x", *s.Bytes()),
+			in:       fmt.Sprintf("%x", *s.Bytes()),
+			expected: fmt.Sprintf("%x", *x.Bytes()),
+		})
+
+		// No valid root exists for the negative of a square.
+		tests = append(tests, sqrtTest{
+			name: fmt.Sprintf("-%x", *s.Bytes()),
+			in:   fmt.Sprintf("%x", *n.Bytes()),
+		})
+
+		// No root should be computed for product of a square and
+		// non-square.
+		tests = append(tests, sqrtTest{
+			name: fmt.Sprintf("ns*%x", *s.Bytes()),
+			in:   fmt.Sprintf("%x", *m.Bytes()),
+		})
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			testSqrt(t, test)
+		})
+	}
+}
+
+func testSqrt(t *testing.T, test sqrtTest) {
+	var (
+		f       fieldVal
+		root    fieldVal
+		rootNeg fieldVal
+	)
+
+	f.SetHex(test.in).Normalize()
+
+	// Compute sqrt(f) and its negative.
+	root.SqrtVal(&f).Normalize()
+	rootNeg.NegateVal(&root, 1).Normalize()
+
+	switch {
+
+	// If we expect a square root, verify that either the computed square
+	// root is +/- the expected value.
+	case len(test.expected) > 0:
+		var expected fieldVal
+		expected.SetHex(test.expected).Normalize()
+		if !root.Equals(&expected) && !rootNeg.Equals(&expected) {
+			t.Fatalf("fieldVal.Sqrt incorrect root\n"+
+				"got:     %v\ngot_neg: %v\nwant:    %v",
+				root, rootNeg, expected)
+		}
+
+	// Otherwise, we expect this input not to have a square root.
+	default:
+		if root.Square().Equals(&f) || rootNeg.Square().Equals(&f) {
+			t.Fatalf("fieldVal.Sqrt root should not exist\n"+
+				"got:     %v\ngot_neg: %v", root, rootNeg)
+		}
+	}
+}
+
+// TestFieldSetBytes ensures that setting a field value to a 256-bit big-endian
+// unsigned integer via both the slice and array methods works as expected for
+// edge cases.  Random cases are tested via the various other tests.
+func TestFieldSetBytes(t *testing.T) {
+	tests := []struct {
+		name     string     // test description
+		in       string     // hex encoded test value
+		expected [10]uint32 // expected raw ints
+	}{{
+		name:     "zero",
+		in:       "00",
+		expected: [10]uint32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}, {
+		name: "field prime",
+		in:   "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff,
+		},
+	}, {
+		name: "field prime - 1",
+		in:   "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2e",
+		expected: [10]uint32{
+			0x03fffc2e, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff,
+		},
+	}, {
+		name: "field prime + 1 (overflow in word zero)",
+		in:   "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc30",
+		expected: [10]uint32{
+			0x03fffc30, 0x03ffffbf, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff,
+		},
+	}, {
+		name: "field prime first 32 bits",
+		in:   "fffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x00000003f, 0x00000000, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "field prime word zero",
+		in:   "03fffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "field prime first 64 bits",
+		in:   "fffffffefffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffbf, 0x00000fff, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "field prime word zero and one",
+		in:   "0ffffefffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffbf, 0x00000000, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "field prime first 96 bits",
+		in:   "fffffffffffffffefffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffbf, 0x03ffffff, 0x0003ffff, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "field prime word zero, one, and two",
+		in:   "3ffffffffffefffffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffbf, 0x03ffffff, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+		},
+	}, {
+		name: "overflow in word one (prime + 1<<26)",
+		in:   "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff03fffc2f",
+		expected: [10]uint32{
+			0x03fffc2f, 0x03ffffc0, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff,
+		},
+	}, {
+		name: "(field prime - 1) * 2 NOT mod P, truncated >32 bytes",
+		in:   "01fffffffffffffffffffffffffffffffffffffffffffffffffffffffdfffff85c",
+		expected: [10]uint32{
+			0x01fffff8, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x00007fff,
+		},
+	}, {
+		name: "2^256 - 1",
+		in:   "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+		expected: [10]uint32{
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff,
+			0x03ffffff, 0x03ffffff, 0x03ffffff, 0x03ffffff, 0x003fffff,
+		},
+	}, {
+		name: "alternating bits",
+		in:   "a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5",
+		expected: [10]uint32{
+			0x01a5a5a5, 0x01696969, 0x025a5a5a, 0x02969696, 0x01a5a5a5,
+			0x01696969, 0x025a5a5a, 0x02969696, 0x01a5a5a5, 0x00296969,
+		},
+	}, {
+		name: "alternating bits 2",
+		in:   "5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a",
+		expected: [10]uint32{
+			0x025a5a5a, 0x02969696, 0x01a5a5a5, 0x01696969, 0x025a5a5a,
+			0x02969696, 0x01a5a5a5, 0x01696969, 0x025a5a5a, 0x00169696,
+		},
+	}}
+
+	for _, test := range tests {
+		inBytes := hexToBytes(test.in)
+
+		// Ensure setting the bytes via the slice method works as expected.
+		var f fieldVal
+		f.SetByteSlice(inBytes)
+		if !reflect.DeepEqual(f.n, test.expected) {
+			t.Errorf("%s: unexpected result\ngot: %x\nwant: %x", test.name, f.n,
+				test.expected)
+			continue
+		}
+
+		// Ensure setting the bytes via the array method works as expected.
+		var f2 fieldVal
+		var b32 [32]byte
+		truncatedInBytes := inBytes
+		if len(truncatedInBytes) > 32 {
+			truncatedInBytes = truncatedInBytes[:32]
+		}
+		copy(b32[32-len(truncatedInBytes):], truncatedInBytes)
+		f2.SetBytes(&b32)
+		if !reflect.DeepEqual(f2.n, test.expected) {
+			t.Errorf("%s: unexpected result\ngot: %x\nwant: %x", test.name,
+				f2.n, test.expected)
+			continue
+		}
+	}
+}
+
+// hexToBytes converts the passed hex string into bytes and will panic if there
+// is an error.  This is only provided for the hard-coded constants so errors in
+// the source code can be detected. It will only (and must only) be called with
+// hard-coded values.
+func hexToBytes(s string) []byte {
+	b, err := hex.DecodeString(s)
+	if err != nil {
+		panic("invalid hex in source file: " + s)
+	}
+	return b
 }

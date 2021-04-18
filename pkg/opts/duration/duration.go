@@ -3,9 +3,9 @@ package duration
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/opts/meta"
-	"github.com/p9c/matrjoska/pkg/opts/opt"
-	"github.com/p9c/matrjoska/pkg/opts/sanitizers"
+	"github.com/p9c/opts/meta"
+	"github.com/p9c/opts/opt"
+	"github.com/p9c/opts/sanitizers"
 	uberatomic "go.uber.org/atomic"
 	"strings"
 	"time"

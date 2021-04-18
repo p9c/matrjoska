@@ -9,7 +9,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/wire"
 	
 	"go.uber.org/atomic"
-	
+
 	ec "github.com/p9c/matrjoska/pkg/ecc"
 )
 

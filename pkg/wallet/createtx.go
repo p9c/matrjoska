@@ -7,7 +7,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/chainclient"
 	"sort"
-	
+
 	ec "github.com/p9c/matrjoska/pkg/ecc"
 	"github.com/p9c/matrjoska/pkg/txauthor"
 	"github.com/p9c/matrjoska/pkg/txscript"

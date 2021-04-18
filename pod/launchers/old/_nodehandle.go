@@ -2,15 +2,18 @@ package old
 
 import (
 	"fmt"
+
 	"github.com/gookit/color"
-	"github.com/p9c/matrjoska/node/node"
+
+	"github.com/p9c/matrjoska/cmd/node/node"
 	"github.com/p9c/matrjoska/pkg/log"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"github.com/p9c/matrjoska/pod/launchers"
-	
+
 	"github.com/p9c/matrjoska/cmd/walletmain"
+	"github.com/p9c/qu"
+
 	"github.com/p9c/matrjoska/pkg/apputil"
-	"github.com/p9c/matrjoska/pkg/qu"
 	"github.com/p9c/matrjoska/pod/podconfig"
 )
 

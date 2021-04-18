@@ -3,14 +3,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/podopts"
-	"github.com/p9c/matrjoska/pod/podcfgs"
 	"go/format"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
+
+	"github.com/p9c/matrjoska/pkg/podopts"
+	"github.com/p9c/matrjoska/pod/podcfgs"
 )
 
 func main() {
@@ -31,34 +32,35 @@ func main() {
 	var out []byte
 	var wd string
 	generated := fmt.Sprintf(configBase, o)
-	if out, e = format.Source([]byte(generated)); e != nil {
+	if out, e = format.Source([]byte(generated)); E.Chk(e) {
 		// panic(e)
-		fmt.Println(e)
+		// fmt.Println(e)
 	}
-	if wd, e = os.Getwd(); e != nil {
+	if wd, e = os.Getwd(); E.Chk(e) {
 		// panic(e)
 	}
-	// fmt.Println(string(out), wd)
-	if e = ioutil.WriteFile(filepath.Join(wd, "struct.go"), out, 0660); e != nil {
-		panic(e)
+	T.Ln("cwd",wd)
+	if e = ioutil.WriteFile(filepath.Join(wd, "struct.go"), out, 0660); E.Chk(e) {
+		// panic(e)
 	}
 }
 
 var configBase = `package podopts
 
+`+`//go:generate go run ./genopts/.
+
 import (
-	"github.com/p9c/matrjoska/pkg/opts/binary"
-	"github.com/p9c/matrjoska/pkg/opts/cmds"
-	"github.com/p9c/matrjoska/pkg/opts/duration"
-	"github.com/p9c/matrjoska/pkg/opts/float"
-	"github.com/p9c/matrjoska/pkg/opts/integer"
-	"github.com/p9c/matrjoska/pkg/opts/list"
-	"github.com/p9c/matrjoska/pkg/opts/opt"
-	"github.com/p9c/matrjoska/pkg/opts/text"
+	"github.com/p9c/opts/binary"
+	"github.com/p9c/opts/cmds"
+	"github.com/p9c/opts/duration"
+	"github.com/p9c/opts/float"
+	"github.com/p9c/opts/integer"
+	"github.com/p9c/opts/list"
+	"github.com/p9c/opts/opt"
+	"github.com/p9c/opts/text"
 )
 
 // Config defines the configuration items used by pod along with the various components included in the suite
-//go:generate go run genopts/main.go
 type Config struct {
 	// ShowAll is a flag to make the json encoder explicitly define all fields and not just the ones different to the
 	// defaults

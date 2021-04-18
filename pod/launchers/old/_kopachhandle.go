@@ -6,7 +6,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/log"
-	"github.com/p9c/matrjoska/pkg/opts"
+	"github.com/p9c/opts"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"os"
 	

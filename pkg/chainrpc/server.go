@@ -7,13 +7,6 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/amt"
-	block2 "github.com/p9c/matrjoska/pkg/block"
-	"github.com/p9c/matrjoska/pkg/control/peersummary"
-	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/log"
-	"github.com/p9c/matrjoska/pkg/mining"
-	"github.com/p9c/matrjoska/pkg/podopts"
 	"math"
 	"net"
 	"os"
@@ -25,13 +18,22 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-	
+
+	"github.com/p9c/matrjoska/pkg/amt"
+	block2 "github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/control/peersummary"
+	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/matrjoska/pkg/mining"
+	"github.com/p9c/matrjoska/pkg/podopts"
+
+	"github.com/p9c/qu"
+
 	"github.com/p9c/matrjoska/pkg/interrupt"
-	"github.com/p9c/matrjoska/pkg/qu"
-	
+
 	uberatomic "go.uber.org/atomic"
-	
-	"github.com/p9c/matrjoska/node/state"
+
+	"github.com/p9c/matrjoska/cmd/node/state"
 	"github.com/p9c/matrjoska/pkg/addrmgr"
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/bloom"
@@ -471,7 +473,7 @@ func (n *Node) Stop() (e error) {
 		return nil
 	}
 	T.Ln("node shutting down")
-	
+
 	// Shutdown the RPC server if it'n not disabled.
 	if !n.Config.DisableRPC.True() {
 		for i := range n.RPCServers {
@@ -565,7 +567,7 @@ func (n *Node) HandleAddPeerMsg(state *PeerState, sp *NodePeer) bool {
 		delete(state.Banned, host)
 	}
 	// TODO: Chk for max peers from a single IP.
-	
+
 	// Limit max number of total peers.
 	if state.Count() >= n.Config.MaxPeers.V() {
 		I.F(
@@ -579,7 +581,7 @@ func (n *Node) HandleAddPeerMsg(state *PeerState, sp *NodePeer) bool {
 	// I.S(state.InboundPeers)
 	// I.S(state.OutboundPeers)
 	// I.S(state.PersistentPeers)
-	
+
 	// for i := range state.InboundPeers {
 	// 	if state.InboundPeers[i].LocalAddr() == sp.Addr() {
 	//
@@ -588,7 +590,7 @@ func (n *Node) HandleAddPeerMsg(state *PeerState, sp *NodePeer) bool {
 	// for i := range state.OutboundPeers {
 	//
 	// }
-	
+
 	// 		D.Ln(
 	// 			state.OutboundPeers[i].UserAgent(),
 	// 			state.InboundPeers[j].UserAgent(),

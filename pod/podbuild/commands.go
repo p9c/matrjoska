@@ -7,19 +7,26 @@ var commands = map[string][]string{
 	"install": {
 		"go install -v ./pod/.",
 	},
-	"run": {
-		"go install -v ./pod/.",
-		"pod",
+	"gui": {
+		"go run -v ./pod/. gui",
 	},
 	"node": {
-		"go install -v ./pod/.",
-		"pod node",
+		"go run -v ./pod/. node",
+	},
+	"wallet": {
+		"go run -v ./pod/.",
+	},
+	"kopach": {
+		"go run -v ./pod/.",
 	},
 	"headless": {
 		"go install -v -tags headless ./pod/.",
 	},
 	"docker": {
 		"go install -v -tags headless ./pod/.",
+	},
+	"appstores": {
+		"go install -v -tags nominers ./pod/.",
 	},
 	"tests": {
 		"go test ./...",

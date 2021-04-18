@@ -3,7 +3,7 @@ package old
 import (
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/opts"
+	"github.com/p9c/opts"
 	"github.com/p9c/matrjoska/pkg/pod"
 	walletrpc2 "github.com/p9c/matrjoska/pkg/walletrpc"
 	"github.com/p9c/matrjoska/pod/launchers"

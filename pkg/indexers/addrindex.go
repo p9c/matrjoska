@@ -8,7 +8,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"sync"
 	
-	"github.com/p9c/matrjoska/pkg/qu"
+	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/chainhash"

@@ -1,18 +1,19 @@
 package podopts
 
+//go:generate go run ./genopts/.
+
 import (
-	"github.com/p9c/matrjoska/pkg/opts/binary"
-	"github.com/p9c/matrjoska/pkg/opts/cmds"
-	"github.com/p9c/matrjoska/pkg/opts/duration"
-	"github.com/p9c/matrjoska/pkg/opts/float"
-	"github.com/p9c/matrjoska/pkg/opts/integer"
-	"github.com/p9c/matrjoska/pkg/opts/list"
-	"github.com/p9c/matrjoska/pkg/opts/opt"
-	"github.com/p9c/matrjoska/pkg/opts/text"
+	"github.com/p9c/opts/binary"
+	"github.com/p9c/opts/cmds"
+	"github.com/p9c/opts/duration"
+	"github.com/p9c/opts/float"
+	"github.com/p9c/opts/integer"
+	"github.com/p9c/opts/list"
+	"github.com/p9c/opts/opt"
+	"github.com/p9c/opts/text"
 )
 
 // Config defines the configuration items used by pod along with the various components included in the suite
-//go:generate go run genopts/main.go
 type Config struct {
 	// ShowAll is a flag to make the json encoder explicitly define all fields and not just the ones different to the
 	// defaults

@@ -1,3 +1,7 @@
+// Copyright (c) 2013-2017 The btcsuite developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 package ecc
 
 import (
@@ -18,20 +22,22 @@ type signatureTest struct {
 	isValid bool
 }
 
-// decodeHex decodes the passed hex string and returns the resulting bytes. It panics if an error occurs. This is only
-// used in the tests as a helper since the only way it can fail is if there is an error in the test source code.
+// decodeHex decodes the passed hex string and returns the resulting bytes.  It
+// panics if an error occurs.  This is only used in the tests as a helper since
+// the only way it can fail is if there is an error in the test source code.
 func decodeHex(hexStr string) []byte {
-	b, e := hex.DecodeString(hexStr)
-	if e != nil {
-		panic("invalid hex string in test source: e " + e.Error() +
-			", hex: " + hexStr,
-		)
+	b, err := hex.DecodeString(hexStr)
+	if err != nil {
+		panic("invalid hex string in test source: err " + err.Error() +
+			", hex: " + hexStr)
 	}
+
 	return b
 }
 
 var signatureTests = []signatureTest{
-	// signatures from bitcoin blockchain tx 0437cd7f8525ceed2324359c2d0ba26006d92d85
+	// signatures from bitcoin blockchain tx
+	// 0437cd7f8525ceed2324359c2d0ba26006d92d85
 	{
 		name: "valid signature.",
 		sig: []byte{0x30, 0x44, 0x02, 0x20, 0x4e, 0x45, 0xe1, 0x69,
@@ -181,9 +187,12 @@ var signatureTests = []signatureTest{
 			0x08, 0x22, 0x21, 0xa8, 0x76, 0x8d, 0x1d, 0x09, 0x01,
 		},
 		der: true,
-		// This test is now passing (used to be failing) because there are signatures in the blockchain that have
-		// trailing zero bytes before the hashtype. So ParseSignature was fixed to permit buffers with trailing nonsense
-		// after the actual signature.
+
+		// This test is now passing (used to be failing) because there
+		// are signatures in the blockchain that have trailing zero
+		// bytes before the hashtype. So ParseSignature was fixed to
+		// permit buffers with trailing nonsense after the actual
+		// signature.
 		isValid: true,
 	},
 	{
@@ -292,11 +301,14 @@ var signatureTests = []signatureTest{
 		der:     true,
 		isValid: false,
 	},
-	// Standard checks (in BER format, without checking for 'canonical' DER signatures) don't test for negative numbers
-	// here because there isn't a way that is the same between openssl and go that will mark a number as negative. The
-	// Go ASN.1 parser marks numbers as negative when openssl does not (it doesn't handle negative numbers that I can
-	// tell at all. When not parsing DER signatures, which is done by by bitcoind when accepting transactions into its
-	// mempool, we otherwise only check for the coordinates being zero.
+	// Standard checks (in BER format, without checking for 'canonical' DER
+	// signatures) don't test for negative numbers here because there isn't
+	// a way that is the same between openssl and go that will mark a number
+	// as negative. The Go ASN.1 parser marks numbers as negative when
+	// openssl does not (it doesn't handle negative numbers that I can tell
+	// at all. When not parsing DER signatures, which is done by by bitcoind
+	// when accepting transactions into its mempool, we otherwise only check
+	// for the coordinates being zero.
 	{
 		name: "X == 0",
 		sig: []byte{0x30, 0x25, 0x02, 0x01, 0x00, 0x02, 0x20, 0x18,
@@ -323,26 +335,24 @@ var signatureTests = []signatureTest{
 
 func TestSignatures(t *testing.T) {
 	for _, test := range signatureTests {
-		var e error
+		var err error
 		if test.der {
-			_, e = ParseDERSignature(test.sig, S256())
+			_, err = ParseDERSignature(test.sig, S256())
 		} else {
-			_, e = ParseSignature(test.sig, S256())
+			_, err = ParseSignature(test.sig, S256())
 		}
-		if e != nil {
+		if err != nil {
 			if test.isValid {
 				t.Errorf("%s signature failed when shouldn't %v",
-					test.name, e,
-				)
+					test.name, err)
 			} /* else {
-			t.Errorf("%s got error %v", test.name, e)
-						} */
+				t.Errorf("%s got error %v", test.name, err)
+			} */
 			continue
 		}
 		if !test.isValid {
 			t.Errorf("%s counted as valid when it should fail",
-				test.name,
-			)
+				test.name)
 		}
 	}
 }
@@ -354,7 +364,8 @@ func TestSignatureSerialize(t *testing.T) {
 		ecsig    *Signature
 		expected []byte
 	}{
-		// signature from bitcoin blockchain tx 0437cd7f8525ceed2324359c2d0ba26006d92d85
+		// signature from bitcoin blockchain tx
+		// 0437cd7f8525ceed2324359c2d0ba26006d92d85
 		{
 			"valid 1 - r and s most significant bits are zero",
 			&Signature{
@@ -373,7 +384,8 @@ func TestSignatureSerialize(t *testing.T) {
 				0x21, 0xa8, 0x76, 0x8d, 0x1d, 0x09,
 			},
 		},
-		// signature from bitcoin blockchain tx cb00f8a0573b18faa8c4f467b049f5d202bf1101d9ef2633bc611be70376a4b4
+		// signature from bitcoin blockchain tx
+		// cb00f8a0573b18faa8c4f467b049f5d202bf1101d9ef2633bc611be70376a4b4
 		{
 			"valid 2 - r most significant bit is one",
 			&Signature{
@@ -392,14 +404,13 @@ func TestSignatureSerialize(t *testing.T) {
 				0xac, 0xad, 0x7f, 0x9c, 0x86, 0x87, 0x24,
 			},
 		},
-		// signature from bitcoin blockchain tx fda204502a3345e08afd6af27377c052e77f1fefeaeb31bdd45f1e1237ca5470
+		// signature from bitcoin blockchain tx
+		// fda204502a3345e08afd6af27377c052e77f1fefeaeb31bdd45f1e1237ca5470
 		{
 			"valid 3 - s most significant bit is one",
 			&Signature{
 				R: fromHex("1cadddc2838598fee7dc35a12b340c6bde8b389f7bfd19a1252a17c4b5ed2d71"),
-				S: new(big.Int).Add(fromHex("00c1a251bbecb14b058a8bd77f65de87e51c47e95904f4c0e9d52eddc21c1415ac"),
-					S256().N,
-				),
+				S: new(big.Int).Add(fromHex("00c1a251bbecb14b058a8bd77f65de87e51c47e95904f4c0e9d52eddc21c1415ac"), S256().N),
 			},
 			[]byte{
 				0x30, 0x45, 0x02, 0x20, 0x1c, 0xad, 0xdd, 0xc2,
@@ -440,75 +451,76 @@ func TestSignatureSerialize(t *testing.T) {
 			[]byte{0x30, 0x06, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00},
 		},
 	}
+
 	for i, test := range tests {
 		result := test.ecsig.Serialize()
 		if !bytes.Equal(result, test.expected) {
 			t.Errorf("Serialize #%d (%s) unexpected result:\n"+
 				"got:  %x\nwant: %x", i, test.name, result,
-				test.expected,
-			)
+				test.expected)
 		}
 	}
 }
+
 func testSignCompact(t *testing.T, tag string, curve *KoblitzCurve,
-	data []byte, isCompressed bool,
-) {
-	tmp, _ := NewPrivateKey(curve)
-	priv := tmp
+	data []byte, isCompressed bool) {
+	priv, _ := NewPrivateKey(curve)
+
 	hashed := []byte("testing")
-	sig, e := SignCompact(curve, priv, hashed, isCompressed)
-	if e != nil {
-		t.Errorf("%s: error signing: %s", tag, e)
+	sig, err := SignCompact(curve, priv, hashed, isCompressed)
+	if err != nil {
+		t.Errorf("%s: error signing: %s", tag, err)
 		return
 	}
-	pk, wasCompressed, e := RecoverCompact(curve, sig, hashed)
-	if e != nil {
-		t.Errorf("%s: error recovering: %s", tag, e)
+
+	pk, wasCompressed, err := RecoverCompact(curve, sig, hashed)
+	if err != nil {
+		t.Errorf("%s: error recovering: %s", tag, err)
 		return
 	}
 	if pk.X.Cmp(priv.X) != 0 || pk.Y.Cmp(priv.Y) != 0 {
 		t.Errorf("%s: recovered pubkey doesn't match original "+
-			"(%v,%v) vs (%v,%v) ", tag, pk.X, pk.Y, priv.X, priv.Y,
-		)
+			"(%v,%v) vs (%v,%v) ", tag, pk.X, pk.Y, priv.X, priv.Y)
 		return
 	}
 	if wasCompressed != isCompressed {
 		t.Errorf("%s: recovered pubkey doesn't match compressed state "+
-			"(%v vs %v)", tag, isCompressed, wasCompressed,
-		)
+			"(%v vs %v)", tag, isCompressed, wasCompressed)
 		return
 	}
-	// If we change the compressed bit we should get the same key back, but the compressed flag should be reversed.
+
+	// If we change the compressed bit we should get the same key back,
+	// but the compressed flag should be reversed.
 	if isCompressed {
 		sig[0] -= 4
 	} else {
 		sig[0] += 4
 	}
-	pk, wasCompressed, e = RecoverCompact(curve, sig, hashed)
-	if e != nil {
-		t.Errorf("%s: error recovering (2): %s", tag, e)
+
+	pk, wasCompressed, err = RecoverCompact(curve, sig, hashed)
+	if err != nil {
+		t.Errorf("%s: error recovering (2): %s", tag, err)
 		return
 	}
 	if pk.X.Cmp(priv.X) != 0 || pk.Y.Cmp(priv.Y) != 0 {
 		t.Errorf("%s: recovered pubkey (2) doesn't match original "+
-			"(%v,%v) vs (%v,%v) ", tag, pk.X, pk.Y, priv.X, priv.Y,
-		)
+			"(%v,%v) vs (%v,%v) ", tag, pk.X, pk.Y, priv.X, priv.Y)
 		return
 	}
 	if wasCompressed == isCompressed {
 		t.Errorf("%s: recovered pubkey doesn't match reversed "+
 			"compressed state (%v vs %v)", tag, isCompressed,
-			wasCompressed,
-		)
+			wasCompressed)
 		return
 	}
 }
+
 func TestSignCompact(t *testing.T) {
 	for i := 0; i < 256; i++ {
 		name := fmt.Sprintf("test %d", i)
 		data := make([]byte, 32)
-		_, e := rand.Read(data)
-		if e != nil {
+		_, err := rand.Read(data)
+		if err != nil {
 			t.Errorf("failed to read random data for %s", name)
 			continue
 		}
@@ -517,13 +529,13 @@ func TestSignCompact(t *testing.T) {
 	}
 }
 
-// recoveryTests assert basic tests for public key recovery from signatures. The cases are borrowed from
-// github.com/fjl/btcec-issue.
+// recoveryTests assert basic tests for public key recovery from signatures.
+// The cases are borrowed from github.com/fjl/btcec-issue.
 var recoveryTests = []struct {
 	msg string
 	sig string
 	pub string
-	e   error
+	err error
 }{
 	{
 		// Valid curve point recovered.
@@ -535,7 +547,7 @@ var recoveryTests = []struct {
 		// Invalid curve point recovered.
 		msg: "00c547e4f7b0f325ad1e56f57e26c745b09a3e503d86e00e5255ff7f715d3d1c",
 		sig: "0100b1693892219d736caba55bdb67216e485557ea6b6af75f37096c9aa6a5a75f00b940b1d03b21e36b0e47e79769f095fe2ab855bd91e3a38756b7d75a9c4549",
-		e:   fmt.Errorf("invalid square root"),
+		err: fmt.Errorf("invalid square root"),
 	},
 	{
 		// Low R and S values.
@@ -543,39 +555,75 @@ var recoveryTests = []struct {
 		sig: "00000000000000000000000000000000000000000000000000000000000000002c0000000000000000000000000000000000000000000000000000000000000004",
 		pub: "04A7640409AA2083FDAD38B2D8DE1263B2251799591D840653FB02DBBA503D7745FCB83D80E08A1E02896BE691EA6AFFB8A35939A646F1FC79052A744B1C82EDC3",
 	},
+	{
+		// Zero R value
+		//
+		// Test case contributed by Ethereum Swarm: GH-1651
+		msg: "3060d2c77c1e192d62ad712fb400e04e6f779914a6876328ff3b213fa85d2012",
+		sig: "65000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000037a3",
+		err: fmt.Errorf("signature R is 0"),
+	},
+	{
+		// Zero R value
+		//
+		// Test case contributed by Ethereum Swarm: GH-1651
+		msg: "2bcebac60d8a78e520ae81c2ad586792df495ed429bd730dcd897b301932d054",
+		sig: "060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007c",
+		err: fmt.Errorf("signature R is 0"),
+	},
+	{
+		// R = N (curve order of secp256k1)
+		msg: "2bcebac60d8a78e520ae81c2ad586792df495ed429bd730dcd897b301932d054",
+		sig: "65fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd036414100000000000000000000000000000000000000000000000000000000000037a3",
+		err: fmt.Errorf("signature R is >= curve order"),
+	},
+	{
+		// Zero S value
+		msg: "ce0677bb30baa8cf067c88db9811f4333d131bf8bcf12fe7065d211dce971008",
+		sig: "0190f27b8b488db00b00606796d2987f6a5f59ae62ea05effe84fef5b8b0e549980000000000000000000000000000000000000000000000000000000000000000",
+		err: fmt.Errorf("signature S is 0"),
+	},
+	{
+		// S = N (curve order of secp256k1)
+		msg: "ce0677bb30baa8cf067c88db9811f4333d131bf8bcf12fe7065d211dce971008",
+		sig: "0190f27b8b488db00b00606796d2987f6a5f59ae62ea05effe84fef5b8b0e54998fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141",
+		err: fmt.Errorf("signature S is >= curve order"),
+	},
 }
 
 func TestRecoverCompact(t *testing.T) {
 	for i, test := range recoveryTests {
 		msg := decodeHex(test.msg)
 		sig := decodeHex(test.sig)
+
 		// Magic DER constant.
 		sig[0] += 27
-		var pub *PublicKey
-		var e error
-		pub, _, e = RecoverCompact(S256(), sig, msg)
+
+		pub, _, err := RecoverCompact(S256(), sig, msg)
+
 		// Verify that returned error matches as expected.
-		if !reflect.DeepEqual(test.e, e) {
+		if !reflect.DeepEqual(test.err, err) {
 			t.Errorf("unexpected error returned from pubkey "+
 				"recovery #%d: wanted %v, got %v",
-				i, test.e, e,
-			)
+				i, test.err, err)
 			continue
 		}
+
 		// If check succeeded because a proper error was returned, we
 		// ignore the returned pubkey.
-		if e != nil {
+		if err != nil {
 			continue
 		}
+
 		// Otherwise, ensure the correct public key was recovered.
 		exPub, _ := ParsePubKey(decodeHex(test.pub), S256())
 		if !exPub.IsEqual(pub) {
 			t.Errorf("unexpected recovered public key #%d: "+
-				"want %v, got %v", i, exPub, pub,
-			)
+				"want %v, got %v", i, exPub, pub)
 		}
 	}
 }
+
 func TestRFC6979(t *testing.T) {
 	// Test vectors matching Trezor and CoreBitcoin implementations.
 	// - https://github.com/trezor/trezor-crypto/blob/9fea8f8ab377dc514e40c6fd1f7c89a74c1d8dc6/tests.c#L432-L453
@@ -593,7 +641,8 @@ func TestRFC6979(t *testing.T) {
 			"3045022100af340daf02cc15c8d5d08d7735dfe6b98a474ed373bdb5fbecf7571be52b384202205009fb27f37034a9b24b707b7c6b79ca23ddef9e25f7282e8a797efe53a8f124",
 		},
 		{
-			// This signature hits the case when S is higher than halforder. If S is not canonicalized (lowered by halforder), this test will fail.
+			// This signature hits the case when S is higher than halforder.
+			// If S is not canonicalized (lowered by halforder), this test will fail.
 			"0000000000000000000000000000000000000000000000000000000000000001",
 			"Satoshi Nakamoto",
 			"8f8a276c19f4149656b280621e358cce24f5f52542772691ee69063b74f15d15",
@@ -624,25 +673,26 @@ func TestRFC6979(t *testing.T) {
 			"3045022100b552edd27580141f3b2a5463048cb7cd3e047b97c9f98076c32dbdf85a68718b0220279fa72dd19bfae05577e06c7c0c1900c371fcd5893f7e1d56a37d30174671f6",
 		},
 	}
+
 	for i, test := range tests {
 		privKey, _ := PrivKeyFromBytes(S256(), decodeHex(test.key))
 		hash := sha256.Sum256([]byte(test.msg))
+
 		// Ensure deterministically generated nonce is the expected value.
 		gotNonce := nonceRFC6979(privKey.D, hash[:]).Bytes()
 		wantNonce := decodeHex(test.nonce)
 		if !bytes.Equal(gotNonce, wantNonce) {
 			t.Errorf("NonceRFC6979 #%d (%s): Nonce is incorrect: "+
 				"%x (expected %x)", i, test.msg, gotNonce,
-				wantNonce,
-			)
+				wantNonce)
 			continue
 		}
+
 		// Ensure deterministically generated signature is the expected value.
-		gotSig, e := privKey.Sign(hash[:])
-		if e != nil {
+		gotSig, err := privKey.Sign(hash[:])
+		if err != nil {
 			t.Errorf("Sign #%d (%s): unexpected error: %v", i,
-				test.msg, e,
-			)
+				test.msg, err)
 			continue
 		}
 		gotSigBytes := gotSig.Serialize()
@@ -650,12 +700,12 @@ func TestRFC6979(t *testing.T) {
 		if !bytes.Equal(gotSigBytes, wantSigBytes) {
 			t.Errorf("Sign #%d (%s): mismatched signature: %x "+
 				"(expected %x)", i, test.msg, gotSigBytes,
-				wantSigBytes,
-			)
+				wantSigBytes)
 			continue
 		}
 	}
 }
+
 func TestSignatureIsEqual(t *testing.T) {
 	sig1 := &Signature{
 		R: fromHex("0082235e21a2300022738dabb8e1bbd9d19cfb1e7ab8c30a23b0afbb8d178abcf3"),
@@ -665,14 +715,14 @@ func TestSignatureIsEqual(t *testing.T) {
 		R: fromHex("4e45e16932b8af514961a1d3a1a25fdf3f4f7732e9d624c6c61548ab5fb8cd41"),
 		S: fromHex("181522ec8eca07de4860a4acdd12909d831cc56cbbac4622082221a8768d1d09"),
 	}
+
 	if !sig1.IsEqual(sig1) {
 		t.Fatalf("value of IsEqual is incorrect, %v is "+
-			"equal to %v", sig1, sig1,
-		)
+			"equal to %v", sig1, sig1)
 	}
+
 	if sig1.IsEqual(sig2) {
 		t.Fatalf("value of IsEqual is incorrect, %v is not "+
-			"equal to %v", sig1, sig2,
-		)
+			"equal to %v", sig1, sig2)
 	}
 }

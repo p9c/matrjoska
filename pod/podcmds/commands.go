@@ -3,7 +3,7 @@ package podcmds
 import (
 	"fmt"
 	"github.com/gookit/color"
-	"github.com/p9c/matrjoska/pkg/opts/cmds"
+	"github.com/p9c/opts/cmds"
 	"github.com/p9c/matrjoska/pod/launchers"
 	"github.com/p9c/matrjoska/version"
 )

@@ -56,7 +56,7 @@ func createDBDriver(args ...interface{}) (database.DB, error) {
 	return openDB(dbPath, network, true)
 }
 func init() {
-	I.Ln("registering ffldb database driver")
+	T.Ln("registering ffldb database driver")
 	// Register the driver.
 	driver := database.Driver{
 		DbType: dbType,
