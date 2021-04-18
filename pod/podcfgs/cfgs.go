@@ -1,24 +1,6 @@
 package podcfgs
 
 import (
-	"github.com/p9c/matrjoska/pkg/appdata"
-	"github.com/p9c/matrjoska/pkg/base58"
-	"github.com/p9c/matrjoska/pkg/blockchain"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/database"
-	"github.com/p9c/opts/binary"
-	"github.com/p9c/opts/duration"
-	"github.com/p9c/opts/float"
-	"github.com/p9c/opts/integer"
-	"github.com/p9c/opts/list"
-	"github.com/p9c/opts/meta"
-	"github.com/p9c/opts/sanitizers"
-	"github.com/p9c/opts/text"
-	"github.com/p9c/matrjoska/pkg/podopts"
-	"github.com/p9c/matrjoska/pkg/util/hdkeychain"
-	"github.com/p9c/matrjoska/pod/podcmds"
-	"github.com/p9c/matrjoska/pod/podconfig/checkpoints"
 	"math"
 	"math/rand"
 	"net"
@@ -27,6 +9,25 @@ import (
 	"runtime"
 	"sync/atomic"
 	"time"
+
+	"github.com/p9c/matrjoska/pkg/appdata"
+	"github.com/p9c/matrjoska/pkg/base58"
+	"github.com/p9c/matrjoska/pkg/blockchain"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/database"
+	"github.com/p9c/matrjoska/pkg/podopts"
+	"github.com/p9c/matrjoska/pkg/util/hdkeychain"
+	"github.com/p9c/matrjoska/pod/podcmds"
+	"github.com/p9c/matrjoska/pod/podconfig/checkpoints"
+	"github.com/p9c/opts/binary"
+	"github.com/p9c/opts/duration"
+	"github.com/p9c/opts/float"
+	"github.com/p9c/opts/integer"
+	"github.com/p9c/opts/list"
+	"github.com/p9c/opts/meta"
+	"github.com/p9c/opts/sanitizers"
+	"github.com/p9c/opts/text"
 )
 
 // GetDefaultConfig returns a Config struct pristine factory fresh
@@ -518,7 +519,7 @@ func GetConfigs() (c podopts.Configs) {
 			OmitEmpty:     true,
 		},
 			"info",
-		
+
 		),
 		"MaxOrphanTxs": integer.New(meta.Data{
 			Aliases: []string{"MO"},
@@ -567,7 +568,7 @@ func GetConfigs() (c podopts.Configs) {
 		},
 			constant.DefaultMinRelayTxFee.ToDUO(),
 			0, math.MaxFloat64,
-		
+
 		),
 		"Network": text.New(meta.Data{
 			Aliases: []string{"NW"},
@@ -719,9 +720,10 @@ func GetConfigs() (c podopts.Configs) {
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			[]string{net.JoinHostPort("0.0.0.0",
-				chaincfg.MainNetParams.DefaultPort,
-			),
+			[]string{
+				net.JoinHostPort("0.0.0.0",
+					chaincfg.MainNetParams.DefaultPort,
+				),
 			},
 		),
 		"Password": text.New(meta.Data{
@@ -861,7 +863,8 @@ func GetConfigs() (c podopts.Configs) {
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			[]string{net.JoinHostPort("127.0.0.1", chaincfg.MainNetParams.RPCClientPort),
+			[]string{
+				net.JoinHostPort("127.0.0.1", chaincfg.MainNetParams.RPCClientPort),
 			},
 		),
 		"RPCMaxClients": integer.New(meta.Data{
@@ -1141,9 +1144,10 @@ func GetConfigs() (c podopts.Configs) {
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 		},
-			[]string{net.JoinHostPort("0.0.0.0",
-				chaincfg.MainNetParams.WalletRPCServerPort,
-			),
+			[]string{
+				net.JoinHostPort("0.0.0.0",
+					chaincfg.MainNetParams.WalletRPCServerPort,
+				),
 			},
 		),
 		"WalletRPCMaxClients": integer.New(meta.Data{

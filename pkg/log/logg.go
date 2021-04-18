@@ -169,7 +169,7 @@ func SetLogLevel(l string) {
 	if l == "" {
 		l = "info"
 	}
-	fmt.Fprintln(os.Stderr, "setting log level", l)
+	// fmt.Fprintln(os.Stderr, "setting log level", l)
 	lvl := logLevels.Info
 	for i := range LevelSpecs {
 		if LevelSpecs[i].Name[:1] == l[:1] {
