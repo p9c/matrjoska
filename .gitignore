@@ -1,3 +1,5 @@
 *.exe
 
 pkg/gel/cmd/iconchooser/iconchooser
+
+.idea/
