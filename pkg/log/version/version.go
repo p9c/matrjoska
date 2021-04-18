@@ -35,11 +35,11 @@ var (
 func Get() string {
 	return fmt.Sprint(
 		"\nRepository Information\n"+
-		"\tGit repository: "+URL+"\n",
+			"\tGit repository: "+URL+"\n",
 		"\tBranch: "+GitRef+"\n"+
-		"\tCommit: "+GitCommit+"\n"+
-		"\tBuilt: "+BuildTime+"\n"+
-		"\tTag: "+Tag+"\n",
+			"\tCommit: "+GitCommit+"\n"+
+			"\tBuilt: "+BuildTime+"\n"+
+			"\tTag: "+Tag+"\n",
 		"\tMajor:", Major, "\n",
 		"\tMinor:", Minor, "\n",
 		"\tPatch:", Patch, "\n",
