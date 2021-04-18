@@ -1,32 +1,15 @@
 # glom
 
-A code editor for the visual thinkers
+Glom is a command line shell, code and script editor and application platform in one.
 
-Glom is a text editor makes structured documents easy to
-create and change. Many text editors now allow you to select text and drag it
-around, but almost without exception, a couple of stray keypresses can turn a
-neat 20 level hierarchy of brackets into spaghetti covered in nasty red syntax
-error markers.
+It keeps a branching history of commands entered, which are either directly Go expressions or API calls in a arbitrary textual form similar to command line options, and can be executed immediately, or deferred until a testable unit is constructed.
 
-Just for fun, select a block of code in a typical modern IDE, and and drag it
-around and see how long it takes you to turn it into a 3000 piece jigsaw puzzle.
+The branching logs of commands entered can be grouped into functions, and functions grouped into packages, and then published to distributed content addressable repositories.
 
-Glom understands structure and makes it easy to create documents with coherent
-structure at the macro as well as micro scale.
+Glom stores the content reference to called functions as at the last time they were compiled, ending versioning hell.
 
-When you move your mouse around text, it faintly highlights the segmentation
-that will be enforced if you click and drag, you can fold sections in, and
-easily rearrange complex bracketed structures as found frequently in graphical
-user interface code.
+Glom allows you to link any and all content to these packages, one can keep a dev journal, write guides, attach video, photographs and so on, right next to the code using document editors that from an early point will be created. 
 
-Not only that, but in addition to code, Glom makes it simple to annotate 
-documents, allowing detailed side-by-side documentation and code.
+Last, but not least, it hosts the content you want to share with the world via IPFS or similar peer to peer protocol, the whole relevant history, or just the current state, the code is fingerprinted by its content, signed by its authors.
 
-Lastly, the undo buffer branches instead of truncating previous edits off the
-tree, it provides a cue to indicate that you can fork and get back on a 
-different timeline entirely, without losing the old, as a temporarily visible 
-represetation of the graph of edits.
-
-Instead of storing the document formatted, it continuously records input and 
-replays the chains of events at the will of the user, it is assembled only for 
-display and transmission.
+With it's friendly navigation, even non programmers will be able to write simple linear scripts composed of variables and API calls, and with easy auditing the security of apps created and distributed this way, every last statement can be accounted for and malicious code and its authors pruned from the tree.
