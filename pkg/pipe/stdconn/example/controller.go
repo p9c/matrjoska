@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/example/hello/hello"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
 	"github.com/p9c/qu"

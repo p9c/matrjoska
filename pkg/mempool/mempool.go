@@ -7,7 +7,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"math"
 	"sync"
 	"sync/atomic"

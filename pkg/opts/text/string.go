@@ -3,11 +3,12 @@ package text
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+	"sync/atomic"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
-	"strings"
-	"sync/atomic"
 )
 
 // Opt stores a string configuration value

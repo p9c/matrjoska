@@ -30,8 +30,8 @@ const (
 )
 
 type (
-	// LevelPrinter defines a set of terminal printing primitives that output with extra data, time, log logLevelList,
-	// and code location
+	// LevelPrinter defines a set of terminal printing primitives that output with
+	// extra data, time, log logLevelList, and code location
 	LevelPrinter struct {
 		// Ln prints lists of interfaces with spaces in between
 		Ln func(a ...interface{})
@@ -39,7 +39,8 @@ type (
 		F func(format string, a ...interface{})
 		// S prints a spew.Sdump for an interface slice
 		S func(a ...interface{})
-		// C accepts a function so that the extra computation can be avoided if it is not being viewed
+		// C accepts a function so that the extra computation can be avoided if it is
+		// not being viewed
 		C func(closure func() string)
 		// Chk is a shortcut for printing if there is an error, or returning true
 		Chk func(e error) bool
@@ -168,7 +169,7 @@ func SetLogLevel(l string) {
 	if l == "" {
 		l = "info"
 	}
-	_, _ = fmt.Fprintln(os.Stderr, "setting log level", l, Caller("", 1))
+	fmt.Fprintln(os.Stderr, "setting log level", l)
 	lvl := logLevels.Info
 	for i := range LevelSpecs {
 		if LevelSpecs[i].Name[:1] == l[:1] {

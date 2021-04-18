@@ -6,7 +6,7 @@ import (
 	"github.com/gookit/color"
 
 	"github.com/p9c/matrjoska/cmd/node/node"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"github.com/p9c/matrjoska/pod/launchers"
 

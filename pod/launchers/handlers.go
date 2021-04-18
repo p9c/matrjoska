@@ -24,10 +24,7 @@ func NodeHandle(ifc interface{}) (e error) {
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	// log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
-	// log.App = "  node"
 	I.Ln("running node handler")
-	// podconfig.Configure(cx, true)
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
 	// // serviceOptions defines the configuration options for the daemon as a service on Windows.
@@ -47,19 +44,6 @@ func NodeHandle(ifc interface{}) (e error) {
 	// 	}
 	// 	return nil
 	// }
-	// config.Configure(cx, c.Command.Name, true)
-	// D.Ln("starting shell")
-	// if cx.Config.ClientTLS.True() || cx.Config.ServerTLS.True() {
-	// 	// generate the tls certificate if configured
-	// 	if apputil.FileExists(cx.Config.RPCCert.V()) &&
-	// 		apputil.FileExists(cx.Config.RPCKey.V()) &&
-	// 		apputil.FileExists(cx.Config.CAFile.V()) {
-	// 	} else {
-	// 		if _, e = walletmain.GenerateRPCKeyPair(cx.Config, true); E.Chk(e) {
-	// 		}
-	// 	}
-	// }
-	// if cx.Config.NodeOff.False() {
 	go func() {
 		if e := node.Main(cx); E.Chk(e) {
 			E.Ln("error starting node ", e)
@@ -87,9 +71,6 @@ func walletHandle(ifc interface{}) (e error) {
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	// log.AppColorizer = color.Bit24(255, 255, 128, false).Sprint
-	// log.App = "wallet"
-	// podconfig.Configure(cx, true)
 	cx.Config.WalletFile.Set(filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, constant.DbName))
 	// dbFilename := *cx.Config.DataDir + slash + cx.ActiveNet.
 	// 	Params.Name + slash + wallet.WalletDbName
@@ -139,8 +120,6 @@ func CtlHandleList(ifc interface{}) (e error) {
 		return fmt.Errorf("cannot run without a state")
 	}
 	_ = cx
-	// fmt.Println("Here are the available commands. Pausing a moment as it is a long list...")
-	// time.Sleep(2 * time.Second)
 	ctl.ListCommands()
 	return nil
 }
@@ -151,10 +130,7 @@ func CtlHandle(ifc interface{}) (e error) {
 	if cx, ok = ifc.(*pod.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	// log.AppColorizer = color.Bit24(128, 128, 255, false).Sprint
-	// log.App = "   ctl"
 	cx.Config.LogLevel.Set("off")
-	// podconfig.Configure(cx, true)
 	ctl.Main(cx)
 	return nil
 }

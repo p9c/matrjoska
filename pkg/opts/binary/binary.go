@@ -3,10 +3,12 @@ package binary
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
+	uberatomic "go.uber.org/atomic"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
-	uberatomic "go.uber.org/atomic"
-	"strings"
 )
 
 // Opt stores an boolean configuration value

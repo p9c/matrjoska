@@ -3,12 +3,14 @@ package integer
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"strings"
+
+	uberatomic "go.uber.org/atomic"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
-	uberatomic "go.uber.org/atomic"
-	"strconv"
-	"strings"
 )
 
 // Opt stores an int configuration value

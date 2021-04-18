@@ -23,7 +23,7 @@ import (
 	block2 "github.com/p9c/matrjoska/pkg/block"
 	"github.com/p9c/matrjoska/pkg/control/peersummary"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/mining"
 	"github.com/p9c/matrjoska/pkg/podopts"
 

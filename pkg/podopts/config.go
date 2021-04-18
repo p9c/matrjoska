@@ -465,7 +465,7 @@ func (c *Config) processCommandlineArgs(args []string) (
 		I.Ln("setting default command")
 		commands[0] = c.Commands[0]
 	} else {
-		I.Ln("checking commands")
+		T.Ln("checking commands")
 		// I.S(commands)
 		for i := range commands {
 			cmds = append(cmds, i)
@@ -502,7 +502,7 @@ func (c *Config) processCommandlineArgs(args []string) (
 			}
 		}
 		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
-		I.Ln("length of gathered commands", len(commands))
+		T.Ln("length of gathered commands", len(commands))
 		if len(commands) == 1 {
 			for _, x := range commands {
 				cm = &x
@@ -514,7 +514,7 @@ func (c *Config) processCommandlineArgs(args []string) (
 		commandsStart = len(args)
 		commandsEnd = commandsStart
 	}
-	I.Ln("commands section:", commandsStart, commandsEnd)
+	T.Ln("commands section:", commandsStart, commandsEnd)
 	if commandsStart > 0 {
 		T.Ln("opt found", args[:commandsStart])
 		// we have opt to check
@@ -539,7 +539,7 @@ func (c *Config) processCommandlineArgs(args []string) (
 			optVals = append(optVals, val)
 		}
 	}
-	I.S(op)
+	T.S(op)
 	if len(cmds) < 1 {
 		cmds = []int{0}
 		commands[0] = c.Commands[0]

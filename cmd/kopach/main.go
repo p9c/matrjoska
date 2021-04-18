@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/p9c/matrjoska/pkg/control/templates"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/pod"
 
 	"github.com/p9c/matrjoska/pkg/control/p2padvt"

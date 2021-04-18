@@ -10,7 +10,7 @@ import (
 	block2 "github.com/p9c/matrjoska/pkg/block"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"math/big"
 	"net"
 	"strconv"

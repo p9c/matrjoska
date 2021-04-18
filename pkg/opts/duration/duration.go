@@ -3,12 +3,14 @@ package duration
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+	"time"
+
+	uberatomic "go.uber.org/atomic"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
-	uberatomic "go.uber.org/atomic"
-	"strings"
-	"time"
 )
 
 // Opt stores an time.Duration configuration value

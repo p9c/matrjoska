@@ -3,7 +3,7 @@ package connmgr
 import (
 	"errors"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"net"
 	"sync"
 	"sync/atomic"

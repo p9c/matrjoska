@@ -2,7 +2,7 @@ package consume
 
 import (
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/pipe"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
 	"github.com/p9c/qu"

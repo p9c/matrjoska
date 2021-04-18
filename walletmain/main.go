@@ -3,7 +3,7 @@ package walletmain
 import (
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/podopts"
 	"github.com/p9c/matrjoska/pkg/walletrpc"
 	

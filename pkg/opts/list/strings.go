@@ -3,12 +3,14 @@ package list
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+	"sync/atomic"
+
+	"github.com/p9c/opts/normalize"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
-	"github.com/p9c/matrjoska/pkg/util/normalize"
-	"strings"
-	"sync/atomic"
 )
 
 // Opt stores a string slice configuration value
@@ -79,7 +81,7 @@ func (x *Opt) ReadInput(input string) (o opt.Option, e error) {
 		}
 		if e = x.Set(append(slice, input)); E.Chk(e) {
 		}
-		
+
 	}
 	// ensure there is no duplicates
 	e = x.Set(normalize.RemoveDuplicateAddresses(x.V()))

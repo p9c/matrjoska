@@ -4,7 +4,7 @@ import (
 	"crypto/cipher"
 	"errors"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"net"
 	"runtime"
 	"strings"

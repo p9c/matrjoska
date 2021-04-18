@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/opts"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"io/ioutil"

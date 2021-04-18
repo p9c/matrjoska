@@ -18,6 +18,8 @@ import (
 	"github.com/urfave/cli"
 	"go.uber.org/atomic"
 
+	"github.com/p9c/log"
+
 	"github.com/p9c/matrjoska/cmd/node/state"
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/apputil"
@@ -25,7 +27,6 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc"
 	"github.com/p9c/matrjoska/pkg/connmgr"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/log"
 	"github.com/p9c/matrjoska/pkg/pipe/serve"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"github.com/p9c/matrjoska/pkg/podopts"
@@ -59,7 +60,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 	}
 	// everything in the configuration is set correctly up to this point, except for settings based on the running
 	// network, so after this is when those settings are elaborated
-	I.Ln("setting active network:", s.Config.Network.V())
+	T.Ln("setting active network:", s.Config.Network.V())
 	switch s.Config.Network.V() {
 	case "testnet", "testnet3", "t":
 		s.ActiveNet = &chaincfg.TestNet3Params
@@ -160,7 +161,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		}
 		D.Ln("done generating TLS certificates")
 	}
-	
+
 	// Validate profile port number
 	T.Ln("validating profile port number")
 	if s.Config.Profile.V() != "" {
@@ -174,19 +175,19 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 			// }
 		}
 	}
-	
+
 	T.Ln("checking addpeer and connectpeer lists")
 	if s.Config.AddPeers.Len() > 0 && s.Config.ConnectPeers.Len() > 0 {
 		e = fmt.Errorf("the addpeers and connectpeers options can not be both set")
 		_, _ = fmt.Fprintln(os.Stderr, e)
 		return
 	}
-	
+
 	T.Ln("checking proxy/connect for disabling listening")
 	if (s.Config.ProxyAddress.V() != "" || s.Config.ConnectPeers.Len() > 0) && s.Config.P2PListeners.Len() == 0 {
 		s.Config.DisableListen.T()
 	}
-	
+
 	T.Ln("checking relay/reject nonstandard policy settings")
 	switch {
 	case s.Config.RelayNonStd.True() && s.Config.RejectNonStd.True():
@@ -195,7 +196,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		E.Ln(e)
 		return
 	}
-	
+
 	// Chk to make sure limited and admin users don't have the same username
 	T.Ln("checking admin and limited username is different")
 	if !s.Config.Username.Empty() &&
@@ -212,7 +213,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		_, _ = fmt.Fprintln(os.Stderr, e)
 		os.Exit(1)
 	}
-	
+
 	T.Ln("checking user agent comments", s.Config.UserAgentComments)
 	for _, uaComment := range s.Config.UserAgentComments.S() {
 		if strings.ContainsAny(uaComment, "/:()") {
@@ -224,7 +225,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 			os.Exit(1)
 		}
 	}
-	
+
 	T.Ln("checking min relay tx fee")
 	s.StateCfg.ActiveMinRelayTxFee, e = amt.NewAmount(s.Config.MinRelayTxFee.V())
 	if e != nil {
@@ -234,7 +235,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		_, _ = fmt.Fprintln(os.Stderr, e)
 		os.Exit(0)
 	}
-	
+
 	// if autolisten is set, set default ports on all p2p listeners discovered to be available
 	if s.Config.AutoListen.True() {
 		I.Ln("autolisten is enabled")
@@ -251,7 +252,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		}
 		s.StateCfg.Save = true
 	}
-	
+
 	// if autoports is set, in addition, set all listeners to random automatic ports, this and autolisten can be
 	// combined for full auto, this enables multiple instances on one local host
 	var fP int
@@ -280,7 +281,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		if e = s.Config.WalletRPCListeners.Set(p2pl[2]); E.Chk(e) {
 			return
 		}
-		
+
 		s.StateCfg.Save = true
 	}
 	// if LAN or Solo are active, disable DNS seeding
@@ -288,7 +289,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 		W.Ln("disabling DNS seeding due to test mode settings active")
 		s.Config.DisableDNSSeed.T()
 	}
-	
+
 	T.Ln("checking rpc server has a login enabled")
 	if (s.Config.Username.Empty() || s.Config.Password.Empty()) &&
 		(s.Config.LimitUser.Empty() || s.Config.LimitPass.Empty()) {
@@ -342,7 +343,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 			if e = s.Config.OnionProxyAddress.Set(""); E.Chk(e) {
 			}
 		}
-		
+
 		// Tor isolation flag means proxy credentials will be overridden unless there is
 		// also an onion proxy configured in which case that one will be overridden.
 		torIsolation := false
@@ -404,7 +405,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 			}
 			return proxy.DialTimeout(network, addr, timeout)
 		}
-	
+
 	// When configured in bridge mode (both --onion and --proxy are configured), it
 	// means that the proxy configured by --proxy is not a tor proxy, so override
 	// the DNS resolution to use the onion-specific proxy.
@@ -435,7 +436,7 @@ func GetNew(config *podopts.Config) (s *pod.State, e error) {
 	if s.ActiveNet.Name == chaincfg.TestNet3Params.Name {
 		fork.IsTestnet = true
 	}
-	
+
 	return
 }
 

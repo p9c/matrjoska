@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/bits"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"math/big"
 	"math/rand"
 	"sort"

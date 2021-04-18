@@ -1,7 +1,7 @@
 package p2padvt
 
 import (
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/version"
 )
 

@@ -1,12 +1,13 @@
 package state
 
 import (
+	"net"
+	"time"
+
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/connmgr"
-	"net"
-	"time"
-	
+
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 )
 

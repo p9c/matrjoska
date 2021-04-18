@@ -2,7 +2,7 @@ package peer_test
 
 import (
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/version"
 	"net"
 	"time"

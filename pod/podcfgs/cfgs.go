@@ -31,7 +31,7 @@ import (
 
 // GetDefaultConfig returns a Config struct pristine factory fresh
 func GetDefaultConfig() (c *podopts.Config) {
-	I.Ln("getting default config")
+	T.Ln("getting default config")
 	c = &podopts.Config{
 		Commands: podcmds.GetCommands(),
 		Map:      GetConfigs(),

@@ -2,7 +2,7 @@ package serve
 
 import (
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"go.uber.org/atomic"
 	
 	"github.com/p9c/matrjoska/pkg/interrupt"

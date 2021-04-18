@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"io"
 	"math/rand"
 	"net"

@@ -17,7 +17,7 @@ type Command struct {
 
 func (c Commands) PopulateParents(parent *Command) {
 	if parent != nil {
-		T.Ln("backlinking children of", parent.Name)
+		I.Ln("backlinking children of", parent.Name)
 	}
 	for i := range c {
 		c[i].Parent = parent

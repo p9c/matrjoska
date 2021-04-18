@@ -5,7 +5,7 @@ import (
 	"github.com/gookit/color"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/opts"
 	"github.com/p9c/matrjoska/pkg/pod"
 	"os"

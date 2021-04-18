@@ -19,7 +19,7 @@ import (
 	_ "github.com/p9c/matrjoska/pkg/database/ffldb"
 	"github.com/p9c/matrjoska/pkg/indexers"
 	"github.com/p9c/matrjoska/pkg/interrupt"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/pod"
 )
 

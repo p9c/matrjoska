@@ -4,5 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pkg/gel" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pkg/gel/gio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pkg/log" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pkg/opts" vcs="Git" />
   </component>
 </project>

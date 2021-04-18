@@ -3,13 +3,14 @@ package float
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"strings"
+
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
-	
+
 	uberatomic "go.uber.org/atomic"
-	"strconv"
-	"strings"
 )
 
 // Opt stores an float64 configuration value

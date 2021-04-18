@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"os"
 	"sort"
 	"text/template"

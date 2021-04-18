@@ -14,7 +14,7 @@ import (
 	"github.com/tyler-smith/go-bip39"
 
 	"github.com/p9c/matrjoska/pkg/control/p2padvt"
-	"github.com/p9c/matrjoska/pkg/log"
+	"github.com/p9c/log"
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/text"
 	"github.com/p9c/matrjoska/pkg/pod"
