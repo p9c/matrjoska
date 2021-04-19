@@ -5,17 +5,18 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/bits"
-	block2 "github.com/p9c/matrjoska/pkg/block"
-	"github.com/p9c/matrjoska/pkg/fork"
 	"math/big"
 	"math/rand"
 	"time"
-	
+
+	"github.com/p9c/matrjoska/pkg/bits"
+	block2 "github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/fork"
+
 	"github.com/p9c/qu"
-	
+
 	"github.com/conformal/fastsha256"
-	
+
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"
@@ -290,7 +291,7 @@ func HandleGetWorkSubmission(s *Server, hexData string) (interface{}, error) {
 	//
 	// Return false to indicate the solve failed if it's not available.
 	state := s.GBTWorkState
-	
+
 	if state.Template.Block.Header.MerkleRoot.String() == "" {
 		D.Ln(
 			"Block submitted via getwork has no matching template for merkle root",

@@ -2,17 +2,15 @@
 
 package launchers
 
-import (
-	"github.com/p9c/matrjoska/pkg/pod"
-)
+import "github.com/p9c/matrjoska/pod/state"
 
 // kopachHandle runs the kopach miner
 func kopachHandle(ifc interface{}) (e error) {
-	D.Ln("kopach disabled for ios/android")
+	state.D.Ln("kopach disabled for ios/android")
 	return
 }
 
-func kopachWorkerHandle(cx *pod.State) (e error) {
-	D.Ln("kopach worker disabled for ios/android")
+func kopachWorkerHandle(cx *state.State) (e error) {
+	state.D.Ln("kopach worker disabled for ios/android")
 	return nil
 }

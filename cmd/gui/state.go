@@ -10,8 +10,9 @@ import (
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 
-	l "gioui.org/layout"
 	uberatomic "go.uber.org/atomic"
+
+	l "gioui.org/layout"
 
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"
@@ -236,7 +237,7 @@ func (m *Marshalled) Unmarshal(s *State) {
 	s.receiveAddresses = m.ReceiveAddressBook
 	s.sendAddresses = m.SendAddressBook
 	s.filter = m.Filter
-	
+
 	if m.ReceivingAddress != "1111111111111111111114oLvT2" {
 		var e error
 		var ra btcaddr.Address

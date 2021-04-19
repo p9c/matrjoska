@@ -152,7 +152,7 @@ func HandleCreateRawTransaction(
 			}
 		}
 		// Ensure the address is one of the supported types and that the network encoded with the address matches the
-		// network the server is currently on.
+		// network the Server is currently on.
 		switch addr.(type) {
 		case *btcaddr.PubKeyHash:
 		case *btcaddr.ScriptHash:
@@ -436,7 +436,7 @@ func HandleGetAddedNodeInfo(
 			// "invalid subcommand for addnode",
 		}
 	}
-	// Retrieve a list of persistent (added) peers from the server and filter the list of peers per the specified
+	// Retrieve a list of persistent (added) peers from the Server and filter the list of peers per the specified
 	// address (if any).
 	peers := s.Cfg.ConnMgr.PersistentPeers()
 	if c.Node != nil {
@@ -1085,7 +1085,7 @@ func HandleGetBlockTemplateRequest(
 		return nil, &btcjson.RPCError{
 			Code: btcjson.ErrRPCInternal.Code,
 			Message: "A coinbase transaction has been requested, " +
-				"but the server has not been configured with " +
+				"but the Server has not been configured with " +
 				"any payment addresses via --miningaddr",
 		}
 	}
@@ -2242,7 +2242,7 @@ func HandleNode(s *Server, cmd interface{}, closeChan qu.C) (interface{}, error)
 func HandlePing(s *Server, cmd interface{}, closeChan qu.C) (
 	interface{}, error,
 ) {
-	// Ask server to ping \o_
+	// Ask Server to ping \o_
 	nonce, e := wire.RandomUint64()
 	if e != nil {
 		return nil, InternalRPCError(

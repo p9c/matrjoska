@@ -5,8 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"gioui.org/text"
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
+
+	"gioui.org/text"
 
 	l "gioui.org/layout"
 
@@ -15,7 +16,7 @@ import (
 )
 
 func (wg *WalletGUI) balanceCard() func(gtx l.Context) l.Dimensions {
-	
+
 	// gtx.Constraints.Min.X = int(wg.TextSize.True * sp.inputWidth)
 	return func(gtx l.Context) l.Dimensions {
 		gtx.Constraints.Min.X =
@@ -99,7 +100,7 @@ func (wg *WalletGUI) balanceCard() func(gtx l.Context) l.Dimensions {
 														Font("go regular").
 														Alignment(text.End).
 														Color("DocText").Fn,
-												
+
 												).Fn,
 											).Fn,
 										).Fn,
@@ -739,7 +740,7 @@ func (wg *WalletGUI) RecentTransactions(n int, listName string) l.Widget {
 		// } else {
 		// 	first = false
 		// }
-		
+
 		ck := clickables[x]
 		out = append(
 			out,

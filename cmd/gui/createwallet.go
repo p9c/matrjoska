@@ -3,23 +3,17 @@ package gui
 import (
 	"fmt"
 	"os"
-	"path/filepath"
-	"time"
 
 	"golang.org/x/exp/shiny/materialdesign/icons"
 
-	"github.com/p9c/qu"
-
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/interrupt"
 
-	l "gioui.org/layout"
 	"github.com/urfave/cli"
 
-	"github.com/p9c/matrjoska/pkg/wallet"
+	l "gioui.org/layout"
 )
 
 const slash = string(os.PathSeparator)
@@ -55,7 +49,7 @@ func (wg *WalletGUI) createConfirmExitBar() l.Widget {
 		// 			).Fn,
 		// 		).
 		Rigid(
-			
+
 			wg.Flex().
 				Rigid(
 					func(gtx l.Context) l.Dimensions {
@@ -198,65 +192,65 @@ func (wg *WalletGUI) createWalletInputsAreValid() bool {
 
 func (wg *WalletGUI) createWalletAction() {
 	// wg.NodeRunCommandChan <- "stop"
-	D.Ln("clicked submit wallet")
-	wg.cx.Config.WalletFile.Set(filepath.Join(wg.cx.Config.DataDir.V(), wg.cx.ActiveNet.Name, constant.DbName))
-	dbDir := wg.cx.Config.WalletFile.V()
-	loader := wallet.NewLoader(wg.cx.ActiveNet, dbDir, 250)
-	// seed, _ := hex.DecodeString(wg.inputs["walletSeed"].GetText())
-	seed := wg.createSeed
-	pass := wg.passwords["passEditor"].GetPassword()
-	wg.cx.Config.WalletPass.Set(pass)
-	D.Ln("password", string(pass))
-	_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
-	w, e := loader.CreateNewWallet(
-		[]byte(pass),
-		[]byte(pass),
-		seed,
-		time.Now(),
-		false,
-		wg.cx.Config,
-		qu.T(),
-	)
-	D.Ln("*** created wallet")
-	if E.Chk(e) {
-		// return
-	}
-	w.Stop()
-	D.Ln("shutting down wallet", w.ShuttingDown())
-	w.WaitForShutdown()
-	D.Ln("starting main app")
-	wg.cx.Config.Generate.T()
-	wg.cx.Config.GenThreads.Set(1)
-	wg.cx.Config.NodeOff.F()
-	wg.cx.Config.WalletOff.F()
-	_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
-	// // we are going to assume the config is not manually misedited
-	// if apputil.FileExists(*wg.cx.Config.ConfigFile) {
-	// 	b, e := ioutil.ReadFile(*wg.cx.Config.ConfigFile)
-	// 	if e == nil {
-	// 		wg.cx.Config, wg.cx.ConfigMap = pod.EmptyConfig()
-	// 		e = json.Unmarshal(b, wg.cx.Config)
-	// 		if e != nil {
-	// 			E.Ln("error unmarshalling config", e)
-	// 			// os.Exit(1)
-	// 			panic(e)
-	// 		}
-	// 	} else {
-	// 		F.Ln("unexpected error reading configuration file:", e)
-	// 		// os.Exit(1)
-	// 		// return e
-	// 		panic(e)
-	// 	}
+	// D.Ln("clicked submit wallet")
+	// wg.cx.Config.WalletFile.Set(filepath.Join(wg.cx.Config.DataDir.V(), wg.cx.ActiveNet.Name, constant.DbName))
+	// dbDir := wg.cx.Config.WalletFile.V()
+	// loader := wallet.NewLoader(wg.cx.ActiveNet, dbDir, 250)
+	// // seed, _ := hex.DecodeString(wg.inputs["walletSeed"].GetText())
+	// seed := wg.createSeed
+	// pass := wg.passwords["passEditor"].GetPassword()
+	// wg.cx.Config.WalletPass.Set(pass)
+	// D.Ln("password", string(pass))
+	// _ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
+	// w, e := loader.CreateNewWallet(
+	// 	[]byte(pass),
+	// 	[]byte(pass),
+	// 	seed,
+	// 	time.Now(),
+	// 	false,
+	// 	wg.cx.Config,
+	// 	qu.T(),
+	// )
+	// D.Ln("*** created wallet")
+	// if E.Chk(e) {
+	// 	// return
 	// }
-	*wg.noWallet = false
-	// interrupt.Request()
-	// wg.wallet.Stop()
-	// wg.wallet.Start()
-	// wg.node.Start()
-	// wg.miner.Start()
-	wg.unlockPassword.Editor().SetText(pass)
-	wg.unlockWallet(pass)
-	interrupt.RequestRestart()
+	// w.Stop()
+	// D.Ln("shutting down wallet", w.ShuttingDown())
+	// w.WaitForShutdown()
+	// D.Ln("starting main app")
+	// wg.cx.Config.Generate.T()
+	// wg.cx.Config.GenThreads.Set(1)
+	// wg.cx.Config.NodeOff.F()
+	// wg.cx.Config.WalletOff.F()
+	// _ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
+	// // // we are going to assume the config is not manually misedited
+	// // if apputil.FileExists(*wg.cx.Config.ConfigFile) {
+	// // 	b, e := ioutil.ReadFile(*wg.cx.Config.ConfigFile)
+	// // 	if e == nil {
+	// // 		wg.cx.Config, wg.cx.ConfigMap = pod.EmptyConfig()
+	// // 		e = json.Unmarshal(b, wg.cx.Config)
+	// // 		if e != nil {
+	// // 			E.Ln("error unmarshalling config", e)
+	// // 			// os.Exit(1)
+	// // 			panic(e)
+	// // 		}
+	// // 	} else {
+	// // 		F.Ln("unexpected error reading configuration file:", e)
+	// // 		// os.Exit(1)
+	// // 		// return e
+	// // 		panic(e)
+	// // 	}
+	// // }
+	// *wg.noWallet = false
+	// // interrupt.Request()
+	// // wg.wallet.Stop()
+	// // wg.wallet.Start()
+	// // wg.node.Start()
+	// // wg.miner.Start()
+	// wg.unlockPassword.Editor().SetText(pass)
+	// wg.unlockWallet(pass)
+	// interrupt.RequestRestart()
 }
 
 func (wg *WalletGUI) createWalletTestnetToggle(b bool) {

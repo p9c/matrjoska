@@ -2,10 +2,12 @@ package podcmds
 
 import (
 	"fmt"
+
 	"github.com/gookit/color"
-	"github.com/p9c/opts/cmds"
+
 	"github.com/p9c/matrjoska/pod/launchers"
 	"github.com/p9c/matrjoska/version"
+	"github.com/p9c/opts/cmds"
 )
 
 // GetCommands returns available subcommands in Parallelcoin Pod
@@ -66,7 +68,7 @@ func GetCommands() (c cmds.Commands) {
 		},
 		{Name: "wallet", Description:
 		"run the wallet server (requires a chain node to function)",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.WalletHandle, // func(c interface{}) error { return nil },
 			Commands: []cmds.Command{
 				{Name: "drophistory", Description:
 				"reset the wallet transaction history",

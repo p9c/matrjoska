@@ -2,10 +2,11 @@ package cfg
 
 import (
 	"sort"
-	
-	"gioui.org/text"
+
 	"golang.org/x/exp/shiny/materialdesign/icons"
-	
+
+	"gioui.org/text"
+
 	l "gioui.org/layout"
 
 	"github.com/p9c/gel"
@@ -194,7 +195,7 @@ func (c *Config) Config() GroupsMap {
 	// 		}
 	// 	}
 	// }
-	
+
 	// D.S(tabNames)
 	return tabNames // .Widget(c)
 	// return func(gtx l.Context) l.Dimensions {

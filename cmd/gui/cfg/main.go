@@ -4,21 +4,20 @@ import (
 	"github.com/p9c/qu"
 
 	"github.com/p9c/gel"
-	"github.com/p9c/matrjoska/pkg/pod"
 )
 
-func New(cx *pod.State, w *gel.Window) *Config {
+func New(w *gel.Window, killAll qu.C) *Config {
 	cfg := &Config{
 		Window: w,
-		cx:     cx,
-		quit:   cx.KillAll,
+		// cx:     cx,
+		quit: killAll,
 	}
 	// cfg.Theme = cx.App
 	return cfg.Init()
 }
 
 type Config struct {
-	cx *pod.State
+	// cx *state.State
 	*gel.Window
 	Bools      map[string]*gel.Bool
 	lists      map[string]*gel.List

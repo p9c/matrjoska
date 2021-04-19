@@ -9,8 +9,9 @@ import (
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 
-	"gioui.org/op/paint"
 	"github.com/atotto/clipboard"
+
+	"gioui.org/op/paint"
 
 	"github.com/p9c/matrjoska/pkg/qrcode"
 )

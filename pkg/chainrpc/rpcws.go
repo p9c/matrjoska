@@ -123,7 +123,7 @@ type WSClient struct {
 	// Authenticated specifies whether a client has been Authenticated and therefore is allowed to communicated over the
 	// websocket.
 	Authenticated bool
-	// IsAdmin specifies whether a client may change the state of the server; false means its access is only to the
+	// IsAdmin specifies whether a client may change the state of the Server; false means its access is only to the
 	// limited set of RPC calls.
 	IsAdmin bool
 	// VerboseTxUpdates specifies whether a client has requested verbose information about all new transactions.
@@ -235,7 +235,7 @@ func (r *RescanKeys) UnspentSlice() []*wire.OutPoint {
 // WebsocketHandler handles a new websocket client by creating a new wsClient, starting it, and blocking until the
 // connection closes. Since it blocks, it must be run in a separate goroutine.
 //
-// It should be invoked from the websocket server handler which runs each new connection in a new goroutine thereby
+// It should be invoked from the websocket Server handler which runs each new connection in a new goroutine thereby
 // satisfying the requirement.
 func (s *Server) WebsocketHandler(
 	conn *websocket.Conn, remoteAddr string,
@@ -766,8 +766,8 @@ func (m *WSNtfnMgr) AddClient(wsc *WSClient) {
 // SendNotifyBlockConnected passes a block newly-connected to the best chain to the notification manager for block and
 // transaction notification processing.
 func (m *WSNtfnMgr) SendNotifyBlockConnected(block *block.Block) {
-	// As NotifyBlockConnected will be called by the block manager and the RPC server may no longer be running, use a
-	// select statement to unblock enqueuing the notification once the RPC server has begun shutting down.
+	// As NotifyBlockConnected will be called by the block manager and the RPC Server may no longer be running, use a
+	// select statement to unblock enqueuing the notification once the RPC Server has begun shutting down.
 	select {
 	case m.QueueNotification <- (*NotificationBlockConnected)(block):
 	case <-m.Quit.Wait():
@@ -777,8 +777,8 @@ func (m *WSNtfnMgr) SendNotifyBlockConnected(block *block.Block) {
 // SendNotifyBlockDisconnected passes a block disconnected from the best chain to the notification manager for block
 // notification processing.
 func (m *WSNtfnMgr) SendNotifyBlockDisconnected(block *block.Block) {
-	// As NotifyBlockDisconnected will be called by the block manager and the RPC server may no longer be running, use a
-	// select statement to unblock enqueuing the notification once the RPC server has begun shutting down.
+	// As NotifyBlockDisconnected will be called by the block manager and the RPC Server may no longer be running, use a
+	// select statement to unblock enqueuing the notification once the RPC Server has begun shutting down.
 	select {
 	case m.QueueNotification <- (*NotificationBlockDisconnected)(block):
 	case <-m.Quit.Wait():
@@ -792,8 +792,8 @@ func (m *WSNtfnMgr) SendNotifyMempoolTx(tx *util.Tx, isNew bool) {
 		IsNew: isNew,
 		Tx:    tx,
 	}
-	// As NotifyMempoolTx will be called by mempool and the RPC server may no longer be running, use a select statement
-	// to unblock enqueuing the notification once the RPC server has begun shutting down.
+	// As NotifyMempoolTx will be called by mempool and the RPC Server may no longer be running, use a select statement
+	// to unblock enqueuing the notification once the RPC Server has begun shutting down.
 	select {
 	case m.QueueNotification <- n:
 	case <-m.Quit.Wait():
@@ -804,7 +804,7 @@ func (m *WSNtfnMgr) SendNotifyMempoolTx(tx *util.Tx, isNew bool) {
 func (m *WSNtfnMgr) GetNumClients() (n int) {
 	select {
 	case n = <-m.NumClients:
-	case <-m.Quit.Wait(): // Use default n (0) if server has shut down.
+	case <-m.Quit.Wait(): // Use default n (0) if Server has shut down.
 	}
 	return
 }
@@ -1051,7 +1051,7 @@ out:
 			}
 		case m.NumClients <- len(clients):
 		case <-m.Quit.Wait():
-			// RPC server shutting down.
+			// RPC Server shutting down.
 			break out
 		}
 	}

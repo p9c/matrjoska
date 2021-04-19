@@ -1,17 +1,16 @@
 package mining
 
 import (
+	"github.com/p9c/matrjoska/cmd/node/active"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
-	"github.com/p9c/matrjoska/pkg/podopts"
-	
-	"github.com/p9c/matrjoska/cmd/node/state"
 	wm "github.com/p9c/matrjoska/pkg/waddrmgr"
 	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/pod/config"
 )
 
 // RefillMiningAddresses adds new addresses to the mining address pool for the miner
 // todo: make this remove ones that have been used or received a payment or mined
-func RefillMiningAddresses(w *wallet.Wallet, cfg *podopts.Config, stateCfg *state.Config) {
+func RefillMiningAddresses(w *wallet.Wallet, cfg *config.Config, stateCfg *active.Config) {
 	if w == nil {
 		D.Ln("trying to refill without a wallet")
 		return

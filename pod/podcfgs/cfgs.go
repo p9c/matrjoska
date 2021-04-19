@@ -16,8 +16,8 @@ import (
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/database"
-	"github.com/p9c/matrjoska/pkg/podopts"
 	"github.com/p9c/matrjoska/pkg/util/hdkeychain"
+	"github.com/p9c/matrjoska/pod/config"
 	"github.com/p9c/matrjoska/pod/podcmds"
 	"github.com/p9c/matrjoska/pod/podconfig/checkpoints"
 	"github.com/p9c/opts/binary"
@@ -31,9 +31,9 @@ import (
 )
 
 // GetDefaultConfig returns a Config struct pristine factory fresh
-func GetDefaultConfig() (c *podopts.Config) {
+func GetDefaultConfig() (c *config.Config) {
 	T.Ln("getting default config")
-	c = &podopts.Config{
+	c = &config.Config{
 		Commands: podcmds.GetCommands(),
 		Map:      GetConfigs(),
 	}
@@ -51,12 +51,12 @@ func GetDefaultConfig() (c *podopts.Config) {
 }
 
 // GetConfigs returns configuration options for ParallelCoin Pod
-func GetConfigs() (c podopts.Configs) {
+func GetConfigs() (c config.Configs) {
 	network := "mainnet"
 	rand.Seed(time.Now().UnixNano())
 	var datadir = &atomic.Value{}
 	datadir.Store([]byte(appdata.Dir(constant.Name, false)))
-	c = podopts.Configs{
+	c = config.Configs{
 		"AddCheckpoints": list.New(meta.Data{
 			Aliases: []string{"AC"},
 			Group:   "debug",

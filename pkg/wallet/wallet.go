@@ -5,19 +5,20 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/p9c/matrjoska/pkg/amt"
-	"github.com/p9c/matrjoska/pkg/btcaddr"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/podopts"
 	"sort"
 	"strings"
 	"sync"
 	"time"
-	
+
 	"github.com/p9c/qu"
-	
+
 	"github.com/davecgh/go-spew/spew"
-	
+
+	"github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pod/config"
+
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainclient"
@@ -93,7 +94,7 @@ type Wallet struct {
 	// reorganizeToHash chainhash.Hash
 	// reorganizing     bool
 	NtfnServer  *NotificationServer
-	PodConfig   *podopts.Config
+	PodConfig   *config.Config
 	chainParams *chaincfg.Params
 	wg          sync.WaitGroup
 	started     bool
@@ -3206,7 +3207,7 @@ func Open(
 	cbs *waddrmgr.OpenCallbacks,
 	params *chaincfg.Params,
 	recoveryWindow uint32,
-	podConfig *podopts.Config,
+	podConfig *config.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	// debug.PrintStack()

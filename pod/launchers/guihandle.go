@@ -2,6 +2,8 @@
 
 package launchers
 
+import "github.com/p9c/matrjoska/pod/state"
+
 // GUIHandle starts up the GUI wallet
 func GUIHandle(ifc interface{}) (e error) {
 	// var cx *pod.State
@@ -18,8 +20,8 @@ func GUIHandle(ifc interface{}) (e error) {
 	// // interrupt.AddHandler(func() {
 	// // 	D.Ln("wallet gui is shut down")
 	// // })
-	// if e = gui.Main(cx); E.Chk(e) {
+	// if e = gui.CtlMain(cx); E.Chk(e) {
 	// }
-	D.Ln("pod gui finished")
+	state.D.Ln("pod gui finished")
 	return
 }

@@ -6,25 +6,24 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/p9c/matrjoska/cmd/ctl"
-	"github.com/p9c/matrjoska/cmd/node/node"
-	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/pod"
-
 	"github.com/p9c/qu"
 
+	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/pod/config"
+	"github.com/p9c/matrjoska/pod/state"
+
 	"github.com/p9c/matrjoska/pkg/apputil"
-	"github.com/p9c/matrjoska/walletmain"
 )
 
 // NodeHandle runs the ParallelCoin blockchain node
 func NodeHandle(ifc interface{}) (e error) {
-	var cx *pod.State
+	var cx *state.State
 	var ok bool
-	if cx, ok = ifc.(*pod.State); !ok {
+	if cx, ok = ifc.(*state.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
-	I.Ln("running node handler")
+	state.I.Ln("running node handler")
 	cx.NodeReady = qu.T()
 	cx.Node.Store(false)
 	// // serviceOptions defines the configuration options for the daemon as a service on Windows.
@@ -45,30 +44,30 @@ func NodeHandle(ifc interface{}) (e error) {
 	// 	return nil
 	// }
 	go func() {
-		if e := node.Main(cx); E.Chk(e) {
-			E.Ln("error starting node ", e)
+		if e := NodeMain(cx); state.E.Chk(e) {
+			state.E.Ln("error starting node ", e)
 		}
 	}()
-	I.Ln("starting node")
+	state.I.Ln("starting node")
 	if cx.Config.DisableRPC.False() {
 		cx.RPCServer = <-cx.NodeChan
 		cx.NodeReady.Q()
 		cx.Node.Store(true)
-		I.Ln("node started")
+		state.I.Ln("node started")
 	}
 	// }
 	cx.WaitWait()
-	I.Ln("node is now fully shut down")
+	state.I.Ln("node is now fully shut down")
 	cx.WaitGroup.Wait()
 	<-cx.KillAll
 	return nil
 }
 
-// walletHandle runs the wallet server
-func walletHandle(ifc interface{}) (e error) {
-	var cx *pod.State
+// WalletHandle runs the wallet server
+func WalletHandle(ifc interface{}) (e error) {
+	var cx *state.State
 	var ok bool
-	if cx, ok = ifc.(*pod.State); !ok {
+	if cx, ok = ifc.(*state.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
 	cx.Config.WalletFile.Set(filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, constant.DbName))
@@ -76,8 +75,8 @@ func walletHandle(ifc interface{}) (e error) {
 	// 	Params.Name + slash + wallet.WalletDbName
 	if !apputil.FileExists(cx.Config.WalletFile.V()) && !cx.IsGUI {
 		// D.Ln(cx.ActiveNet.Name, *cx.Config.WalletFile)
-		if e = walletmain.CreateWallet(cx.ActiveNet, cx.Config); E.Chk(e) {
-			E.Ln("failed to create wallet", e)
+		if e = wallet.CreateWallet(cx.ActiveNet, cx.Config); state.E.Chk(e) {
+			state.E.Ln("failed to create wallet", e)
 			return e
 		}
 		fmt.Println("restart to complete initial setup")
@@ -85,25 +84,25 @@ func walletHandle(ifc interface{}) (e error) {
 	}
 	// for security with apps launching the wallet, the public password can be set with a file that is deleted after
 	walletPassPath := filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, "wp.txt")
-	D.Ln("reading password from", walletPassPath)
+	state.D.Ln("reading password from", walletPassPath)
 	if apputil.FileExists(walletPassPath) {
 		var b []byte
-		if b, e = ioutil.ReadFile(walletPassPath); !E.Chk(e) {
+		if b, e = ioutil.ReadFile(walletPassPath); !state.E.Chk(e) {
 			cx.Config.WalletPass.SetBytes(b)
-			D.Ln("read password '" + string(b) + "'")
+			state.D.Ln("read password '" + string(b) + "'")
 			for i := range b {
 				b[i] = 0
 			}
-			if e = ioutil.WriteFile(walletPassPath, b, 0700); E.Chk(e) {
+			if e = ioutil.WriteFile(walletPassPath, b, 0700); state.E.Chk(e) {
 			}
-			if e = os.Remove(walletPassPath); E.Chk(e) {
+			if e = os.Remove(walletPassPath); state.E.Chk(e) {
 			}
-			D.Ln("wallet cookie deleted", *cx.Config.WalletPass)
+			state.D.Ln("wallet cookie deleted", *cx.Config.WalletPass)
 		}
 	}
 	cx.WalletKill = qu.T()
-	if e = walletmain.Main(cx); E.Chk(e) {
-		E.Ln("failed to start up wallet", e)
+	if e = wallet.Main(cx); state.E.Chk(e) {
+		state.E.Ln("failed to start up wallet", e)
 	}
 	// if !*cx.Config.DisableRPC {
 	// 	cx.WalletServer = <-cx.WalletChan
@@ -114,23 +113,23 @@ func walletHandle(ifc interface{}) (e error) {
 }
 
 func CtlHandleList(ifc interface{}) (e error) {
-	var cx *pod.State
+	var cx *state.State
 	var ok bool
-	if cx, ok = ifc.(*pod.State); !ok {
+	if cx, ok = ifc.(*state.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
 	_ = cx
-	ctl.ListCommands()
+	config.ListCommands()
 	return nil
 }
 
 func CtlHandle(ifc interface{}) (e error) {
-	var cx *pod.State
+	var cx *state.State
 	var ok bool
-	if cx, ok = ifc.(*pod.State); !ok {
+	if cx, ok = ifc.(*state.State); !ok {
 		return fmt.Errorf("cannot run without a state")
 	}
 	cx.Config.LogLevel.Set("off")
-	ctl.Main(cx)
+	config.CtlMain(cx.Config)
 	return nil
 }

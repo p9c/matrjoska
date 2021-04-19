@@ -21,7 +21,7 @@ import (
 func (wg *WalletGUI) GetAppWidget() (a *gel.App) {
 	a = wg.App(wg.Window.Width, uberatomic.NewString("home"), Break1).SetMainDirection(l.W)
 	wg.MainApp = a
-	wg.config = cfg.New(wg.cx, wg.Window)
+	wg.config = cfg.New(wg.Window, wg.quit)
 	wg.configs = wg.config.Config()
 	a.Pages(
 		map[string]l.Widget{

@@ -9,9 +9,10 @@ import (
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 
+	"github.com/atotto/clipboard"
+
 	l "gioui.org/layout"
 	"gioui.org/text"
-	"github.com/atotto/clipboard"
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/pkg/chainhash"
@@ -136,7 +137,7 @@ func (sp *SendPage) MediumList(gtx l.Context) l.Dimensions {
 				gtx.Constraints.Max.X =
 					int(wg.TextSize.V * sp.inputWidth)
 				// gtx.Constraints.Min.X = int(wg.TextSize.True * sp.inputWidth)
-				
+
 				return wg.VFlex().AlignStart().
 					Rigid(
 						wg.lists["sendMedium"].

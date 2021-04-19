@@ -20,6 +20,7 @@ require (
 	github.com/hpcloud/tail v1.0.0 // indirect
 	github.com/jackpal/gateway v1.0.7
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
+	github.com/kisielk/godepgraph v0.0.0-20190626013829-57a7e4a651a9 // indirect
 	github.com/kkdai/bstream v1.0.0
 	github.com/marusama/semaphore v0.0.0-20190110074507-6952cef993b2
 	github.com/niubaoshu/gotiny v0.0.3

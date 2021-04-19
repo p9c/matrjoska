@@ -22,20 +22,20 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/p9c/qu"
+
+	"github.com/btcsuite/websocket"
+	uberatomic "go.uber.org/atomic"
+
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/bits"
 	"github.com/p9c/matrjoska/pkg/block"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/podopts"
+	"github.com/p9c/matrjoska/pod/config"
 
-	"github.com/p9c/qu"
-
-	"github.com/btcsuite/websocket"
-	uberatomic "go.uber.org/atomic"
-
-	"github.com/p9c/matrjoska/cmd/node/state"
+	"github.com/p9c/matrjoska/cmd/node/active"
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"
@@ -71,8 +71,8 @@ type GBTWorkState struct {
 	NotifyMap     map[chainhash.Hash]map[int64]qu.C
 	TimeSource    blockchain.MedianTimeSource
 	Algo          string
-	StateCfg      *state.Config
-	Config        *podopts.Config
+	StateCfg      *active.Config
+	Config        *config.Config
 }
 
 // ParsedRPCCmd represents a JSON-RPC request object that has been parsed into a known concrete command along with any
@@ -98,11 +98,11 @@ type RetrievedTx struct {
 	Tx      *util.Tx
 }
 
-// Server provides a concurrent safe RPC server to a chain server.
+// Server provides a concurrent safe RPC Server to a chain Server.
 type Server struct {
 	Cfg                             ServerConfig
-	StateCfg                        *state.Config
-	Config                          *podopts.Config
+	StateCfg                        *active.Config
+	Config                          *config.Config
 	NtfnMgr                         *WSNtfnMgr
 	StatusLines                     map[int]string
 	StatusLock                      sync.RWMutex
@@ -119,31 +119,31 @@ type Server struct {
 	StartController, StopController qu.C
 }
 
-// ServerConfig is a descriptor containing the RPC server configuration.
+// ServerConfig is a descriptor containing the RPC Server configuration.
 type ServerConfig struct {
-	// Cx passes through the context variable for setting up a server
-	Cfg *podopts.Config
-	// Listeners defines a slice of listeners for which the RPC server will take ownership of and accept connections.
+	// Cx passes through the context variable for setting up a Server
+	Cfg *config.Config
+	// Listeners defines a slice of listeners for which the RPC Server will take ownership of and accept connections.
 	//
-	// Since the RPC server takes ownership of these listeners, they will be closed when the RPC server is stopped.
+	// Since the RPC Server takes ownership of these listeners, they will be closed when the RPC Server is stopped.
 	Listeners []net.Listener
-	// StartupTime is the unix timestamp for when the server that is hosting the RPC server started.
+	// StartupTime is the unix timestamp for when the Server that is hosting the RPC Server started.
 	StartupTime int64
-	// ConnMgr defines the connection manager for the RPC server to use.
+	// ConnMgr defines the connection manager for the RPC Server to use.
 	//
-	// It provides the RPC server with a means to do things such as add, remove, connect, disconnect, and query peers as
+	// It provides the RPC Server with a means to do things such as add, remove, connect, disconnect, and query peers as
 	// well as other connection-related data and tasks.
 	ConnMgr ServerConnManager
-	// SyncMgr defines the sync manager for the RPC server to use.
+	// SyncMgr defines the sync manager for the RPC Server to use.
 	SyncMgr ServerSyncManager
-	// These fields allow the RPC server to interface with the local block chain data and state.
+	// These fields allow the RPC Server to interface with the local block chain data and state.
 	TimeSource  blockchain.MedianTimeSource
 	Chain       *blockchain.BlockChain
 	ChainParams *chaincfg.Params
 	DB          database.DB
 	// TxMemPool defines the transaction memory pool to interact with.
 	TxMemPool *mempool.TxPool
-	// These fields allow the RPC server to interface with mining.
+	// These fields allow the RPC Server to interface with mining.
 	//
 	// Generator produces block templates and the CPUMiner solves them using the CPU.
 	//
@@ -152,7 +152,7 @@ type ServerConfig struct {
 	Generator *mining.BlkTmplGenerator
 	// CPUMiner  *cpuminer.CPUMiner
 	//
-	// These fields define any optional indexes the RPC server can make use of to provide additional data when queried.
+	// These fields define any optional indexes the RPC Server can make use of to provide additional data when queried.
 	TxIndex   *indexers.TxIndex
 	AddrIndex *indexers.AddrIndex
 	CfIndex   *indexers.CFIndex
@@ -167,7 +167,7 @@ type ServerConfig struct {
 	StartController, StopController qu.C
 }
 
-// ServerConnManager represents a connection manager for use with the RPC server. The interface contract requires that
+// ServerConnManager represents a connection manager for use with the RPC Server. The interface contract requires that
 // all of these methods are safe for concurrent access.
 type ServerConnManager interface {
 	// Connect adds the provided address as a new outbound peer. The permanent flag indicates whether or not to make the
@@ -211,7 +211,7 @@ type ServerConnManager interface {
 	RelayTransactions(txns []*mempool.TxDesc)
 }
 
-// ServerPeer represents a peer for use with the RPC server.
+// ServerPeer represents a peer for use with the RPC Server.
 //
 // The interface contract requires that all of these methods are safe for concurrent access.
 type ServerPeer interface {
@@ -225,7 +225,7 @@ type ServerPeer interface {
 	GetFeeFilter() int64
 }
 
-// ServerSyncManager represents a sync manager for use with the RPC server.
+// ServerSyncManager represents a sync manager for use with the RPC Server.
 //
 // The interface contract requires that all of these methods are safe for concurrent access.
 type ServerSyncManager interface {
@@ -249,7 +249,7 @@ const (
 	JSONRPCSemverMajor  = 1
 	JSONRPCSemverMinor  = 3
 	JSONRPCSemverPatch  = 0
-	// RPCAuthTimeoutSeconds is the number of seconds a connection to the RPC server is allowed to stay open without
+	// RPCAuthTimeoutSeconds is the number of seconds a connection to the RPC Server is allowed to stay open without
 	// authenticating before it is closed.
 	RPCAuthTimeoutSeconds = 10
 	// GBTNonceRange is two 32-bit big-endian hexadecimal integers which represent the valid ranges of nonces returned
@@ -258,7 +258,7 @@ const (
 	// GBTRegenerateSeconds is the number of seconds that must pass before a new template is generated when the previous
 	// block hash has not changed and there have been changes to the available transactions in the memory pool.
 	GBTRegenerateSeconds = 60
-	// MaxProtocolVersion is the max protocol version the server supports.
+	// MaxProtocolVersion is the max protocol version the Server supports.
 	MaxProtocolVersion = 70002
 )
 
@@ -295,7 +295,7 @@ var (
 			),
 		),
 	}
-	// GBTMutableFields are the manipulations the server allows to be made to block templates generated by the
+	// GBTMutableFields are the manipulations the Server allows to be made to block templates generated by the
 	// getblocktemplate RPC.
 	//
 	// It is declared here to avoid the overhead of creating the slice on every invocation for constant data.
@@ -840,7 +840,7 @@ func (state *GBTWorkState) BlockTemplateResult(useCoinbaseValue bool, submitOld 
 			return nil, &btcjson.RPCError{
 				Code: btcjson.ErrRPCInternal.Code,
 				Message: "A coinbase transaction has been " +
-					"requested, but the server has not " +
+					"requested, but the Server has not " +
 					"been configured with any payment " +
 					"addresses via --miningaddr",
 			}
@@ -1093,7 +1093,7 @@ func (s *Server) RequestedProcessShutdown() qu.C {
 	return s.RequestProcessShutdown
 }
 
-// Start is used by server.go_ to start the rpc listener.
+// Start is used by Server.go_ to start the rpc listener.
 func (s *Server) Start() {
 	if atomic.AddInt32(&s.Started, 1) != 1 {
 		return
@@ -1149,7 +1149,7 @@ func (s *Server) Start() {
 	for _, listener := range s.Cfg.Listeners {
 		s.WG.Add(1)
 		go func(listener net.Listener) {
-			I.Ln("chain RPC server listening on ", listener.Addr())
+			I.Ln("chain RPC Server listening on ", listener.Addr())
 			e := httpServer.Serve(listener)
 			if e != nil {
 				D.Ln(e)
@@ -1164,13 +1164,13 @@ func (s *Server) Start() {
 	s.NtfnMgr.Start()
 }
 
-// Stop is used by server.go_ to stop the rpc listener.
+// Stop is used by Server.go_ to stop the rpc listener.
 func (s *Server) Stop() (e error) {
 	if atomic.AddInt32(&s.Shutdown, 1) != 1 {
-		W.Ln("RPC server is already in the process of shutting down")
+		W.Ln("RPC Server is already in the process of shutting down")
 		return nil
 	}
-	I.Ln("RPC server shutting down")
+	I.Ln("RPC Server shutting down")
 	s.Quit.Q()
 	for _, listener := range s.Cfg.Listeners {
 		e := listener.Close()
@@ -1182,7 +1182,7 @@ func (s *Server) Stop() (e error) {
 	s.NtfnMgr.Shutdown()
 	s.NtfnMgr.WaitForShutdown()
 	s.WG.Wait()
-	D.Ln("RPC server shutdown complete")
+	D.Ln("RPC Server shutdown complete")
 	return nil
 }
 
@@ -1192,7 +1192,7 @@ func (s *Server) Stop() (e error) {
 // check is time-constant.
 //
 // The first bool return value signifies auth success ( true if successful) and the second bool return value specifies
-// whether the user can change the state of the server (true) or whether the user is limited (false).
+// whether the user can change the state of the Server (true) or whether the user is limited (false).
 //
 // The second is always false if the first is.
 func (s *Server) CheckAuth(r *http.Request, require bool) (bool, bool, error) {
@@ -1266,7 +1266,7 @@ func (s *Server) HandleBlockchainNotification(notification *blockchain.Notificat
 
 // HTTPStatusLine returns a response Status-Line (RFC 2616 Section 6.1) for the given request and response status code.
 //
-// This function was lifted and adapted from the standard library HTTP server code since it's not exported.
+// This function was lifted and adapted from the standard library HTTP Server code since it's not exported.
 func (s *Server) HTTPStatusLine(req *http.Request, code int) string {
 	// Fast path:
 	key := code
@@ -1330,12 +1330,12 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 		)
 		return
 	}
-	// Unfortunately, the http server doesn't provide the ability to change the read deadline for the new connection and
+	// Unfortunately, the http Server doesn't provide the ability to change the read deadline for the new connection and
 	// having one breaks long polling.
 	//
 	// However, not having a read deadline on the initial connection would mean clients can connect and idle forever.
 	//
-	// Thus, hijack the connection from the HTTP server, clear the read deadline, and handle writing the response
+	// Thus, hijack the connection from the HTTP Server, clear the read deadline, and handle writing the response
 	// manually.
 	hj, ok := w.(http.Hijacker)
 	if !ok {
@@ -2008,7 +2008,7 @@ func init() {
 
 // InternalRPCError is a convenience function to convert an internal error to an
 // RPC error with the appropriate code set. It also logs the error to the RPC
-// server subsystem since internal errors really should not occur.
+// Server subsystem since internal errors really should not occur.
 //
 // The context parameter is only used in the l mayo be empty if it's not needed.
 func InternalRPCError(errStr, context string) *btcjson.RPCError {
@@ -2056,8 +2056,8 @@ func NewGbtWorkState(
 
 // NewRPCServer returns a new instance of the RPCServer struct.
 func NewRPCServer(
-	config *ServerConfig, statecfg *state.Config,
-	podcfg *podopts.Config,
+	config *ServerConfig, statecfg *active.Config,
+	podcfg *config.Config,
 ) (*Server, error) {
 	rpc := Server{
 		Cfg:                    *config,

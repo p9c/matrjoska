@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/p9c/matrjoska/pkg/amt"
-	"github.com/p9c/matrjoska/pkg/control/p2padvt"
+	"github.com/p9c/matrjoska/pkg/chainrpc/p2padvt"
 	"github.com/p9c/matrjoska/pkg/transport"
 	"github.com/p9c/matrjoska/pkg/wire"
 

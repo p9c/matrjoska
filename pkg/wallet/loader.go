@@ -2,18 +2,18 @@ package wallet
 
 import (
 	"errors"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
-	"github.com/p9c/matrjoska/pkg/podopts"
 	"os"
 	"path/filepath"
 	"sync"
 	"time"
-	
+
 	"github.com/p9c/qu"
-	
+
+	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/util/prompt"
 	"github.com/p9c/matrjoska/pkg/waddrmgr"
 	"github.com/p9c/matrjoska/pkg/walletdb"
+	"github.com/p9c/matrjoska/pod/config"
 )
 
 // Loader implements the creating of new and opening of existing wallets, while providing a callback system for other
@@ -53,7 +53,7 @@ func (ld *Loader) CreateNewWallet(
 	pubPassphrase, privPassphrase, seed []byte,
 	bday time.Time,
 	noStart bool,
-	podConfig *podopts.Config,
+	podConfig *config.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	ld.Mutex.Lock()
@@ -114,7 +114,7 @@ func (ld *Loader) LoadedWallet() (*Wallet, bool) {
 func (ld *Loader) OpenExistingWallet(
 	pubPassphrase []byte,
 	canConsolePrompt bool,
-	podConfig *podopts.Config,
+	podConfig *config.Config,
 	quit qu.C,
 ) (*Wallet, error) {
 	defer ld.Mutex.Unlock()

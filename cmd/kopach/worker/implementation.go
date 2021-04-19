@@ -9,18 +9,18 @@ import (
 	"time"
 
 	"github.com/p9c/matrjoska/pkg/bits"
-	"github.com/p9c/matrjoska/pkg/control/templates"
+	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
+	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/fork"
 
 	"github.com/p9c/qu"
 
 	"github.com/p9c/matrjoska/pkg/blockchain"
-	"github.com/p9c/matrjoska/pkg/control/hashrate"
-	"github.com/p9c/matrjoska/pkg/control/sol"
+	"github.com/p9c/matrjoska/pkg/chainrpc/hashrate"
+	"github.com/p9c/matrjoska/pkg/chainrpc/sol"
 
 	"go.uber.org/atomic"
 
-	"github.com/p9c/matrjoska/pkg/control"
 	"github.com/p9c/matrjoska/pkg/interrupt"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
 	"github.com/p9c/matrjoska/pkg/ring"
@@ -330,7 +330,7 @@ func (w *Worker) SendPass(pass []byte, reply *bool) (e error) {
 		w,
 		pass,
 		transport.DefaultPort,
-		control.MaxDatagramSize,
+		constant.MaxDatagramSize,
 		transport.Handlers{},
 		w.quit,
 	)

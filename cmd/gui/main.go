@@ -13,15 +13,16 @@ import (
 	"github.com/niubaoshu/gotiny"
 	"github.com/tyler-smith/go-bip39"
 
-	"github.com/p9c/matrjoska/pkg/control/p2padvt"
 	"github.com/p9c/log"
+	"github.com/p9c/matrjoska/pkg/chainrpc/p2padvt"
+	"github.com/p9c/matrjoska/pkg/transport"
+	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/opts/meta"
 	"github.com/p9c/opts/text"
-	"github.com/p9c/matrjoska/pkg/pod"
-	"github.com/p9c/matrjoska/pkg/transport"
+
+	uberatomic "go.uber.org/atomic"
 
 	"gioui.org/op/paint"
-	uberatomic "go.uber.org/atomic"
 
 	"github.com/p9c/qu"
 
@@ -39,7 +40,7 @@ import (
 )
 
 // Main is the entrypoint for the wallet GUI
-func Main(cx *pod.State) (e error) {
+func Main(cx *state.State) (e error) {
 	size := uberatomic.NewInt32(0)
 	noWallet := true
 	wg := &WalletGUI{
@@ -63,7 +64,7 @@ type IncDecMap map[string]*gel.IncDec
 
 type WalletGUI struct {
 	wg                        sync.WaitGroup
-	cx                        *pod.State
+	cx                        *state.State
 	quit                      qu.C
 	State                     *State
 	noWallet                  *bool

@@ -1,46 +1,15 @@
 # glom
 
-#### Plan 9 Crypto's Answer to Acme
+Glom is a command line shell, code and script editor and application platform in one.
 
-One of the most notable and visible elements of Plan 9 from Bell Labs operating system is the editor, 'Acme', which
-combines the functionalities of a code editor with a terminal.
+It keeps a branching history of commands entered, which are either directly Go expressions or API calls in a arbitrary textual form similar to command line options, and can be executed immediately, or deferred until a testable unit is constructed.
 
-Glom is not an attempt to copy Acme as we consider it to be a cut-down copy of Oberon 2's GUI/OS anyway, and yes that
-hints at the kind of seamless integration between the language, and the system that it will provide.
+The branching logs of commands entered can be grouped into functions, and functions grouped into packages, and then published to distributed content addressable repositories.
 
-## Glom is not a text editor, it is not an IDE, and it is not a shell, it is all of those things in one.
+Glom stores the content reference to called functions as at the last time they were compiled, ending versioning hell.
 
-Commands can be:
+Glom allows you to link any and all content to these packages, one can keep a dev journal, write guides, attach video, photographs and so on, right next to the code using document editors that from an early point will be created. 
 
-- executed one by one, with all declared variables in scope up to the session boundary
+Last, but not least, it hosts the content you want to share with the world via IPFS or similar peer to peer protocol, the whole relevant history, or just the current state, the code is fingerprinted by its content, signed by its authors.
 
-- declarations of symbols can be referred to by later statements by content hash or a symbol at the end of a path, with
-  an automatic session-based global scope
-
-- statements previously declared can be grouped into a sequence, the variables assigned to be parameters, return values,
-  or internal values, tagged with versions
-
-- the version at the HEAD of a path is automatically stored in a statement that invokes it, and on the receiving side,
-  this version hash is carried with the message, and the function then retrieved to handle it, if not already cached.
-
-- values that are not exported from the internal set are automatically exported as return values in a refactored child
-  fork of the function
-
-- locally defined symbols and packages can be automatically exported to a path at a URL the user has permission to run a
-  Glom Cache, which can be imported then by other users, forked and combined into new packages
-
-- simply by adding a main function to a package, Glom will replicate the currently focused symbol to a forked package
-  that is now an entrypoint and whose parameters become an API
-
-- comments can include both text.Template or Printf formatting substrings, including embedding function/API calls, which
-  are collated into a function
-
-- documentation can be generated from these automatically, and a filter set defined to output these documentation/logs
-  as a structured log, tied to the executing code via content hashes
-
-- with a full log available, the execution be replayed, the values automatically mocked in at the given times they are
-  received from outside the package.
-
-- the command history is a directed acyclic graph that forks on modification, that is completely addressable via hash
-  chains, can be tied to paths and symbols and (subjective) timestamps
-  
+With it's friendly navigation, even non programmers will be able to write simple linear scripts composed of variables and API calls, and with easy auditing the security of apps created and distributed this way, every last statement can be accounted for and malicious code and its authors pruned from the tree.

@@ -1,8 +1,9 @@
 package gui
 
 import (
-	l "gioui.org/layout"
 	"golang.org/x/exp/shiny/materialdesign/icons"
+
+	l "gioui.org/layout"
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/pkg/p9icons"

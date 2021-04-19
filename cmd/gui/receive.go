@@ -6,9 +6,10 @@ import (
 
 	"github.com/p9c/matrjoska/pkg/amt"
 
+	"github.com/atotto/clipboard"
+
 	l "gioui.org/layout"
 	"gioui.org/text"
-	"github.com/atotto/clipboard"
 
 	"github.com/p9c/gel"
 )
@@ -89,7 +90,7 @@ func (rp *ReceivePage) MediumList(gtx l.Context) l.Dimensions {
 		return wg.Inset(0.25, qrWidget[index]).Fn(gtx)
 	}
 	var historyWidget []l.Widget
-	
+
 	historyWidget = append(historyWidget, rp.GetAddressbookHistoryCards("DocBg")...)
 	historyLE := func(gtx l.Context, index int) l.Dimensions {
 		return wg.Inset(
