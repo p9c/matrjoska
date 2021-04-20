@@ -399,3 +399,96 @@ of the third party's own outlets.
 Once the data is certified by the oracle, it becomes deterministic, shared 
 data for applications to connect this data feed to blockchain based 
 applications.
+
+### Bootstrapping
+
+The first phase of developing the Pod Console aims to first quickly make the 
+console itself stored in the format used by the console and editable. 
+Similar to the bootstrap step in compiler construction, this step enables 
+the platform to quickly advance to being changed to suit how it suits being 
+changed.
+
+The first milestone is to have created a native Console Log that builds the 
+Console.
+
+Once the system understands itself, it can be rapidly extended in any 
+direction whatsoever. It will have a scheme for converting between API/CLI 
+call format, and the native Go function syntax that is then compiled to be 
+executed, and the user can chain lists of commands in any of the implemented 
+parameter syntax formats, symbols given names, functions and types grouped 
+together automatically and turned into Go packages that can then be shared 
+immediately over IPFS.
+
+From this point onwards, Plan 9 Crypto will pivot to focus on developing the 
+platform with examples, integrated documentation, peer to peer hosting of 
+source code and assets and one or several proof of concept projects.
+
+### Proof of Concept 1: Inventory, Logistics and Compliance for Construction Industry
+
+An application part way into development with a basic demonstration allows 
+the creation of public records relating to materials, sources of materials, 
+market current offered inventory, and automated generation of documentation 
+required for compliance with government regulations to streamline compliance 
+and reduce compliance administration costs to the minimum possible, leaving 
+more capital aside to apply to other business purposes.
+
+Through the application of the principle of designing protocols that 
+encapsulate, composit and present data from one or many sources, the detail 
+level of the data can eventually reach a point where it becomes effectively 
+an authoritative resource on the information about everything related to 
+governance of the industry and the facilitation of trade and discovery of 
+profit opportunities and cost-savings opportunities that better connections 
+can provide.
+
+#### Implementation Overview
+
+In order to implement this system, there is the creation of notary services, 
+which certify and host the certified content on IPFS content addresses, 
+built on several extensions to the ParallelCoin ledger for creating a market 
+in notary services by providing a strongly immutable record of these 
+notarisations.
+
+The system contains three sections:
+
+1. Realtime market data, offers for goods and services, offered available 
+   inventory, prices and payment methods
+   
+2. Storage of public data required for legal compliance related to projects 
+   including all of the technical specifications each different regulation 
+   requires, with automated feeding of the data from inputs into the market 
+   system and the settlements of these activities providing transparency and 
+   compliance to users of the system operating in the industry.
+   
+3. A platform for the certifiable record of the complete projects from 
+   inception, to the parties involved, the physical locations, the materials 
+   used, the plans and engineering specifications, and to whatever degree 
+   desired, additional media such as video, 3d models, photographs, text and 
+   composite documents containing all of the above.
+
+The Plan 9 Hard Fork protocol will be extended with several important 
+features required for this service:
+
+- Schnorr multisignature Public Key Infrastructure
+
+  In one step using Schnorr signatures instead of Elliptic Curve signatures, 
+  the data weight of multisignature transactions is reduced to a uniform 32 
+  bytes, and facilitates the creation of a masternodes system that creates 
+  block finalisation transactions from the given consensus masternode set.
+  
+- Mineable, exchangeable masternode tokens with a regular emission rate that 
+  can be traded and deployed by masternode operators to sign the 
+  certifications that allow the network to 100% finalise transactions, 
+  within an average of 9 seconds of their publication.
+  
+- Integration with multiple naming services to facilitate easier access to 
+  resources for humans while solving the sybil attack problem through 
+  enforced scarcity, a consensus database of names and user-configurable 
+  metadata used to access the named resources.
+  
+- Development of simple form GUI interface systems that combined with wallet 
+  keychain management enable the creation of data entry for updating 
+  inventory, service availability, and other elements of the 3 tier 
+  architecture of the system, such as browsing market offers, compiling 
+  historical data into charts, confidential communications between 
+  businesses and secure mutually accessible related data storage and backup, 
+  and so on.
