@@ -411,7 +411,7 @@ func (c ConfigSlice) Less(i, j int) bool { return c[i].Name < c[j].Name }
 func (c ConfigSlice) Swap(i, j int)      { c[i], c[j] = c[j], c[i] }
 
 // Initialize loads in configuration from disk and from environment on top of the default base
-func (c Config) Initialize() (e error) {
+func (c *Config) Initialize() (e error) {
 	// the several places configuration is sourced from are overlaid in the following order:
 	// default -> config file -> environment variables -> commandline flags
 	T.Ln("initializing configuration...")
@@ -579,7 +579,7 @@ func (c Config) loadEnvironment() (e error) {
 }
 
 // loadConfig loads the config from a file and unmarshals it into the config
-func (c Config) loadConfig(path string) (e error) {
+func (c *Config) loadConfig(path string) (e error) {
 	e = fmt.Errorf("no config found at %s", path)
 	var cf []byte
 	if !apputil.FileExists(path) {
@@ -609,7 +609,7 @@ func (c Config) WriteToFile(filename string) (e error) {
 // ForEach iterates the options in defined order with a closure that takes an opt.Option
 func (c Config) ForEach(fn func(ifc opt.Option) bool) bool {
 	t := reflect.ValueOf(c)
-	t = t.Elem()
+	// t = t.Elem()
 	for i := 0; i < t.NumField(); i++ {
 		// asserting to an Option ensures we skip the ancillary fields
 		if iff, ok := t.Field(i).Interface().(opt.Option); ok {
@@ -947,7 +947,7 @@ type details struct {
 
 // GetHelp walks the command tree and gathers the options and creates a set of help functions for all commands and
 // options in the set
-func GetHelp(c Config) {
+func GetHelp(c *Config) {
 	cm := cmds.Command{
 		Name:        "help",
 		Description: "prints information about how to use pod",
@@ -1091,7 +1091,7 @@ func assertToPodState(ifc interface{}) (c *Config) {
 	return
 }
 
-func getAllOptionStrings(c Config) (s map[string][]string, e error) {
+func getAllOptionStrings(c *Config) (s map[string][]string, e error) {
 	s = make(map[string][]string)
 	if c.ForEach(func(ifc opt.Option) bool {
 		md := ifc.GetMetadata()

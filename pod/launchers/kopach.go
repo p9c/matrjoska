@@ -83,42 +83,42 @@ type Worker struct {
 }
 
 func (w *Worker) Start() {
-	state.D.Ln("starting up kopach workers")
+	D.Ln("starting up kopach workers")
 	w.workers = []*worker.Worker{}
 	w.clients = []*client.Client{}
 	for i := 0; i < w.cx.Config.GenThreads.V(); i++ {
-		state.D.Ln("starting worker", i)
+		D.Ln("starting worker", i)
 		cmd, _ := worker.Spawn(w.quit, os.Args[0], "worker", w.id, w.cx.ActiveNet.Name, w.cx.Config.LogLevel.V())
 		w.workers = append(w.workers, cmd)
 		w.clients = append(w.clients, client.New(cmd.StdConn))
 	}
 	for i := range w.clients {
-		state.T.Ln("sending pass to worker", i)
+		T.Ln("sending pass to worker", i)
 		e := w.clients[i].SendPass(w.cx.Config.MulticastPass.Bytes())
 		if e != nil {
 		}
 	}
-	state.D.Ln("setting workers to active")
+	D.Ln("setting workers to active")
 	w.active.Store(true)
-	
+
 }
 
 func (w *Worker) Stop() {
 	var e error
 	for i := range w.clients {
-		if e = w.clients[i].Pause(); state.E.Chk(e) {
+		if e = w.clients[i].Pause(); E.Chk(e) {
 		}
-		if e = w.clients[i].Stop(); state.E.Chk(e) {
+		if e = w.clients[i].Stop(); E.Chk(e) {
 		}
-		if e = w.clients[i].Close(); state.E.Chk(e) {
+		if e = w.clients[i].Close(); E.Chk(e) {
 		}
 	}
 	for i := range w.workers {
 		// if e = w.workers[i].Interrupt(); !E.Chk(e) {
 		// }
-		if e = w.workers[i].Kill(); !state.E.Chk(e) {
+		if e = w.workers[i].Kill(); !E.Chk(e) {
 		}
-		state.D.Ln("stopped worker", i)
+		D.Ln("stopped worker", i)
 	}
 	w.active.Store(false)
 	w.quit.Q()
@@ -126,9 +126,9 @@ func (w *Worker) Stop() {
 
 // Run the miner
 func Run(cx *state.State) (e error) {
-	state.D.Ln("miner starting")
+	D.Ln("miner starting")
 	randomBytes := make([]byte, 4)
-	if _, e = rand.Read(randomBytes); state.E.Chk(e) {
+	if _, e = rand.Read(randomBytes); E.Chk(e) {
 	}
 	w := &Worker{
 		id:            fmt.Sprintf("%x", randomBytes),
@@ -144,7 +144,7 @@ func Run(cx *state.State) (e error) {
 	}
 	w.lastSent.Store(time.Now().UnixNano())
 	w.active.Store(false)
-	state.D.Ln("opening broadcast channel listener")
+	D.Ln("opening broadcast channel listener")
 	w.conn, e = transport.NewBroadcastChannel(
 		"kopachmain", w, cx.Config.MulticastPass.Bytes(),
 		transport.DefaultPort, constant.MaxDatagramSize, handlers,
@@ -164,7 +164,7 @@ func Run(cx *state.State) (e error) {
 	}
 	// controller watcher thread
 	go func() {
-		state.D.Ln("starting controller watcher")
+		D.Ln("starting controller watcher")
 		ticker := time.NewTicker(time.Second)
 		logger := time.NewTicker(time.Second)
 	out:
@@ -176,12 +176,12 @@ func Run(cx *state.State) (e error) {
 				since := time.Now().Sub(time.Unix(0, w.lastSent.Load()))
 				wasSending := since > time.Second*6 && w.FirstSender.Load() != 0
 				if wasSending {
-					state.D.Ln("previous current controller has stopped broadcasting", since, w.FirstSender.Load())
+					D.Ln("previous current controller has stopped broadcasting", since, w.FirstSender.Load())
 					// when this string is clear other broadcasts will be listened to
 					w.FirstSender.Store(0)
 					// pause the workers
 					for i := range w.clients {
-						state.D.Ln("sending pause to worker", i)
+						D.Ln("sending pause to worker", i)
 						e := w.clients[i].Pause()
 						if e != nil {
 						}
@@ -198,28 +198,28 @@ func Run(cx *state.State) (e error) {
 					w.quit.Q()
 				}
 			case <-w.StartChan.Wait():
-				state.D.Ln("received signal on StartChan")
+				D.Ln("received signal on StartChan")
 				cx.Config.Generate.T()
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); state.E.Chk(e) {
+				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
 				}
 				w.Start()
 			case <-w.StopChan.Wait():
-				state.D.Ln("received signal on StopChan")
+				D.Ln("received signal on StopChan")
 				cx.Config.Generate.F()
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); state.E.Chk(e) {
+				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
 				}
 				w.Stop()
 			case s := <-w.PassChan:
-				state.D.Ln("received signal on PassChan", s)
+				D.Ln("received signal on PassChan", s)
 				cx.Config.MulticastPass.Set(s)
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); state.E.Chk(e) {
+				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
 				}
 				w.Stop()
 				w.Start()
 			case n := <-w.SetThreads:
-				state.D.Ln("received signal on SetThreads", n)
+				D.Ln("received signal on SetThreads", n)
 				cx.Config.GenThreads.Set(n)
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); state.E.Chk(e) {
+				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
 				}
 				if cx.Config.Generate.True() {
 					// always sanitise
@@ -233,19 +233,19 @@ func Run(cx *state.State) (e error) {
 					w.Start()
 				}
 			case <-w.quit.Wait():
-				state.D.Ln("stopping from quit")
+				D.Ln("stopping from quit")
 				interrupt.Request()
 				break out
 			}
 		}
-		state.D.Ln("finished kopach miner work loop")
+		D.Ln("finished kopach miner work loop")
 		log.LogChanDisabled.Store(true)
 	}()
-	state.D.Ln("listening on", constant.UDP4MulticastAddress)
+	D.Ln("listening on", constant.UDP4MulticastAddress)
 	<-w.quit
-	state.I.Ln("kopach shutting down") // , interrupt.GoroutineDump())
+	I.Ln("kopach shutting down") // , interrupt.GoroutineDump())
 	// <-interrupt.HandlersDone
-	state.I.Ln("kopach finished shutdown")
+	I.Ln("kopach finished shutdown")
 	return
 }
 
@@ -254,7 +254,7 @@ var handlers = transport.Handlers{
 	string(hashrate.Magic): func(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
 		c := ctx.(*Worker)
 		if !c.active.Load() {
-			state.D.Ln("not active")
+			D.Ln("not active")
 			return
 		}
 		var hr hashrate.Hashrate
@@ -274,7 +274,7 @@ var handlers = transport.Handlers{
 	) (e error) {
 		w := ctx.(*Worker)
 		if !w.active.Load() {
-			state.T.Ln("not active")
+			T.Ln("not active")
 			return
 		}
 		jr := templates.Message{}
@@ -284,7 +284,7 @@ var handlers = transport.Handlers{
 		firstSender := w.FirstSender.Load()
 		otherSent := firstSender != cN && firstSender != 0
 		if otherSent {
-			state.T.Ln("ignoring other controller job", jr.Nonce, jr.UUID)
+			T.Ln("ignoring other controller job", jr.Nonce, jr.UUID)
 			// ignore other controllers while one is active and received first
 			return
 		}
@@ -294,10 +294,10 @@ var handlers = transport.Handlers{
 		// }
 		// w.lastNonce = jr.Nonce
 		// w.FirstSender.Store(cN)
-		state.T.Ln("received job, starting workers on it", jr.Nonce, jr.UUID)
+		T.Ln("received job, starting workers on it", jr.Nonce, jr.UUID)
 		w.lastSent.Store(time.Now().UnixNano())
 		for i := range w.clients {
-			if e = w.clients[i].NewJob(&jr); state.E.Chk(e) {
+			if e = w.clients[i].NewJob(&jr); E.Chk(e) {
 			}
 		}
 		return
@@ -313,7 +313,7 @@ var handlers = transport.Handlers{
 		np := advt.UUID
 		// np := p.GetControllerListenerPort()
 		// ns := net.JoinHostPort(strings.Split(ni.String(), ":")[0], fmt.Sprint(np))
-		state.D.Ln("received pause from server at", ni, np, "stopping", len(w.clients), "workers stopping")
+		D.Ln("received pause from server at", ni, np, "stopping", len(w.clients), "workers stopping")
 		if fs == np {
 			for i := range w.clients {
 				// D.Ln("sending pause to worker", i, fs, np)
@@ -397,9 +397,9 @@ func (w *Worker) HashReport() float64 {
 			i++
 			return nil
 		},
-	); state.E.Chk(e) {
+	); E.Chk(e) {
 	}
 	average := av.Value()
-	state.D.Ln("hashrate average", average)
+	D.Ln("hashrate average", average)
 	return average
 }

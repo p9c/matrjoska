@@ -27,8 +27,8 @@ func kopachHandle(ifc interface{}) (e error) {
 	}
 	// log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
 	// log.App = "kopach"
-	state.I.Ln("starting up kopach standalone miner for parallelcoin")
-	state.D.Ln(os.Args)
+	I.Ln("starting up kopach standalone miner for parallelcoin")
+	D.Ln(os.Args)
 	// podconfig.Configure(cx, true)
 	if cx.ActiveNet.Name == chaincfg.TestNet3Params.Name {
 		fork.IsTestnet = true
@@ -36,7 +36,7 @@ func kopachHandle(ifc interface{}) (e error) {
 	defer cx.KillAll.Q()
 	e = Run(cx)
 	<-interrupt.HandlersDone
-	state.D.Ln("kopach main finished")
+	D.Ln("kopach main finished")
 	return
 }
 
@@ -51,16 +51,16 @@ func kopachWorkerHandle(cx *state.State) (e error) {
 	if len(os.Args) > 4 {
 		log.SetLogLevel(os.Args[4])
 	}
-	state.D.Ln("miner worker starting")
+	D.Ln("miner worker starting")
 	w, conn := worker.New(os.Args[2], cx.KillAll, uint64(cx.Config.UUID.V()))
 	e = rpc.Register(w)
 	if e != nil {
-		state.D.Ln(e)
+		D.Ln(e)
 		return e
 	}
-	state.D.Ln("starting up worker IPC")
+	D.Ln("starting up worker IPC")
 	rpc.ServeConn(conn)
-	state.D.Ln("stopping worker IPC")
-	state.D.Ln("finished")
+	D.Ln("stopping worker IPC")
+	D.Ln("finished")
 	return nil
 }

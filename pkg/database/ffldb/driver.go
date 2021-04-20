@@ -55,6 +55,7 @@ func createDBDriver(args ...interface{}) (database.DB, error) {
 	}
 	return openDB(dbPath, network, true)
 }
+
 func init() {
 	T.Ln("registering ffldb database driver")
 	// Register the driver.
