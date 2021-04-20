@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"os"
 
+	"github.com/p9c/qu"
+
 	_ "gioui.org/app/permission/networkstate" // todo: integrate this into routeable package
 	_ "gioui.org/app/permission/storage"      // this enables the home folder appdata directory to work on android (and ios)
 	"github.com/p9c/log"
@@ -21,26 +23,30 @@ import (
 )
 
 func main() {
-	Main()
+	<-Main()
 }
 
-func Main() {
-	log.SetLogLevel("trace")
-	T.Ln(version.Get())
-	var cx *state.State
-	var e error
-	if cx, e = state.GetNew(podcfgs.GetDefaultConfig()); E.Chk(e) {
-		fail()
-	}
+func Main() (quit qu.C) {
+	quit=qu.T()
+	go func() {
+		log.SetLogLevel("trace")
+		T.Ln(version.Get())
+		var cx *state.State
+		var e error
+		if cx, e = state.GetNew(podcfgs.GetDefaultConfig(), quit); E.Chk(e) {
+			fail()
+		}
 
-	if e = debugConfig(cx.Config); E.Chk(e) {
 		// fail()
-	}
+		if e = debugConfig(cx.Config); E.Chk(e) {
+		}
 
-	D.Ln("running command", cx.Config.RunningCommand.Name)
-	if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
-		fail()
-	}
+		D.Ln("running command", cx.Config.RunningCommand.Name)
+		if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
+			fail()
+		}
+	}()
+	return quit
 }
 
 func fail() {
@@ -62,4 +68,3 @@ func debugConfig(c *config.Config) (e error) {
 	// T.Ln("\n"+jj.String())
 	return
 }
-

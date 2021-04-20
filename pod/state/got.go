@@ -32,7 +32,7 @@ import (
 )
 
 // GetNew returns a fresh new context
-func GetNew(config *config.Config) (s *State, e error) {
+func GetNew(config *config.Config, quit qu.C) (s *State, e error) {
 	// after this, all the configurations are set and mostly sanitized
 	if e = config.Initialize(); E.Chk(e) {
 		// return
@@ -44,7 +44,7 @@ func GetNew(config *config.Config) (s *State, e error) {
 	rand.Seed(rand.Int63())
 	s = &State{
 		ChainClientReady: chainClientReady,
-		KillAll:          qu.T(),
+		KillAll:          quit,
 		Config:           config,
 		ConfigMap:        config.Map,
 		StateCfg:         new(active.Config),
