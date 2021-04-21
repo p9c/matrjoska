@@ -492,3 +492,11 @@ features required for this service:
   historical data into charts, confidential communications between 
   businesses and secure mutually accessible related data storage and backup, 
   and so on.
+  
+## Proof of Concept Zero: Codename Jorm
+
+In the preliminary work required before the development of Proof of Concept 1, as a testbed and initial implementation, the same protocol upgrades will be first deployed to create an oracle that aggregates many sources of data relating to cryptocurrencies.
+
+This system will then become a service that can be accessed from any other application to retrieve data that can be trusted to be identical to the original source, and thus as a historical ledger of information updates, an Oracle that can be used for all distributed applications needing access to this data.
+
+The second step is creating interfaces that bridge between the Oracle and the write-side of these data sources, subsuming the entire space into a portal that can be come a one-stop-shop for all information and eventually building interfaces that allow the arbitrary merging of services and data sources into a new application composition.
