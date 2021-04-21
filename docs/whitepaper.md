@@ -492,3 +492,7 @@ features required for this service:
   historical data into charts, confidential communications between 
   businesses and secure mutually accessible related data storage and backup, 
   and so on.
+  
+#### Preliminary work for PoC
+
+All of the protocol upgrades required for the above will be initially developed for a Proof of Concept Zero, codename JORM, which is a proof of concept for creating a deterministic Oracle of all information connected to cryptocurrencies starting from Bitcoin, and updated on a minute by minute basis.
