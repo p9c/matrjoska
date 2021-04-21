@@ -421,7 +421,7 @@ func (c Config) processCommandlineArgs(args []string) (
 	// arbitrary for the node
 	commands := make(map[int]cmds.Command)
 	var commandsStart, commandsEnd int = -1, -1
-	var found bool
+	var found, helpFound bool
 	for i := range args {
 		T.Ln("checking for commands:", args[i], commandsStart, commandsEnd, "current arg index:", i)
 		var depth, dist int
@@ -429,8 +429,11 @@ func (c Config) processCommandlineArgs(args []string) (
 			continue
 		}
 		if cm != nil {
+			if cm.Name == "help" {
+				helpFound = true
+			}
 			if cm.Parent != nil {
-				if cm.Parent.Name == "help" {
+				if cm.Parent.Name == "help" && !helpFound {
 					// I.S(commands)
 					if commands[0].Name != "help" {
 						found = false
@@ -598,52 +601,61 @@ func (c *Config) GetHelp(hf func(ifc interface{}) error) {
 		switch ii := ifc.(type) {
 		case *binary.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *list.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *float.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *integer.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *text.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		case *duration.Opt:
 			dt = details{
-				ii.GetMetadata().Name, ii.Option, ii.Description, fmt.Sprint(ii.Def), ii.Aliases,
+				ii.GetMetadata().Name, ii.Option, ii.Description,
+				fmt.Sprint(ii.Def), ii.Aliases,
 				ii.Documentation,
 			}
 		}
-		cm.Commands = append(cm.Commands, cmds.Command{
-			Name:        dt.option,
-			Description: dt.desc,
-			Entrypoint: func(ifc interface{}) (e error) {
-				o += fmt.Sprintf("Help information about %s\n\n\toption name:\n\t\t%s\n\taliases:\n\t\t%s\n\tdescription:\n\t\t%s\n\tdefault:\n\t\t%v\n",
-					dt.name, dt.option, dt.aliases, dt.desc, dt.def,
-				)
-				if dt.documentation != "" {
-					o += "\tdocumentation:\n\t\t" + dt.documentation + "\n\n"
-				}
-				fmt.Fprint(os.Stderr, o)
-				return
+		allNames := append([]string{dt.name}, dt.aliases...)
+		for i := range allNames {
+			cm.Commands = append(cm.Commands, cmds.Command{
+				Name:        allNames[i],
+				Description: dt.desc,
+				Entrypoint: func(ifc interface{}) (e error) {
+					o += fmt.Sprintf("Help information about %s\n\n\toption name:\n\t\t%s\n\taliases:\n\t\t%s\n\tdescription:\n\t\t%s\n\tdefault:\n\t\t%v\n",
+						dt.name, dt.option, dt.aliases, dt.desc, dt.def,
+					)
+					if dt.documentation != "" {
+						o += "\tdocumentation:\n\t\t" + dt.documentation + "\n\n"
+					}
+					fmt.Fprint(os.Stderr, o)
+					return
+				},
+				Commands: nil,
+				Parent:   &cm,
 			},
-			Commands: nil,
-			Parent:   &cm,
-		},
-		)
+			)
+		}
 		// for i := range
 		return true
 	},
