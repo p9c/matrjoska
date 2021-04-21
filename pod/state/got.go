@@ -33,8 +33,10 @@ import (
 )
 
 // GetNew returns a fresh new context
-func GetNew(config *config.Config,hf func(ifc interface{}) error,
-	quit qu.C) (s *State, e error) {
+func GetNew(
+	config *config.Config, hf func(ifc interface{}) error,
+	quit qu.C,
+) (s *State, e error) {
 	// after this, all the configurations are set and mostly sanitized
 	if e = config.Initialize(hf); E.Chk(e) {
 		// return
@@ -257,7 +259,10 @@ func GetNew(config *config.Config,hf func(ifc interface{}) error,
 	var fP int
 	if s.Config.AutoPorts.True() {
 		I.Ln("autoports is enabled")
-		p2pl := [][]string{s.Config.P2PListeners.V(), s.Config.RPCListeners.V(), s.Config.WalletRPCListeners.V()}
+		p2pl := [][]string{
+			s.Config.P2PListeners.V(), s.Config.RPCListeners.V(),
+			s.Config.WalletRPCListeners.V(),
+		}
 		for i := range p2pl {
 			for j := range p2pl[i] {
 				var h string
@@ -418,7 +423,9 @@ func GetNew(config *config.Config,hf func(ifc interface{}) error,
 	}
 	// Specifying --noonion means the onion address dial function results in an error.
 	if s.Config.OnionEnabled.False() {
-		s.StateCfg.Oniondial = func(a, b string, t time.Duration) (net.Conn, error) {
+		s.StateCfg.Oniondial = func(a, b string, t time.Duration) (
+			net.Conn, error,
+		) {
 			return nil, errors.New("tor has been disabled")
 		}
 	}

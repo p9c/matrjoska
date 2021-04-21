@@ -443,7 +443,7 @@ func (wg *WalletGUI) GetInputs() Inputs {
 		"receiveAmount": wg.Input("", "Amount", "DocText", "PanelBg", "DocBg", func(amt string) {}, func(string) {}),
 		"receiveMessage": wg.Input(
 			"",
-			"Description",
+			"Title",
 			"DocText",
 			"PanelBg",
 			"DocBg",
@@ -463,7 +463,7 @@ func (wg *WalletGUI) GetInputs() Inputs {
 		"sendAmount": wg.Input("", "Amount", "DocText", "PanelBg", "DocBg", func(amt string) {}, func(string) {}),
 		"sendMessage": wg.Input(
 			"",
-			"Description",
+			"Title",
 			"DocText",
 			"PanelBg",
 			"DocBg",

@@ -87,7 +87,7 @@ func (c *Config) Config() GroupsMap {
 	// 			slug:        sgf.Slug,
 	// 			typ:         sgf.Type,
 	// 			label:       sgf.Label,
-	// 			description: sgf.Description,
+	// 			description: sgf.Title,
 	// 			widget:      sgf.Widget,
 	// 			dataType:    sgf.Datatype,
 	// 			options:     sgf.Options,

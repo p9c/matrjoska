@@ -408,13 +408,13 @@ func isValidResultType(kind reflect.Kind) bool {
 //
 //   "<method>--synopsis"             Synopsis for the command
 //
-//   "<method>-<lowerfieldname>"      Description for each command argument
+//   "<method>-<lowerfieldname>"      Title for each command argument
 //
-//   "<typename>-<lowerfieldname>"    Description for each object field
+//   "<typename>-<lowerfieldname>"    Title for each object field
 //
-//   "<method>--condition<#>"         Description for each result condition
+//   "<method>--condition<#>"         Title for each result condition
 //
-//   "<method>--result<#>"            Description for each primitive result num
+//   "<method>--result<#>"            Title for each primitive result num
 //
 // Notice that the "special" keys synopsis, condition<#>, and result<#> are preceded by a double dash to ensure they
 // don't conflict with field names. The condition keys are only required when there is more than on result type, and the

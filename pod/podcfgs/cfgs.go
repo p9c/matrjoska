@@ -52,6 +52,9 @@ func GetDefaultConfig() (c *config.Config) {
 
 // GetConfigs returns configuration options for ParallelCoin Pod
 func GetConfigs() (c config.Configs) {
+	tags := func(s ...string) []string {
+		return s
+	}
 	network := "mainnet"
 	rand.Seed(time.Now().UnixNano())
 	var datadir = &atomic.Value{}
@@ -60,6 +63,7 @@ func GetConfigs() (c config.Configs) {
 		"AddCheckpoints": list.New(meta.Data{
 			Aliases: []string{"AC"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Add Checkpoints",
 			Description:
 			"add custom checkpoints",
@@ -78,6 +82,7 @@ func GetConfigs() (c config.Configs) {
 		"AddPeers": list.New(meta.Data{
 			Aliases: []string{"AP"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Add Peers",
 			Description:
 			"manually adds addresses to try to connect to",
@@ -90,6 +95,7 @@ func GetConfigs() (c config.Configs) {
 		"AddrIndex": binary.New(meta.Data{
 			Aliases: []string{"AI"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Address Index",
 			Description:
 			"maintain a full address-based transaction index which makes the searchrawtransactions RPC available",
@@ -101,6 +107,7 @@ func GetConfigs() (c config.Configs) {
 		"AutoPorts": binary.New(meta.Data{
 			Group: "debug",
 			Label: "Automatic Ports",
+			Tags:  tags("node", "wallet"),
 			Description:
 			"RPC and controller ports are randomized, use with controller for automatic peer discovery",
 			Documentation: "<placeholder for detailed documentation>",
@@ -111,6 +118,7 @@ func GetConfigs() (c config.Configs) {
 		"AutoListen": binary.New(meta.Data{
 			Aliases: []string{"AL"},
 			Group:   "node",
+			Tags:    tags("node", "wallet"),
 			Label:   "Automatic Listeners",
 			Description:
 			"automatically update inbound addresses dynamically according to discovered network interfaces",
@@ -122,6 +130,7 @@ func GetConfigs() (c config.Configs) {
 		"BanDuration": duration.New(meta.Data{
 			Aliases: []string{"BD"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Ban Opt",
 			Description:
 			"how long a ban of a misbehaving peer lasts",
@@ -134,6 +143,7 @@ func GetConfigs() (c config.Configs) {
 		"BanThreshold": integer.New(meta.Data{
 			Aliases: []string{"BT"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Ban Threshold",
 			Description:
 			"ban score that triggers a ban (default 100)",
@@ -146,6 +156,7 @@ func GetConfigs() (c config.Configs) {
 		"BlockMaxSize": integer.New(meta.Data{
 			Aliases: []string{"BMXS"},
 			Group:   "mining",
+			Tags:    tags("node"),
 			Label:   "Block Max Size",
 			Description:
 			"maximum block size in bytes to be used when creating a block",
@@ -158,6 +169,7 @@ func GetConfigs() (c config.Configs) {
 		"BlockMaxWeight": integer.New(meta.Data{
 			Aliases: []string{"BMXW"},
 			Group:   "mining",
+			Tags:    tags("node"),
 			Label:   "Block Max Weight",
 			Description:
 			"maximum block weight to be used when creating a block",
@@ -170,6 +182,7 @@ func GetConfigs() (c config.Configs) {
 		"BlockMinSize": integer.New(meta.Data{
 			Aliases: []string{"BMS"},
 			Group:   "mining",
+			Tags:    tags("node"),
 			Label:   "Block Min Size",
 			Description:
 			"minimum block size in bytes to be used when creating a block",
@@ -182,6 +195,7 @@ func GetConfigs() (c config.Configs) {
 		"BlockMinWeight": integer.New(meta.Data{
 			Aliases: []string{"BMW"},
 			Group:   "mining",
+			Tags:    tags("node"),
 			Label:   "Block Min Weight",
 			Description:
 			"minimum block weight to be used when creating a block",
@@ -194,6 +208,7 @@ func GetConfigs() (c config.Configs) {
 		"BlockPrioritySize": integer.New(meta.Data{
 			Aliases: []string{"BPS"},
 			Group:   "mining",
+			Tags:    tags("node"),
 			Label:   "Block Priority Size",
 			Description:
 			"size in bytes for high-priority/low-fee transactions when creating a block",
@@ -206,6 +221,7 @@ func GetConfigs() (c config.Configs) {
 		"BlocksOnly": binary.New(meta.Data{
 			Aliases: []string{"BO"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Blocks Only",
 			Description:
 			"do not accept transactions from remote peers",
@@ -217,6 +233,7 @@ func GetConfigs() (c config.Configs) {
 		"CAFile": text.New(meta.Data{
 			Aliases: []string{"CA"},
 			Group:   "tls",
+			Tags:    tags("node", "wallet"),
 			Label:   "Certificate Authority File",
 			Description:
 			"certificate authority file for TLS certificate validation",
@@ -240,6 +257,7 @@ func GetConfigs() (c config.Configs) {
 		"ConnectPeers": list.New(meta.Data{
 			Aliases: []string{"CPS"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Connect Peers",
 			Description:
 			"connect ONLY to these addresses (disables inbound connections)",
@@ -253,6 +271,7 @@ func GetConfigs() (c config.Configs) {
 		"Controller": binary.New(meta.Data{
 			Aliases: []string{"CN"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Enable Controller",
 			Description:
 			"delivers mining jobs over multicast",
@@ -264,6 +283,7 @@ func GetConfigs() (c config.Configs) {
 		"CPUProfile": text.New(meta.Data{
 			Aliases: []string{"CPR"},
 			Group:   "debug",
+			Tags:    tags("node", "wallet", "kopach", "worker"),
 			Label:   "CPU Profile",
 			Description:
 			"write cpu profile to this file",
@@ -276,6 +296,7 @@ func GetConfigs() (c config.Configs) {
 		"DarkTheme": binary.New(meta.Data{
 			Aliases: []string{"DT"},
 			Group:   "config",
+			Tags:    tags("gui"),
 			Label:   "Dark Theme",
 			Description:
 			"sets dark theme for GUI",
@@ -287,6 +308,7 @@ func GetConfigs() (c config.Configs) {
 		"DataDir": text.New(meta.Data{
 			Aliases: []string{"DD"},
 			Label:   "Data Directory",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Description:
 			"root folder where application data is stored",
 			Type:          sanitizers.Directory,
@@ -298,9 +320,11 @@ func GetConfigs() (c config.Configs) {
 		"DbType": text.New(meta.Data{
 			Aliases: []string{"DB"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Database Type",
 			Description:
-			"type of database storage engine to use (only one right now, ffldb)",
+			"type of database storage engine to use for node (" +
+				"only one right now, ffldb)",
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     true,
 			Options:       database.SupportedDrivers(),
@@ -310,6 +334,7 @@ func GetConfigs() (c config.Configs) {
 		"DisableBanning": binary.New(meta.Data{
 			Aliases: []string{"NB"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Disable Banning",
 			Description:
 			"disables banning of misbehaving peers",
@@ -321,6 +346,7 @@ func GetConfigs() (c config.Configs) {
 		"DisableCheckpoints": binary.New(meta.Data{
 			Aliases: []string{"NCP"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Disable Checkpoints",
 			Description:
 			"disables all checkpoints",
@@ -332,6 +358,7 @@ func GetConfigs() (c config.Configs) {
 		"DisableDNSSeed": binary.New(meta.Data{
 			Aliases: []string{"NDS"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Disable DNS Seed",
 			Description:
 			"disable seeding of addresses to peers",
@@ -343,6 +370,7 @@ func GetConfigs() (c config.Configs) {
 		"DisableListen": binary.New(meta.Data{
 			Aliases: []string{"NL"},
 			Group:   "node",
+			Tags:    tags("node", "wallet"),
 			Label:   "Disable Listen",
 			Description:
 			"disables inbound connections for the peer to peer network",
@@ -354,6 +382,7 @@ func GetConfigs() (c config.Configs) {
 		"DisableRPC": binary.New(meta.Data{
 			Aliases: []string{"NRPC"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "Disable RPC",
 			Description:
 			"disable rpc servers, as well as kopach controller",
@@ -365,6 +394,7 @@ func GetConfigs() (c config.Configs) {
 		"Discovery": binary.New(meta.Data{
 			Aliases: []string{"DI"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Disovery",
 			Description:
 			"enable LAN peer discovery in GUI",
@@ -376,6 +406,7 @@ func GetConfigs() (c config.Configs) {
 		"ExternalIPs": list.New(meta.Data{
 			Aliases: []string{"EI"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "External IP Addresses",
 			Description:
 			"extra addresses to tell peers they can connect to",
@@ -388,6 +419,7 @@ func GetConfigs() (c config.Configs) {
 		"FreeTxRelayLimit": float.New(meta.Data{
 			Aliases: []string{"LR"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "Free Tx Relay Limit",
 			Description:
 			"limit relay of transactions with no transaction fee to the given amount in thousands of bytes per minute",
@@ -400,6 +432,7 @@ func GetConfigs() (c config.Configs) {
 		"Generate": binary.New(meta.Data{
 			Aliases: []string{"GB"},
 			Group:   "mining",
+			Tags:    tags("node", "kopach"),
 			Label:   "Generate Blocks",
 			Description:
 			"turn on Kopach CPU miner",
@@ -411,6 +444,7 @@ func GetConfigs() (c config.Configs) {
 		"GenThreads": integer.New(meta.Data{
 			Aliases: []string{"GT"},
 			Group:   "mining",
+			Tags:    tags("kopach"),
 			Label:   "Generate Threads",
 			Description:
 			"number of threads to mine with",
@@ -423,6 +457,7 @@ func GetConfigs() (c config.Configs) {
 		"Hilite": list.New(meta.Data{
 			Aliases: []string{"HL"},
 			Group:   "debug",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Hilite",
 			Description:
 			"list of packages that will print with attention getters",
@@ -434,6 +469,7 @@ func GetConfigs() (c config.Configs) {
 		),
 		"LAN": binary.New(meta.Data{
 			Group: "debug",
+			Tags:  tags("node"),
 			Label: "LAN Testnet Mode",
 			Description:
 			"run without any connection to nodes on the internet (does not apply on mainnet)",
@@ -445,6 +481,7 @@ func GetConfigs() (c config.Configs) {
 		"Locale": text.New(meta.Data{
 			Aliases: []string{"LC"},
 			Group:   "config",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Language",
 			Description:
 			"user interface language i18 localization",
@@ -457,6 +494,7 @@ func GetConfigs() (c config.Configs) {
 		"LimitPass": text.New(meta.Data{
 			Aliases: []string{"LP"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "Limit Password",
 			Description:
 			"limited user password",
@@ -468,6 +506,7 @@ func GetConfigs() (c config.Configs) {
 		"LimitUser": text.New(meta.Data{
 			Aliases: []string{"LU"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "Limit Username",
 			Description:
 			"limited user name",
@@ -479,6 +518,7 @@ func GetConfigs() (c config.Configs) {
 		"LogDir": text.New(meta.Data{
 			Aliases: []string{"LD"},
 			Group:   "config",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Log Directory",
 			Description:
 			"folder where log files are written",
@@ -491,6 +531,7 @@ func GetConfigs() (c config.Configs) {
 		"LogFilter": list.New(meta.Data{
 			Aliases: []string{"LF"},
 			Group:   "debug",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Log Filter",
 			Description:
 			"list of packages that will not print logs",
@@ -503,6 +544,7 @@ func GetConfigs() (c config.Configs) {
 		"LogLevel": text.New(meta.Data{
 			Aliases: []string{"LL"},
 			Group:   "config",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Log Level",
 			Description:
 			"maximum log level to output",
@@ -524,6 +566,7 @@ func GetConfigs() (c config.Configs) {
 		"MaxOrphanTxs": integer.New(meta.Data{
 			Aliases: []string{"MO"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "Max Orphan Txs",
 			Description:
 			"max number of orphan transactions to keep in memory",
@@ -536,6 +579,7 @@ func GetConfigs() (c config.Configs) {
 		"MaxPeers": integer.New(meta.Data{
 			Aliases: []string{"MP"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Max Peers",
 			Description:
 			"maximum number of peers to hold connections with",
@@ -548,6 +592,7 @@ func GetConfigs() (c config.Configs) {
 		"MulticastPass": text.New(meta.Data{
 			Aliases: []string{"PM"},
 			Group:   "config",
+			Tags:    tags("node", "kopach"),
 			Label:   "Multicast Pass",
 			Description:
 			"password that encrypts the connection to the mining controller",
@@ -560,6 +605,7 @@ func GetConfigs() (c config.Configs) {
 		"MinRelayTxFee": float.New(meta.Data{
 			Aliases: []string{"MRTF"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "Min Relay Transaction Fee",
 			Description:
 			"the minimum transaction fee in DUO/kB to be considered a non-zero fee",
@@ -573,6 +619,7 @@ func GetConfigs() (c config.Configs) {
 		"Network": text.New(meta.Data{
 			Aliases: []string{"NW"},
 			Group:   "node",
+			Tags:    tags("node", "wallet"),
 			Label:   "Network",
 			Description:
 			"connect to this network:",
@@ -590,6 +637,7 @@ func GetConfigs() (c config.Configs) {
 		"NoCFilters": binary.New(meta.Data{
 			Aliases: []string{"NCF"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "No CFilters",
 			Description:
 			"disable committed filtering (CF) support",
@@ -601,6 +649,7 @@ func GetConfigs() (c config.Configs) {
 		"NodeOff": binary.New(meta.Data{
 			Aliases: []string{"NO"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Node Off",
 			Description:
 			"turn off the node backend",
@@ -611,6 +660,8 @@ func GetConfigs() (c config.Configs) {
 		),
 		"NoInitialLoad": binary.New(meta.Data{
 			Aliases: []string{"NIL"},
+			Group:   "wallet",
+			Tags:    tags("wallet"),
 			Label:   "No Initial Load",
 			Description:
 			"do not load a wallet at startup",
@@ -622,6 +673,7 @@ func GetConfigs() (c config.Configs) {
 		"NoPeerBloomFilters": binary.New(meta.Data{
 			Aliases: []string{"NPBF"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "No Peer Bloom Filters",
 			Description:
 			"disable bloom filtering support",
@@ -633,6 +685,7 @@ func GetConfigs() (c config.Configs) {
 		"NoRelayPriority": binary.New(meta.Data{
 			Aliases: []string{"NRPR"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "No Relay Priority",
 			Description:
 			"do not require free or low-fee transactions to have high priority for relaying",
@@ -644,6 +697,7 @@ func GetConfigs() (c config.Configs) {
 		"OneTimeTLSKey": binary.New(meta.Data{
 			Aliases: []string{"OTK"},
 			Group:   "wallet",
+			Tags:    tags("node", "wallet"),
 			Label:   "One Time TLS Key",
 			Description:
 			"generate a new TLS certificate pair at startup, but only write the certificate to disk",
@@ -655,6 +709,7 @@ func GetConfigs() (c config.Configs) {
 		"OnionEnabled": binary.New(meta.Data{
 			Aliases: []string{"OE"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Onion Enabled",
 			Description:
 			"enable tor proxy",
@@ -666,6 +721,7 @@ func GetConfigs() (c config.Configs) {
 		"OnionProxyAddress": text.New(meta.Data{
 			Aliases: []string{"OPA"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Onion Proxy Address",
 			Description:
 			"address of tor proxy you want to connect to",
@@ -678,6 +734,7 @@ func GetConfigs() (c config.Configs) {
 		"OnionProxyPass": text.New(meta.Data{
 			Aliases: []string{"OPW"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Onion Proxy Password",
 			Description:
 			"password for tor proxy",
@@ -690,6 +747,7 @@ func GetConfigs() (c config.Configs) {
 		"OnionProxyUser": text.New(meta.Data{
 			Aliases: []string{"OU"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Onion Proxy Username",
 			Description:
 			"tor proxy username",
@@ -701,6 +759,7 @@ func GetConfigs() (c config.Configs) {
 		"P2PConnect": list.New(meta.Data{
 			Aliases: []string{"P2P"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "P2P Connect",
 			Description:
 			"list of addresses reachable from connected networks",
@@ -713,6 +772,7 @@ func GetConfigs() (c config.Configs) {
 		"P2PListeners": list.New(meta.Data{
 			Aliases: []string{"LA"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "P2PListeners",
 			Description:
 			"list of addresses to bind the node listener to",
@@ -729,6 +789,7 @@ func GetConfigs() (c config.Configs) {
 		"Password": text.New(meta.Data{
 			Aliases: []string{"PW"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "Password",
 			Description:
 			"password for client RPC connections",
@@ -741,6 +802,7 @@ func GetConfigs() (c config.Configs) {
 		"PipeLog": binary.New(meta.Data{
 			Aliases: []string{"PL"},
 			Label:   "Pipe Logger",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Description:
 			"enable pipe based logger IPC",
 			Documentation: "<placeholder for detailed documentation>",
@@ -751,6 +813,7 @@ func GetConfigs() (c config.Configs) {
 		"Profile": text.New(meta.Data{
 			Aliases: []string{"HPR"},
 			Group:   "debug",
+			Tags:    tags("node", "wallet", "ctl", "kopach", "worker"),
 			Label:   "Profile",
 			Description:
 			"http profiling on given port (1024-40000)",
@@ -763,6 +826,7 @@ func GetConfigs() (c config.Configs) {
 		"ProxyAddress": text.New(meta.Data{
 			Aliases: []string{"PA"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Proxy",
 			Description:
 			"address of proxy to connect to for outbound connections",
@@ -775,6 +839,7 @@ func GetConfigs() (c config.Configs) {
 		"ProxyPass": text.New(meta.Data{
 			Aliases: []string{"PPW"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Proxy Pass",
 			Description:
 			"proxy password, if required",
@@ -787,6 +852,7 @@ func GetConfigs() (c config.Configs) {
 		"ProxyUser": text.New(meta.Data{
 			Aliases: []string{"PU"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "ProxyUser",
 			Description:
 			"proxy username, if required",
@@ -798,6 +864,7 @@ func GetConfigs() (c config.Configs) {
 		"RejectNonStd": binary.New(meta.Data{
 			Aliases: []string{"REJ"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Reject Non Std",
 			Description:
 			"reject non-standard transactions regardless of the default settings for the active network",
@@ -809,6 +876,7 @@ func GetConfigs() (c config.Configs) {
 		"RelayNonStd": binary.New(meta.Data{
 			Aliases: []string{"RNS"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Relay Nonstandard Transactions",
 			Description:
 			"relay non-standard transactions regardless of the default settings for the active network",
@@ -820,6 +888,7 @@ func GetConfigs() (c config.Configs) {
 		"RPCCert": text.New(meta.Data{
 			Aliases: []string{"RC"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "RPC Cert",
 			Description:
 			"location of RPC TLS certificate",
@@ -831,7 +900,8 @@ func GetConfigs() (c config.Configs) {
 		),
 		"RPCConnect": text.New(meta.Data{
 			Aliases: []string{"RA"},
-			Group:   "wallet",
+			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "RPC Connect",
 			Description:
 			"full node RPC for wallet",
@@ -844,6 +914,7 @@ func GetConfigs() (c config.Configs) {
 		"RPCKey": text.New(meta.Data{
 			Aliases: []string{"RK"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "RPC Key",
 			Description:
 			"location of rpc TLS key",
@@ -856,7 +927,8 @@ func GetConfigs() (c config.Configs) {
 		"RPCListeners": list.New(meta.Data{
 			Aliases: []string{"RL"},
 			Group:   "rpc",
-			Label:   "RPC Listeners",
+			Tags:    tags("node"),
+			Label:   "Node RPC Listeners",
 			Description:
 			"addresses to listen for RPC connections",
 			Type:          sanitizers.NetAddress,
@@ -870,7 +942,8 @@ func GetConfigs() (c config.Configs) {
 		"RPCMaxClients": integer.New(meta.Data{
 			Aliases: []string{"RMXC"},
 			Group:   "rpc",
-			Label:   "Maximum RPC Clients",
+			Tags:    tags("node"),
+			Label:   "Maximum Node RPC Clients",
 			Description:
 			"maximum number of clients for regular RPC",
 			Documentation: "<placeholder for detailed documentation>",
@@ -882,7 +955,8 @@ func GetConfigs() (c config.Configs) {
 		"RPCMaxConcurrentReqs": integer.New(meta.Data{
 			Aliases: []string{"RMCR"},
 			Group:   "rpc",
-			Label:   "Maximum RPC Concurrent Reqs",
+			Tags:    tags("node"),
+			Label:   "Maximum Node RPC Concurrent Reqs",
 			Description:
 			"maximum number of requests to process concurrently",
 			Documentation: "<placeholder for detailed documentation>",
@@ -894,7 +968,8 @@ func GetConfigs() (c config.Configs) {
 		"RPCMaxWebsockets": integer.New(meta.Data{
 			Aliases: []string{"RMWS"},
 			Group:   "rpc",
-			Label:   "Maximum RPC Websockets",
+			Tags:    tags("node"),
+			Label:   "Maximum Node RPC Websockets",
 			Description:
 			"maximum number of websocket clients to allow",
 			Documentation: "<placeholder for detailed documentation>",
@@ -906,7 +981,8 @@ func GetConfigs() (c config.Configs) {
 		"RPCQuirks": binary.New(meta.Data{
 			Aliases: []string{"RQ"},
 			Group:   "rpc",
-			Label:   "RPC Quirks",
+			Tags:    tags("node"),
+			Label:   "Emulate Bitcoin Core RPC Quirks",
 			Description:
 			"enable bugs that replicate bitcoin core RPC's JSON",
 			Documentation: "<placeholder for detailed documentation>",
@@ -934,21 +1010,10 @@ func GetConfigs() (c config.Configs) {
 		},
 			false,
 		),
-		// "ServerPass": text.New(meta.Data{
-		// 	Aliases: []string{"SPW"},
-		// 	Group:   "rpc",
-		// 	Label:   "Server Pass",
-		// 	Description:
-		// 	"password for server connections",
-		// 	Type:          sanitizers.Password,
-		// 	Documentation: "<placeholder for detailed documentation>",
-		// 	OmitEmpty:     false,
-		// },
-		// 	genPassword(),
-		// ),
 		"ServerTLS": binary.New(meta.Data{
 			Aliases: []string{"ST"},
 			Group:   "wallet",
+			Tags:    tags("node", "wallet"),
 			Label:   "Server TLS",
 			Description:
 			"enable TLS for the wallet connection to node RPC server",
@@ -957,20 +1022,10 @@ func GetConfigs() (c config.Configs) {
 		},
 			true,
 		),
-		// "ServerUser": text.New(meta.Data{
-		// 	Aliases: []string{"SU"},
-		// 	Group:   "rpc",
-		// 	Label:   "Server User",
-		// 	Description:
-		// 	"username for chain server connections",
-		// 	Documentation: "<placeholder for detailed documentation>",
-		// 	OmitEmpty:     false,
-		// },
-		// 	"client",
-		// ),
 		"SigCacheMaxSize": integer.New(meta.Data{
 			Aliases: []string{"SCM"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Signature Cache Max Size",
 			Description:
 			"the maximum number of entries in the signature verification cache",
@@ -983,6 +1038,7 @@ func GetConfigs() (c config.Configs) {
 		"Solo": binary.New(meta.Data{
 			Group: "mining",
 			Label: "Solo Generate",
+			Tags:    tags("node"),
 			Description:
 			"mine even if not connected to a network",
 			Documentation: "<placeholder for detailed documentation>",
@@ -993,6 +1049,7 @@ func GetConfigs() (c config.Configs) {
 		"ClientTLS": binary.New(meta.Data{
 			Aliases: []string{"CT"},
 			Group:   "tls",
+			Tags:    tags("node", "wallet"),
 			Label:   "TLS",
 			Description:
 			"enable TLS for RPC client connections",
@@ -1004,6 +1061,7 @@ func GetConfigs() (c config.Configs) {
 		"TLSSkipVerify": binary.New(meta.Data{
 			Aliases: []string{"TSV"},
 			Group:   "tls",
+			Tags:    tags("node", "wallet"),
 			Label:   "TLS Skip Verify",
 			Description:
 			"skip TLS certificate verification (ignore CA errors)",
@@ -1015,6 +1073,7 @@ func GetConfigs() (c config.Configs) {
 		"TorIsolation": binary.New(meta.Data{
 			Aliases: []string{"TI"},
 			Group:   "proxy",
+			Tags:    tags("node"),
 			Label:   "Tor Isolation",
 			Description:
 			"makes a separate proxy connection for each connection",
@@ -1026,6 +1085,7 @@ func GetConfigs() (c config.Configs) {
 		"TrickleInterval": duration.New(meta.Data{
 			Aliases: []string{"TKI"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "Trickle Interval",
 			Description:
 			"minimum time between attempts to send new inventory to a connected peer",
@@ -1038,6 +1098,7 @@ func GetConfigs() (c config.Configs) {
 		"TxIndex": binary.New(meta.Data{
 			Aliases: []string{"TXI"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "Tx Index",
 			Description:
 			"maintain a full hash-based transaction index which makes all transactions available via the getrawtransaction RPC",
@@ -1049,6 +1110,7 @@ func GetConfigs() (c config.Configs) {
 		"UPNP": binary.New(meta.Data{
 			Aliases: []string{"UP"},
 			Group:   "node",
+			Tags:    tags("node"),
 			Label:   "UPNP",
 			Description:
 			"enable UPNP for NAT traversal",
@@ -1060,6 +1122,7 @@ func GetConfigs() (c config.Configs) {
 		"UserAgentComments": list.New(meta.Data{
 			Aliases: []string{"UA"},
 			Group:   "policy",
+			Tags:    tags("node"),
 			Label:   "User Agent Comments",
 			Description:
 			"comment to add to the user agent -- See BIP 14 for more information",
@@ -1071,6 +1134,7 @@ func GetConfigs() (c config.Configs) {
 		"Username": text.New(meta.Data{
 			Aliases: []string{"UN"},
 			Group:   "rpc",
+			Tags:    tags("node", "wallet"),
 			Label:   "Username",
 			Description:
 			"password for client RPC connections",
@@ -1092,6 +1156,7 @@ func GetConfigs() (c config.Configs) {
 		"UseWallet": binary.New(meta.Data{
 			Aliases: []string{"WC"},
 			Group:   "debug",
+			Tags:    tags("ctl"),
 			Label:   "Connect to Wallet",
 			Description:
 			"set ctl to connect to wallet instead of chain server",
@@ -1103,6 +1168,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletFile": text.New(meta.Data{
 			Aliases: []string{"WF"},
 			Group:   "config",
+			Tags:    tags("wallet"),
 			Label:   "Wallet File",
 			Description:
 			"wallet database file",
@@ -1115,6 +1181,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletOff": binary.New(meta.Data{
 			Aliases: []string{"WO"},
 			Group:   "debug",
+			Tags:    tags("wallet"),
 			Label:   "Wallet Off",
 			Description:
 			"turn off the wallet backend",
@@ -1126,8 +1193,10 @@ func GetConfigs() (c config.Configs) {
 		"WalletPass": text.New(meta.Data{
 			Aliases: []string{"WPW"},
 			Label:   "Wallet Pass",
+			Tags:    tags("wallet"),
 			Description:
-			"password encrypting public data in wallet - hash is stored so give on command line",
+			"password encrypting public data in wallet - only hash is stored" +
+				" so give on command line or in environment POD_WALLETPASS",
 			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
 			OmitEmpty:     false,
@@ -1137,6 +1206,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletRPCListeners": list.New(meta.Data{
 			Aliases: []string{"WRL"},
 			Group:   "wallet",
+			Tags:    tags("wallet"),
 			Label:   "Wallet RPC Listeners",
 			Description:
 			"addresses for wallet RPC server to listen on",
@@ -1153,6 +1223,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletRPCMaxClients": integer.New(meta.Data{
 			Aliases: []string{"WRMC"},
 			Group:   "wallet",
+			Tags:    tags("wallet"),
 			Label:   "Legacy RPC Max Clients",
 			Description:
 			"maximum number of RPC clients allowed for wallet RPC",
@@ -1165,6 +1236,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletRPCMaxWebsockets": integer.New(meta.Data{
 			Aliases: []string{"WRMWS"},
 			Group:   "wallet",
+			Tags:    tags("wallet"),
 			Label:   "Legacy RPC Max Websockets",
 			Description:
 			"maximum number of websocket clients allowed for wallet RPC",
@@ -1177,6 +1249,7 @@ func GetConfigs() (c config.Configs) {
 		"WalletServer": text.New(meta.Data{
 			Aliases: []string{"WS"},
 			Group:   "wallet",
+			Tags:    tags("wallet"),
 			Label:   "Wallet Server",
 			Description:
 			"node address to connect wallet server to",
@@ -1191,6 +1264,7 @@ func GetConfigs() (c config.Configs) {
 		"Whitelists": list.New(meta.Data{
 			Aliases: []string{"WL"},
 			Group:   "debug",
+			Tags:    tags("node"),
 			Label:   "Whitelists",
 			Description:
 			"peers that you don't want to ever ban",

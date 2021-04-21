@@ -27,7 +27,7 @@ func HelpFunction(ifc interface{}) error {
 	for i := range c.Commands {
 		oo := fmt.Sprintf("\t%s", c.Commands[i].Name)
 		nrunes := utf8.RuneCountInString(oo)
-		o += oo + fmt.Sprintf(strings.Repeat(" ", 9-nrunes)+"%s\n", c.Commands[i].Description)
+		o += oo + fmt.Sprintf(strings.Repeat(" ", 9-nrunes)+"%s\n", c.Commands[i].Title)
 	}
 	o += fmt.Sprintf(
 		"\nOptions:\n\tset values on options concatenated against the option keyword or separated with '='\n",

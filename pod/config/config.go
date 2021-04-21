@@ -22,6 +22,7 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/constant"
@@ -172,9 +173,11 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 		configExists = true
 	}
 	// read the environment variables into the config
+	I.Ln("reading environment variables...")
 	if e = c.loadEnvironment(); D.Chk(e) {
 	}
 	// read in the commandline options over top as they have highest priority
+	I.Ln("decoding option inputs")
 	for i := range options {
 		if _, e = options[i].ReadInput(optVals[i]); E.Chk(e) {
 		}
@@ -182,6 +185,7 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 	if !configExists || c.Save.True() {
 		c.Save.F()
 		// save the configuration file
+		I.Ln("saving configuration file...")
 		var j []byte
 		// c.ShowAll=true
 		if j, e = json.MarshalIndent(c, "", "    "); !E.Chk(e) {
@@ -191,8 +195,9 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 				panic(e)
 			}
 		}
-
+		I.Ln("configuration file saved")
 	}
+	I.Ln("configuration initialised")
 	return
 }
 
@@ -222,8 +227,11 @@ func (c *Config) loadConfig(path string) (e error) {
 	if !apputil.FileExists(path) {
 		return
 	} else if cf, e = ioutil.ReadFile(path); !D.Chk(e) {
+		I.Ln("read in file from", path)
 		if e = json.Unmarshal(cf, c); D.Chk(e) {
+			panic(e)
 		}
+		I.Ln("unmarshalled", path)
 	}
 	return
 }
@@ -425,7 +433,7 @@ func (c Config) processCommandlineArgs(args []string) (
 	for i := range args {
 		T.Ln("checking for commands:", args[i], commandsStart, commandsEnd, "current arg index:", i)
 		var depth, dist int
-		if found, depth, dist, cm, e = c.Commands.Find(args[i], depth, dist); E.Chk(e) {
+		if found, depth, dist, cm, e = c.Commands.Find(args[i], depth, dist, false); E.Chk(e) {
 			continue
 		}
 		if cm != nil {
@@ -447,8 +455,22 @@ func (c Config) processCommandlineArgs(args []string) (
 				commandsEnd = i + 1
 			}
 			if oc, ok := commands[depth]; ok {
-				e = fmt.Errorf("second command found at same depth '%s' and '%s'", oc.Name, cm.Name)
-				return
+				if !helpFound {
+					e = fmt.Errorf("second command found at same depth '%s' and '%s'", oc.Name, cm.Name)
+					return
+				} else {
+					// if this is a command match after help is found it is a
+					// help command, resume the search
+					I.Ln("found help subcommand:", cm.Name)
+					depth--
+					dist++
+					if found, depth, dist, cm, e = c.Commands.Find(args[i],
+						depth, dist, true); E.Chk(e) {
+						I.Ln("we didn't attach this help command")
+						continue
+					}
+					// I.S(cm)
+				}
 			}
 			commandsEnd = i + 1
 			T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
@@ -473,7 +495,7 @@ func (c Config) processCommandlineArgs(args []string) (
 		for i := range commands {
 			cmds = append(cmds, i)
 		}
-		// I.S(cmds)
+		I.S(cmds)
 		if len(cmds) > 0 {
 			sort.Ints(cmds)
 			var cms []string
@@ -588,11 +610,11 @@ type details struct {
 // GetHelp walks the command tree and gathers the options and creates a set of help functions for all commands and
 // options in the set
 func (c *Config) GetHelp(hf func(ifc interface{}) error) {
-	cm := cmds.Command{
-		Name:        "help",
-		Description: "prints information about how to use pod",
-		Entrypoint:  hf,
-		Commands:    nil,
+	helpCommand := cmds.Command{
+		Name:       "help",
+		Title:      "prints information about how to use pod",
+		Entrypoint: hf,
+		Commands:   nil,
 	}
 	// first add all the options
 	c.ForEach(func(ifc opt.Option) bool {
@@ -638,11 +660,16 @@ func (c *Config) GetHelp(hf func(ifc interface{}) error) {
 		}
 		allNames := append([]string{dt.name}, dt.aliases...)
 		for i := range allNames {
-			cm.Commands = append(cm.Commands, cmds.Command{
-				Name:        allNames[i],
-				Description: dt.desc,
+			helpCommand.Commands = append(helpCommand.Commands, cmds.Command{
+				Name:  allNames[i],
+				Title: dt.desc,
 				Entrypoint: func(ifc interface{}) (e error) {
-					o += fmt.Sprintf("Help information about %s\n\n\toption name:\n\t\t%s\n\taliases:\n\t\t%s\n\tdescription:\n\t\t%s\n\tdefault:\n\t\t%v\n",
+					o += fmt.Sprintf(
+						"Help information about %s\n\n"+
+							"\toption name:\n\t\t%s\n"+
+							"\taliases:\n\t\t%s\n"+
+							"\tdescription:\n\t\t%s\n"+
+							"\tdefault:\n\t\t%v\n",
 						dt.name, dt.option, dt.aliases, dt.desc, dt.def,
 					)
 					if dt.documentation != "" {
@@ -652,7 +679,7 @@ func (c *Config) GetHelp(hf func(ifc interface{}) error) {
 					return
 				},
 				Commands: nil,
-				Parent:   &cm,
+				Parent:   &helpCommand,
 			},
 			)
 		}
@@ -660,12 +687,79 @@ func (c *Config) GetHelp(hf func(ifc interface{}) error) {
 		return true
 	},
 	)
-	// // next add all the commands
-	// c.Commands.ForEach(func(cm cmds.Command) bool {
-	// 	return true
-	// }, 0, 0,
-	// )
-	c.Commands = append(c.Commands, cm)
+	// next add all the commands
+	c.Commands.ForEach(func(cm cmds.Command) bool {
+		helpCommand.Commands = append(helpCommand.Commands, cmds.Command{
+			Name:        cm.Name,
+			Title:       cm.Title,
+			Description: cm.Description,
+			Entrypoint: func(ifc interface{}) (e error) {
+				o := fmt.Sprintf(
+					"Help information about command '%s'\n\n"+
+						"%s\n\n",
+					cm.Name, cm.Title,
+				)
+				if cm.Description != "" {
+					split := strings.Split(cm.Description, "\n")
+					docs := "\t" + strings.Join(split, "\n\n\t")
+					o += docs + "\n\n"
+				}
+				o += "Related options:\n\n"
+				descs := make(map[string]string)
+				c.ForEach(func(ifc opt.Option) bool {
+					meta := ifc.GetMetadata()
+					found := false
+					for i := range meta.Tags {
+						if meta.Tags[i] == cm.Name {
+							found = true
+						}
+					}
+					if !found {
+						// skip item as it isn't tagged with this program name
+						return true
+					}
+					oo := fmt.Sprintf("\t%s %v", meta.Option, meta.Aliases)
+					nrunes := utf8.RuneCountInString(oo)
+					var def string
+					switch ii := ifc.(type) {
+					case *binary.Opt:
+						def = fmt.Sprint(ii.Def)
+					case *list.Opt:
+						def = fmt.Sprint(ii.Def)
+					case *float.Opt:
+						def = fmt.Sprint(ii.Def)
+					case *integer.Opt:
+						def = fmt.Sprint(ii.Def)
+					case *text.Opt:
+						def = fmt.Sprint(ii.Def)
+					case *duration.Opt:
+						def = fmt.Sprint(ii.Def)
+					}
+					descs[meta.Group] += oo + fmt.Sprintf(strings.Repeat(" ", 32-nrunes)+"%s, default: %s\n", meta.Description, def)
+					return true
+				},
+				)
+				var cats []string
+				for i := range descs {
+					cats = append(cats, i)
+				}
+				// I.S(cats)
+				sort.Strings(cats)
+				for i := range cats {
+					if cats[i] != "" {
+						o += "\n" + cats[i] + "\n"
+					}
+					o += descs[cats[i]]
+				}
+				fmt.Fprint(os.Stderr, o)
+				return
+			},
+			Parent: &helpCommand,
+		})
+		return true
+	}, 0, 0,
+	)
+	c.Commands = append(c.Commands, helpCommand)
 	return
 }
 
