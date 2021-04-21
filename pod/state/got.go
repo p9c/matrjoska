@@ -23,6 +23,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/amt"
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
+	"github.com/p9c/matrjoska/pkg/chainrpc"
 	"github.com/p9c/matrjoska/pkg/connmgr"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/pipe/serve"
@@ -48,7 +49,7 @@ func GetNew(config *config.Config, quit qu.C) (s *State, e error) {
 		Config:           config,
 		ConfigMap:        config.Map,
 		StateCfg:         new(active.Config),
-		// NodeChan:         make(chan *chainrpc.Server),
+		NodeChan:         make(chan *chainrpc.Server),
 		Syncing:          atomic.NewBool(true),
 	}
 	if s.Config.RunningCommand.Colorizer != nil {
