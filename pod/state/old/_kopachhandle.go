@@ -13,7 +13,7 @@ import (
 	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/opts"
 
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 
 	"github.com/p9c/matrjoska/pod/podconfig"
 )

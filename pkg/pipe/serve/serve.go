@@ -5,7 +5,7 @@ import (
 	"github.com/p9c/log"
 	"go.uber.org/atomic"
 	
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/qu"
 	
 	"github.com/p9c/matrjoska/pkg/pipe"

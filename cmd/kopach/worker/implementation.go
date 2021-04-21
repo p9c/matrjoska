@@ -21,7 +21,7 @@ import (
 
 	"go.uber.org/atomic"
 
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
 	"github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/transport"

@@ -84,7 +84,7 @@ func New(
 	start, stop qu.C,
 ) (s *State, e error) {
 	quit := qu.T()
-	chainrpc.I.Ln("creating othernodes map")
+	I.Ln("creating othernodes map")
 	s = &State{
 		cfg:               cfg,
 		node:              node,
@@ -111,27 +111,27 @@ func New(
 		constant.MaxDatagramSize,
 		handlersMulticast,
 		quit,
-	); chainrpc.E.Chk(e) {
+	); E.Chk(e) {
 		return
 	}
 	s.multiConn = mc
 	go func() {
-		chainrpc.I.Ln("starting shutdown signal watcher")
+		I.Ln("starting shutdown signal watcher")
 		select {
 		case <-killall:
-			chainrpc.I.Ln("received killall signal, signalling to quit controller")
+			I.Ln("received killall signal, signalling to quit controller")
 			s.Shutdown()
 		case <-s.quit:
-			chainrpc.I.Ln("received quit signal, breaking out of shutdown signal watcher")
+			I.Ln("received quit signal, breaking out of shutdown signal watcher")
 		}
 	}()
 	node.Chain.Subscribe(
 		func(n *blockchain.Notification) {
 			switch n.Type {
 			case blockchain.NTBlockConnected:
-				chainrpc.T.Ln("received block connected notification")
+				T.Ln("received block connected notification")
 				if b, ok := n.Data.(*block.Block); !ok {
-					chainrpc.W.Ln("block notification is not a block")
+					W.Ln("block notification is not a block")
 					break
 				} else {
 					s.blockUpdate <- b
@@ -146,26 +146,26 @@ func New(
 
 // Start up the controller
 func (s *State) Start() {
-	chainrpc.I.Ln("calling start controller")
+	I.Ln("calling start controller")
 	s.start.Signal()
 }
 
 // Stop the controller
 func (s *State) Stop() {
-	chainrpc.I.Ln("calling stop controller")
+	I.Ln("calling stop controller")
 	s.stop.Signal()
 }
 
 // Shutdown the controller
 func (s *State) Shutdown() {
-	chainrpc.I.Ln("sending shutdown signal to controller")
+	I.Ln("sending shutdown signal to controller")
 	s.quit.Q()
 }
 
 func (s *State) startWallet() (e error) {
-	chainrpc.I.Ln("getting configured TLS certificates")
+	I.Ln("getting configured TLS certificates")
 	certs := s.cfg.ReadCAFile()
-	chainrpc.I.Ln("establishing wallet connection")
+	I.Ln("establishing wallet connection")
 	if s.walletClient, e = rpcclient.New(
 		&rpcclient.ConnConfig{
 			Host:         s.cfg.WalletServer.V(),
@@ -175,23 +175,23 @@ func (s *State) startWallet() (e error) {
 			TLS:          s.cfg.ServerTLS.True(),
 			Certificates: certs,
 		}, nil, s.quit,
-	); chainrpc.E.Chk(e) {
+	); E.Chk(e) {
 	}
 	return
 }
 
 func (s *State) updateBlockTemplate() (e error) {
-	chainrpc.I.Ln("getting current chain tip")
+	I.Ln("getting current chain tip")
 	// s.node.Chain.ChainLock.Lock() // previously this was done before the above, it might be jumping the gun on a new block
 	h := s.node.Chain.BestSnapshot().Hash
 	var blk *block.Block
-	if blk, e = s.node.Chain.BlockByHash(&h); chainrpc.E.Chk(e) {
+	if blk, e = s.node.Chain.BlockByHash(&h); E.Chk(e) {
 		return
 	}
 	// s.node.Chain.ChainLock.Unlock()
-	chainrpc.I.Ln("updating block from chain tip")
+	I.Ln("updating block from chain tip")
 	// D.S(blk)
-	if e = s.doBlockUpdate(blk); chainrpc.E.Chk(e) {
+	if e = s.doBlockUpdate(blk); E.Chk(e) {
 	}
 	return
 }
@@ -202,7 +202,7 @@ func (s *State) updateBlockTemplate() (e error) {
 // For increased simplicity, every type of work runs in one thread, only signalling
 // from background goroutines to trigger state changes.
 func (s *State) Run() {
-	chainrpc.I.Ln("starting controller Server")
+	I.Ln("starting controller Server")
 	var e error
 	ticker := time.NewTicker(time.Second)
 out:
@@ -231,7 +231,7 @@ out:
 		// // I.Ln("wallet client is connected, switching to running")
 		// // if e = s.updateBlockTemplate(); E.Chk(e) {
 		// // }
-		chainrpc.I.Ln("controller now pausing")
+		I.Ln("controller now pausing")
 	pausing:
 		for {
 			select {
@@ -245,54 +245,54 @@ out:
 				// }
 				// // s.updateBlockTemplate()
 			case <-ticker.C:
-				chainrpc.D.Ln("controller ticker running")
+				D.Ln("controller ticker running")
 				// s.Advertise()
 				// s.checkConnected()
 			case <-s.start.Wait():
-				chainrpc.I.Ln("received start signal while paused")
+				I.Ln("received start signal while paused")
 				if !s.checkConnected() {
 					break
 				}
 				if s.walletClient.Disconnected() {
-					chainrpc.I.Ln("wallet client is disconnected, retrying")
-					if e = s.startWallet(); chainrpc.E.Chk(e) {
+					I.Ln("wallet client is disconnected, retrying")
+					if e = s.startWallet(); E.Chk(e) {
 						// s.updateBlockTemplate()
 						break
 					}
 				}
-				chainrpc.I.Ln("wallet client is connected, switching to running")
+				I.Ln("wallet client is connected, switching to running")
 				break pausing
 			case <-s.stop.Wait():
-				chainrpc.I.Ln("received stop signal while paused")
+				I.Ln("received stop signal while paused")
 			case <-s.quit.Wait():
-				chainrpc.I.Ln("received quit signal while paused")
+				I.Ln("received quit signal while paused")
 				break out
 			}
 		}
 		// if s.templateShards == nil || len(s.templateShards) < 1 {
 		// }
-		chainrpc.I.Ln("controller now running")
-		if e = s.updateBlockTemplate(); chainrpc.E.Chk(e) {
+		I.Ln("controller now running")
+		if e = s.updateBlockTemplate(); E.Chk(e) {
 		}
 	running:
 		for {
 			select {
 			case <-s.mempoolUpdateChan:
-				chainrpc.I.Ln("mempoolUpdateChan updating block templates")
-				if e = s.updateBlockTemplate(); chainrpc.E.Chk(e) {
+				I.Ln("mempoolUpdateChan updating block templates")
+				if e = s.updateBlockTemplate(); E.Chk(e) {
 					break
 				}
-				chainrpc.I.Ln("sending out templates...")
-				if e = s.multiConn.SendMany(job.Magic, s.templateShards); chainrpc.E.Chk(e) {
+				I.Ln("sending out templates...")
+				if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
 				}
 			case bu := <-s.blockUpdate:
 				// _ = bu
-				chainrpc.I.Ln("received new block update while running")
-				if e = s.doBlockUpdate(bu); chainrpc.E.Chk(e) {
+				I.Ln("received new block update while running")
+				if e = s.doBlockUpdate(bu); E.Chk(e) {
 					break
 				}
-				chainrpc.I.Ln("sending out templates...")
-				if e = s.multiConn.SendMany(job.Magic, s.templateShards); chainrpc.E.Chk(e) {
+				I.Ln("sending out templates...")
+				if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
 					break
 				}
 			case <-ticker.C:
@@ -301,20 +301,20 @@ out:
 					break running
 				}
 				// I.Ln("resending current templates...")
-				if e = s.multiConn.SendMany(job.Magic, s.templateShards); chainrpc.E.Chk(e) {
+				if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
 					break
 				}
 				if s.walletClient.Disconnected() {
-					chainrpc.I.Ln("wallet client has disconnected, switching to pausing")
+					I.Ln("wallet client has disconnected, switching to pausing")
 					break running
 				}
 			case <-s.start.Wait():
-				chainrpc.I.Ln("received start signal while running")
+				I.Ln("received start signal while running")
 			case <-s.stop.Wait():
-				chainrpc.I.Ln("received stop signal while running")
+				I.Ln("received stop signal while running")
 				break running
 			case <-s.quit.Wait():
-				chainrpc.I.Ln("received quit signal while running")
+				I.Ln("received quit signal while running")
 				break out
 			}
 		}
@@ -327,7 +327,7 @@ func (s *State) checkConnected() (connected bool) {
 	// 	return
 	// }
 	if s.cfg.Solo.True() {
-		chainrpc.I.Ln("in solo mode, mining anyway")
+		I.Ln("in solo mode, mining anyway")
 		// s.Start()
 		return true
 	}
@@ -349,7 +349,7 @@ func (s *State) checkConnected() (connected bool) {
 		if s.cfg.LAN.True() {
 			// if there is no peers on lan and solo was not set, stop mining
 			if lanPeers == 0 {
-				chainrpc.T.Ln("no lan peers while in lan mode, stopping mining")
+				T.Ln("no lan peers while in lan mode, stopping mining")
 				// s.Stop()
 			} else {
 				// s.Start()
@@ -358,7 +358,7 @@ func (s *State) checkConnected() (connected bool) {
 		} else {
 			if totalPeers-lanPeers == 0 {
 				// we have no peers on the internet, stop mining
-				chainrpc.T.Ln("no internet peers, stopping mining")
+				T.Ln("no internet peers, stopping mining")
 				// s.Stop()
 			} else {
 				// s.Start()
@@ -370,7 +370,7 @@ func (s *State) checkConnected() (connected bool) {
 	case <-s.quit:
 		break
 	}
-	chainrpc.T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:", *s.cfg.Solo, "lan:", *s.cfg.LAN)
+	T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:", *s.cfg.Solo, "lan:", *s.cfg.LAN)
 	return
 }
 
@@ -389,25 +389,25 @@ func (s *State) checkConnected() (connected bool) {
 // }
 
 func (s *State) doBlockUpdate(prev *block.Block) (e error) {
-	chainrpc.I.Ln("do block update")
+	I.Ln("do block update")
 	if s.nextAddress == nil {
-		chainrpc.I.Ln("getting new address for templates")
+		I.Ln("getting new address for templates")
 		// if s.nextAddress, e = s.GetNewAddressFromMiningAddrs(); T.Chk(e) {
-		if s.nextAddress, e = s.GetNewAddressFromWallet(); chainrpc.T.Chk(e) {
+		if s.nextAddress, e = s.GetNewAddressFromWallet(); T.Chk(e) {
 			s.Stop()
 			return
 		}
 		// }
 	}
-	chainrpc.I.Ln("getting templates...", prev.WireBlock().Header.Timestamp)
+	I.Ln("getting templates...", prev.WireBlock().Header.Timestamp)
 	var tpl *templates.Message
-	if tpl, e = s.GetMsgBlockTemplate(prev, s.nextAddress); chainrpc.E.Chk(e) {
+	if tpl, e = s.GetMsgBlockTemplate(prev, s.nextAddress); E.Chk(e) {
 		s.Stop()
 		return
 	}
 	s.msgBlockTemplates.Add(tpl)
-	chainrpc.I.Ln(tpl.Timestamp)
-	chainrpc.I.Ln("caching error corrected message shards...")
+	I.Ln(tpl.Timestamp)
+	I.Ln("caching error corrected message shards...")
 	s.templateShards = transport.GetShards(tpl.Serialize())
 	return
 }
@@ -415,7 +415,7 @@ func (s *State) doBlockUpdate(prev *block.Block) (e error) {
 // GetMsgBlockTemplate gets a Message building on given block paying to a given
 // address
 func (s *State) GetMsgBlockTemplate(prev *block.Block, addr btcaddr.Address) (mbt *templates.Message, e error) {
-	chainrpc.T.Ln("GetMsgBlockTemplate")
+	T.Ln("GetMsgBlockTemplate")
 	rand.Seed(time.Now().Unix())
 	mbt = &templates.Message{
 		Nonce:     rand.Uint64(),
@@ -431,7 +431,7 @@ func (s *State) GetMsgBlockTemplate(prev *block.Block, addr btcaddr.Address) (mb
 		if templateX, e = s.generator.NewBlockTemplate(
 			addr,
 			fork.GetAlgoName(curr(), mbt.Height),
-		); chainrpc.D.Chk(e) || templateX == nil {
+		); D.Chk(e) || templateX == nil {
 		} else {
 			// I.S(templateX)
 			newB := templateX.Block
@@ -451,15 +451,15 @@ func (s *State) GetMsgBlockTemplate(prev *block.Block, addr btcaddr.Address) (mb
 func (s *State) GetNewAddressFromWallet() (addr btcaddr.Address, e error) {
 	if s.walletClient != nil {
 		if !s.walletClient.Disconnected() {
-			chainrpc.I.Ln("have access to a wallet, generating address")
-			if addr, e = s.walletClient.GetNewAddress("default"); chainrpc.E.Chk(e) {
+			I.Ln("have access to a wallet, generating address")
+			if addr, e = s.walletClient.GetNewAddress("default"); E.Chk(e) {
 			} else {
-				chainrpc.I.Ln("-------- found address", addr)
+				I.Ln("-------- found address", addr)
 			}
 		}
 	} else {
 		e = errors.New("no wallet available for new address")
-		chainrpc.I.Ln(e)
+		I.Ln(e)
 	}
 	return
 }
@@ -508,7 +508,7 @@ var handlersMulticast = transport.Handlers{
 }
 
 func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
-	chainrpc.I.Ln("processing advertisment message", src, dst)
+	I.Ln("processing advertisment message", src, dst)
 	s := ctx.(*State)
 	var j p2padvt.Advertisment
 	gotiny.Unmarshal(b, &j)
@@ -516,12 +516,12 @@ func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e erro
 	uuid = j.UUID
 	// I.Ln("uuid of advertisment", uuid, s.otherNodes)
 	if uuid == s.uuid {
-		chainrpc.I.Ln("ignoring own advertisment message")
+		I.Ln("ignoring own advertisment message")
 		return
 	}
 	if _, ok := s.otherNodes[uuid]; !ok {
 		// if we haven't already added it to the permanent peer list, we can add it now
-		chainrpc.I.Ln("connecting to lan peer with same PSK", j.IPs, uuid)
+		I.Ln("connecting to lan peer with same PSK", j.IPs, uuid)
 		s.otherNodes[uuid] = &nodeSpec{}
 		s.otherNodes[uuid].Time = time.Now()
 		// try all IPs
@@ -533,14 +533,14 @@ func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e erro
 			if e = s.connMgr.Connect(
 				peerIP,
 				true,
-			); chainrpc.E.Chk(e) {
+			); E.Chk(e) {
 				continue
 			}
-			chainrpc.I.Ln("connected to peer via address", peerIP)
+			I.Ln("connected to peer via address", peerIP)
 			s.otherNodes[uuid].addr = peerIP
 			break
 		}
-		chainrpc.I.Ln("otherNodes", s.otherNodes)
+		I.Ln("otherNodes", s.otherNodes)
 	} else {
 		// update last seen time for uuid for garbage collection of stale disconnected
 		// nodes
@@ -551,9 +551,9 @@ func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e erro
 	for i := range s.otherNodes {
 		if time.Now().Sub(s.otherNodes[i].Time) > time.Second*6 {
 			// also remove from connection manager
-			if e = s.connMgr.RemoveByAddr(s.otherNodes[i].addr); chainrpc.E.Chk(e) {
+			if e = s.connMgr.RemoveByAddr(s.otherNodes[i].addr); E.Chk(e) {
 			}
-			chainrpc.I.Ln("deleting", s.otherNodes[i])
+			I.Ln("deleting", s.otherNodes[i])
 			delete(s.otherNodes, i)
 		}
 	}
@@ -564,70 +564,70 @@ func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e erro
 
 // Solutions submitted by workers
 func processSolMsg(ctx interface{}, src net.Addr, dst string, b []byte,) (e error) {
-	chainrpc.I.Ln("received solution", src, dst)
+	I.Ln("received solution", src, dst)
 	s := ctx.(*State)
 	var so sol.Solution
 	gotiny.Unmarshal(b, &so)
 	tpl := s.msgBlockTemplates.Find(so.Nonce)
 	if tpl == nil {
-		chainrpc.I.Ln("solution nonce", so.Nonce, "is not known by this controller")
+		I.Ln("solution nonce", so.Nonce, "is not known by this controller")
 		return
 	}
 	if so.UUID != s.uuid {
-		chainrpc.I.Ln("solution is for another controller")
+		I.Ln("solution is for another controller")
 		return
 	}
 	var newHeader *wire.BlockHeader
-	if newHeader, e = so.Decode(); chainrpc.E.Chk(e) {
+	if newHeader, e = so.Decode(); E.Chk(e) {
 		return
 	}
 	if newHeader.PrevBlock != tpl.PrevBlock {
-		chainrpc.I.Ln("blk submitted by kopach miner worker is stale")
+		I.Ln("blk submitted by kopach miner worker is stale")
 		return
 	}
 	var msgBlock *wire.Block
-	if msgBlock, e = tpl.Reconstruct(newHeader); chainrpc.E.Chk(e) {
-		chainrpc.I.Ln("failed to construct new header")
+	if msgBlock, e = tpl.Reconstruct(newHeader); E.Chk(e) {
+		I.Ln("failed to construct new header")
 		return
 	}
 	
-	chainrpc.I.Ln("sending pause to workers")
+	I.Ln("sending pause to workers")
 	if e = s.multiConn.SendMany(pause.Magic, transport.GetShards(p2padvt.Get(s.uuid, (s.cfg.P2PListeners.S())[0])),
-	); chainrpc.E.Chk(e) {
+	); E.Chk(e) {
 		return
 	}
-	chainrpc.I.Ln("signalling controller to enter pause mode")
+	I.Ln("signalling controller to enter pause mode")
 	s.Stop()
 	defer s.Start()
 	blk := block.NewBlock(msgBlock)
 	blk.SetHeight(tpl.Height)
 	var isOrphan bool
-	chainrpc.I.Ln("submitting blk for processing")
-	if isOrphan, e = s.node.SyncManager.ProcessBlock(blk, blockchain.BFNone); chainrpc.E.Chk(e) {
+	I.Ln("submitting blk for processing")
+	if isOrphan, e = s.node.SyncManager.ProcessBlock(blk, blockchain.BFNone); E.Chk(e) {
 		// Anything other than a rule violation is an unexpected error, so log that
 		// error as an internal error.
 		if _, ok := e.(blockchain.RuleError); !ok {
-			chainrpc.W.F(
+			W.F(
 				"Unexpected error while processing blk submitted via kopach miner:", e,
 			)
 			return
 		} else {
-			chainrpc.W.Ln("blk submitted via kopach miner rejected:", e)
+			W.Ln("blk submitted via kopach miner rejected:", e)
 			if isOrphan {
-				chainrpc.W.Ln("blk is an orphan")
+				W.Ln("blk is an orphan")
 				return
 			}
 			return
 		}
 	}
-	chainrpc.I.Ln("the blk was accepted, new height", blk.Height())
-	chainrpc.I.C(
+	I.Ln("the blk was accepted, new height", blk.Height())
+	I.C(
 		func() string {
 			bmb := blk.WireBlock()
 			coinbaseTx := bmb.Transactions[0].TxOut[0]
 			prevHeight := blk.Height() - 1
 			var prevBlock *block.Block
-			if prevBlock, e = s.node.Chain.BlockByHeight(prevHeight); chainrpc.E.Chk(e) {
+			if prevBlock, e = s.node.Chain.BlockByHeight(prevHeight); E.Chk(e) {
 			}
 			if prevBlock == nil {
 				return "prevblock nil while generating log"
@@ -650,7 +650,7 @@ func processSolMsg(ctx interface{}, src net.Addr, dst string, b []byte,) (e erro
 			)
 		},
 	)
-	chainrpc.I.Ln("clearing address used for blk")
+	I.Ln("clearing address used for blk")
 	s.nextAddress = nil
 	return
 }
@@ -687,7 +687,7 @@ func (s *State) hashReport() float64 {
 			i++
 			return nil
 		},
-	); chainrpc.E.Chk(e) {
+	); E.Chk(e) {
 	}
 	return av.Value()
 }

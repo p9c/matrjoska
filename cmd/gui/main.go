@@ -28,7 +28,7 @@ import (
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/pkg/btcjson"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 
 	l "gioui.org/layout"
 

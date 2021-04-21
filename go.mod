@@ -25,6 +25,7 @@ require (
 	github.com/niubaoshu/gotiny v0.0.3
 	github.com/p9c/gel v0.1.16
 	github.com/p9c/gio v0.0.5 // indirect
+	github.com/p9c/interrupt v0.0.2
 	github.com/p9c/log v0.0.9
 	github.com/p9c/opts v0.0.9
 	github.com/p9c/qu v0.0.3

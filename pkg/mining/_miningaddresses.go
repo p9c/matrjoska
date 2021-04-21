@@ -4,7 +4,7 @@ import (
 	"github.com/p9c/matrjoska/cmd/node/active"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	wm "github.com/p9c/matrjoska/pkg/waddrmgr"
-	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/cmd/wallet"
 	"github.com/p9c/matrjoska/pod/config"
 )
 

@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 	
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
 	"github.com/p9c/qu"

@@ -24,7 +24,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainhash"
 	"github.com/p9c/matrjoska/pkg/database"
 	"github.com/p9c/matrjoska/pkg/ecc"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/mempool"
 	"github.com/p9c/matrjoska/pkg/txscript"
 	"github.com/p9c/matrjoska/pkg/util"

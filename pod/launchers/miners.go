@@ -16,7 +16,7 @@ import (
 	"github.com/p9c/matrjoska/cmd/kopach/worker"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 )
 
 // kopachHandle runs the kopach miner

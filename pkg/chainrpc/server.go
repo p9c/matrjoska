@@ -26,7 +26,7 @@ import (
 	block2 "github.com/p9c/matrjoska/pkg/block"
 	"github.com/p9c/matrjoska/pkg/chainrpc/peersummary"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/mining"
 	"github.com/p9c/matrjoska/pod/config"
 

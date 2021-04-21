@@ -20,7 +20,7 @@ import (
 	
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainclient"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 )
 
 type WebsocketClient struct {

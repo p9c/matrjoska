@@ -6,12 +6,13 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/p9c/interrupt"
 	"github.com/p9c/qu"
 
 	"github.com/p9c/matrjoska/cmd/ctl"
 	"github.com/p9c/matrjoska/cmd/node"
+	"github.com/p9c/matrjoska/cmd/wallet"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/wallet"
 	"github.com/p9c/matrjoska/pod/state"
 
 	"github.com/p9c/matrjoska/pkg/apputil"
@@ -81,7 +82,8 @@ func WalletHandle(ifc interface{}) (e error) {
 			return e
 		}
 		fmt.Println("restart to complete initial setup")
-		os.Exit(0)
+		// os.Exit(0)
+		interrupt.RequestRestart()
 	}
 	// for security with apps launching the wallet, the public password can be set with a file that is deleted after
 	walletPassPath := filepath.Join(cx.Config.DataDir.V(), cx.ActiveNet.Name, "wp.txt")

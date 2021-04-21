@@ -5,7 +5,7 @@ import (
 
 	"github.com/gookit/color"
 
-	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/cmd/wallet"
 
 	"github.com/p9c/qu"
 

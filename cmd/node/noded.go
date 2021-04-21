@@ -46,7 +46,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/database"
 	"github.com/p9c/matrjoska/pkg/database/blockdb"
 	"github.com/p9c/matrjoska/pkg/indexers"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pod/state"
 )
 

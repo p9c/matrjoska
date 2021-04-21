@@ -7,7 +7,7 @@ import (
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/cmd/glom/pkg/pathtree"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 )
 
 type State struct {

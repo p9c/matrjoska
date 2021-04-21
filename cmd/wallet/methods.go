@@ -18,7 +18,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainclient"
 	"github.com/p9c/matrjoska/pkg/chainhash"
 	"github.com/p9c/matrjoska/pkg/ecc"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/rpcclient"
 	"github.com/p9c/matrjoska/pkg/txrules"
 	"github.com/p9c/matrjoska/pkg/txscript"

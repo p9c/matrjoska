@@ -35,7 +35,7 @@ func Call(
 		return
 	}
 	if usageFlags&btcjson.UnusableFlags != 0 {
-		config.E.F("The '%s' command can only be used via websockets\n", method)
+		E.F("The '%s' command can only be used via websockets\n", method)
 		// HelpPrint()
 		return
 	}
@@ -97,7 +97,7 @@ func newHTTPClient(cfg *config.Config) (*http.Client, func(), error) {
 				for {
 					select {
 					case <-ctx.Done():
-						if e := c.Close(); config.E.Chk(e) {
+						if e := c.Close(); E.Chk(e) {
 						}
 						break out
 					}
@@ -173,7 +173,7 @@ func sendPostRequest(
 	httpRequest.Header.Set("Content-Type", "application/json")
 	// Configure basic access authorization.
 	httpRequest.SetBasicAuth(cx.Username.V(), cx.Password.V())
-	config.T.Ln(cx.Username.V(), cx.Password.V())
+	T.Ln(cx.Username.V(), cx.Password.V())
 	// Create the new HTTP client that is configured according to the user - specified options and submit the request.
 	var httpClient *http.Client
 	var cancel func()
@@ -189,7 +189,7 @@ func sendPostRequest(
 	cancel()
 	// Read the raw bytes and close the response.
 	respBytes, e := ioutil.ReadAll(httpResponse.Body)
-	if e := httpResponse.Body.Close(); config.E.Chk(e) {
+	if e := httpResponse.Body.Close(); E.Chk(e) {
 		e = fmt.Errorf("error reading json reply: %v", e)
 		return nil, e
 	}
@@ -206,7 +206,7 @@ func sendPostRequest(
 	}
 	// Unmarshal the response.
 	var resp btcjson.Response
-	if e := json.Unmarshal(respBytes, &resp); config.E.Chk(e) {
+	if e := json.Unmarshal(respBytes, &resp); E.Chk(e) {
 		return nil, e
 	}
 	if resp.Error != nil {
@@ -228,7 +228,7 @@ func ListCommands() (s string) {
 	for _, method := range cmdMethods {
 		var e error
 		var flags btcjson.UsageFlag
-		if flags, e = btcjson.MethodUsageFlags(method); config.E.Chk(e) {
+		if flags, e = btcjson.MethodUsageFlags(method); E.Chk(e) {
 			continue
 		}
 		// Skip the commands that aren't usable from this utility.
@@ -236,7 +236,7 @@ func ListCommands() (s string) {
 			continue
 		}
 		var usage string
-		if usage, e = btcjson.MethodUsageText(method); config.E.Chk(e) {
+		if usage, e = btcjson.MethodUsageText(method); E.Chk(e) {
 			continue
 		}
 		// Categorize the command based on the usage flags.
@@ -277,7 +277,7 @@ func CtlMain(cx *config.Config) {
 	method := args[0]
 	var usageFlags btcjson.UsageFlag
 	var e error
-	if usageFlags, e = btcjson.MethodUsageFlags(method); config.E.Chk(e) {
+	if usageFlags, e = btcjson.MethodUsageFlags(method); E.Chk(e) {
 		_, _ = fmt.Fprintf(os.Stderr, "Unrecognized command '%s'\n", method)
 		HelpPrint()
 		os.Exit(1)
@@ -296,7 +296,7 @@ func CtlMain(cx *config.Config) {
 	for _, arg := range args[1:] {
 		if arg == "-" {
 			var param string
-			if param, e = bio.ReadString('\n'); config.E.Chk(e) && e != io.EOF {
+			if param, e = bio.ReadString('\n'); E.Chk(e) && e != io.EOF {
 				_, _ = fmt.Fprintf(os.Stderr, "Failed to read data from stdin: %v\n", e)
 				os.Exit(1)
 			}
@@ -311,7 +311,7 @@ func CtlMain(cx *config.Config) {
 		params = append(params, arg)
 	}
 	var result []byte
-	if result, e = Call(cx, cx.UseWallet.True(), method, params...); config.E.Chk(e) {
+	if result, e = Call(cx, cx.UseWallet.True(), method, params...); E.Chk(e) {
 		return
 	}
 	// // Attempt to create the appropriate command using the arguments provided by the user.
@@ -349,14 +349,14 @@ func CtlMain(cx *config.Config) {
 	switch {
 	case strings.HasPrefix(strResult, "{") || strings.HasPrefix(strResult, "["):
 		var dst bytes.Buffer
-		if e = json.Indent(&dst, result, "", "  "); config.E.Chk(e) {
+		if e = json.Indent(&dst, result, "", "  "); E.Chk(e) {
 			fmt.Printf("Failed to format result: %v", e)
 			os.Exit(1)
 		}
 		fmt.Println(dst.String())
 	case strings.HasPrefix(strResult, `"`):
 		var str string
-		if e = json.Unmarshal(result, &str); config.E.Chk(e) {
+		if e = json.Unmarshal(result, &str); E.Chk(e) {
 			_, _ = fmt.Fprintf(os.Stderr, "Failed to unmarshal result: %v", e)
 			os.Exit(1)
 		}
@@ -370,7 +370,7 @@ func CtlMain(cx *config.Config) {
 func CommandUsage(method string) {
 	var usage string
 	var e error
-	if usage, e = btcjson.MethodUsageText(method); config.E.Chk(e) {
+	if usage, e = btcjson.MethodUsageText(method); E.Chk(e) {
 		// This should never happen since the method was already checked before calling this function, but be safe.
 		fmt.Println("Failed to obtain command usage:", e)
 		return

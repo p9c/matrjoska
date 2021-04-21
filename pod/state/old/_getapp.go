@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/cmd/wallet"
 	"github.com/p9c/matrjoska/pod/launchers"
 	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/matrjoska/version"
@@ -21,7 +21,7 @@ import (
 	au "github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/base58"
 	"github.com/p9c/matrjoska/pkg/database/blockdb"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/util/hdkeychain"
 	"github.com/p9c/matrjoska/pod/podconfig"
 )

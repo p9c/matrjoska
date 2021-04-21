@@ -27,7 +27,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc/hashrate"
 	"github.com/p9c/matrjoska/pkg/chainrpc/job"
 	"github.com/p9c/matrjoska/pkg/chainrpc/pause"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
 	rav "github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/transport"

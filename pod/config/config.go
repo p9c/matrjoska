@@ -238,10 +238,6 @@ func (c *Config) loadConfig(path string) (e error) {
 
 // WriteToFile writes the current config to a file as json
 func (c Config) WriteToFile(filename string) (e error) {
-	// always load first and ensure written changes propagated or if one is manually running components independently
-	if e = c.loadConfig(filename); E.Chk(e) {
-		return
-	}
 	var j []byte
 	if j, e = json.MarshalIndent(c, "", "  "); E.Chk(e) {
 		return

@@ -17,7 +17,7 @@ import (
 	"gioui.org/text"
 
 	"github.com/p9c/gel"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 

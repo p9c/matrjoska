@@ -10,7 +10,7 @@ import (
 
 	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/wallet"
+	"github.com/p9c/matrjoska/cmd/wallet"
 	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/opts"
 

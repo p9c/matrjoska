@@ -14,7 +14,7 @@ import (
 	"github.com/p9c/matrjoska/pod/state"
 
 	"github.com/p9c/matrjoska/pkg/chainclient"
-	"github.com/p9c/matrjoska/pkg/interrupt"
+	"github.com/p9c/interrupt"
 )
 
 // Main is a work-around main function that is required since deferred functions
@@ -267,7 +267,7 @@ func StartChainRPC(config *config.Config, activeNet *chaincfg.Params, certs []by
 	*chainclient.RPCClient,
 	error,
 ) {
-	D.Ln(
+	D.F(
 		">>>>>>>>>>>>>>> attempting RPC client connection to %v, TLS: %s", *config.RPCConnect,
 		fmt.Sprint(*config.ClientTLS),
 	)
