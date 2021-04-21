@@ -7,9 +7,9 @@ import (
 	"github.com/gookit/color"
 
 	"github.com/p9c/log"
+	"github.com/p9c/matrjoska/cmd/kopach"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pod/launchers"
 	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/opts"
 
@@ -34,7 +34,7 @@ func KopachHandle(ifc interface{}) (e error) {
 		fork.IsTestnet = true
 	}
 	defer cx.KillAll.Q()
-	e = launchers.Run(cx)
+	e = kopach.Run(cx)
 	<-interrupt.HandlersDone
 	opts.D.Ln("kopach main finished")
 	return

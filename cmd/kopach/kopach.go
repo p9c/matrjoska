@@ -1,4 +1,4 @@
-package launchers
+package kopach
 
 import (
 	"context"
@@ -251,7 +251,9 @@ func Run(cx *state.State) (e error) {
 
 // these are the handlers for specific message types.
 var handlers = transport.Handlers{
-	string(hashrate.Magic): func(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
+	string(hashrate.Magic): func(
+		ctx interface{}, src net.Addr, dst string, b []byte,
+	) (e error) {
 		c := ctx.(*Worker)
 		if !c.active.Load() {
 			D.Ln("not active")
@@ -302,7 +304,9 @@ var handlers = transport.Handlers{
 		}
 		return
 	},
-	string(pause.Magic): func(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
+	string(pause.Magic): func(
+		ctx interface{}, src net.Addr, dst string, b []byte,
+	) (e error) {
 		w := ctx.(*Worker)
 		var advt p2padvt.Advertisment
 		gotiny.Unmarshal(b, &advt)

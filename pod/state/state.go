@@ -10,6 +10,7 @@ import (
 
 	"go.uber.org/atomic"
 
+	"github.com/p9c/matrjoska/cmd/ctrl"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/chainclient"
 	"github.com/p9c/matrjoska/pkg/chainrpc"
@@ -66,7 +67,7 @@ type State struct {
 	// Hashrate is the current total hashrate from kopach workers taking work from this node
 	Hashrate atomic.Uint64
 	// Controller is the state of the controller
-	Controller *chainrpc.State
+	Controller *ctrl.State
 	// OtherNodesCounter is the count of nodes connected automatically on the LAN
 	OtherNodesCounter atomic.Int32
 	waitChangers []string

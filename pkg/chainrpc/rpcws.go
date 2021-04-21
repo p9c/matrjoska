@@ -10,20 +10,21 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	amount2 "github.com/p9c/matrjoska/pkg/amt"
-	"github.com/p9c/matrjoska/pkg/block"
-	"github.com/p9c/matrjoska/pkg/btcaddr"
-	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"io"
 	"math"
 	"sync"
 	"time"
-	
+
+	amount2 "github.com/p9c/matrjoska/pkg/amt"
+	"github.com/p9c/matrjoska/pkg/block"
+	"github.com/p9c/matrjoska/pkg/btcaddr"
+	"github.com/p9c/matrjoska/pkg/chaincfg"
+
 	"github.com/p9c/qu"
-	
+
 	"github.com/btcsuite/websocket"
 	"golang.org/x/crypto/ripemd160"
-	
+
 	"github.com/p9c/matrjoska/pkg/blockchain"
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"
@@ -832,7 +833,9 @@ func (m *WSNtfnMgr) RegisterSpentRequests(wsc *WSClient, ops []*wire.OutPoint) {
 
 // RegisterTxOutAddressRequests requests notifications to the passed websocket client when a transaction output spends
 // to the passed address.
-func (m *WSNtfnMgr) RegisterTxOutAddressRequests(wsc *WSClient, addrs []string) {
+func (m *WSNtfnMgr) RegisterTxOutAddressRequests(
+	wsc *WSClient, addrs []string,
+) {
 	m.QueueNotification <- &NotificationRegisterAddr{
 		WSC:   wsc,
 		Addrs: addrs,
@@ -1063,7 +1066,9 @@ out:
 
 // NotifyBlockConnected notifies websocket clients that have registered for block updates when a block is connected to
 // the main chain.
-func (*WSNtfnMgr) NotifyBlockConnected(clients map[qu.C]*WSClient, block *block.Block) {
+func (*WSNtfnMgr) NotifyBlockConnected(
+	clients map[qu.C]*WSClient, block *block.Block,
+) {
 	// Notify interested websocket clients about the connected block.
 	ntfn := btcjson.NewBlockConnectedNtfn(
 		block.Hash().String(), block.Height(),
@@ -1359,7 +1364,9 @@ func (m *WSNtfnMgr) NotifyForTxOuts(
 // outputs spending to a watched address and inputs spending a watched outpoint.
 //
 // Any outputs paying to a watched address result in the output being watched as well for future notifications.
-func (m *WSNtfnMgr) NotifyRelevantTxAccepted(tx *util.Tx, clients map[qu.C]*WSClient) {
+func (m *WSNtfnMgr) NotifyRelevantTxAccepted(
+	tx *util.Tx, clients map[qu.C]*WSClient,
+) {
 	clientsToNotify := m.GetSubscribedClients(tx, clients)
 	if len(clientsToNotify) != 0 {
 		n := btcjson.NewRelevantTxAcceptedNtfn(TxHexString(tx.MsgTx()))
@@ -1533,7 +1540,9 @@ func CheckAddressValidity(addrs []string, params *chaincfg.Params) (e error) {
 
 // DescendantBlock returns the appropriate JSON-RPC error if a current block fetched during a reorganize is not a direct
 // child of the parent block hash.
-func DescendantBlock(prevHash *chainhash.Hash, curBlock *block.Block) (e error) {
+func DescendantBlock(
+	prevHash *chainhash.Hash, curBlock *block.Block,
+) (e error) {
 	curHash := &curBlock.WireBlock().Header.PrevBlock
 	if !prevHash.IsEqual(curHash) {
 		E.F(
@@ -2019,7 +2028,9 @@ func HandleStopNotifyBlocks(wsc *WSClient, icmd interface{}) (
 }
 
 // HandleStopNotifyNewTransactions implements the stopnotifynewtransactions command extension for websocket connections.
-func HandleStopNotifyNewTransactions(wsc *WSClient, icmd interface{}) (interface{}, error) {
+func HandleStopNotifyNewTransactions(
+	wsc *WSClient, icmd interface{},
+) (interface{}, error) {
 	wsc.Server.NtfnMgr.UnregisterNewMempoolTxsUpdates(wsc)
 	return nil, nil
 }
@@ -2045,7 +2056,9 @@ func HandleStopNotifyReceived(wsc *WSClient, icmd interface{}) (
 }
 
 // HandleStopNotifySpent implements the stopnotifyspent command extension for websocket connections.
-func HandleStopNotifySpent(wsc *WSClient, icmd interface{}) (interface{}, error) {
+func HandleStopNotifySpent(wsc *WSClient, icmd interface{}) (
+	interface{}, error,
+) {
 	cmd, ok := icmd.(*btcjson.StopNotifySpentCmd)
 	if !ok {
 		return nil, btcjson.ErrRPCInternal
@@ -2103,7 +2116,7 @@ func HandleWebsocketHelp(wsc *WSClient, icmd interface{}) (interface{}, error) {
 }
 
 func init() {
-	
+
 	WSHandlers = WSHandlersBeforeInit
 }
 func MakeSemaphore(n int) Semaphore {

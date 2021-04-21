@@ -10,6 +10,7 @@ import (
 	"github.com/gookit/color"
 
 	"github.com/p9c/log"
+	"github.com/p9c/matrjoska/cmd/kopach"
 	"github.com/p9c/matrjoska/pod/state"
 
 	"github.com/p9c/matrjoska/cmd/kopach/worker"
@@ -34,7 +35,7 @@ func kopachHandle(ifc interface{}) (e error) {
 		fork.IsTestnet = true
 	}
 	defer cx.KillAll.Q()
-	e = Run(cx)
+	e = kopach.Run(cx)
 	<-interrupt.HandlersDone
 	D.Ln("kopach main finished")
 	return

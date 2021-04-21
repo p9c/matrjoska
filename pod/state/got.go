@@ -33,9 +33,10 @@ import (
 )
 
 // GetNew returns a fresh new context
-func GetNew(config *config.Config, quit qu.C) (s *State, e error) {
+func GetNew(config *config.Config,hf func(ifc interface{}) error,
+	quit qu.C) (s *State, e error) {
 	// after this, all the configurations are set and mostly sanitized
-	if e = config.Initialize(); E.Chk(e) {
+	if e = config.Initialize(hf); E.Chk(e) {
 		// return
 		panic(e)
 	}

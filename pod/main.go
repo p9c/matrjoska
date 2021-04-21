@@ -12,6 +12,7 @@ import (
 	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pod/config"
 	"github.com/p9c/matrjoska/pod/podcfgs"
+	"github.com/p9c/matrjoska/pod/podhelp"
 	"github.com/p9c/matrjoska/pod/state"
 	"github.com/p9c/matrjoska/version"
 
@@ -27,13 +28,13 @@ func main() {
 }
 
 func Main() (quit qu.C) {
-	quit=qu.T()
+	quit = qu.T()
 	go func() {
 		log.SetLogLevel("trace")
 		T.Ln(version.Get())
 		var cx *state.State
 		var e error
-		if cx, e = state.GetNew(podcfgs.GetDefaultConfig(), quit); E.Chk(e) {
+		if cx, e = state.GetNew(podcfgs.GetDefaultConfig(), podhelp.HelpFunction, quit); E.Chk(e) {
 			fail()
 		}
 
@@ -45,6 +46,7 @@ func Main() (quit qu.C) {
 		if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
 			fail()
 		}
+		quit.Q()
 	}()
 	return quit
 }

@@ -8,11 +8,11 @@ import (
 	"strconv"
 	"strings"
 
-	l "gioui.org/layout"
-	ctl "github.com/p9c/matrjoska/pod/config"
-
 	"github.com/atotto/clipboard"
 	"golang.org/x/exp/shiny/materialdesign/icons"
+
+	l "gioui.org/layout"
+	ctl2 "github.com/p9c/matrjoska/cmd/ctl"
 
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"
 
@@ -89,13 +89,13 @@ func (wg *WalletGUI) ConsolePage() *Console {
 				if len(args) == 0 {
 					D.Ln("rpc called help")
 					var result1, result2 []byte
-					if result1, e = ctl.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
+					if result1, e = ctl2.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
 					}
 					r1 := string(result1)
 					if r1, e = strconv.Unquote(r1); E.Chk(e) {
 					}
 					o = r1 + "\n"
-					if result2, e = ctl.Call(wg.cx.Config, true, method, params...); E.Chk(e) {
+					if result2, e = ctl2.Call(wg.cx.Config, true, method, params...); E.Chk(e) {
 					}
 					r2 := string(result2)
 					if r2, e = strconv.Unquote(r2); E.Chk(e) {
@@ -140,7 +140,7 @@ func (wg *WalletGUI) ConsolePage() *Console {
 				} else {
 					var out string
 					var isErr bool
-					if result, e = ctl.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
+					if result, e = ctl2.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
 						isErr = true
 						out = e.Error()
 						I.Ln(out)
@@ -177,9 +177,9 @@ func (wg *WalletGUI) ConsolePage() *Console {
 				}
 			} else {
 				D.Ln("method", method, "args", args)
-				if result, e = ctl.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
+				if result, e = ctl2.Call(wg.cx.Config, false, method, params...); E.Chk(e) {
 					var errR string
-					if result, e = ctl.Call(wg.cx.Config, true, method, params...); E.Chk(e) {
+					if result, e = ctl2.Call(wg.cx.Config, true, method, params...); E.Chk(e) {
 						if e != nil {
 							errR = e.Error()
 						}

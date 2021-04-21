@@ -8,9 +8,10 @@ import (
 
 	"github.com/p9c/qu"
 
+	"github.com/p9c/matrjoska/cmd/ctl"
+	"github.com/p9c/matrjoska/cmd/node"
 	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/wallet"
-	"github.com/p9c/matrjoska/pod/config"
 	"github.com/p9c/matrjoska/pod/state"
 
 	"github.com/p9c/matrjoska/pkg/apputil"
@@ -44,7 +45,7 @@ func NodeHandle(ifc interface{}) (e error) {
 	// 	return nil
 	// }
 	go func() {
-		if e := NodeMain(cx); E.Chk(e) {
+		if e := node.NodeMain(cx); E.Chk(e) {
 			E.Ln("error starting node ", e)
 		}
 	}()
@@ -119,7 +120,7 @@ func CtlHandleList(ifc interface{}) (e error) {
 		return fmt.Errorf("cannot run without a state")
 	}
 	_ = cx
-	config.ListCommands()
+	ctl.ListCommands()
 	return nil
 }
 
@@ -130,6 +131,6 @@ func CtlHandle(ifc interface{}) (e error) {
 		return fmt.Errorf("cannot run without a state")
 	}
 	cx.Config.LogLevel.Set("off")
-	config.CtlMain(cx.Config)
+	ctl.CtlMain(cx.Config)
 	return nil
 }

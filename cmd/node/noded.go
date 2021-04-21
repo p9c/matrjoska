@@ -26,7 +26,7 @@ COMMANDS:
 GLOBAL OPTIONS:
    --help, -h  show help
 */
-package launchers
+package node
 
 import (
 	"io"
@@ -39,6 +39,7 @@ import (
 	"github.com/p9c/qu"
 
 	"github.com/p9c/log"
+	"github.com/p9c/matrjoska/cmd/ctrl"
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/chainrpc"
 	"github.com/p9c/matrjoska/pkg/constant"
@@ -189,7 +190,7 @@ func NodeMain(cx *state.State) (e error) {
 		cx.NodeChan <- cx.RPCServer
 	}
 	D.Ln("starting controller")
-	cx.Controller, e = chainrpc.New(
+	cx.Controller, e = ctrl.New(
 		cx.Syncing,
 		cx.Config,
 		cx.StateCfg,
