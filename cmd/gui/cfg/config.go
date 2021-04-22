@@ -5,9 +5,9 @@ import (
 
 	"golang.org/x/exp/shiny/materialdesign/icons"
 
-	"gioui.org/text"
+	"github.com/p9c/gio/text"
 
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 
 	"github.com/p9c/gel"
 )

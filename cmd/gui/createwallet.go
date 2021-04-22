@@ -13,7 +13,7 @@ import (
 
 	"github.com/urfave/cli"
 
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 )
 
 const slash = string(os.PathSeparator)

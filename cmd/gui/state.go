@@ -12,7 +12,7 @@ import (
 
 	uberatomic "go.uber.org/atomic"
 
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 
 	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/matrjoska/pkg/chainhash"

@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"strings"
 
-	l "gioui.org/layout"
-	"gioui.org/text"
+	l "github.com/p9c/gio/layout"
+	"github.com/p9c/gio/text"
 	"github.com/tyler-smith/go-bip39"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 

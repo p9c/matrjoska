@@ -1,8 +1,8 @@
 package pathtree
 
 import (
-	l "gioui.org/layout"
-	"gioui.org/text"
+	l "github.com/p9c/gio/layout"
+	"github.com/p9c/gio/text"
 	uberatomic "go.uber.org/atomic"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 

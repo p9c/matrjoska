@@ -10,8 +10,8 @@ import (
 	uberatomic "go.uber.org/atomic"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 
-	l "gioui.org/layout"
-	"gioui.org/text"
+	l "github.com/p9c/gio/layout"
+	"github.com/p9c/gio/text"
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/cmd/gui/cfg"

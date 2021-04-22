@@ -11,7 +11,7 @@ import (
 
 	"github.com/atotto/clipboard"
 
-	"gioui.org/op/paint"
+	"github.com/p9c/gio/op/paint"
 
 	"github.com/p9c/matrjoska/pkg/qrcode"
 )

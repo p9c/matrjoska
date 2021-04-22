@@ -15,7 +15,7 @@ func GetCommands() (c cmds.Commands) {
 	c = cmds.Commands{
 		{Name: "gui", Title:
 		"ParallelCoin GUI Wallet/Miner/Explorer",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.GUIHandle,
 			Colorizer:  color.Bit24(128, 255, 255, false).Sprint,
 			AppText:    "   gui",
 		},

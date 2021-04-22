@@ -11,7 +11,7 @@ import (
 	"github.com/atotto/clipboard"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 	ctl2 "github.com/p9c/matrjoska/cmd/ctl"
 
 	icons2 "golang.org/x/exp/shiny/materialdesign/icons"

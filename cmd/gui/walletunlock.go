@@ -4,20 +4,18 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"path/filepath"
 	"time"
-
-	"github.com/p9c/matrjoska/pod/podcfgs"
 
 	"golang.org/x/exp/shiny/materialdesign/icons"
 	"lukechampine.com/blake3"
 
-	l "gioui.org/layout"
-	"gioui.org/text"
+	l "github.com/p9c/gio/layout"
+	"github.com/p9c/gio/text"
+
+	"github.com/p9c/interrupt"
 
 	"github.com/p9c/gel"
-	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pkg/p9icons"
 )
 
@@ -29,14 +27,16 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 	wg.cx.Config.WalletOff.F()
 	// wg.cx.Config.Unlock()
 	// load config into a fresh variable
-	cfg := podcfgs.GetDefaultConfig()
-	var cfgFile []byte
+	// cfg := podcfgs.GetDefaultConfig()
+	// var cfgFile []byte
 	var e error
-	if cfgFile, e = ioutil.ReadFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {
-		// this should not happen
-		// TODO: panic-type conditions - for gel should have a notification maybe?
-		panic("config file does not exist")
-	}
+	// if cfgFile, e = ioutil.ReadFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {
+	// 	// this should not happen
+	// 	// TODO: panic-type conditions - for gel should have a notification maybe?
+	// 	panic("config file does not exist")
+	// }
+	cfg := wg.cx.Config
+	cfgFile := cfg.ConfigFile.Bytes()
 	D.Ln("loaded config")
 	if e = json.Unmarshal(cfgFile, &cfg); !E.Chk(e) {
 		D.Ln("unmarshaled config")

@@ -1,7 +1,7 @@
 package main
 
 import (
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 
 	"github.com/p9c/qu"
 

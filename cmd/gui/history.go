@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	l "gioui.org/layout"
+	l "github.com/p9c/gio/layout"
 
 	"github.com/p9c/gel"
 )

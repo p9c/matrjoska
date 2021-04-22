@@ -1,8 +1,8 @@
 package gui
 
 import (
-	l "gioui.org/layout"
-	"gioui.org/text"
+	l "github.com/p9c/gio/layout"
+	"github.com/p9c/gio/text"
 
 	"github.com/p9c/gel"
 	"github.com/p9c/matrjoska/pkg/p9icons"

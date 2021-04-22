@@ -22,15 +22,16 @@ import (
 
 	uberatomic "go.uber.org/atomic"
 
-	"gioui.org/op/paint"
+	"github.com/p9c/gio/op/paint"
 
 	"github.com/p9c/qu"
 
-	"github.com/p9c/gel"
-	"github.com/p9c/matrjoska/pkg/btcjson"
 	"github.com/p9c/interrupt"
 
-	l "gioui.org/layout"
+	"github.com/p9c/gel"
+	"github.com/p9c/matrjoska/pkg/btcjson"
+
+	l "github.com/p9c/gio/layout"
 
 	"github.com/p9c/matrjoska/cmd/gui/cfg"
 	"github.com/p9c/matrjoska/pkg/apputil"
@@ -150,7 +151,9 @@ var handlersMulticast = transport.Handlers{
 	// string(hashrate.Magic): processHashrateMsg,
 }
 
-func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
+func processAdvtMsg(
+	ctx interface{}, src net.Addr, dst string, b []byte,
+) (e error) {
 	wg := ctx.(*WalletGUI)
 	if wg.cx.Config.Discovery.False() {
 		return
@@ -450,7 +453,7 @@ func (wg *WalletGUI) GetInputs() Inputs {
 			func(pass string) {},
 			func(string) {},
 		),
-		
+
 		"sendAddress": wg.Input(
 			"",
 			"Parallelcoin Address",
@@ -470,7 +473,7 @@ func (wg *WalletGUI) GetInputs() Inputs {
 			func(pass string) {},
 			func(string) {},
 		),
-		
+
 		"console": wg.Input(
 			"",
 			"enter rpc command",
@@ -596,7 +599,9 @@ func (wg *WalletGUI) GetIncDecs() IncDecMap {
 	}
 }
 
-func (wg *WalletGUI) GetRunUnit(name string, before, after func(), args ...string) *rununit.RunUnit {
+func (wg *WalletGUI) GetRunUnit(
+	name string, before, after func(), args ...string,
+) *rununit.RunUnit {
 	return rununit.New(
 		before,
 		after,
