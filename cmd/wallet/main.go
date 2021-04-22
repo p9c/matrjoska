@@ -13,8 +13,9 @@ import (
 	"github.com/p9c/matrjoska/pod/config"
 	"github.com/p9c/matrjoska/pod/state"
 
-	"github.com/p9c/matrjoska/pkg/chainclient"
 	"github.com/p9c/interrupt"
+
+	"github.com/p9c/matrjoska/pkg/chainclient"
 )
 
 // Main is a work-around main function that is required since deferred functions
@@ -58,11 +59,7 @@ func Main(cx *state.State) (e error) {
 			}
 		}()
 	}
-	interrupt.AddHandler(
-		func() {
-			cx.WalletKill.Q()
-		},
-	)
+	interrupt.AddHandler(cx.WalletKill.Q)
 	select {
 	case <-cx.WalletKill.Wait():
 		D.Ln("wallet killswitch activated")
@@ -72,23 +69,22 @@ func Main(cx *state.State) (e error) {
 			I.Ln("stopped wallet RPC server")
 		}
 		I.Ln("wallet shutdown from killswitch complete")
-		// cx.WaitGroup.Done()
 		cx.WaitDone()
 		return
-		// <-legacyServer.RequestProcessShutdownChan()
 	case <-cx.KillAll.Wait():
 		D.Ln("killall")
 		cx.WalletKill.Q()
 	case <-interrupt.HandlersDone.Wait():
 	}
 	I.Ln("wallet shutdown complete")
-	// cx.WaitGroup.Done()
 	cx.WaitDone()
 	return
 }
 
 // LoadWallet ...
-func LoadWallet(loader *Loader, cx *state.State, legacyServer *Server) (e error) {
+func LoadWallet(
+	loader *Loader, cx *state.State, legacyServer *Server,
+) (e error) {
 	T.Ln("starting rpc client connection handler", *cx.Config.WalletPass)
 	// Create and start chain RPC client so it's ready to connect to the wallet when
 	// loaded later. Load the wallet database. It must have been created already or
@@ -263,7 +259,9 @@ func rpcClientConnectLoop(
 // services. This function uses the RPC options from the global config and there
 // is no recovery in case the server is not available or if there is an
 // authentication error. Instead, all requests to the client will simply error.
-func StartChainRPC(config *config.Config, activeNet *chaincfg.Params, certs []byte, quit qu.C) (
+func StartChainRPC(
+	config *config.Config, activeNet *chaincfg.Params, certs []byte, quit qu.C,
+) (
 	*chainclient.RPCClient,
 	error,
 ) {

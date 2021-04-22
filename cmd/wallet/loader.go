@@ -213,7 +213,6 @@ func (ld *Loader) UnloadWallet() (e error) {
 		return e
 	}
 	F.Ln("database closed")
-	// time.Sleep(time.Second / 4)
 	ld.Loaded = false
 	ld.DB = nil
 	return nil
