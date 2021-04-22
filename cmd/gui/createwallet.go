@@ -207,7 +207,7 @@ func (wg *WalletGUI) createWalletAction() {
 	seed := wg.createSeed
 	pass := wg.passwords["passEditor"].GetPassword()
 	wg.cx.Config.WalletPass.Set(pass)
-	D.Ln("password", string(pass))
+	D.Ln("password", pass)
 	_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
 	w, e := loader.CreateNewWallet(
 		[]byte(pass),

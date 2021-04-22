@@ -651,8 +651,7 @@ func (wg *WalletGUI) chainClient() (e error) {
 		return nil
 	}
 	if wg.ChainClient == nil { // || wg.ChainClient.Disconnected() {
-		certs := wg.cx.Config.ReadCAFile()
-		D.Ln(*wg.cx.Config.RPCConnect)
+		D.Ln(wg.cx.Config.RPCConnect.V())
 		// wg.ChainMutex.Lock()
 		// defer wg.ChainMutex.Unlock()
 		if wg.ChainClient, e = rpcclient.New(
@@ -662,7 +661,7 @@ func (wg *WalletGUI) chainClient() (e error) {
 				User:                 wg.cx.Config.Username.V(),
 				Pass:                 wg.cx.Config.Password.V(),
 				TLS:                  wg.cx.Config.ClientTLS.True(),
-				Certificates:         certs,
+				Certificates:         wg.certs,
 				DisableAutoReconnect: false,
 				DisableConnectOnNew:  false,
 			}, wg.ChainNotifications(), wg.cx.KillAll,
@@ -691,7 +690,7 @@ func (wg *WalletGUI) walletClient() (e error) {
 		return nil
 	}
 	// walletRPC := (*wg.cx.Config.WalletRPCListeners)[0]
-	certs := wg.cx.Config.ReadCAFile()
+	// certs := wg.cx.Config.ReadCAFile()
 	I.Ln("config.tls", *wg.cx.Config.ClientTLS)
 	wg.WalletMutex.Lock()
 	if wg.WalletClient, e = rpcclient.New(
@@ -701,7 +700,7 @@ func (wg *WalletGUI) walletClient() (e error) {
 			User:                 wg.cx.Config.Username.V(),
 			Pass:                 wg.cx.Config.Password.V(),
 			TLS:                  wg.cx.Config.ClientTLS.True(),
-			Certificates:         certs,
+			Certificates:         wg.certs,
 			DisableAutoReconnect: false,
 			DisableConnectOnNew:  false,
 		}, wg.WalletNotifications(), wg.cx.KillAll,

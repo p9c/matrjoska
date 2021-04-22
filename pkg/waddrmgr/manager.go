@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"crypto/sha512"
 	"fmt"
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/btcaddr"
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"sync"
@@ -690,8 +691,7 @@ func (m *Manager) ChangePassphrase(
 	if e = secretKey.DeriveKey(&oldPassphrase); E.Chk(e) {
 		if e == snacl.ErrInvalidPassword {
 			str := fmt.Sprintf(
-				"invalid passphrase for %s master "+
-					"key", keyName,
+				"invalid passphrase for %s master key", keyName,
 			)
 			return managerError(ErrWrongPassphrase, str, nil)
 		}
@@ -1222,7 +1222,7 @@ func loadManager(
 	ns walletdb.ReadBucket, pubPassphrase []byte,
 	chainParams *chaincfg.Params,
 ) (*Manager, error) {
-	D.Ln("loading address manager")
+	D.Ln("loading address manager", log.Caller("from", 1))
 	// Verify the version is neither too old or too new.
 	var version uint32
 	var e error
@@ -1293,7 +1293,7 @@ func loadManager(
 		str := "failed to unmarshal master public key"
 		return nil, managerError(ErrCrypto, str, e)
 	}
-	D.Ln("deriving pub key passphrase key")
+	D.Ln("deriving pub key passphrase key" , string(pubPassphrase))
 	if e = masterKeyPub.DeriveKey(&pubPassphrase); E.Chk(e) {
 		str := "invalid passphrase for master public key"
 		return nil, managerError(ErrWrongPassphrase, str, nil)

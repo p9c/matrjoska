@@ -674,8 +674,8 @@ func (wg *WalletGUI) RunStatusPanel(gtx l.Context) l.Dimensions {
 												os.Args[0],
 												"-D",
 												wg.cx.Config.DataDir.V(),
-												"--pipelog",
-												"--walletpass",
+												"pipelog",
+												"walletpass"+
 												wg.cx.Config.WalletPass.V(),
 												"wallet",
 												"drophistory",

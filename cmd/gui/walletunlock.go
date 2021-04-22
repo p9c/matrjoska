@@ -42,7 +42,7 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 		D.Ln("unmarshaled config")
 		bhb := blake3.Sum256([]byte(pass))
 		bh := hex.EncodeToString(bhb[:])
-		D.Ln(pass, bh, *cfg.WalletPass)
+		D.Ln(pass, bh, cfg.WalletPass.V())
 		if cfg.WalletPass.V() == bh {
 			D.Ln("loading previously saved state")
 			filename := filepath.Join(wg.cx.Config.DataDir.V(), "state.json")
@@ -56,8 +56,10 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 			// the entered password matches the stored hash
 			wg.cx.Config.NodeOff.F()
 			wg.cx.Config.WalletOff.F()
+			wg.cx.Config.WalletPass.Set(pass)
 			if e = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {
 			}
+			wg.cx.Config.WalletPass.Set(pass)
 			wg.WalletWatcher = wg.Watcher()
 			// }
 			//
@@ -100,6 +102,7 @@ func (wg *WalletGUI) getWalletUnlockAppWidget() (a *gel.App) {
 	wg.unlockPassword = wg.Password(
 		"enter password", password, "DocText",
 		"DocBg", "PanelBg", func(pass string) {
+			I.Ln("wallet unlock initiated", pass)
 			wg.unlockWallet(pass)
 		},
 	)
@@ -280,19 +283,18 @@ func (wg *WalletGUI) getWalletUnlockAppWidget() (a *gel.App) {
 																					wg.Inset(
 																						0.25,
 																						wg.ButtonLayout(
-																							unlockButton,
-																							// .SetClick(
-																							// 	func() {
-																							// 		// pass := wg.unlockPassword.Editor().Text()
-																							// 		pass := wg.unlockPassword.GetPassword()
-																							// 		D.Ln(
-																							// 			">>>>>>>>>>> unlock password",
-																							// 			pass,
-																							// 		)
-																							// 		wg.unlockWallet(pass)
-																							//
-																							// 	},
-																							// ),
+																							unlockButton.SetClick(
+																								func() {
+																									// pass := wg.unlockPassword.Editor().Text()
+																									pass := wg.unlockPassword.GetPassword()
+																									D.Ln(
+																										">>>>>>>>>>> unlock password",
+																										pass,
+																									)
+																									wg.unlockWallet(pass)
+
+																								},
+																							),
 																						).Background("Primary").
 																							CornerRadius(0.5).
 																							Corners(0).

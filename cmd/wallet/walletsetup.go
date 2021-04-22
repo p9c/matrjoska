@@ -130,9 +130,9 @@ func CreateWallet(activenet *chaincfg.Params, config *config.Config) (e error) {
 	}
 	// Ascertain the public passphrase. This will either be a value specified by the user or the default hard-coded
 	// public passphrase if the user does not want the additional public data encryption.
-	pubPass, e := prompt.PublicPass(reader, privPass, []byte(""), config.WalletPass.Bytes())
-	if e != nil {
-		D.Ln(e)
+	var pubPass []byte
+	if pubPass, e = prompt.PublicPass(reader, privPass, []byte(""),
+		config.WalletPass.Bytes());E.Chk(e){
 		time.Sleep(time.Second * 5)
 		return e
 	}

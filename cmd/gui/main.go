@@ -51,6 +51,8 @@ func Main(cx *state.State) (e error) {
 		Size:       size,
 		noWallet:   &noWallet,
 		otherNodes: make(map[uint64]*nodeSpec),
+		certs: 		cx.Config.ReadCAFile(),
+
 	}
 	return wg.Run()
 }
@@ -131,6 +133,7 @@ type WalletGUI struct {
 	otherNodes                          map[uint64]*nodeSpec
 	uuid                                uint64
 	peerCount                           *uberatomic.Int32
+	certs                               []byte
 }
 
 type nodeSpec struct {

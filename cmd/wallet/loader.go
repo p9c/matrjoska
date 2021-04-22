@@ -158,8 +158,7 @@ func (ld *Loader) OpenExistingWallet(
 		E.Ln("failed to open wallet", e)
 		// If opening the wallet fails (e.g. because of wrong passphrase), we must close the backing database to allow
 		// future calls to walletdb.Open().
-		e := db.Close()
-		if e != nil {
+		if e = db.Close(); E.Chk(e){
 			W.Ln("error closing database:", e)
 		}
 		return nil, e

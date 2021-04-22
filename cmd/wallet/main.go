@@ -54,7 +54,7 @@ func Main(cx *state.State) (e error) {
 	)
 	if !cx.Config.NoInitialLoad.True() {
 		go func() {
-			D.Ln("loading wallet", *cx.Config.WalletPass)
+			D.Ln("loading wallet", cx.Config.WalletPass.V())
 			if e = LoadWallet(loader, cx, legacyServer); E.Chk(e) {
 			}
 		}()
@@ -85,7 +85,7 @@ func Main(cx *state.State) (e error) {
 func LoadWallet(
 	loader *Loader, cx *state.State, legacyServer *Server,
 ) (e error) {
-	T.Ln("starting rpc client connection handler", *cx.Config.WalletPass)
+	T.Ln("starting rpc client connection handler", cx.Config.WalletPass.V())
 	// Create and start chain RPC client so it's ready to connect to the wallet when
 	// loaded later. Load the wallet database. It must have been created already or
 	// this will return an appropriate error.

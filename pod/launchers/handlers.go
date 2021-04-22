@@ -100,7 +100,7 @@ func WalletHandle(ifc interface{}) (e error) {
 			}
 			if e = os.Remove(walletPassPath); E.Chk(e) {
 			}
-			D.Ln("wallet cookie deleted", *cx.Config.WalletPass)
+			D.Ln("wallet cookie deleted", cx.Config.WalletPass.V())
 		}
 	}
 	cx.WalletKill = qu.T()

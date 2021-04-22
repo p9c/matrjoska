@@ -12,6 +12,7 @@
 package config
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -23,6 +24,8 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"lukechampine.com/blake3"
 
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/constant"
@@ -233,6 +236,7 @@ func (c *Config) loadConfig(path string) (e error) {
 			panic(e)
 		}
 		I.Ln("unmarshalled", path)
+		c.WalletPass.Set("")
 	}
 	return
 }
@@ -240,10 +244,19 @@ func (c *Config) loadConfig(path string) (e error) {
 // WriteToFile writes the current config to a file as json
 func (c Config) WriteToFile(filename string) (e error) {
 	var j []byte
+	wp := c.WalletPass.Bytes()
+	if len(wp) > 0 {
+		bhb := blake3.Sum256(c.WalletPass.Bytes())
+		bh := hex.EncodeToString(bhb[:])
+		c.WalletPass.Set(bh)
+	}
 	if j, e = json.MarshalIndent(c, "", "  "); E.Chk(e) {
 		return
 	}
 	if e = ioutil.WriteFile(filename, j, 0660); E.Chk(e) {
+	}
+	if len(wp) > 0 {
+		c.WalletPass.SetBytes(wp)
 	}
 	return
 }
