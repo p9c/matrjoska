@@ -78,7 +78,7 @@ func WalletHandle(ifc interface{}) (e error) {
 	if !apputil.FileExists(cx.Config.WalletFile.V()) && !cx.IsGUI {
 		// D.Ln(cx.ActiveNet.Name, *cx.Config.WalletFile)
 		if e = wallet.CreateWallet(cx.ActiveNet, cx.Config); E.Chk(e) {
-			E.Ln("failed to create wallet", e)
+			E.Ln("failed to create wallet", e) /**/
 			return e
 		}
 		fmt.Println("restart to complete initial setup")

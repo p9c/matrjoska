@@ -7,20 +7,19 @@ import (
 	"net/rpc"
 	"os"
 
-	"github.com/gookit/color"
-
 	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/cmd/kopach"
+	"github.com/p9c/matrjoska/cmd/kopach/worker"
 	"github.com/p9c/matrjoska/pod/state"
 
-	"github.com/p9c/matrjoska/cmd/kopach/worker"
+	"github.com/p9c/interrupt"
+
 	"github.com/p9c/matrjoska/pkg/chaincfg"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/interrupt"
 )
 
-// kopachHandle runs the kopach miner
-func kopachHandle(ifc interface{}) (e error) {
+// Kopach runs the kopach miner
+func Kopach(ifc interface{}) (e error) {
 	var cx *state.State
 	var ok bool
 	if cx, ok = ifc.(*state.State); !ok {
@@ -41,19 +40,24 @@ func kopachHandle(ifc interface{}) (e error) {
 	return
 }
 
-func kopachWorkerHandle(cx *state.State) (e error) {
-	log.AppColorizer = color.Bit24(255, 128, 128, false).Sprint
-	log.App = "worker"
-	if len(os.Args) > 3 {
+func Worker(ifc interface{}) (e error) {
+	var cx *state.State
+	var ok bool
+	if cx, ok = ifc.(*state.State); !ok {
+		return fmt.Errorf("cannot run without a state")
+	}
+	// I.Ln(cx.Config.ExtraArgs)
+	if len(cx.Config.ExtraArgs) > 1 {
 		if os.Args[3] == chaincfg.TestNet3Params.Name {
 			fork.IsTestnet = true
 		}
 	}
-	if len(os.Args) > 4 {
+	if len(os.Args) > 2 {
 		log.SetLogLevel(os.Args[4])
 	}
 	D.Ln("miner worker starting")
-	w, conn := worker.New(os.Args[2], cx.KillAll, uint64(cx.Config.UUID.V()))
+	w, conn := worker.New(cx.Config.ExtraArgs[0], cx.KillAll,
+		uint64(cx.Config.UUID.V()))
 	e = rpc.Register(w)
 	if e != nil {
 		D.Ln(e)

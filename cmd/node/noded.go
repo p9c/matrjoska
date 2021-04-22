@@ -38,6 +38,8 @@ import (
 
 	"github.com/p9c/qu"
 
+	"github.com/p9c/interrupt"
+
 	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/cmd/ctrl"
 	"github.com/p9c/matrjoska/pkg/apputil"
@@ -46,7 +48,6 @@ import (
 	"github.com/p9c/matrjoska/pkg/database"
 	"github.com/p9c/matrjoska/pkg/database/blockdb"
 	"github.com/p9c/matrjoska/pkg/indexers"
-	"github.com/p9c/interrupt"
 	"github.com/p9c/matrjoska/pod/state"
 )
 
@@ -202,7 +203,7 @@ func NodeMain(cx *state.State) (e error) {
 		cx.RealNode.StartController, cx.RealNode.StopController,
 	)
 	go cx.Controller.Run()
-	// cx.Controller.Start()
+	cx.Controller.Start()
 	D.Ln("controller started")
 	once := true
 	gracefulShutdown := func() {

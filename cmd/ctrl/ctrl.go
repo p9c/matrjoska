@@ -202,7 +202,7 @@ func (s *State) updateBlockTemplate() (e error) {
 // For increased simplicity, every type of work runs in one thread, only signalling
 // from background goroutines to trigger state changes.
 func (s *State) Run() {
-	I.Ln("starting controller Server")
+	I.Ln("starting controller")
 	var e error
 	ticker := time.NewTicker(time.Second)
 out:
@@ -251,6 +251,7 @@ out:
 			case <-s.start.Wait():
 				I.Ln("received start signal while paused")
 				if !s.checkConnected() {
+					I.Ln("not connected")
 					break
 				}
 				if s.walletClient.Disconnected() {
@@ -331,15 +332,15 @@ func (s *State) checkConnected() (connected bool) {
 		// s.Start()
 		return true
 	}
-	// T.Ln("checking connectivity state")
+	T.Ln("checking connectivity state")
 	ps := make(chan peersummary.PeerSummaries, 1)
 	s.node.PeerState <- ps
-	// T.Ln("sent peer list query")
+	T.Ln("sent peer list query")
 	var lanPeers int
 	var totalPeers int
 	select {
 	case connState := <-ps:
-		// T.Ln("received peer list query response")
+		T.Ln("received peer list query response")
 		totalPeers = len(connState)
 		for i := range connState {
 			if routeable.IPNet.Contains(connState[i].IP) {
@@ -350,18 +351,18 @@ func (s *State) checkConnected() (connected bool) {
 			// if there is no peers on lan and solo was not set, stop mining
 			if lanPeers == 0 {
 				T.Ln("no lan peers while in lan mode, stopping mining")
-				// s.Stop()
+				s.Stop()
 			} else {
-				// s.Start()
+				s.Start()
 				connected = true
 			}
 		} else {
 			if totalPeers-lanPeers == 0 {
 				// we have no peers on the internet, stop mining
 				T.Ln("no internet peers, stopping mining")
-				// s.Stop()
+				s.Stop()
 			} else {
-				// s.Start()
+				s.Start()
 				connected = true
 			}
 		}

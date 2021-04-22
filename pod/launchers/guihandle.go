@@ -11,7 +11,7 @@ func GUIHandle(ifc interface{}) (e error) {
 	// }
 	// // log.AppColorizer = color.Bit24(128, 255, 255, false).Sprint
 	// // log.App = "   gui"
-	// D.Ln("starting up parallelcoin pod gui...")
+	// D.Ln("starting up parallelcoin pod gui...")/**/
 	// // fork.ForkCalc()
 	// // podconfig.Configure(cx, true)
 	// // D.Ln(os.Args)

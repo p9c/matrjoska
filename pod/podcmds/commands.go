@@ -85,13 +85,13 @@ func GetCommands() (c cmds.Commands) {
 		},
 		{Name: "kopach", Title:
 		"standalone multicast miner for easy mining farm deployment",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.Kopach,
 			Colorizer:  color.Bit24(255, 128, 128, false).Sprint,
 			AppText:    "kopach",
 		},
 		{Name: "worker", Title:
 		"single thread worker process, normally started by kopach",
-			Entrypoint: func(c interface{}) error { return nil },
+			Entrypoint: launchers.Worker,
 			Colorizer:  color.Bit24(255, 128, 255, false).Sprint,
 			AppText:    "worker",
 		},

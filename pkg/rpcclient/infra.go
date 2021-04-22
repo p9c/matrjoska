@@ -585,7 +585,7 @@ out:
 			wsConn, e := dial(c.config)
 			if e != nil {
 				c.retryCount++
-				T.Ln("failed to connect to %s: %v %s", c.config.Host, e)
+				T.F("failed to connect to %s: %v %s", c.config.Host, e)
 				// IconScale the retry interval by the number of retries so there is a backoff
 				// up to a max of 1 minute.
 				scaledInterval := connectionRetryInterval.Nanoseconds() * c.
@@ -595,7 +595,7 @@ out:
 					scaledDuration = time.Minute
 				}
 				T.F(
-					"retrying connection to %s in %s %s",
+					"retrying connection to %s in %s",
 					c.config.Host, scaledDuration,
 				)
 				time.Sleep(scaledDuration)
