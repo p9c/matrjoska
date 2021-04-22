@@ -116,13 +116,7 @@ func WalletHandle(ifc interface{}) (e error) {
 }
 
 func CtlHandleList(ifc interface{}) (e error) {
-	var cx *state.State
-	var ok bool
-	if cx, ok = ifc.(*state.State); !ok {
-		return fmt.Errorf("cannot run without a state")
-	}
-	_ = cx
-	ctl.ListCommands()
+	fmt.Println(ctl.ListCommands())
 	return nil
 }
 

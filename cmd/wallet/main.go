@@ -90,7 +90,7 @@ func LoadWallet(
 	// loaded later. Load the wallet database. It must have been created already or
 	// this will return an appropriate error.
 	var w *Wallet
-	T.Ln("opening existing wallet")
+	T.Ln("opening existing wallet, pass:", cx.Config.WalletPass.V())
 	if w, e = loader.OpenExistingWallet(cx.Config.WalletPass.Bytes(), true, cx.Config, nil); E.Chk(e) {
 		T.Ln("failed to open existing wallet")
 		return
@@ -260,16 +260,17 @@ func rpcClientConnectLoop(
 // is no recovery in case the server is not available or if there is an
 // authentication error. Instead, all requests to the client will simply error.
 func StartChainRPC(
-	config *config.Config, activeNet *chaincfg.Params, certs []byte, quit qu.C,
-) (
-	*chainclient.RPCClient,
-	error,
-) {
+	config *config.Config,
+	activeNet *chaincfg.Params,
+	certs []byte,
+	quit qu.C,
+) (rpcC *chainclient.RPCClient, e error) {
 	D.F(
-		">>>>>>>>>>>>>>> attempting RPC client connection to %v, TLS: %s", *config.RPCConnect,
-		fmt.Sprint(*config.ClientTLS),
+		"attempting RPC client connection to %v, TLS: %s",
+		config.RPCConnect.V(),
+		fmt.Sprint(config.ClientTLS.True()),
 	)
-	rpcC, e := chainclient.NewRPCClient(
+	if rpcC, e = chainclient.NewRPCClient(
 		activeNet,
 		config.RPCConnect.V(),
 		config.Username.V(),
@@ -278,8 +279,7 @@ func StartChainRPC(
 		config.ClientTLS.True(),
 		0,
 		quit,
-	)
-	if e != nil {
+	); E.Chk(e) {
 		return nil, e
 	}
 	e = rpcC.Start()

@@ -375,7 +375,8 @@ func (s *State) checkConnected() (connected bool) {
 	case <-s.quit:
 		break
 	}
-	T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:", *s.cfg.Solo, "lan:", *s.cfg.LAN)
+	T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:",
+		s.cfg.Solo.True(), "lan:", s.cfg.LAN.True())
 	return
 }
 
@@ -418,7 +419,7 @@ func (s *State) doBlockUpdate(prev *block.Block) (e error) {
 	I.S(srl)
 	s.templateShards = transport.GetShards(srl)
 	var dt []byte
-	if dt, e = fec.Decode(s.templateShards);E.Chk(e){
+	if dt, e = fec.Decode(s.templateShards); E.Chk(e) {
 	}
 	I.S(dt)
 	return

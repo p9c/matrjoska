@@ -233,14 +233,18 @@ type ServerSyncManager interface {
 	// network.
 	IsCurrent() bool
 	// SubmitBlock submits the provided block to the network after processing it locally.
-	SubmitBlock(block *block.Block, flags blockchain.BehaviorFlags) (bool, error)
+	SubmitBlock(block *block.Block, flags blockchain.BehaviorFlags) (
+		bool, error,
+	)
 	// Pause pauses the sync manager until the returned channel is closed.
 	Pause() chan<- struct{}
 	// SyncPeerID returns the ID of the peer that is currently the peer being used to sync from or 0 if there is none.
 	SyncPeerID() int32
 	// LocateHeaders returns the headers of the blocks after the first known block in the provided locators until the
 	// provided stop hash or the current tip is reached, up to a max of wire.MaxBlockHeadersPerMsg hashes.
-	LocateHeaders(locators []*chainhash.Hash, hashStop *chainhash.Hash) []wire.BlockHeader
+	LocateHeaders(
+		locators []*chainhash.Hash, hashStop *chainhash.Hash,
+	) []wire.BlockHeader
 }
 
 // API version constants
@@ -302,7 +306,7 @@ var (
 	GBTMutableFields = []string{
 		"time", "transactions/add", "prevblock", "coinbase/append",
 	}
-	
+
 	// RPCAskWallet is list of commands that we recognize, but for which pod has no support because it lacks support for
 	// wallet functionality. For these commands the user should ask a connected instance of the wallet.
 	RPCAskWallet = map[string]CommandHandler{
@@ -350,12 +354,12 @@ var (
 		"walletpassphrase":       {},
 		"walletpassphrasechange": {},
 	}
-	
+
 	// RPCHandlers maps RPC command strings to appropriate handler functions.
 	//
 	// This is set by init because help references RPCHandlers and thus causes a dependency loop.
 	RPCHandlers map[string]CommandHandler
-	
+
 	// RPCLimited RPCHandlersBeforeInit is
 	//
 	// RPCHandlersBeforeInit = map[string]CommandHandler{
@@ -639,7 +643,7 @@ var (
 	// 		},
 	// 	},
 	// }
-	
+
 	// RPCLimited isCommands that are available to a limited user
 	RPCLimited = map[string]CommandHandler{
 		// Websockets commands
@@ -728,7 +732,9 @@ func (state *GBTWorkState) NotifyMempoolTx(lastUpdated time.Time) {
 // that is ready to be encoded to JSON and returned to the caller.
 //
 // This function MUST be called with the state locked.
-func (state *GBTWorkState) BlockTemplateResult(useCoinbaseValue bool, submitOld *bool) (
+func (state *GBTWorkState) BlockTemplateResult(
+	useCoinbaseValue bool, submitOld *bool,
+) (
 	*btcjson.GetBlockTemplateResult,
 	error,
 ) {
@@ -912,7 +918,9 @@ func (state *GBTWorkState) NotifyLongPollers(
 // without requiring a different channel for each client.
 //
 // This function MUST be called with the state locked.
-func (state *GBTWorkState) TemplateUpdateChan(prevHash *chainhash.Hash, lastGenerated int64) qu.C {
+func (state *GBTWorkState) TemplateUpdateChan(
+	prevHash *chainhash.Hash, lastGenerated int64,
+) qu.C {
 	// Either get the current list of channels waiting for updates about changes to block template for the previous hash
 	// or create a new one.
 	channels, ok := state.NotifyMap[*prevHash]
@@ -1014,7 +1022,7 @@ func (state *GBTWorkState) UpdateBlockTemplate(
 			targetDifficulty,
 			msgBlock.Header.MerkleRoot,
 		)
-		
+
 		// Notify any clients that are long polling about the new template.
 		state.NotifyLongPollers(latestHash, lastTxUpdate)
 	} else {
@@ -1061,7 +1069,7 @@ func (state *GBTWorkState) UpdateBlockTemplate(
 		e := generator.UpdateBlockTime(0, msgBlock)
 		if e != nil {
 			D.Ln(e)
-			
+
 		}
 		msgBlock.Header.Nonce = 0
 		D.F(
@@ -1069,7 +1077,7 @@ func (state *GBTWorkState) UpdateBlockTemplate(
 			msgBlock.Header.Timestamp,
 			targetDifficulty,
 		)
-		
+
 	}
 	return nil
 }
@@ -1093,7 +1101,7 @@ func (s *Server) RequestedProcessShutdown() qu.C {
 	return s.RequestProcessShutdown
 }
 
-// Start is used by Server.go_ to start the rpc listener.
+// Start is used by Server to start the rpc listener.
 func (s *Server) Start() {
 	if atomic.AddInt32(&s.Started, 1) != 1 {
 		return
@@ -1106,6 +1114,7 @@ func (s *Server) Start() {
 	}
 	rpcServeMux.HandleFunc(
 		"/", func(w http.ResponseWriter, r *http.Request) {
+			I.Ln("handling new connection from", r.RemoteAddr)
 			w.Header().Set("Connection", "close")
 			w.Header().Set("Content-Type", "application/json")
 			r.Close = true
@@ -1128,6 +1137,7 @@ func (s *Server) Start() {
 	// Websocket endpoint.
 	rpcServeMux.HandleFunc(
 		"/ws", func(w http.ResponseWriter, r *http.Request) {
+			I.Ln("handling new connection from", r.RemoteAddr)
 			authenticated, isAdmin, e := s.CheckAuth(r, false)
 			if e != nil {
 				JSONAuthFail(w)
@@ -1138,7 +1148,7 @@ func (s *Server) Start() {
 			if e != nil {
 				if _, ok := e.(websocket.HandshakeError); !ok {
 					E.Ln("unexpected websocket error:", e)
-					
+
 				}
 				http.Error(w, "400 Bad Request.", http.StatusBadRequest)
 				return
@@ -1200,7 +1210,7 @@ func (s *Server) CheckAuth(r *http.Request, require bool) (bool, bool, error) {
 	if len(authhdr) == 0 {
 		if require {
 			W.Ln("RPC authentication failure from", r.RemoteAddr)
-			
+
 			return false, false, errors.New("auth failure")
 		}
 		return false, false, nil
@@ -1219,7 +1229,7 @@ func (s *Server) CheckAuth(r *http.Request, require bool) (bool, bool, error) {
 	}
 	// Request's auth doesn't match either user
 	W.Ln("RPC authentication failure from", r.RemoteAddr)
-	
+
 	return false, false, errors.New("auth failure")
 }
 
@@ -1309,7 +1319,9 @@ func (s *Server) IncrementClients() {
 }
 
 // JSONRPCRead handles reading and responding to RPC messages.
-func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin bool) {
+func (s *Server) JSONRPCRead(
+	w http.ResponseWriter, r *http.Request, isAdmin bool,
+) {
 	if atomic.LoadInt32(&s.Shutdown) != 0 {
 		return
 	}
@@ -1318,6 +1330,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 	var body []byte
 	if body, e = ioutil.ReadAll(r.Body); E.Chk(e) {
 	}
+	I.Ln("read JSONRPC request", string(body))
 	if e = r.Body.Close(); E.Chk(e) {
 	}
 	if e != nil {
@@ -1373,6 +1386,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 			Message: "Failed to parse request: " + e.Error(),
 		}
 	}
+	I.S(request)
 	if jsonErr == nil {
 		// The JSON-RPC 1.0 spec defines that notifications must have their "id"
 		// set to null and states that notifications do not have a response.
@@ -1400,7 +1414,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 		go func() {
 			_, e = conn.Read(make([]byte, 1))
 			if e != nil {
-				// L.Script				closeChan.Q()
+				closeChan.Q()
 			}
 		}()
 		// Chk if the user is limited and set error if method unauthorized
@@ -1418,6 +1432,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 			if parsedCmd.Err != nil {
 				jsonErr = parsedCmd.Err
 			} else {
+				I.Ln("calling method:", parsedCmd.Method)
 				result, jsonErr = s.StandardCmdResult(parsedCmd, closeChan)
 			}
 		}
@@ -1429,6 +1444,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 		E.Ln("failed to marshal reply:", e)
 		return
 	}
+	I.Ln("\n" + string(msg))
 	// Write the response.
 	e = s.WriteHTTPResponseHeaders(r, w.Header(), http.StatusOK, buf)
 	if e != nil {
@@ -1441,7 +1457,7 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 	// Terminate with newline to maintain compatibility with Bitcoin Core.
 	if e := buf.WriteByte('\n'); E.Chk(e) {
 		E.Ln("failed to append terminating newline to reply:", e)
-		
+
 	}
 }
 
@@ -1449,13 +1465,15 @@ func (s *Server) JSONRPCRead(w http.ResponseWriter, r *http.Request, isAdmin boo
 // maximum allow RPC clients.
 //
 // This function is safe for concurrent access.
-func (s *Server) LimitConnections(w http.ResponseWriter, remoteAddr string) bool {
+func (s *Server) LimitConnections(
+	w http.ResponseWriter, remoteAddr string,
+) bool {
 	if int(atomic.LoadInt32(&s.NumClients)+1) > s.Config.RPCMaxClients.V() {
 		I.F(
 			"max RPC clients exceeded [%d] - disconnecting client %s",
 			s.Config.RPCMaxClients, remoteAddr,
 		)
-		
+
 		http.Error(
 			w, "503 Too busy.  Try again later.",
 			http.StatusServiceUnavailable,
@@ -1622,7 +1640,9 @@ func ChainErrToGBTErrString(e error) string {
 
 // CreateMarshalledReply returns a new marshalled JSON-RPC response given the passed parameters. It will automatically
 // convert errors that are not of the type *json.RPCError to the appropriate type as needed.
-func CreateMarshalledReply(id, result interface{}, replyErr error) ([]byte, error) {
+func CreateMarshalledReply(id, result interface{}, replyErr error) (
+	[]byte, error,
+) {
 	var jsonErr *btcjson.RPCError
 	if replyErr != nil {
 		if jErr, ok := replyErr.(*btcjson.RPCError); ok {
@@ -1858,13 +1878,17 @@ func DecodeTemplateID(templateID string) (*chainhash.Hash, int64, error) {
 }
 
 // EncodeTemplateID encodes the passed details into an ID that can be used to uniquely identify a block template.
-func EncodeTemplateID(prevHash *chainhash.Hash, lastGenerated time.Time) string {
+func EncodeTemplateID(
+	prevHash *chainhash.Hash, lastGenerated time.Time,
+) string {
 	return fmt.Sprintf("%s-%d", prevHash.String(), lastGenerated.Unix())
 }
 
 // FetchInputTxos fetches the outpoints from all transactions referenced by the inputs to the passed transaction by
 // checking the transaction mempool first then the transaction index for those already mined into blocks.
-func FetchInputTxos(s *Server, tx *wire.MsgTx) (map[wire.OutPoint]wire.TxOut, error) {
+func FetchInputTxos(s *Server, tx *wire.MsgTx) (
+	map[wire.OutPoint]wire.TxOut, error,
+) {
 	mp := s.Cfg.TxMemPool
 	originOutputs := make(map[wire.OutPoint]wire.TxOut)
 	for txInIndex, txIn := range tx.TxIn {
@@ -1983,7 +2007,7 @@ func GetDifficultyRatio(
 	diff, e := strconv.ParseFloat(outString, 64)
 	if e != nil {
 		E.Ln("cannot get difficulty:", e)
-		
+
 		return 0
 	}
 	return diff
@@ -2001,7 +2025,7 @@ func NormalizeAddress(addr, defaultPort string) string {
 }
 
 func init() {
-	
+
 	RPCHandlers = RPCHandlersBeforeInit
 	rand.Seed(time.Now().UnixNano())
 }
@@ -2017,7 +2041,7 @@ func InternalRPCError(errStr, context string) *btcjson.RPCError {
 		logStr = context + ": " + errStr
 	}
 	E.Ln(logStr)
-	
+
 	return btcjson.NewRPCError(btcjson.ErrRPCInternal.Code, errStr)
 }
 
@@ -2181,7 +2205,7 @@ func VerifyChain(s *Server, level, depth int32) (e error) {
 		best.Height-finishHeight,
 		level,
 	)
-	
+
 	var blk *block.Block
 	for height := best.Height; height > finishHeight; height-- {
 		// Level 0 just looks up the block.

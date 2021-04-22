@@ -32,8 +32,7 @@ type Loader struct {
 	Mutex          sync.Mutex
 }
 
-const (
-)
+const ()
 
 var (
 	// ErrExists describes the error condition of attempting to create a new wallet when one exists already.
@@ -55,15 +54,15 @@ func (ld *Loader) CreateNewWallet(
 	noStart bool,
 	podConfig *config.Config,
 	quit qu.C,
-) (*Wallet, error) {
+) (w *Wallet, e error) {
 	ld.Mutex.Lock()
 	defer ld.Mutex.Unlock()
 	if ld.Loaded {
 		return nil, ErrLoaded
 	}
 	// dbPath := filepath.Join(ld.DDDirPath, WalletDbName)
-	exists, e := fileExists(ld.DDDirPath)
-	if e != nil {
+	var exists bool
+	if exists, e = fileExists(ld.DDDirPath); E.Chk(e) {
 		return nil, e
 	}
 	if exists {
@@ -71,29 +70,28 @@ func (ld *Loader) CreateNewWallet(
 	}
 	// Create the wallet database backed by bolt db.
 	p := filepath.Dir(ld.DDDirPath)
-	e = os.MkdirAll(p, 0700)
-	if e != nil {
+	if e = os.MkdirAll(p, 0700); E.Chk(e) {
 		return nil, e
 	}
-	db, e := walletdb.Create("bdb", ld.DDDirPath)
-	if e != nil {
+	var db walletdb.DB
+	if db, e = walletdb.Create("bdb", ld.DDDirPath); E.Chk(e) {
 		return nil, e
 	}
 	// Initialize the newly created database for the wallet before opening.
-	e = Create(db, pubPassphrase, privPassphrase, seed, ld.ChainParams, bday)
-	if e != nil {
+	if e = Create(db, pubPassphrase, privPassphrase, seed, ld.ChainParams,
+		bday); E.Chk(e) {
 		return nil, e
 	}
 	// Open the newly-created wallet.
-	w, e := Open(db, pubPassphrase, nil, ld.ChainParams, ld.RecoveryWindow, podConfig, quit)
-	if e != nil {
+	if w, e = Open(db, pubPassphrase, nil, ld.ChainParams, ld.RecoveryWindow,
+		podConfig, quit); E.Chk(e) {
 		return nil, e
 	}
 	if !noStart {
 		w.Start()
 		ld.onLoaded(db)
 	} else {
-		if e := w.db.Close(); E.Chk(e) {
+		if e = w.db.Close(); E.Chk(e) {
 		}
 	}
 	return w, nil
@@ -116,7 +114,7 @@ func (ld *Loader) OpenExistingWallet(
 	canConsolePrompt bool,
 	podConfig *config.Config,
 	quit qu.C,
-) (*Wallet, error) {
+) (w *Wallet, e error) {
 	defer ld.Mutex.Unlock()
 	ld.Mutex.Lock()
 	I.Ln("opening existing wallet", ld.DDDirPath)
@@ -125,7 +123,7 @@ func (ld *Loader) OpenExistingWallet(
 		return nil, ErrLoaded
 	}
 	// Ensure that the network directory exists.
-	if e := checkCreateDir(filepath.Dir(ld.DDDirPath)); E.Chk(e) {
+	if e = checkCreateDir(filepath.Dir(ld.DDDirPath)); E.Chk(e) {
 		E.Ln("cannot create directory", ld.DDDirPath)
 		return nil, e
 	}
@@ -133,9 +131,9 @@ func (ld *Loader) OpenExistingWallet(
 	// Open the database using the boltdb backend.
 	dbPath := ld.DDDirPath
 	I.Ln("opening database", dbPath)
-	db, e := walletdb.Open("bdb", dbPath)
-	if e != nil {
-		E.Ln("failed to open database '", ld.DDDirPath, "':", e)
+	var db walletdb.DB
+	if db, e = walletdb.Open("bdb", dbPath); E.Chk(e) {
+		E.Ln("failed to open database '", ld.DDDirPath)
 		return nil, e
 	}
 	I.Ln("opened wallet database")
@@ -152,13 +150,19 @@ func (ld *Loader) OpenExistingWallet(
 		}
 	}
 	D.Ln("opening wallet '" + string(pubPassphrase) + "'")
-	var w *Wallet
-	w, e = Open(db, pubPassphrase, cbs, ld.ChainParams, ld.RecoveryWindow, podConfig, quit)
-	if e != nil {
+	if w, e = Open(
+		db,
+		pubPassphrase,
+		cbs,
+		ld.ChainParams,
+		ld.RecoveryWindow,
+		podConfig,
+		quit,
+	); E.Chk(e) {
 		E.Ln("failed to open wallet", e)
 		// If opening the wallet fails (e.g. because of wrong passphrase), we must close the backing database to allow
 		// future calls to walletdb.Open().
-		if e = db.Close(); E.Chk(e){
+		if e = db.Close(); E.Chk(e) {
 			W.Ln("error closing database:", e)
 		}
 		return nil, e
@@ -239,7 +243,9 @@ func (ld *Loader) onLoaded(db walletdb.DB) {
 
 // NewLoader constructs a Loader with an optional recovery window. If the recovery window is non-zero, the wallet will
 // attempt to recovery addresses starting from the last SyncedTo height.
-func NewLoader(chainParams *chaincfg.Params, dbDirPath string, recoveryWindow uint32) *Loader {
+func NewLoader(
+	chainParams *chaincfg.Params, dbDirPath string, recoveryWindow uint32,
+) *Loader {
 	l := &Loader{
 		ChainParams:    chainParams,
 		DDDirPath:      dbDirPath,

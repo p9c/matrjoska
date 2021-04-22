@@ -471,7 +471,14 @@ func (c Config) processCommandlineArgs(args []string) (
 				} else {
 					// if this is a command match after help is found it is a
 					// help command, resume the search
-					I.Ln("found help subcommand:", cm.Name)
+					if cmdd, ok := commands[depth]; ok {
+						I.Ln("base level command is already occupied by",
+							cmdd.Name+ "; marking end of commands")
+						// commandsEnd--
+						T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
+						break
+					}
+					I.Ln("found help subcommand:", cm.Name, depth)
 					depth--
 					dist++
 					if found, depth, dist, cm, e = c.Commands.Find(args[i],
