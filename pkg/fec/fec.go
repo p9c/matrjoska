@@ -96,7 +96,8 @@ func Decode(chunks [][]byte) (data []byte, e error) {
 		prefix := data[:4]
 		data = data[4:]
 		dataLen := int(binary.LittleEndian.Uint32(prefix))
-		if len(data) != dataLen {
+		if len(data) < dataLen {
+			I.S(data)
 			e = fmt.Errorf("somehow data is corrupted though everything else about it is correct")
 		} else {
 			data = data[:dataLen]

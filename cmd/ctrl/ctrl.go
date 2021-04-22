@@ -28,6 +28,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc/sol"
 	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
 	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/fec"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/mining"
 	rav "github.com/p9c/matrjoska/pkg/ring"
@@ -39,7 +40,7 @@ import (
 )
 
 const (
-	BufferSize           = 4096
+	BufferSize = 4096
 )
 
 // State stores the state of the controller
@@ -64,6 +65,7 @@ type State struct {
 	hashCount         atomic.Uint64
 	lastNonce         int32
 	lastBlockUpdate   atomic.Int64
+	certs             []byte
 }
 
 type nodeSpec struct {
@@ -85,6 +87,8 @@ func New(
 ) (s *State, e error) {
 	quit := qu.T()
 	I.Ln("creating othernodes map")
+	I.Ln("getting configured TLS certificates")
+	certs := cfg.ReadCAFile()
 	s = &State{
 		cfg:               cfg,
 		node:              node,
@@ -99,6 +103,7 @@ func New(
 		blockUpdate:       make(chan *block.Block, 1),
 		hashSampleBuf:     rav.NewBufferUint64(100),
 		msgBlockTemplates: templates.NewRecentMessages(),
+		certs:             certs,
 	}
 	s.lastBlockUpdate.Store(time.Now().Add(-time.Second * 3).Unix())
 	s.generator = chainrpc.GetBlkTemplateGenerator(node, cfg, stateCfg)
@@ -163,9 +168,6 @@ func (s *State) Shutdown() {
 }
 
 func (s *State) startWallet() (e error) {
-	I.Ln("getting configured TLS certificates")
-	certs := s.cfg.ReadCAFile()
-	I.Ln("establishing wallet connection")
 	if s.walletClient, e = rpcclient.New(
 		&rpcclient.ConnConfig{
 			Host:         s.cfg.WalletServer.V(),
@@ -173,10 +175,12 @@ func (s *State) startWallet() (e error) {
 			User:         s.cfg.Username.V(),
 			Pass:         s.cfg.Password.V(),
 			TLS:          s.cfg.ServerTLS.True(),
-			Certificates: certs,
+			Certificates: s.certs,
 		}, nil, s.quit,
-	); E.Chk(e) {
+	); T.Chk(e) {
+		return
 	}
+	I.Ln("established wallet connection")
 	return
 }
 
@@ -248,21 +252,21 @@ out:
 				// D.Ln("controller ticker running")
 				// s.Advertise()
 				// s.checkConnected()
-			case <-s.start.Wait():
-				I.Ln("received start signal while paused")
-				if !s.checkConnected() {
-					I.Ln("not connected")
-					break
-				}
 				if s.walletClient.Disconnected() {
 					I.Ln("wallet client is disconnected, retrying")
-					if e = s.startWallet(); E.Chk(e) {
+					if e = s.startWallet(); e != nil { // T.Chk(e) {
 						// s.updateBlockTemplate()
 						break
 					}
 				}
 				I.Ln("wallet client is connected, switching to running")
 				break pausing
+			case <-s.start.Wait():
+				I.Ln("received start signal while paused")
+				if !s.checkConnected() {
+					I.Ln("not connected")
+					break
+				}
 			case <-s.stop.Wait():
 				I.Ln("received stop signal while paused")
 			case <-s.quit.Wait():
@@ -328,7 +332,7 @@ func (s *State) checkConnected() (connected bool) {
 	// 	return
 	// }
 	if s.cfg.Solo.True() {
-		I.Ln("in solo mode, mining anyway")
+		// I.Ln("in solo mode, mining anyway")
 		// s.Start()
 		return true
 	}
@@ -406,16 +410,25 @@ func (s *State) doBlockUpdate(prev *block.Block) (e error) {
 		s.Stop()
 		return
 	}
+	// I.S(tpl)
 	s.msgBlockTemplates.Add(tpl)
-	I.Ln(tpl.Timestamp)
+	// I.Ln(tpl.Timestamp)
 	I.Ln("caching error corrected message shards...")
-	s.templateShards = transport.GetShards(tpl.Serialize())
+	srl := tpl.Serialize()
+	I.S(srl)
+	s.templateShards = transport.GetShards(srl)
+	var dt []byte
+	if dt, e = fec.Decode(s.templateShards);E.Chk(e){
+	}
+	I.S(dt)
 	return
 }
 
 // GetMsgBlockTemplate gets a Message building on given block paying to a given
 // address
-func (s *State) GetMsgBlockTemplate(prev *block.Block, addr btcaddr.Address) (mbt *templates.Message, e error) {
+func (s *State) GetMsgBlockTemplate(
+	prev *block.Block, addr btcaddr.Address,
+) (mbt *templates.Message, e error) {
 	T.Ln("GetMsgBlockTemplate")
 	rand.Seed(time.Now().Unix())
 	mbt = &templates.Message{
@@ -508,7 +521,9 @@ var handlersMulticast = transport.Handlers{
 	string(hashrate.Magic): processHashrateMsg,
 }
 
-func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
+func processAdvtMsg(
+	ctx interface{}, src net.Addr, dst string, b []byte,
+) (e error) {
 	I.Ln("processing advertisment message", src, dst)
 	s := ctx.(*State)
 	var j p2padvt.Advertisment
@@ -564,7 +579,9 @@ func processAdvtMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e erro
 }
 
 // Solutions submitted by workers
-func processSolMsg(ctx interface{}, src net.Addr, dst string, b []byte,) (e error) {
+func processSolMsg(
+	ctx interface{}, src net.Addr, dst string, b []byte,
+) (e error) {
 	I.Ln("received solution", src, dst)
 	s := ctx.(*State)
 	var so sol.Solution
@@ -591,7 +608,7 @@ func processSolMsg(ctx interface{}, src net.Addr, dst string, b []byte,) (e erro
 		I.Ln("failed to construct new header")
 		return
 	}
-	
+
 	I.Ln("sending pause to workers")
 	if e = s.multiConn.SendMany(pause.Magic, transport.GetShards(p2padvt.Get(s.uuid, (s.cfg.P2PListeners.S())[0])),
 	); E.Chk(e) {
@@ -657,7 +674,9 @@ func processSolMsg(ctx interface{}, src net.Addr, dst string, b []byte,) (e erro
 }
 
 // hashrate reports from workers
-func processHashrateMsg(ctx interface{}, src net.Addr, dst string, b []byte) (e error) {
+func processHashrateMsg(
+	ctx interface{}, src net.Addr, dst string, b []byte,
+) (e error) {
 	s := ctx.(*State)
 	var hr hashrate.Hashrate
 	gotiny.Unmarshal(b, &hr)
