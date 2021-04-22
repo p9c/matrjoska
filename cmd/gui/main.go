@@ -282,15 +282,17 @@ func (wg *WalletGUI) Run() (e error) {
 	after := func() { D.Ln("running after") }
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
-		os.Args[0], "-D", wg.cx.Config.DataDir.V(), "--servertls=true", "--clienttls=true", "--pipelog", "node",
+		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "servertls",
+		"clienttls", "pipelog", "node",
 	)
 	wg.wallet = wg.GetRunUnit(
 		"WLLT", before, after,
-		os.Args[0], "-D", wg.cx.Config.DataDir.V(), "--servertls=true", "--clienttls=true", "--pipelog", "wallet",
+		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "servertls",
+		"clienttls", "pipelog", "wallet",
 	)
 	wg.miner = wg.GetRunUnit(
 		"MINE", before, after,
-		os.Args[0], "-D", wg.cx.Config.DataDir.V(), "--pipelog", "kopach",
+		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "pipelog", "kopach",
 	)
 	wg.bools = wg.GetBools()
 	wg.inputs = wg.GetInputs()

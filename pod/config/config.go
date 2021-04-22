@@ -69,6 +69,7 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 	var cm *cmds.Command
 	var options []opt.Option
 	var optVals []string
+	I.S(os.Args)
 	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
@@ -420,7 +421,7 @@ func (c Config) processCommandlineArgs(args []string) (
 	optVals []string, e error,
 ) {
 	// I.S(c.Commands)
-	// I.S(args)
+	I.S(args)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
 	// arbitrary for the node
 	commands := make(map[int]cmds.Command)

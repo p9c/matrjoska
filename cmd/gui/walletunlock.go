@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"path/filepath"
 	"time"
 
@@ -28,15 +29,14 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 	// wg.cx.Config.Unlock()
 	// load config into a fresh variable
 	// cfg := podcfgs.GetDefaultConfig()
-	// var cfgFile []byte
+	var cfgFile []byte
 	var e error
-	// if cfgFile, e = ioutil.ReadFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {
-	// 	// this should not happen
-	// 	// TODO: panic-type conditions - for gel should have a notification maybe?
-	// 	panic("config file does not exist")
-	// }
+	if cfgFile, e = ioutil.ReadFile(wg.cx.Config.ConfigFile.V()); E.Chk(e) {
+		// this should not happen
+		// TODO: panic-type conditions - for gel should have a notification maybe?
+		panic("config file does not exist")
+	}
 	cfg := wg.cx.Config
-	cfgFile := cfg.ConfigFile.Bytes()
 	D.Ln("loaded config")
 	if e = json.Unmarshal(cfgFile, &cfg); !E.Chk(e) {
 		D.Ln("unmarshaled config")
