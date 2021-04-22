@@ -178,7 +178,7 @@ func (w *Wallet) SynchronizeRPC(chainClient chainclient.Interface) {
 // function and all functions that call it are unstable and will need to be moved when the syncing code is moved out of
 // the wallet.
 func (w *Wallet) requireChainClient() (chainclient.Interface, error) {
-	T.Ln(">>>>>>>>> requireChainClient")
+	T.Ln("requireChainClient")
 	w.chainClientLock.Lock()
 	chainClient := w.chainClient
 	w.chainClientLock.Unlock()
@@ -410,14 +410,14 @@ func (w *Wallet) syncWithChain() (e error) {
 			if e != nil {
 				return e
 			}
+			I.Ln("all deads now shambling")
 		}
-		I.Ln("all deads now shambling")
+		I.Ln("startHeight", startHeight, "bestHeight", bestHeight)
 		for height := startHeight; height <= bestHeight; height++ {
+			I.Ln("current height", height)
 			var hash *chainhash.Hash
-			hash, e = chainClient.GetBlockHash(int64(height))
-			if e != nil {
-				e = tx.Rollback()
-				if e != nil {
+			if hash, e = chainClient.GetBlockHash(int64(height)); E.Chk(e) {
+				if e = tx.Rollback(); E.Chk(e) {
 				}
 				return e
 			}
@@ -434,14 +434,15 @@ func (w *Wallet) syncWithChain() (e error) {
 			// wait. We can give it a little bit of time to synchronize further before updating the best height based on
 			// the backend. Once we see that the backend has advanced, we can catch up to it.
 			for height == bestHeight { // && !isCurrent(bestHeight) {
-				time.Sleep(100 * time.Millisecond)
-				_, bestHeight, e = chainClient.GetBestBlock()
-				if e != nil {
-					e = tx.Rollback()
-					if e != nil {
+				I.Ln("getting best height from chain")
+				if _, bestHeight, e = chainClient.GetBestBlock(); E.Chk(e) {
+					if e = tx.Rollback(); E.Chk(e) {
 					}
 					return e
+				} else {
+					break
 				}
+				time.Sleep(time.Second)
 			}
 			var header *wire.BlockHeader
 			header, e = chainClient.GetBlockHeader(hash)
@@ -524,6 +525,7 @@ func (w *Wallet) syncWithChain() (e error) {
 		// Perform one last recovery attempt for all blocks that were not batched at the default granularity of 2000
 		// blocks.
 		if isRecovery {
+			I.Ln("isRecovery")
 			e = w.recoverDefaultScopes(
 				chainClient, tx, ns, recoveryMgr.BlockBatch(),
 				recoveryMgr.State(),
@@ -536,10 +538,8 @@ func (w *Wallet) syncWithChain() (e error) {
 			}
 		}
 		// Commit (or roll back) the final database transaction.
-		e = tx.Commit()
-		if e != nil {
-			e = tx.Rollback()
-			if e != nil {
+		if e = tx.Commit(); E.Chk(e) {
+			if e = tx.Rollback(); E.Chk(e) {
 			}
 			return e
 		}

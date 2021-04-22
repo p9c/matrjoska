@@ -173,7 +173,7 @@ func sendPostRequest(
 	httpRequest.Header.Set("Content-Type", "application/json")
 	// Configure basic access authorization.
 	httpRequest.SetBasicAuth(cx.Username.V(), cx.Password.V())
-	T.Ln(cx.Username.V(), cx.Password.V())
+	// T.Ln(cx.Username.V(), cx.Password.V())
 	// Create the new HTTP client that is configured according to the user - specified options and submit the request.
 	var httpClient *http.Client
 	var cancel func()

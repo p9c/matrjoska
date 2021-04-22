@@ -245,7 +245,7 @@ out:
 				// }
 				// // s.updateBlockTemplate()
 			case <-ticker.C:
-				D.Ln("controller ticker running")
+				// D.Ln("controller ticker running")
 				// s.Advertise()
 				// s.checkConnected()
 			case <-s.start.Wait():
