@@ -12,6 +12,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
 	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/fork"
+	"github.com/p9c/matrjoska/pkg/pipe"
 
 	"github.com/p9c/qu"
 
@@ -22,7 +23,7 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/p9c/interrupt"
-	"github.com/p9c/matrjoska/pkg/pipe/stdconn"
+
 	"github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/transport"
 )
@@ -32,7 +33,7 @@ const CountPerRound = 500
 type Worker struct {
 	mx               sync.Mutex
 	id               string
-	pipeConn         *stdconn.StdConn
+	pipeConn         *pipe.StdConn
 	dispatchConn     *transport.Channel
 	dispatchReady    atomic.Bool
 	ciph             cipher.AEAD
@@ -115,7 +116,7 @@ func (c *Counter) GetAlgoVer(height int32) (ver int32) {
 
 // NewWithConnAndSemaphore is exposed to enable use an actual network connection while retaining the same RPC API to
 // allow a worker to be configured to run on a bare metal system with a different launcher main
-func NewWithConnAndSemaphore(id string, conn *stdconn.StdConn, quit qu.C, uuid uint64) *Worker {
+func NewWithConnAndSemaphore(id string, conn *pipe.StdConn, quit qu.C, uuid uint64) *Worker {
 	T.Ln("creating new worker")
 	// msgBlock := wire.WireBlock{Header: wire.BlockHeader{}}
 	w := &Worker{
@@ -261,7 +262,7 @@ out:
 // checking quit signal and work semaphore
 func New(id string, quit qu.C, uuid uint64) (w *Worker, conn net.Conn) {
 	// log.L.SetLevel("trace", true)
-	sc := stdconn.New(os.Stdin, os.Stdout, quit)
+	sc := pipe.New(os.Stdin, os.Stdout, quit)
 	
 	return NewWithConnAndSemaphore(id, sc, quit, uuid), sc
 }

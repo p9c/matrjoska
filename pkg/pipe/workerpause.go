@@ -1,6 +1,6 @@
 // +build !windows
 
-package worker
+package pipe
 
 import (
 	"syscall"

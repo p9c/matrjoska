@@ -26,7 +26,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc"
 	"github.com/p9c/matrjoska/pkg/connmgr"
 	"github.com/p9c/matrjoska/pkg/fork"
-	"github.com/p9c/matrjoska/pkg/pipe/serve"
+	"github.com/p9c/matrjoska/pkg/pipe"
 	"github.com/p9c/matrjoska/pkg/util"
 	"github.com/p9c/matrjoska/pkg/util/routeable"
 	"github.com/p9c/matrjoska/pod/config"
@@ -88,7 +88,7 @@ func GetNew(
 	// if pipe logging is enabled, start it up
 	if s.Config.PipeLog.True() {
 		D.Ln("starting up pipe logger")
-		serve.Log(s.KillAll, fmt.Sprint(os.Args))
+		pipe.LogServe(s.KillAll, fmt.Sprint(os.Args))
 	}
 	// set to write logs in the network specific directory, if the value was not set and is not the same as datadir
 	if s.Config.LogDir.V() == s.Config.DataDir.V() {

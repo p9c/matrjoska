@@ -2,10 +2,11 @@ package main
 
 import (
 	"github.com/p9c/log"
+	"github.com/p9c/matrjoska/pkg/pipe"
+
 	"os"
 	"time"
-	
-	"github.com/p9c/matrjoska/pkg/pipe/consume"
+
 	"github.com/p9c/qu"
 )
 
@@ -16,13 +17,13 @@ func main() {
 	quit := qu.T()
 	// splitted := strings.Split(command, " ")
 	splitted := os.Args[1:]
-	w := consume.Log(quit, consume.SimpleLog(splitted[len(splitted)-1]), consume.FilterNone, splitted...)
+	w := pipe.LogConsume(quit, pipe.SimpleLog(splitted[len(splitted)-1]), pipe.FilterNone, splitted...)
 	D.Ln("\n\n>>> >>> >>> >>> >>> >>> >>> >>> >>> starting")
-	consume.Start(w)
+	pipe.Start(w)
 	D.Ln("\n\n>>> >>> >>> >>> >>> >>> >>> >>> >>> started")
 	time.Sleep(time.Second * 4)
 	D.Ln("\n\n>>> >>> >>> >>> >>> >>> >>> >>> >>> stopping")
-	consume.Kill(w)
+	pipe.Kill(w)
 	D.Ln("\n\n>>> >>> >>> >>> >>> >>> >>> >>> >>> stopped")
 	// time.Sleep(time.Second * 5)
 	// D.Ln(interrupt.GoroutineDump())

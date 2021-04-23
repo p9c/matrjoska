@@ -1,4 +1,4 @@
-package stdconn
+package pipe
 
 import (
 	"fmt"
@@ -21,17 +21,6 @@ func New(in io.ReadCloser, out io.WriteCloser, quit qu.C) (s *StdConn) {
 	_, file, line, _ := runtime.Caller(1)
 	o := fmt.Sprintf("%s:%d", file, line)
 	T.Ln("new StdConn at", o)
-	// go func() {
-	// 	<-quit.Wait()
-	// 	D.Ln("!!!! closing StdConn", o)
-	// 	D.Ln(string(debug.Stack()))
-	// 	// time.Sleep(time.Second*2)
-	// 	if e := s.ReadCloser.Close(); E.Chk(e) {
-	// 	}
-	// 	if e := s.WriteCloser.Close(); E.Chk(e) {
-	// 	}
-	// 	// D.Ln(interrupt.GoroutineDump())
-	// }()
 	return
 }
 

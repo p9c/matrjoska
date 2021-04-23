@@ -1,11 +1,12 @@
-package consume
+package pipe
 
 import (
 	"github.com/niubaoshu/gotiny"
-	"github.com/p9c/log"
-	"github.com/p9c/matrjoska/pkg/pipe"
-	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
+	"github.com/p9c/interrupt"
 	"github.com/p9c/qu"
+	"go.uber.org/atomic"
+
+	"github.com/p9c/log"
 )
 
 // FilterNone is a filter that doesn't
@@ -28,11 +29,12 @@ func SimpleLog(name string) func(ent *log.Entry) (e error) {
 	}
 }
 
-func Log(
-	quit qu.C, handler func(ent *log.Entry) (e error,), filter func(pkg string) (out bool), args ...string,
-) *worker.Worker {
+func LogConsume(
+	quit qu.C, handler func(ent *log.Entry) (e error,),
+	filter func(pkg string) (out bool), args ...string,
+) *Worker {
 	D.Ln("starting log consumer")
-	return pipe.Consume(
+	return Consume(
 		quit, func(b []byte) (e error) {
 			// we are only listening for entries
 			if len(b) >= 4 {
@@ -67,7 +69,7 @@ func Log(
 	)
 }
 
-func Start(w *worker.Worker) {
+func Start(w *Worker) {
 	D.Ln("sending start signal")
 	var n int
 	var e error
@@ -77,7 +79,7 @@ func Start(w *worker.Worker) {
 }
 
 // Stop running the worker
-func Stop(w *worker.Worker) {
+func Stop(w *Worker) {
 	D.Ln("sending stop signal")
 	var n int
 	var e error
@@ -87,7 +89,7 @@ func Stop(w *worker.Worker) {
 }
 
 // Kill sends a kill signal via the pipe logger
-func Kill(w *worker.Worker) {
+func Kill(w *Worker) {
 	var e error
 	if w == nil {
 		D.Ln("asked to kill worker that is already nil")
@@ -99,15 +101,13 @@ func Kill(w *worker.Worker) {
 		D.Ln("failed to write")
 		return
 	}
-	// close(w.Quit)
-	// w.StdConn.Quit.Q()
 	if e = w.Cmd.Wait(); E.Chk(e) {
 	}
 	D.Ln("sent kill signal")
 }
 
 // SetLevel sets the level of logging from the worker
-func SetLevel(w *worker.Worker, level string) {
+func SetLevel(w *Worker, level string) {
 	if w == nil {
 		return
 	}
@@ -126,14 +126,74 @@ func SetLevel(w *worker.Worker, level string) {
 	}
 }
 
-//
-// func SetFilter(w *worker.Worker, pkgs Pk.Package) {
-// 	if w == nil {
-// 		return
-// 	}
-// 	I.Ln("sending set filter")
-// 	if n, e= w.StdConn.Write(Pkg.Get(pkgs).Data); n < 1 ||
-// 		E.Chk(e) {
-// 		D.Ln("failed to write")
-// 	}
-// }
+// LogServe starts up a handler to listen to logs from the child process worker
+func LogServe(quit qu.C, appName string) {
+	D.Ln("starting log server")
+	lc := log.AddLogChan()
+	var logOn atomic.Bool
+	logOn.Store(false)
+	p := Serve(
+		quit, func(b []byte) (e error) {
+			// listen for commands to enable/disable logging
+			if len(b) >= 4 {
+				magic := string(b[:4])
+				switch magic {
+				case "run ":
+					D.Ln("setting to run")
+					logOn.Store(true)
+				case "stop":
+					D.Ln("stopping")
+					logOn.Store(false)
+				case "slvl":
+					D.Ln("setting level", log.Levels[b[4]])
+					log.SetLogLevel(log.Levels[b[4]])
+				case "kill":
+					D.Ln("received kill signal from pipe, shutting down", appName)
+					interrupt.Request()
+					quit.Q()
+				}
+			}
+			return
+		},
+	)
+	go func() {
+	out:
+		for {
+			select {
+			case <-quit.Wait():
+				if !log.LogChanDisabled.Load() {
+					log.LogChanDisabled.Store(true)
+				}
+				D.Ln("quitting pipe logger")
+				interrupt.Request()
+				logOn.Store(false)
+			out2:
+				// drain log channel
+				for {
+					select {
+					case <-lc:
+						break
+					default:
+						break out2
+					}
+				}
+				break out
+			case ent := <-lc:
+				if !logOn.Load() {
+					break out
+				}
+				var n int
+				var e error
+				if n, e = p.Write(gotiny.Marshal(&ent)); !E.Chk(e) {
+					if n < 1 {
+						E.Ln("short write")
+					}
+				} else {
+					break out
+				}
+			}
+		}
+		<-interrupt.HandlersDone
+		D.Ln("finished pipe logger")
+	}()
+}

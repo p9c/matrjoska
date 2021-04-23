@@ -15,6 +15,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc/p2padvt"
 	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
 	"github.com/p9c/matrjoska/pkg/constant"
+	"github.com/p9c/matrjoska/pkg/pipe"
 	"github.com/p9c/matrjoska/pod/state"
 
 	"github.com/p9c/qu"
@@ -22,13 +23,13 @@ import (
 	"github.com/VividCortex/ewma"
 	"go.uber.org/atomic"
 
+	"github.com/p9c/interrupt"
+
 	"github.com/p9c/matrjoska/cmd/kopach/client"
 	"github.com/p9c/matrjoska/pkg/chainhash"
 	"github.com/p9c/matrjoska/pkg/chainrpc/hashrate"
 	"github.com/p9c/matrjoska/pkg/chainrpc/job"
 	"github.com/p9c/matrjoska/pkg/chainrpc/pause"
-	"github.com/p9c/interrupt"
-	"github.com/p9c/matrjoska/pkg/pipe/stdconn/worker"
 	rav "github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/transport"
 )
@@ -64,7 +65,7 @@ type Worker struct {
 	quit                qu.C
 	sendAddresses       []*net.UDPAddr
 	clients             []*client.Client
-	workers             []*worker.Worker
+	workers             []*pipe.Worker
 	FirstSender         atomic.Uint64
 	lastSent            atomic.Int64
 	Status              atomic.String
@@ -84,11 +85,11 @@ type Worker struct {
 
 func (w *Worker) Start() {
 	D.Ln("starting up kopach workers")
-	w.workers = []*worker.Worker{}
+	w.workers = []*pipe.Worker{}
 	w.clients = []*client.Client{}
 	for i := 0; i < w.cx.Config.GenThreads.V(); i++ {
 		D.Ln("starting worker", i)
-		cmd, _ := worker.Spawn(w.quit, os.Args[0], "worker", w.id, w.cx.ActiveNet.Name, w.cx.Config.LogLevel.V())
+		cmd, _ := pipe.Spawn(w.quit, os.Args[0], "worker", w.id, w.cx.ActiveNet.Name, w.cx.Config.LogLevel.V())
 		w.workers = append(w.workers, cmd)
 		w.clients = append(w.clients, client.New(cmd.StdConn))
 	}
