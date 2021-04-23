@@ -1293,7 +1293,7 @@ func loadManager(
 		str := "failed to unmarshal master public key"
 		return nil, managerError(ErrCrypto, str, e)
 	}
-	D.Ln("deriving pub key passphrase key" , string(pubPassphrase))
+	D.F("deriving pub key passphrase key '%s'" , string(pubPassphrase))
 	if e = masterKeyPub.DeriveKey(&pubPassphrase); E.Chk(e) {
 		str := "invalid passphrase for master public key"
 		return nil, managerError(ErrWrongPassphrase, str, nil)

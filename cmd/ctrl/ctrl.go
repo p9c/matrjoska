@@ -332,8 +332,8 @@ func (s *State) checkConnected() (connected bool) {
 	// 	return
 	// }
 	if s.cfg.Solo.True() {
-		// I.Ln("in solo mode, mining anyway")
-		// s.Start()
+		I.Ln("in solo mode, mining anyway")
+		s.Start()
 		return true
 	}
 	T.Ln("checking connectivity state")
@@ -416,12 +416,12 @@ func (s *State) doBlockUpdate(prev *block.Block) (e error) {
 	// I.Ln(tpl.Timestamp)
 	I.Ln("caching error corrected message shards...")
 	srl := tpl.Serialize()
-	I.S(srl)
+	// I.S(srl)
 	s.templateShards = transport.GetShards(srl)
-	var dt []byte
-	if dt, e = fec.Decode(s.templateShards); E.Chk(e) {
+	// var dt []byte
+	if _, e = fec.Decode(s.templateShards); E.Chk(e) {
 	}
-	I.S(dt)
+	// I.S(dt)
 	return
 }
 

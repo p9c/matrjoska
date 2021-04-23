@@ -51,7 +51,7 @@ func Main(cx *state.State) (e error) {
 		Size:       size,
 		noWallet:   &noWallet,
 		otherNodes: make(map[uint64]*nodeSpec),
-		certs: 		cx.Config.ReadCAFile(),
+		certs:      cx.Config.ReadCAFile(),
 
 	}
 	return wg.Run()
@@ -141,114 +141,6 @@ type nodeSpec struct {
 	addr string
 }
 
-// type blockUpdate struct {
-// 	height    int32
-// 	header    *wire.BlockHeader
-// 	txs       []*util.Tx
-// 	timestamp time.Time
-// }
-
-var handlersMulticast = transport.Handlers{
-	// string(sol.Magic):      processSolMsg,
-	string(p2padvt.Magic): processAdvtMsg,
-	// string(hashrate.Magic): processHashrateMsg,
-}
-
-func processAdvtMsg(
-	ctx interface{}, src net.Addr, dst string, b []byte,
-) (e error) {
-	wg := ctx.(*WalletGUI)
-	if wg.cx.Config.Discovery.False() {
-		return
-	}
-	if wg.ChainClient == nil {
-		T.Ln("no chain client to process advertisment")
-		return
-	}
-	var j p2padvt.Advertisment
-	gotiny.Unmarshal(b, &j)
-	// I.S(j)
-	var peerUUID uint64
-	peerUUID = j.UUID
-	// I.Ln("peerUUID of advertisment", peerUUID, wg.otherNodes)
-	if int(peerUUID) == wg.cx.Config.UUID.V() {
-		D.Ln("ignoring own advertisment message")
-		return
-	}
-	if _, ok := wg.otherNodes[peerUUID]; !ok {
-		var pi []btcjson.GetPeerInfoResult
-		if pi, e = wg.ChainClient.GetPeerInfo(); E.Chk(e) {
-		}
-		// I.S(pi)
-		for i := range pi {
-			for k := range j.IPs {
-				jpa := net.JoinHostPort(k, fmt.Sprint(j.P2P))
-				// I.Ln(jpa, pi[i].Addr, pi[i].AddrLocal)
-				if jpa == pi[i].Addr {
-					I.Ln("not connecting to node already connected outbound")
-					return
-				}
-				if jpa == pi[i].AddrLocal {
-					I.Ln("not connecting to node already connected inbound")
-					return
-				}
-			}
-			// for addy := range j.IPs {
-			// 	if addy == pi[i].Addr || addy == pi[i].AddrLocal {
-			// 		I.Ln("node already connected", pi[i].Inbound)
-			// 		return
-			// 	}
-			// }
-		}
-		// if we haven't already added it to the permanent peer list, we can add it now
-		I.Ln("connecting to lan peer with same PSK", j.IPs, peerUUID)
-		wg.otherNodes[peerUUID] = &nodeSpec{}
-		wg.otherNodes[peerUUID].Time = time.Now()
-		for i := range j.IPs {
-			addy := net.JoinHostPort(i, fmt.Sprint(j.P2P))
-			for j := range pi {
-				if addy == pi[j].Addr || addy == pi[j].AddrLocal {
-					// not connecting to peer we already have connected to
-					return
-				}
-			}
-		}
-		// try all IPs
-		for addr := range j.IPs {
-			peerIP := net.JoinHostPort(addr, fmt.Sprint(j.P2P))
-			if e = wg.ChainClient.AddNode(peerIP, "add"); E.Chk(e) {
-				continue
-			}
-			D.Ln("connected to peer via address", peerIP)
-			wg.otherNodes[peerUUID].addr = peerIP
-			break
-		}
-		I.Ln(peerUUID, "added", "otherNodes", wg.otherNodes)
-	} else {
-		// update last seen time for peerUUID for garbage collection of stale disconnected
-		// nodes
-		D.Ln("other node seen again", peerUUID, wg.otherNodes[peerUUID].addr)
-		wg.otherNodes[peerUUID].Time = time.Now()
-	}
-	// I.S(wg.otherNodes)
-	// If we lose connection for more than 9 seconds we delete and if the node
-	// reappears it can be reconnected
-	for i := range wg.otherNodes {
-		D.Ln(i, wg.otherNodes[i])
-		tn := time.Now()
-		if tn.Sub(wg.otherNodes[i].Time) > time.Second*6 {
-			// also remove from connection manager
-			if e = wg.ChainClient.AddNode(wg.otherNodes[i].addr, "remove"); E.Chk(e) {
-			}
-			D.Ln("deleting", tn, wg.otherNodes[i], i)
-			delete(wg.otherNodes, i)
-		}
-	}
-	// on := int32(len(wg.otherNodes))
-	// wg.otherNodeCount.Store(on)
-	return
-}
-
 func (wg *WalletGUI) Run() (e error) {
 	wg.openTxID = uberatomic.NewString("")
 	var mc *transport.Channel
@@ -269,10 +161,7 @@ func (wg *WalletGUI) Run() (e error) {
 	wg.prevOpenTxID = uberatomic.NewString("")
 	wg.stateLoaded = uberatomic.NewBool(false)
 	wg.currentReceiveRegenerate = uberatomic.NewBool(true)
-	// wg.currentReceiveGetNew = uberatomic.NewBool(false)
 	wg.ready = uberatomic.NewBool(false)
-	// wg.th = gel.NewTheme(p9fonts.Collection(), wg.quit)
-	// wg.Window = gel.NewWindow(wg.th)
 	wg.Window = gel.NewWindowP9(wg.quit)
 	wg.Dark = wg.cx.Config.DarkTheme
 	wg.Colors.SetDarkTheme(wg.Dark.True())
@@ -283,19 +172,21 @@ func (wg *WalletGUI) Run() (e error) {
 	wg.checkables = wg.GetCheckables()
 	before := func() { D.Ln("running before") }
 	after := func() { D.Ln("running after") }
+	I.Ln(os.Args[1:])
+	options := []string{os.Args[0]}
+	options=append(options, wg.cx.Config.FoundArgs...)
+	options = append(options, "pipelog")
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
-		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "servertls",
-		"clienttls", "pipelog", "node",
+		append(options, "node")...,
 	)
 	wg.wallet = wg.GetRunUnit(
 		"WLLT", before, after,
-		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "servertls",
-		"clienttls", "pipelog", "wallet",
+		append(options, "wallet")...,
 	)
 	wg.miner = wg.GetRunUnit(
 		"MINE", before, after,
-		os.Args[0], "datadir"+wg.cx.Config.DataDir.V(), "pipelog", "kopach",
+		append(options, "kopach")...,
 	)
 	wg.bools = wg.GetBools()
 	wg.inputs = wg.GetInputs()
@@ -729,4 +620,97 @@ func (wg *WalletGUI) gracefulShutdown() {
 	// interrupt.Request()
 	// time.Sleep(time.Second)
 	wg.quit.Q()
+}
+
+var handlersMulticast = transport.Handlers{
+	// string(sol.Magic):      processSolMsg,
+	string(p2padvt.Magic): processAdvtMsg,
+	// string(hashrate.Magic): processHashrateMsg,
+}
+
+func processAdvtMsg(
+	ctx interface{}, src net.Addr, dst string, b []byte,
+) (e error) {
+	wg := ctx.(*WalletGUI)
+	if wg.cx.Config.Discovery.False() {
+		return
+	}
+	if wg.ChainClient == nil {
+		T.Ln("no chain client to process advertisment")
+		return
+	}
+	var j p2padvt.Advertisment
+	gotiny.Unmarshal(b, &j)
+	// I.S(j)
+	var peerUUID uint64
+	peerUUID = j.UUID
+	// I.Ln("peerUUID of advertisment", peerUUID, wg.otherNodes)
+	if int(peerUUID) == wg.cx.Config.UUID.V() {
+		D.Ln("ignoring own advertisment message")
+		return
+	}
+	if _, ok := wg.otherNodes[peerUUID]; !ok {
+		var pi []btcjson.GetPeerInfoResult
+		if pi, e = wg.ChainClient.GetPeerInfo(); E.Chk(e) {
+		}
+		for i := range pi {
+			for k := range j.IPs {
+				jpa := net.JoinHostPort(k, fmt.Sprint(j.P2P))
+				if jpa == pi[i].Addr {
+					I.Ln("not connecting to node already connected outbound")
+					return
+				}
+				if jpa == pi[i].AddrLocal {
+					I.Ln("not connecting to node already connected inbound")
+					return
+				}
+			}
+		}
+		// if we haven't already added it to the permanent peer list, we can add it now
+		I.Ln("connecting to lan peer with same PSK", j.IPs, peerUUID)
+		wg.otherNodes[peerUUID] = &nodeSpec{}
+		wg.otherNodes[peerUUID].Time = time.Now()
+		for i := range j.IPs {
+			addy := net.JoinHostPort(i, fmt.Sprint(j.P2P))
+			for j := range pi {
+				if addy == pi[j].Addr || addy == pi[j].AddrLocal {
+					// not connecting to peer we already have connected to
+					return
+				}
+			}
+		}
+		// try all IPs
+		for addr := range j.IPs {
+			peerIP := net.JoinHostPort(addr, fmt.Sprint(j.P2P))
+			if e = wg.ChainClient.AddNode(peerIP, "add"); E.Chk(e) {
+				continue
+			}
+			D.Ln("connected to peer via address", peerIP)
+			wg.otherNodes[peerUUID].addr = peerIP
+			break
+		}
+		I.Ln(peerUUID, "added", "otherNodes", wg.otherNodes)
+	} else {
+		// update last seen time for peerUUID for garbage collection of stale disconnected
+		// nodes
+		D.Ln("other node seen again", peerUUID, wg.otherNodes[peerUUID].addr)
+		wg.otherNodes[peerUUID].Time = time.Now()
+	}
+	// I.S(wg.otherNodes)
+	// If we lose connection for more than 9 seconds we delete and if the node
+	// reappears it can be reconnected
+	for i := range wg.otherNodes {
+		D.Ln(i, wg.otherNodes[i])
+		tn := time.Now()
+		if tn.Sub(wg.otherNodes[i].Time) > time.Second*6 {
+			// also remove from connection manager
+			if e = wg.ChainClient.AddNode(wg.otherNodes[i].addr, "remove"); E.Chk(e) {
+			}
+			D.Ln("deleting", tn, wg.otherNodes[i], i)
+			delete(wg.otherNodes, i)
+		}
+	}
+	// on := int32(len(wg.otherNodes))
+	// wg.otherNodeCount.Store(on)
+	return
 }

@@ -42,7 +42,7 @@ func (wg *WalletGUI) unlockWallet(pass string) {
 		D.Ln("unmarshaled config")
 		bhb := blake3.Sum256([]byte(pass))
 		bh := hex.EncodeToString(bhb[:])
-		D.Ln(pass, bh, cfg.WalletPass.V())
+		I.Ln(pass, bh, cfg.WalletPass.V())
 		if cfg.WalletPass.V() == bh {
 			D.Ln("loading previously saved state")
 			filename := filepath.Join(wg.cx.Config.DataDir.V(), "state.json")

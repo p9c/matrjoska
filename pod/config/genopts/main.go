@@ -45,7 +45,7 @@ func main() {
 	}
 }
 
-var configBase = `package podopts
+var configBase = `package config
 
 `+`//go:generate go run ./genopts/.
 
@@ -71,5 +71,6 @@ type Config struct {
 	Commands       cmds.Commands
 	RunningCommand cmds.Command
 	ExtraArgs []string
+	FoundArgs []string
 %s}
 `

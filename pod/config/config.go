@@ -72,16 +72,12 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 	var cm *cmds.Command
 	var options []opt.Option
 	var optVals []string
-	I.S(os.Args)
 	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
-
+	I.S(options)
 	if cm != nil {
 		c.RunningCommand = *cm
-		// I.S(c.RunningCommand)
-		// } else {
-		// 	c.RunningCommand = c.Commands[0]
 	}
 	// if the user sets the configfile directly, or the datadir on the commandline we need to load it from that path
 	T.Ln("checking from where to load the configuration file")
@@ -97,11 +93,6 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 			I.Ln("datadir was set", optVals[i])
 			if _, e = options[i].ReadInput(optVals[i]); !E.Chk(e) {
 				datadir = options[i].Type().(*text.Opt).V()
-				// I.Ln(datadir)
-				// if _, e = c.DataDir.ReadInput(datadir); E.Chk(e) {
-				// }
-				// D.Ln(c.DataDir.V(), c.RPCKey.V(), c.RPCKey.Def, c.RPCCert.V(), c.RPCCert.Def, c.RPCKey.V(), c.RPCKey.Def)
-
 				// reset all defaults that base on the datadir to apply hereafter
 				// if the value is default, update it to the new datadir, and update the default field, otherwise assume
 				// it has been set in the commandline args, and if it is different in environment or config file
@@ -125,8 +116,6 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 			}
 		}
 	}
-	// I.Ln(c.RPCKey.V(), c.RPCKey.Def, c.RPCCert.V(), c.RPCCert.Def, c.RPCKey.V(), c.RPCKey.Def)
-	// D.Ln(c.WalletFile.V(), c.WalletFile.Def, c.LogDir.V(), c.LogDir.Def)
 	for i := range options {
 		if options[i].Name() == "network" {
 			I.Ln("network was set", optVals[i])
@@ -140,7 +129,6 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 			c.LogDir.Def = filepath.Join(datadir, optVals[i])
 		}
 	}
-	// D.Ln(c.WalletFile.V(), c.WalletFile.Def, c.LogDir.V(), c.LogDir.Def)
 	// load the configuration file into the config
 	resolvedConfigPath := c.ConfigFile.V()
 	if configPath != "" {
@@ -206,7 +194,7 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 }
 
 // loadEnvironment scans the environment variables for values relevant to pod
-func (c Config) loadEnvironment() (e error) {
+func (c *Config) loadEnvironment() (e error) {
 	env := os.Environ()
 	c.ForEach(func(o opt.Option) bool {
 		varName := "POD_" + strings.ToUpper(o.Name())
@@ -242,7 +230,7 @@ func (c *Config) loadConfig(path string) (e error) {
 }
 
 // WriteToFile writes the current config to a file as json
-func (c Config) WriteToFile(filename string) (e error) {
+func (c *Config) WriteToFile(filename string) (e error) {
 	var j []byte
 	wp := c.WalletPass.Bytes()
 	if len(wp) > 0 {
@@ -262,9 +250,9 @@ func (c Config) WriteToFile(filename string) (e error) {
 }
 
 // ForEach iterates the options in defined order with a closure that takes an opt.Option
-func (c Config) ForEach(fn func(ifc opt.Option) bool) bool {
+func (c *Config) ForEach(fn func(ifc opt.Option) bool) bool {
 	t := reflect.ValueOf(c)
-	// t = t.Elem()
+	t = t.Elem()
 	for i := 0; i < t.NumField(); i++ {
 		// asserting to an Option ensures we skip the ancillary fields
 		if iff, ok := t.Field(i).Interface().(opt.Option); ok {
@@ -277,7 +265,10 @@ func (c Config) ForEach(fn func(ifc opt.Option) bool) bool {
 }
 
 // GetOption searches for a match amongst the podopts
-func (c Config) GetOption(input string) (op opt.Option, value string, e error) {
+func (c *Config) GetOption(input string) (
+	op opt.Option, value string,
+	e error,
+) {
 	T.Ln("checking arg for opt:", input)
 	found := false
 	if c.ForEach(func(ifc opt.Option) bool {
@@ -301,7 +292,7 @@ func (c Config) GetOption(input string) (op opt.Option, value string, e error) {
 }
 
 // MarshalJSON implements the json marshaller for the config. It only stores non-default values so can be composited.
-func (c Config) MarshalJSON() (b []byte, e error) {
+func (c *Config) MarshalJSON() (b []byte, e error) {
 	outMap := make(map[string]interface{})
 	c.ForEach(
 		func(ifc opt.Option) bool {
@@ -358,7 +349,7 @@ func (c Config) MarshalJSON() (b []byte, e error) {
 }
 
 // UnmarshalJSON implements the Unmarshaller interface so it only writes to fields with those non-default values set.
-func (c Config) UnmarshalJSON(data []byte) (e error) {
+func (c *Config) UnmarshalJSON(data []byte) (e error) {
 	ifc := make(map[string]interface{})
 	if e = json.Unmarshal(data, &ifc); E.Chk(e) {
 		return
@@ -429,12 +420,10 @@ func (c Config) UnmarshalJSON(data []byte) (e error) {
 	return
 }
 
-func (c Config) processCommandlineArgs(args []string) (
+func (c *Config) processCommandlineArgs(args []string) (
 	remArgs []string, cm *cmds.Command, op []opt.Option,
 	optVals []string, e error,
 ) {
-	// I.S(c.Commands)
-	I.S(args)
 	// first we will locate all the commands specified to mark the 3 sections, opt, commands, and the remainder is
 	// arbitrary for the node
 	commands := make(map[int]cmds.Command)
@@ -473,7 +462,7 @@ func (c Config) processCommandlineArgs(args []string) (
 					// help command, resume the search
 					if cmdd, ok := commands[depth]; ok {
 						I.Ln("base level command is already occupied by",
-							cmdd.Name+ "; marking end of commands")
+							cmdd.Name+"; marking end of commands")
 						// commandsEnd--
 						T.Ln("commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 						break
@@ -498,6 +487,7 @@ func (c Config) processCommandlineArgs(args []string) (
 			// commandsEnd=i+1
 			// T.Ln("not found:", args[i], "commandStart", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
 			T.Ln("argument", args[i], "is not a command", commandsStart, commandsEnd)
+			c.FoundArgs = append(c.FoundArgs, args[i])
 		}
 	}
 	// I.S(commands, cm)
@@ -543,7 +533,7 @@ func (c Config) processCommandlineArgs(args []string) (
 				}
 			}
 		}
-		T.Ln("commands:", commandsStart, commandsEnd, args[commandsStart:commandsEnd])
+		T.Ln("commands:", commandsStart, commandsEnd)
 		T.Ln("length of gathered commands", len(commands))
 		if len(commands) == 1 {
 			for _, x := range commands {
@@ -581,7 +571,8 @@ func (c Config) processCommandlineArgs(args []string) (
 			optVals = append(optVals, val)
 		}
 	}
-	T.S(op)
+	T.Ln("options to pass to child processes to match config:", args[:commandsStart])
+
 	if len(cmds) < 1 {
 		cmds = []int{0}
 		commands[0] = c.Commands[0]
@@ -596,7 +587,7 @@ func (c Config) processCommandlineArgs(args []string) (
 }
 
 // ReadCAFile reads in the configured Certificate Authority for TLS connections
-func (c Config) ReadCAFile() []byte {
+func (c *Config) ReadCAFile() []byte {
 	// Read certificate file if TLS is not disabled.
 	var certs []byte
 	if c.ClientTLS.True() {
@@ -675,7 +666,7 @@ func (c *Config) GetHelp(hf func(ifc interface{}) error) {
 				ii.Documentation,
 			}
 		}
-		allNames := append([]string{dt.name}, dt.aliases...)
+		allNames := append([]string{dt.option}, dt.aliases...)
 		for i := range allNames {
 			helpCommand.Commands = append(helpCommand.Commands, cmds.Command{
 				Name:  allNames[i],

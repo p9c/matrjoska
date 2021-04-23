@@ -654,6 +654,7 @@ func (wg *WalletGUI) chainClient() (e error) {
 		D.Ln(wg.cx.Config.RPCConnect.V())
 		// wg.ChainMutex.Lock()
 		// defer wg.ChainMutex.Unlock()
+		// I.S(wg.certs)
 		if wg.ChainClient, e = rpcclient.New(
 			&rpcclient.ConnConfig{
 				Host:                 wg.cx.Config.RPCConnect.V(),
@@ -691,7 +692,7 @@ func (wg *WalletGUI) walletClient() (e error) {
 	}
 	// walletRPC := (*wg.cx.Config.WalletRPCListeners)[0]
 	// certs := wg.cx.Config.ReadCAFile()
-	I.Ln("config.tls", *wg.cx.Config.ClientTLS)
+	// I.Ln("config.tls", wg.cx.Config.ClientTLS.True())
 	wg.WalletMutex.Lock()
 	if wg.WalletClient, e = rpcclient.New(
 		&rpcclient.ConnConfig{

@@ -92,11 +92,9 @@ func WalletHandle(ifc interface{}) (e error) {
 		var b []byte
 		if b, e = ioutil.ReadFile(walletPassPath); !E.Chk(e) {
 			cx.Config.WalletPass.SetBytes(b)
-			D.Ln("read password '" + string(b) + "'")
-			for i := range b {
-				b[i] = 0
-			}
-			if e = ioutil.WriteFile(walletPassPath, b, 0700); E.Chk(e) {
+			D.Ln("read password '" + string(b) + "'", cx.Config.WalletPass.V())
+			if e = ioutil.WriteFile(walletPassPath, make([]byte, len(b)),
+				0700); E.Chk(e) {
 			}
 			if e = os.Remove(walletPassPath); E.Chk(e) {
 			}

@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"runtime/debug"
 	"sort"
 	"strings"
 	"sync"
@@ -3255,7 +3254,7 @@ func Open(
 	podConfig *config.Config,
 	quit qu.C,
 ) (*Wallet, error) {
-	debug.PrintStack()
+	// debug.PrintStack()
 	W.Ln("opening wallet") // , string(pubPass))
 	e := walletdb.View(
 		db, func(tx walletdb.ReadTx) (e error) {

@@ -43,7 +43,7 @@ func New(
 			case cmd := <-r.commandChan:
 				switch cmd {
 				case true:
-					D.Ln(r.running.Load(), "run called for", args)
+					// D.Ln(r.running.Load(), "run called for", args)
 					if r.running.Load() {
 						D.Ln("already running", args)
 						continue

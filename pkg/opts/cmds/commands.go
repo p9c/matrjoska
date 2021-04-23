@@ -52,17 +52,17 @@ func (c Commands) Find(
 		D.Ln("searching for command:", name)
 	}
 	depth = hereDepth + 1
-	T.Ln(tabs[:depth]+"->", depth)
+	// T.Ln(tabs[:depth]+"->", depth)
 	dist = hereDist
 	for i := range c {
-		T.Ln(tabs[:depth]+"walking", c[i].Name, depth, dist)
+		// T.Ln(tabs[:depth]+"walking", c[i].Name, depth, dist)
 		dist++
 		if c[i].Name == name {
 			if skipFirst {
 				continue
 			}
 			dist--
-			T.Ln(tabs[:depth]+"found", name, "at depth", depth, "distance", dist)
+			// T.Ln(tabs[:depth]+"found", name, "at depth", depth, "distance", dist)
 			found = true
 			cm = &c[i]
 			e = nil
@@ -76,7 +76,7 @@ func (c Commands) Find(
 			return
 		}
 	}
-	T.Ln(tabs[:hereDepth]+"<-", hereDepth)
+	// T.Ln(tabs[:hereDepth]+"<-", hereDepth)
 	if hereDepth == 0 {
 		D.Ln("search text", name, "not found")
 	}
@@ -94,7 +94,7 @@ func (c Commands) ForEach(fn func(Command) bool, hereDepth, hereDist int) (ret b
 	T.Ln(tabs[:depth]+"->", depth)
 	dist = hereDist
 	for i := range c {
-		T.Ln(tabs[:depth]+"walking", c[i].Name, depth, dist)
+		// T.Ln(tabs[:depth]+"walking", c[i].Name, depth, dist)
 		if !fn(c[i]) {
 			// if the closure returns false break out of the loop
 			return

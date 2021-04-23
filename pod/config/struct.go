@@ -24,6 +24,7 @@ type Config struct {
 	Commands               cmds.Commands
 	RunningCommand         cmds.Command
 	ExtraArgs              []string
+	FoundArgs              []string
 	AddCheckpoints         *list.Opt
 	AddPeers               *list.Opt
 	AddrIndex              *binary.Opt

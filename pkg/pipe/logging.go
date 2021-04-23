@@ -9,26 +9,6 @@ import (
 	"github.com/p9c/log"
 )
 
-// FilterNone is a filter that doesn't
-func FilterNone(string) bool {
-	return false
-}
-
-// SimpleLog is a very simple log printer
-func SimpleLog(name string) func(ent *log.Entry) (e error) {
-	return func(ent *log.Entry) (e error) {
-		D.F(
-			"%s[%s] %s %s",
-			name,
-			ent.Level,
-			// ent.Time.Format(time.RFC3339),
-			ent.Text,
-			ent.CodeLocation,
-		)
-		return
-	}
-}
-
 func LogConsume(
 	quit qu.C, handler func(ent *log.Entry) (e error,),
 	filter func(pkg string) (out bool), args ...string,
@@ -196,4 +176,24 @@ func LogServe(quit qu.C, appName string) {
 		<-interrupt.HandlersDone
 		D.Ln("finished pipe logger")
 	}()
+}
+
+// FilterNone is a filter that doesn't
+func FilterNone(string) bool {
+	return false
+}
+
+// SimpleLog is a very simple log printer
+func SimpleLog(name string) func(ent *log.Entry) (e error) {
+	return func(ent *log.Entry) (e error) {
+		D.F(
+			"%s[%s] %s %s",
+			name,
+			ent.Level,
+			// ent.Time.Format(time.RFC3339),
+			ent.Text,
+			ent.CodeLocation,
+		)
+		return
+	}
 }

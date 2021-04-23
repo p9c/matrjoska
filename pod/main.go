@@ -9,6 +9,7 @@ import (
 
 	_ "github.com/p9c/gio/app/permission/networkstate" // todo: integrate this into routeable package
 	_ "github.com/p9c/gio/app/permission/storage"      // this enables the home folder appdata directory to work on android (and ios)
+
 	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pod/config"
 	"github.com/p9c/matrjoska/pod/podcfgs"
@@ -28,6 +29,7 @@ func main() {
 }
 
 func Main() (quit qu.C) {
+	T.Ln(os.Args)
 	quit = qu.T()
 	go func() {
 		log.SetLogLevel("trace")
