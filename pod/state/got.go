@@ -55,10 +55,6 @@ func GetNew(
 		NodeChan:         make(chan *chainrpc.Server),
 		Syncing:          atomic.NewBool(true),
 	}
-	if s.Config.RunningCommand.Colorizer != nil {
-		log.AppColorizer = s.Config.RunningCommand.Colorizer
-		log.App = s.Config.RunningCommand.AppText
-	}
 	// everything in the configuration is set correctly up to this point, except for settings based on the running
 	// network, so after this is when those settings are elaborated
 	T.Ln("setting active network:", s.Config.Network.V())

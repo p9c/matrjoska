@@ -29,10 +29,10 @@ func main() {
 }
 
 func Main() (quit qu.C) {
-	T.Ln(os.Args)
 	quit = qu.T()
 	go func() {
 		log.SetLogLevel("trace")
+		T.Ln(os.Args)
 		T.Ln(version.Get())
 		var cx *state.State
 		var e error

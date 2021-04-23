@@ -13,6 +13,8 @@ import (
 // RunUnit handles correctly starting and stopping child processes that have StdConn pipe logging enabled, allowing
 // custom hooks to run on start and stop,
 type RunUnit struct {
+	name                  string
+	args                  []string
 	running, shuttingDown uberatomic.Bool
 	commandChan           chan bool
 	worker                *pipe.Worker
@@ -22,28 +24,27 @@ type RunUnit struct {
 // New creates and starts a new rununit. run and stop functions are executed after starting and stopping. logger
 // receives log entries and processes them (such as logging them).
 func New(
-	run, stop func(),
-	logger func(ent *log.Entry) (e error),
-	pkgFilter func(pkg string) (out bool),
-	quit qu.C,
-	args ...string,
+	name string, run, stop func(), logger func(ent *log.Entry) (e error),
+	pkgFilter func(pkg string) (out bool), quit qu.C, args ...string,
 ) (r *RunUnit) {
 	r = &RunUnit{
+		name:        name,
+		args:        args,
 		commandChan: make(chan bool),
 		quit:        qu.T(),
 	}
 	r.running.Store(false)
 	r.shuttingDown.Store(false)
 	go func() {
+		D.Ln("run unit command loop", args)
 		var e error
 	out:
 		for {
-			D.Ln("run unit command loop", args)
 			select {
 			case cmd := <-r.commandChan:
 				switch cmd {
 				case true:
-					// D.Ln(r.running.Load(), "run called for", args)
+					D.Ln(r.running.Load(), "run called for", args)
 					if r.running.Load() {
 						D.Ln("already running", args)
 						continue
@@ -54,7 +55,7 @@ func New(
 					}
 					// quit from rununit's quit, which closes after the main quit triggers stopping in the watcher loop
 					r.worker = pipe.LogConsume(r.quit, logger, pkgFilter, args...)
-					// D.Ln(r.worker)
+					D.S(r.worker)
 					pipe.Start(r.worker)
 					r.running.Store(true)
 					run()

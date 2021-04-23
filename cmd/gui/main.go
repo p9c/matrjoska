@@ -174,8 +174,10 @@ func (wg *WalletGUI) Run() (e error) {
 	after := func() { D.Ln("running after") }
 	I.Ln(os.Args[1:])
 	options := []string{os.Args[0]}
-	options=append(options, wg.cx.Config.FoundArgs...)
+	options = append(options, wg.cx.Config.FoundArgs...)
 	options = append(options, "pipelog")
+
+	E.Ln("options:", options)
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
 		append(options, "node")...,
@@ -188,6 +190,7 @@ func (wg *WalletGUI) Run() (e error) {
 		"MINE", before, after,
 		append(options, "kopach")...,
 	)
+	I.S(wg.node, wg.wallet, wg.miner)
 	wg.bools = wg.GetBools()
 	wg.inputs = wg.GetInputs()
 	wg.passwords = wg.GetPasswords()
@@ -498,14 +501,12 @@ func (wg *WalletGUI) GetIncDecs() IncDecMap {
 func (wg *WalletGUI) GetRunUnit(
 	name string, before, after func(), args ...string,
 ) *rununit.RunUnit {
-	return rununit.New(
-		before,
-		after,
-		pipe.SimpleLog(name),
-		pipe.FilterNone,
-		wg.quit,
-		args...,
-	)
+	I.Ln("getting rununit for", name, args)
+	// we have to copy the args otherwise further mutations affect this one
+	argsCopy := make([]string, len(args))
+	copy(argsCopy, args)
+	return rununit.New(name, before, after, pipe.SimpleLog(name),
+		pipe.FilterNone, wg.quit, argsCopy...)
 }
 
 func (wg *WalletGUI) GetLists() (o ListMap) {

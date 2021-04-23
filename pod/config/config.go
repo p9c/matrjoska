@@ -27,6 +27,7 @@ import (
 
 	"lukechampine.com/blake3"
 
+	"github.com/p9c/log"
 	"github.com/p9c/matrjoska/pkg/apputil"
 	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/opts/binary"
@@ -75,7 +76,7 @@ func (c *Config) Initialize(hf func(ifc interface{}) error) (e error) {
 	if c.ExtraArgs, cm, options, optVals, e = c.processCommandlineArgs(os.Args[1:]); E.Chk(e) {
 		return
 	}
-	I.S(options)
+	// I.S(options)
 	if cm != nil {
 		c.RunningCommand = *cm
 	}
@@ -496,6 +497,8 @@ func (c *Config) processCommandlineArgs(args []string) (
 	if len(commands) == 0 {
 		I.Ln("setting default command")
 		commands[0] = c.Commands[0]
+		log.AppColorizer = commands[0].Colorizer
+		log.App = commands[0].AppText
 	} else {
 		T.Ln("checking commands")
 		// I.S(commands)
@@ -538,6 +541,10 @@ func (c *Config) processCommandlineArgs(args []string) (
 		if len(commands) == 1 {
 			for _, x := range commands {
 				cm = &x
+				if cm.Colorizer != nil {
+					log.AppColorizer = cm.Colorizer
+					log.App = cm.AppText
+				}
 			}
 		}
 	}

@@ -19,7 +19,9 @@ func Consume(
 	var n int
 	var e error
 	D.Ln("spawning worker process", args)
-	w, _ := Spawn(quit, args...)
+	var w *Worker
+	if w, e = Spawn(quit, args...); E.Chk(e) {
+	}
 	data := make([]byte, 8192)
 	go func() {
 	out:
