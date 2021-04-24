@@ -126,8 +126,8 @@ func (x *Opt) Empty() bool {
 func (x *Opt) Bytes() []byte {
 	byt := x.Value.Load().([]byte)
 	o := make([]byte, len(byt))
-	copy(byt,o)
-	return byt
+	copy(o,byt)
+	return o
 }
 
 // Zero the bytes
