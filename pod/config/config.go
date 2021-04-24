@@ -497,6 +497,9 @@ func (c *Config) processCommandlineArgs(args []string) (
 	if len(commands) == 0 {
 		I.Ln("setting default command")
 		commands[0] = c.Commands[0]
+		I.S(commands[0])
+		ibs := commands[0]
+		cm = &ibs
 		log.AppColorizer = commands[0].Colorizer
 		log.App = commands[0].AppText
 	} else {
@@ -555,8 +558,8 @@ func (c *Config) processCommandlineArgs(args []string) (
 	}
 	T.Ln("commands section:", commandsStart, commandsEnd)
 	if commandsStart > 0 {
-		T.Ln("opt found", args[:commandsStart])
-		// we have opt to check
+		T.Ln("opts found", args[:commandsStart])
+		// we have opts to check
 		for i := range args {
 			// if i == 0 {
 			// 	continue

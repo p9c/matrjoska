@@ -41,10 +41,10 @@ func Main() (quit qu.C) {
 		}
 
 		// fail()
-		if e = debugConfig(cx.Config); E.Chk(e) {
-		}
+		// if e = debugConfig(cx.Config); E.Chk(e) {
+		// }
 
-		D.Ln("running command", cx.Config.RunningCommand.Name)
+		D.Ln("running command")
 		if e = cx.Config.RunningCommand.Entrypoint(cx); E.Chk(e) {
 			fail()
 		}
@@ -69,6 +69,6 @@ func debugConfig(c *config.Config) (e error) {
 	if e = json.Indent(jj, j, "", "\t"); E.Chk(e) {
 		return
 	}
-	// T.Ln("\n"+jj.String())
+	T.Ln("\n"+jj.String())
 	return
 }

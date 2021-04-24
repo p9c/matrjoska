@@ -180,15 +180,18 @@ func (wg *WalletGUI) Run() (e error) {
 	E.Ln("options:", options)
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
-		append(options, "node")...,
+		// append(options, "node")...,
+		"node",
 	)
 	wg.wallet = wg.GetRunUnit(
 		"WLLT", before, after,
-		append(options, "wallet")...,
+		// append(options, "wallet")...,
+		"wallet",
 	)
 	wg.miner = wg.GetRunUnit(
 		"MINE", before, after,
-		append(options, "kopach")...,
+		// append(options, "kopach")...,
+		"wallet",
 	)
 	I.S(wg.node, wg.wallet, wg.miner)
 	wg.bools = wg.GetBools()

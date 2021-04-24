@@ -38,6 +38,7 @@ func GetDefaultConfig() (c *config.Config) {
 		Map:      GetConfigs(),
 	}
 	c.RunningCommand = c.Commands[0]
+	I.S(c.RunningCommand)
 	t := reflect.ValueOf(c)
 	t = t.Elem()
 	for i := range c.Map {
