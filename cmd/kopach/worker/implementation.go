@@ -28,7 +28,7 @@ import (
 	"github.com/p9c/matrjoska/pkg/transport"
 )
 
-const CountPerRound = 500
+const CountPerRound = 81
 
 type Worker struct {
 	mx               sync.Mutex
@@ -192,7 +192,7 @@ out:
 				if w.templatesMessage == nil || !w.dispatchReady.Load() {
 					D.Ln("not ready to work")
 				} else {
-					// D.Ln("starting mining round")
+					// I.Ln("starting mining round")
 					newHeight := w.templatesMessage.Height
 					vers := w.roller.GetAlgoVer(newHeight)
 					nonce++
@@ -201,7 +201,7 @@ out:
 						w.templatesMessage.Timestamp = tn
 					}
 					if w.roller.C.Load()%w.roller.RoundsPerAlgo.Load() == 0 {
-						// D.Ln("switching algorithms", w.roller.C.Load())
+						D.Ln("switching algorithms", w.roller.C.Load())
 						// send out broadcast containing worker nonce and algorithm and count of blocks
 						w.hashCount.Store(w.hashCount.Load() + uint64(w.roller.RoundsPerAlgo.Load()))
 						hashReport := hashrate.Get(w.roller.RoundsPerAlgo.Load(), vers, newHeight, w.id)
@@ -287,6 +287,7 @@ func (w *Worker) NewJob(j *templates.Message, reply *bool) (e error) {
 	*reply = true
 	D.Ln("halting current work")
 	w.stopChan <- struct{}{}
+	D.Ln("halt signal sent")
 	// load the job into the template
 	if w.templatesMessage == nil {
 		w.templatesMessage = j
@@ -295,6 +296,7 @@ func (w *Worker) NewJob(j *templates.Message, reply *bool) (e error) {
 	}
 	D.Ln("switching to new job")
 	w.startChan <- struct{}{}
+	D.Ln("start signal sent")
 	return
 }
 

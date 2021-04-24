@@ -425,6 +425,7 @@ out:
 			continue
 		}
 		T.F("received command <%s> from %s", cmd.Method, c.Addr)
+		// T.Ln(interrupt.GoroutineDump())
 		// Chk auth. The client is immediately disconnected if the first request of an unauthenticated websocket
 		// client is not the authenticate request, an authenticate request is received when the client is already
 		// authenticated, or incorrect authentication credentials are provided in the request.

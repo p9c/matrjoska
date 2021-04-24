@@ -24,17 +24,14 @@ import (
 	"github.com/p9c/matrjoska/pkg/chainrpc/job"
 	"github.com/p9c/matrjoska/pkg/chainrpc/p2padvt"
 	"github.com/p9c/matrjoska/pkg/chainrpc/pause"
-	"github.com/p9c/matrjoska/pkg/chainrpc/peersummary"
 	"github.com/p9c/matrjoska/pkg/chainrpc/sol"
 	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
 	"github.com/p9c/matrjoska/pkg/constant"
-	"github.com/p9c/matrjoska/pkg/fec"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/mining"
 	rav "github.com/p9c/matrjoska/pkg/ring"
 	"github.com/p9c/matrjoska/pkg/rpcclient"
 	"github.com/p9c/matrjoska/pkg/transport"
-	"github.com/p9c/matrjoska/pkg/util/routeable"
 	"github.com/p9c/matrjoska/pkg/wire"
 	"github.com/p9c/matrjoska/pod/config"
 )
@@ -195,7 +192,10 @@ func (s *State) updateBlockTemplate() (e error) {
 	// s.node.Chain.ChainLock.Unlock()
 	I.Ln("updating block from chain tip")
 	// D.S(blk)
-	if e = s.doBlockUpdate(blk); E.Chk(e) {
+	s.doBlockUpdate(blk)
+	I.Ln("sending out templates...")
+	if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
+		return
 	}
 	return
 }
@@ -267,6 +267,7 @@ out:
 					I.Ln("not connected")
 					break
 				}
+				break pausing
 			case <-s.stop.Wait():
 				I.Ln("received stop signal while paused")
 			case <-s.quit.Wait():
@@ -292,14 +293,15 @@ out:
 				}
 			case bu := <-s.blockUpdate:
 				// _ = bu
-				I.Ln("received new block update while running")
-				if e = s.doBlockUpdate(bu); E.Chk(e) {
-					break
-				}
-				I.Ln("sending out templates...")
-				if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
-					break
-				}
+				go func(){
+
+					I.Ln("received new block update while running")
+					s.doBlockUpdate(bu)
+					I.Ln("sending out templates...")
+					if e = s.multiConn.SendMany(job.Magic, s.templateShards); E.Chk(e) {
+						return
+					}
+				}()
 			case <-ticker.C:
 				// T.Ln("checking if wallet is connected")
 				if !s.checkConnected() {
@@ -327,57 +329,58 @@ out:
 }
 
 func (s *State) checkConnected() (connected bool) {
+	return true
 	// if !*s.cfg.Generate || *s.cfg.GenThreads == 0 {
 	// 	I.Ln("no need to check connectivity if we aren't mining")
 	// 	return
 	// }
-	if s.cfg.Solo.True() {
-		I.Ln("in solo mode, mining anyway")
-		s.Start()
-		return true
-	}
-	T.Ln("checking connectivity state")
-	ps := make(chan peersummary.PeerSummaries, 1)
-	s.node.PeerState <- ps
-	T.Ln("sent peer list query")
-	var lanPeers int
-	var totalPeers int
-	select {
-	case connState := <-ps:
-		T.Ln("received peer list query response")
-		totalPeers = len(connState)
-		for i := range connState {
-			if routeable.IPNet.Contains(connState[i].IP) {
-				lanPeers++
-			}
-		}
-		if s.cfg.LAN.True() {
-			// if there is no peers on lan and solo was not set, stop mining
-			if lanPeers == 0 {
-				T.Ln("no lan peers while in lan mode, stopping mining")
-				s.Stop()
-			} else {
-				s.Start()
-				connected = true
-			}
-		} else {
-			if totalPeers-lanPeers == 0 {
-				// we have no peers on the internet, stop mining
-				T.Ln("no internet peers, stopping mining")
-				s.Stop()
-			} else {
-				s.Start()
-				connected = true
-			}
-		}
-		break
-		// quit waiting if we are shutting down
-	case <-s.quit:
-		break
-	}
-	T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:",
-		s.cfg.Solo.True(), "lan:", s.cfg.LAN.True())
-	return
+	// if s.cfg.Solo.True() {
+	// 	// I.Ln("in solo mode, mining anyway")
+	// 	// s.Start()
+	// 	return true
+	// }
+	// T.Ln("checking connectivity state")
+	// ps := make(chan peersummary.PeerSummaries, 1)
+	// s.node.PeerState <- ps
+	// T.Ln("sent peer list query")
+	// var lanPeers int
+	// var totalPeers int
+	// select {
+	// case connState := <-ps:
+	// 	T.Ln("received peer list query response")
+	// 	totalPeers = len(connState)
+	// 	for i := range connState {
+	// 		if routeable.IPNet.Contains(connState[i].IP) {
+	// 			lanPeers++
+	// 		}
+	// 	}
+	// 	if s.cfg.LAN.True() {
+	// 		// if there is no peers on lan and solo was not set, stop mining
+	// 		if lanPeers == 0 {
+	// 			T.Ln("no lan peers while in lan mode, stopping mining")
+	// 			s.Stop()
+	// 		} else {
+	// 			s.Start()
+	// 			connected = true
+	// 		}
+	// 	} else {
+	// 		if totalPeers-lanPeers == 0 {
+	// 			// we have no peers on the internet, stop mining
+	// 			T.Ln("no internet peers, stopping mining")
+	// 			s.Stop()
+	// 		} else {
+	// 			s.Start()
+	// 			connected = true
+	// 		}
+	// 	}
+	// 	break
+	// 	// quit waiting if we are shutting down
+	// case <-s.quit:
+	// 	break
+	// }
+	// T.Ln(totalPeers, "total peers", lanPeers, "lan peers solo:",
+	// 	s.cfg.Solo.True(), "lan:", s.cfg.LAN.True())
+	// return
 }
 
 //
@@ -419,8 +422,8 @@ func (s *State) doBlockUpdate(prev *block.Block) (e error) {
 	// I.S(srl)
 	s.templateShards = transport.GetShards(srl)
 	// var dt []byte
-	if _, e = fec.Decode(s.templateShards); E.Chk(e) {
-	}
+	// if _, e = fec.Decode(s.templateShards); E.Chk(e) {
+	// }
 	// I.S(dt)
 	return
 }

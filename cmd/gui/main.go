@@ -240,20 +240,22 @@ func (wg *WalletGUI) Run() (e error) {
 		for {
 			select {
 			case <-ticker.C:
-				if e = wg.Advertise(); E.Chk(e) {
-				}
-				if wg.node.Running() {
-					if wg.ChainClient != nil {
-						if !wg.ChainClient.Disconnected() {
-							var pi []btcjson.GetPeerInfoResult
-							if pi, e = wg.ChainClient.GetPeerInfo(); E.Chk(e) {
-								continue
+				go func() {
+					if e = wg.Advertise(); E.Chk(e) {
+					}
+					if wg.node.Running() {
+						if wg.ChainClient != nil {
+							if !wg.ChainClient.Disconnected() {
+								var pi []btcjson.GetPeerInfoResult
+								if pi, e = wg.ChainClient.GetPeerInfo(); E.Chk(e) {
+									return
+								}
+								wg.peerCount.Store(int32(len(pi)))
+								wg.Invalidate()
 							}
-							wg.peerCount.Store(int32(len(pi)))
-							wg.Invalidate()
 						}
 					}
-				}
+				}()
 			case <-wg.invalidate.Wait():
 				T.Ln("invalidating render queue")
 				wg.Window.Window.Invalidate()

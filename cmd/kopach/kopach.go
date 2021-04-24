@@ -172,6 +172,7 @@ func Run(cx *state.State) (e error) {
 		for {
 			select {
 			case <-ticker.C:
+				W.Ln("controller watcher ticker")
 				// if the last message sent was 3 seconds ago the server is almost certainly disconnected or crashed
 				// so clear FirstSender
 				since := time.Now().Sub(time.Unix(0, w.lastSent.Load()))
@@ -188,33 +189,34 @@ func Run(cx *state.State) (e error) {
 						}
 					}
 				}
-				if interrupt.Requested() {
-					w.StopChan <- struct{}{}
-					w.quit.Q()
-				}
+				// if interrupt.Requested() {
+				// 	w.StopChan <- struct{}{}
+				// 	w.quit.Q()
+				// }
 			case <-logger.C:
+				W.Ln("hash report ticker")
 				w.hashrate = w.HashReport()
-				if interrupt.Requested() {
-					w.StopChan <- struct{}{}
-					w.quit.Q()
-				}
+				// if interrupt.Requested() {
+				// 	w.StopChan <- struct{}{}
+				// 	w.quit.Q()
+				// }
 			case <-w.StartChan.Wait():
 				D.Ln("received signal on StartChan")
 				cx.Config.Generate.T()
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
-				}
+				// if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
+				// }
 				w.Start()
 			case <-w.StopChan.Wait():
 				D.Ln("received signal on StopChan")
 				cx.Config.Generate.F()
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
-				}
+				// if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
+				// }
 				w.Stop()
 			case s := <-w.PassChan:
 				D.Ln("received signal on PassChan", s)
 				cx.Config.MulticastPass.Set(s)
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
-				}
+				// if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
+				// }
 				w.Stop()
 				w.Start()
 			case n := <-w.SetThreads:
@@ -385,7 +387,7 @@ var handlers = transport.Handlers{
 }
 
 func (w *Worker) HashReport() float64 {
-	// T.Ln("generating hash report")
+	W.Ln("generating hash report")
 	w.hashSampleBuf.Add(w.hashCount.Load())
 	av := ewma.NewMovingAverage()
 	var i int
@@ -405,6 +407,7 @@ func (w *Worker) HashReport() float64 {
 	); E.Chk(e) {
 	}
 	average := av.Value()
-	D.Ln("hashrate average", average)
+	W.Ln("hashrate average", average)
+	// panic("aaargh")
 	return average
 }

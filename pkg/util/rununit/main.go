@@ -55,11 +55,11 @@ func New(
 					}
 					// quit from rununit's quit, which closes after the main quit triggers stopping in the watcher loop
 					r.worker = pipe.LogConsume(r.quit, logger, pkgFilter, args...)
-					D.S(r.worker)
+					// D.S(r.worker)
 					pipe.Start(r.worker)
 					r.running.Store(true)
 					run()
-					D.Ln(r.running.Load())
+					// D.Ln(r.running.Load())
 				case false:
 					running := r.running.Load()
 					D.Ln("stop called for", args, running)

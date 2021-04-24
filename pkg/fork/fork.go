@@ -67,8 +67,7 @@ func ForkCalc() {
 		return
 	}
 	done = true
-	// log.SetLogLevel("trace")
-	// T.Ln("running fork data init")
+	T.Ln("running fork data init")
 	for i := range P9AlgosNumeric {
 		List[1].AlgoVers[i] = fmt.Sprintf("Div%d", P9AlgosNumeric[i].VersionInterval)
 	}
@@ -94,30 +93,21 @@ func ForkCalc() {
 		)
 	}
 	sort.Sort(AlgoSlices[0])
-	// I.S(AlgoSlices[0])
 	sort.Sort(AlgoSlices[1])
-	// ras := sort.Reverse(AlgoSlices[1])
-	// I.S(AlgoSlices[1])
-	// D.Ln(P9AlgoVers)
-	baseVersionName := AlgoSlices[1][8].Name
+	D.Ln(P9AlgoVers)
+	baseVersionName := AlgoSlices[1][0].Name
 	baseVersionInterval := float64(P9Algos[baseVersionName].VersionInterval)
-	// topVersionName := AlgoSlices[1][0].Name
-	// topVersionInterval := float64(P9Algos[topVersionName].VersionInterval)
-	// D.Ln(baseVersionName, baseVersionInterval)
-	P9Average = 1
-	var total float64
+	D.Ln(baseVersionName, baseVersionInterval)
+	P9Average = 0
 	for _, i := range AlgoSlices[1] {
 		vi := float64(P9Algos[i.Name].VersionInterval)
-		ratio := vi / baseVersionInterval
-		P9Average += ratio
-		// I.Ln(vi, "/", baseVersionInterval, "=", ratio, "->", P9Average)
+		p9a := baseVersionInterval / vi
+		P9Average += p9a
+		// Tracef("P9Average %4.4f %4.4f %d %4.4f", p9a, P9Average, IntervalBase, vi)
 	}
-	
-	_ = total
-	// D.Ln(topVersionInterval, "/", P9Average, "=", topVersionInterval/P9Average)
-	P9Average = baseVersionInterval / (P9Average)
-	// fmt.Println(os.Stderr, P9Average)
-}
+	D.Ln(P9Average)
+	P9Average = baseVersionInterval / P9Average
+	D.Ln(P9Average)}
 
 var (
 	AlgoSlices []AlgoSpecs

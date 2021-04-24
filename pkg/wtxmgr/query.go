@@ -274,7 +274,7 @@ func (s *Store) rangeBlockTransactions(
 			k := keyTxRecord(&txHash, &block.Block)
 			v := existsRawTxRecord(ns, k)
 			if v == nil {
-				T.F("missing transaction %v for block %v", txHash, block.Height)
+				// T.F("missing transaction %v for block %v", txHash, block.Height)
 				// str := fmt.Sprintf("missing transaction %v for block %v", txHash, block.Height)
 				// return false, storeError(ErrData, str, nil)
 				// deleteTxRecord(ns, )
