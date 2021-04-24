@@ -178,8 +178,6 @@ func (wg *WalletGUI) Run() (e error) {
 	options := []string{os.Args[0]}
 	// options = append(options, wg.cx.Config.FoundArgs...)
 	// options = append(options, "pipelog")
-
-	E.Ln("options:", options)
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
 		append(options, "node")...,

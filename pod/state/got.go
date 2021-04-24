@@ -61,7 +61,6 @@ func GetNew(
 	case "testnet", "testnet3", "t":
 		s.ActiveNet = &chaincfg.TestNet3Params
 		fork.IsTestnet = true
-		// fork.HashReps = 3
 	case "regtestnet", "regressiontest", "r":
 		fork.IsTestnet = true
 		s.ActiveNet = &chaincfg.RegressionTestParams
@@ -85,9 +84,13 @@ func GetNew(
 		D.Ln("starting up pipe logger")
 		pipe.LogServe(s.KillAll, fmt.Sprint(os.Args))
 	}
-	// set to write logs in the network specific directory, if the value was not set and is not the same as datadir
-	if s.Config.LogDir.V() == s.Config.DataDir.V() {
-		e = s.Config.LogDir.Set(filepath.Join(s.Config.DataDir.V(), s.ActiveNet.Name))
+	I.Ln("set to write logs in the network specific directory")
+	if e = s.Config.LogDir.Set(
+		filepath.Join(s.Config.DataDir.V(), s.ActiveNet.Name)); E.Chk(e) {
+	}
+	I.Ln("enable log file writing")
+	if e = log.SetLogWriteToFile(s.Config.LogDir.V(),
+		s.Config.RunningCommand.Name); E.Chk(e) {
 	}
 	// set up TLS stuff if it hasn't been set up yet. We assume if the configured values correspond to files the files
 	// are valid TLS cert/pairs, and that the key will be absent if onetimetlskey was set

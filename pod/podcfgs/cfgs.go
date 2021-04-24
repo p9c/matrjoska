@@ -26,6 +26,7 @@ import (
 	"github.com/p9c/opts/integer"
 	"github.com/p9c/opts/list"
 	"github.com/p9c/opts/meta"
+	"github.com/p9c/opts/opt"
 	"github.com/p9c/opts/sanitizers"
 	"github.com/p9c/opts/text"
 )
@@ -38,7 +39,7 @@ func GetDefaultConfig() (c *config.Config) {
 		Map:      GetConfigs(),
 	}
 	c.RunningCommand = c.Commands[0]
-	I.S(c.RunningCommand)
+
 	t := reflect.ValueOf(c)
 	t = t.Elem()
 	for i := range c.Map {
@@ -48,6 +49,10 @@ func GetDefaultConfig() (c *config.Config) {
 			tf.Set(val)
 		}
 	}
+	c.ForEach(func(ifc opt.Option) bool {
+
+		return true
+	})
 	return
 }
 

@@ -333,7 +333,7 @@ func LazyApplyHandler(request *btcjson.Request, w *Wallet, chainClient chainclie
 	handlerData, ok := RPCHandlers[request.Method]
 	D.Ln("LazyApplyHandler >>> >>> >>>", ok, handlerData.Handler != nil, w != nil, chainClient != nil)
 	if ok && handlerData.Handler != nil && w != nil && chainClient != nil {
-		D.Ln("%%% found handler for call")
+		D.Ln("found handler for call")
 		// D.S(request)
 		return func() (interface{}, *btcjson.RPCError) {
 			cmd, e := btcjson.UnmarshalCmd(request)
