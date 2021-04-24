@@ -10,11 +10,12 @@ import (
 // GetCipher returns a GCM cipher given a password string. Note that this cipher must be renewed every 4gb of encrypted
 // data
 func GetCipher(password []byte) (gcm cipher.AEAD, e error) {
-	// bytes := make([]byte, len(password))
-	// copy(bytes, password)
-	bytes := password
+	bytes := make([]byte, len(password))
+	rb := make([]byte, len(password))
+	copy(bytes, password)
+	copy(rb, password)
 	var c cipher.Block
-	rb := reverse(bytes)
+	rb = reverse(bytes)
 	ark := argon2.IDKey(rb, bytes, 1, 64*1024, 4, 32)
 	if c, e = aes.NewCipher(ark); E.Chk(e) {
 		return
@@ -23,8 +24,6 @@ func GetCipher(password []byte) (gcm cipher.AEAD, e error) {
 	}
 	for i := range bytes {
 		bytes[i] = 0
-	}
-	for i := range rb {
 		rb[i] = 0
 	}
 	return

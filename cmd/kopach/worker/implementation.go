@@ -10,7 +10,6 @@ import (
 
 	"github.com/p9c/matrjoska/pkg/bits"
 	"github.com/p9c/matrjoska/pkg/chainrpc/templates"
-	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/fork"
 	"github.com/p9c/matrjoska/pkg/pipe"
 
@@ -320,27 +319,27 @@ func (w *Worker) Stop(_ int, reply *bool) (e error) {
 	return
 }
 
-// SendPass gives the encryption key configured in the kopach controller ( pod) configuration to allow workers to
-// dispatch their solutions
-func (w *Worker) SendPass(pass []byte, reply *bool) (e error) {
-	D.Ln("receiving dispatch password", pass)
-	rand.Seed(time.Now().UnixNano())
-	// sp := fmt.Sprint(rand.Intn(32767) + 1025)
-	// rp := fmt.Sprint(rand.Intn(32767) + 1025)
-	var conn *transport.Channel
-	conn, e = transport.NewBroadcastChannel(
-		"kopachworker",
-		w,
-		pass,
-		transport.DefaultPort,
-		constant.MaxDatagramSize,
-		transport.Handlers{},
-		w.quit,
-	)
-	if e != nil {
-	}
-	w.dispatchConn = conn
-	w.dispatchReady.Store(true)
-	*reply = true
-	return
-}
+// // SendPass gives the encryption key configured in the kopach controller ( pod) configuration to allow workers to
+// // dispatch their solutions
+// func (w *Worker) SendPass(pass []byte, reply *bool) (e error) {
+// 	D.Ln("receiving dispatch password", pass)
+// 	rand.Seed(time.Now().UnixNano())
+// 	// sp := fmt.Sprint(rand.Intn(32767) + 1025)
+// 	// rp := fmt.Sprint(rand.Intn(32767) + 1025)
+// 	var conn *transport.Channel
+// 	conn, e = transport.NewBroadcastChannel(
+// 		"kopachworker",
+// 		w,
+// 		pass,
+// 		transport.DefaultPort,
+// 		constant.MaxDatagramSize,
+// 		transport.Handlers{},
+// 		w.quit,
+// 	)
+// 	if e != nil {
+// 	}
+// 	w.dispatchConn = conn
+// 	w.dispatchReady.Store(true)
+// 	*reply = true
+// 	return
+// }

@@ -4,14 +4,15 @@ import (
 	"crypto/cipher"
 	"errors"
 	"fmt"
-	"github.com/p9c/log"
 	"net"
 	"runtime"
 	"strings"
 	"time"
-	
+
+	"github.com/p9c/log"
+
 	"github.com/p9c/qu"
-	
+
 	"github.com/p9c/matrjoska/pkg/fec"
 	"github.com/p9c/matrjoska/pkg/gcm"
 	"github.com/p9c/matrjoska/pkg/multicast"
@@ -36,7 +37,9 @@ type (
 		Source  net.Addr
 	}
 	// HandlerFunc is a function that is used to process a received message
-	HandlerFunc func(ctx interface{}, src net.Addr, dst string, b []byte) (e error)
+	HandlerFunc func(
+		ctx interface{}, src net.Addr, dst string, b []byte,
+	) (e error)
 	Handlers    map[string]HandlerFunc
 	Channel     struct {
 		buffers         map[string]*MsgBuffer
@@ -63,7 +66,9 @@ func (c *Channel) SetDestination(dst string) (e error) {
 }
 
 // Send fires off some data through the configured multicast's outbound.
-func (c *Channel) Send(magic []byte, nonce []byte, data []byte) (n int, e error) {
+func (c *Channel) Send(magic []byte, nonce []byte, data []byte) (
+	n int, e error,
+) {
 	if len(data) == 0 {
 		e = errors.New("not sending empty packet")
 		E.Ln(e)
@@ -114,7 +119,9 @@ func GetShards(data []byte) (shards [][]byte) {
 }
 
 // NewUnicastChannel sets up a listener and sender for a specified destination
-func NewUnicastChannel(creator string, ctx interface{}, key []byte, sender, receiver string, maxDatagramSize int,
+func NewUnicastChannel(
+	creator string, ctx interface{}, key []byte, sender, receiver string,
+	maxDatagramSize int,
 	handlers Handlers, quit qu.C,
 ) (channel *Channel, e error) {
 	channel = &Channel{
@@ -124,13 +131,19 @@ func NewUnicastChannel(creator string, ctx interface{}, key []byte, sender, rece
 		context:         ctx,
 	}
 	var magics []string
-	
+	bytes := make([]byte, len(key))
+	copy(bytes, key)
 	for i := range handlers {
 		magics = append(magics, i)
 	}
-	if channel.sendCiph, e = gcm.GetCipher(key); E.Chk(e) {
+	if channel.sendCiph, e = gcm.GetCipher(bytes); E.Chk(e) {
 	}
-	if channel.receiveCiph, e = gcm.GetCipher(key); E.Chk(e) {
+	copy(bytes, key)
+	if channel.receiveCiph, e = gcm.GetCipher(bytes); E.Chk(e) {
+	}
+	for i := range bytes {
+		bytes[i] = 0
+		key[i] = 0
 	}
 	if channel.Receiver, e = Listen(receiver, channel, maxDatagramSize, handlers, quit); E.Chk(e) {
 	}
@@ -141,7 +154,9 @@ func NewUnicastChannel(creator string, ctx interface{}, key []byte, sender, rece
 }
 
 // NewSender creates a new UDP connection to a specified address
-func NewSender(address string, maxDatagramSize int) (conn *net.UDPConn, e error) {
+func NewSender(address string, maxDatagramSize int) (
+	conn *net.UDPConn, e error,
+) {
 	var addr *net.UDPAddr
 	if addr, e = net.ResolveUDPAddr("udp4", address); E.Chk(e) {
 		return
@@ -180,7 +195,9 @@ func Listen(
 // NewBroadcastChannel returns a broadcaster and listener with a given handler
 // on a multicast address and specified port. The handlers define the messages
 // that will be processed and any other messages are ignored
-func NewBroadcastChannel(creator string, ctx interface{}, key []byte, port int, maxDatagramSize int, handlers Handlers,
+func NewBroadcastChannel(
+	creator string, ctx interface{}, key []byte, port int, maxDatagramSize int,
+	handlers Handlers,
 	quit qu.C,
 ) (channel *Channel, e error) {
 	channel = &Channel{
@@ -190,11 +207,18 @@ func NewBroadcastChannel(creator string, ctx interface{}, key []byte, port int, 
 		context:         ctx,
 		Ready:           qu.T(),
 	}
-	if channel.sendCiph, e = gcm.GetCipher(key); E.Chk(e) {
+	bytes := make([]byte, len(key))
+	copy(bytes, key)
+	if channel.sendCiph, e = gcm.GetCipher(bytes); E.Chk(e) {
 		panic(e)
 	}
-	if channel.receiveCiph, e = gcm.GetCipher(key); E.Chk(e) {
+	copy(bytes, key)
+	if channel.receiveCiph, e = gcm.GetCipher(bytes); E.Chk(e) {
 		panic(e)
+	}
+	for i := range bytes {
+		key[i] = 0
+		bytes[i] = 0
 	}
 	if channel.Receiver, e = ListenBroadcast(port, channel, maxDatagramSize, handlers, quit); E.Chk(e) {
 	}
@@ -205,7 +229,9 @@ func NewBroadcastChannel(creator string, ctx interface{}, key []byte, port int, 
 }
 
 // NewBroadcaster creates a new UDP multicast connection on which to broadcast
-func NewBroadcaster(port int, maxDatagramSize int) (conn *net.UDPConn, e error) {
+func NewBroadcaster(port int, maxDatagramSize int) (
+	conn *net.UDPConn, e error,
+) {
 	address := net.JoinHostPort(UDPMulticastAddress, fmt.Sprint(port))
 	if conn, e = NewSender(address, maxDatagramSize); E.Chk(e) {
 	}
