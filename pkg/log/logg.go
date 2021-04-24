@@ -305,12 +305,13 @@ func AddFilteredSubsystem(hl string) struct{} {
 }
 
 func getTimeText(level int32) string {
-	since := time.Now().Sub(logger_started).Round(time.Millisecond).String()
-	diff := 12 - len(since)
-	if diff > 0 {
-		since = strings.Repeat(" ", diff) + since + " "
-	}
-	return color.Bit24(40, 40, 40, false).Sprint(since)
+	// since := time.Now().Sub(logger_started).Round(time.Millisecond).String()
+	// diff := 12 - len(since)
+	// if diff > 0 {
+	// 	since = strings.Repeat(" ", diff) + since + " "
+	// }
+	return color.Bit24(99, 99, 99, false).Sprint(time.Now().
+		Format(time.StampMilli))
 }
 
 func _ln(level int32, subsystem string) func(a ...interface{}) {
