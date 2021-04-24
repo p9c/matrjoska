@@ -72,7 +72,7 @@ type Worker struct {
 	HashTick            chan HashCount
 	LastHash            *chainhash.Hash
 	StartChan, StopChan qu.C
-	SetThreads          chan int
+	// SetThreads          chan int
 	PassChan            chan string
 	solutions           []SolutionData
 	solutionCount       int
@@ -138,7 +138,7 @@ func Run(cx *state.State) (e error) {
 		sendAddresses: []*net.UDPAddr{},
 		StartChan:     qu.T(),
 		StopChan:      qu.T(),
-		SetThreads:    make(chan int),
+		// SetThreads:    make(chan int),
 		solutions:     make([]SolutionData, 0, 2048),
 		Update:        qu.T(),
 		hashSampleBuf: rav.NewBufferUint64(1000),
@@ -213,28 +213,28 @@ func Run(cx *state.State) (e error) {
 				// }
 				w.Stop()
 			case s := <-w.PassChan:
-				D.Ln("received signal on PassChan", s)
+				F.Ln("received signal on PassChan", s)
 				cx.Config.MulticastPass.Set(s)
 				// if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
 				// }
 				w.Stop()
 				w.Start()
-			case n := <-w.SetThreads:
-				D.Ln("received signal on SetThreads", n)
-				cx.Config.GenThreads.Set(n)
-				if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
-				}
-				if cx.Config.Generate.True() {
-					// always sanitise
-					if n < 0 {
-						n = int(maxThreads)
-					}
-					if n > int(maxThreads) {
-						n = int(maxThreads)
-					}
-					w.Stop()
-					w.Start()
-				}
+			// case n := <-w.SetThreads:
+			// 	D.Ln("received signal on SetThreads", n)
+			// 	cx.Config.GenThreads.Set(n)
+			// 	// if e = cx.Config.WriteToFile(cx.Config.ConfigFile.V()); E.Chk(e) {
+			// 	// }
+			// 	if cx.Config.Generate.True() {
+			// 		// always sanitise
+			// 		if n < 0 {
+			// 			n = int(maxThreads)
+			// 		}
+			// 		if n > int(maxThreads) {
+			// 			n = int(maxThreads)
+			// 		}
+			// 		w.Stop()
+			// 		w.Start()
+			// 	}
 			case <-w.quit.Wait():
 				D.Ln("stopping from quit")
 				interrupt.Request()

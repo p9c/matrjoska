@@ -20,8 +20,6 @@ import (
 
 	"go.uber.org/atomic"
 
-	"github.com/urfave/cli"
-
 	"github.com/p9c/matrjoska/cmd/node/active"
 	"github.com/p9c/matrjoska/pkg/chainrpc"
 	"github.com/p9c/matrjoska/pkg/util/lang"
@@ -36,11 +34,6 @@ type State struct {
 	sync.Mutex
 	WaitGroup sync.WaitGroup
 	KillAll   qu.C
-	// App is the heart of the application system, this creates and initialises it.
-	App *cli.App
-	// AppContext is the urfave/cli node context
-	AppContext *cli.Context
-	// Config is the pod all-in-one server config
 	Config *config.Config
 	// ConfigMap
 	ConfigMap map[string]interface{}

@@ -17,8 +17,6 @@ import (
 	"github.com/p9c/matrjoska/pkg/constant"
 	"github.com/p9c/matrjoska/pkg/fork"
 
-	"github.com/urfave/cli"
-
 	l "github.com/p9c/gio/layout"
 )
 
@@ -269,7 +267,7 @@ func (wg *WalletGUI) createWalletTestnetToggle(b bool) {
 		wg.passwords["passEditor"].GetPassword() ==
 			wg.passwords["confirmPassEditor"].GetPassword() {
 		wg.cx.Config.WalletPass.Set(wg.passwords["confirmPassEditor"].GetPassword())
-		D.Ln("wallet pass", *wg.cx.Config.WalletPass)
+		D.Ln("wallet pass", wg.cx.Config.WalletPass.V())
 	}
 	if b {
 		wg.cx.ActiveNet = &chaincfg.TestNet3Params
@@ -282,16 +280,18 @@ func (wg *WalletGUI) createWalletTestnetToggle(b bool) {
 	D.Ln("setting ports to match network")
 	wg.cx.Config.Network.Set(wg.cx.ActiveNet.Name)
 	wg.cx.Config.P2PListeners.Set(
-		cli.StringSlice{"0.0.0.0:" + wg.cx.ActiveNet.DefaultPort},
+		[]string{"0.0.0.0:" + wg.cx.ActiveNet.DefaultPort},
 	)
+	wg.cx.Config.P2PConnect.Set([]string{"127.0.0.1:" + wg.cx.ActiveNet.
+		DefaultPort})
 	address := fmt.Sprintf(
 		"127.0.0.1:%s",
 		wg.cx.ActiveNet.RPCClientPort,
 	)
-	wg.cx.Config.RPCListeners.Set(cli.StringSlice{address})
+	wg.cx.Config.RPCListeners.Set([]string{address})
 	wg.cx.Config.RPCConnect.Set(address)
 	address = fmt.Sprintf("127.0.0.1:" + wg.cx.ActiveNet.WalletRPCServerPort)
-	wg.cx.Config.WalletRPCListeners.Set(cli.StringSlice{address})
+	wg.cx.Config.WalletRPCListeners.Set([]string{address})
 	wg.cx.Config.WalletServer.Set(address)
 	wg.cx.Config.NodeOff.F()
 	_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())

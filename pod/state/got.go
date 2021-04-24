@@ -15,7 +15,6 @@ import (
 
 	"github.com/btcsuite/go-socks/socks"
 	"github.com/p9c/qu"
-	"github.com/urfave/cli"
 	"go.uber.org/atomic"
 
 	"github.com/p9c/log"
@@ -232,12 +231,12 @@ func GetNew(
 		_, _ = fmt.Fprintln(os.Stderr, e)
 		os.Exit(0)
 	}
-
+	I.Ln("autolisten", s.Config.AutoListen.True())
 	// if autolisten is set, set default ports on all p2p listeners discovered to be available
 	if s.Config.AutoListen.True() {
 		I.Ln("autolisten is enabled")
 		_, allAddresses := routeable.GetAddressesAndInterfaces()
-		p2pAddresses := cli.StringSlice{}
+		p2pAddresses := []string{}
 		for addr := range allAddresses {
 			p2pAddresses = append(p2pAddresses, net.JoinHostPort(addr, s.ActiveNet.DefaultPort))
 		}

@@ -11,7 +11,6 @@ import (
 	"github.com/VividCortex/ewma"
 	"github.com/niubaoshu/gotiny"
 	"github.com/p9c/qu"
-	"github.com/urfave/cli"
 	"go.uber.org/atomic"
 
 	"github.com/p9c/matrjoska/cmd/node/active"
@@ -105,6 +104,7 @@ func New(
 	s.lastBlockUpdate.Store(time.Now().Add(-time.Second * 3).Unix())
 	s.generator = chainrpc.GetBlkTemplateGenerator(node, cfg, stateCfg)
 	var mc *transport.Channel
+	I.S(cfg.MulticastPass.V(), cfg.MulticastPass.Bytes())
 	if mc, e = transport.NewBroadcastChannel(
 		"controller",
 		s,
@@ -545,9 +545,9 @@ func processAdvtMsg(
 		s.otherNodes[uuid] = &nodeSpec{}
 		s.otherNodes[uuid].Time = time.Now()
 		// try all IPs
-		if s.cfg.AutoListen.True() {
-			s.cfg.P2PConnect.Set(cli.StringSlice{})
-		}
+		// if s.cfg.AutoListen.True() {
+		// 	s.cfg.P2PConnect.Set(cli.StringSlice{})
+		// }
 		for addr := range j.IPs {
 			peerIP := net.JoinHostPort(addr, fmt.Sprint(j.P2P))
 			if e = s.connMgr.Connect(

@@ -3,7 +3,6 @@ module github.com/p9c/matrjoska
 go 1.12
 
 require (
-	gioui.org v0.0.0-20210416090721-0a918581630a
 	github.com/VividCortex/ewma v1.1.1
 	github.com/aead/siphash v1.0.1
 	github.com/atotto/clipboard v0.1.4
@@ -24,7 +23,7 @@ require (
 	github.com/marusama/semaphore v0.0.0-20190110074507-6952cef993b2
 	github.com/niubaoshu/gotiny v0.0.3
 	github.com/p9c/gel v0.1.16
-	github.com/p9c/gio v0.0.5 // indirect
+	github.com/p9c/gio v0.0.5
 	github.com/p9c/interrupt v0.0.2
 	github.com/p9c/log v0.0.9
 	github.com/p9c/opts v0.0.9
@@ -32,7 +31,6 @@ require (
 	github.com/programmer10110/gostreebog v0.0.0-20170704145444-a3e1d28291b2
 	github.com/tstranex/gozmq v0.0.0-20160831212417-0daa84a596ba
 	github.com/tyler-smith/go-bip39 v1.1.0
-	github.com/urfave/cli v1.22.5
 	github.com/vivint/infectious v0.0.0-20200605153912-25a574ae18a3
 	go.etcd.io/bbolt v1.3.5
 	go.uber.org/atomic v1.7.0
@@ -43,6 +41,7 @@ require (
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
 	gopkg.in/src-d/go-git.v4 v4.13.1
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
+	gopkg.in/yaml.v2 v2.2.2 // indirect
 	lukechampine.com/blake3 v1.1.5
 )
 

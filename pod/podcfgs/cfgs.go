@@ -741,7 +741,7 @@ func GetConfigs() (c config.Configs) {
 			"password for tor proxy",
 			Type:          sanitizers.Password,
 			Documentation: "<placeholder for detailed documentation>",
-			OmitEmpty:     false,
+			OmitEmpty:     true,
 		},
 			"",
 		),
@@ -753,7 +753,7 @@ func GetConfigs() (c config.Configs) {
 			Description:
 			"tor proxy username",
 			Documentation: "<placeholder for detailed documentation>",
-			OmitEmpty:     false,
+			OmitEmpty:     true,
 		},
 			"",
 		),

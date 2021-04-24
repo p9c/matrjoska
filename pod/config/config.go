@@ -233,9 +233,12 @@ func (c *Config) loadConfig(path string) (e error) {
 // WriteToFile writes the current config to a file as json
 func (c *Config) WriteToFile(filename string) (e error) {
 	var j []byte
-	wp := c.WalletPass.Bytes()
+	I.S(c.MulticastPass.Bytes())
+	wpp := c.WalletPass.Bytes()
+	wp := make([]byte, len(wpp))
+	copy(wp,wpp)
 	if len(wp) > 0 {
-		bhb := blake3.Sum256(c.WalletPass.Bytes())
+		bhb := blake3.Sum256(wpp)
 		bh := hex.EncodeToString(bhb[:])
 		c.WalletPass.Set(bh)
 	}

@@ -672,7 +672,7 @@ func (wg *WalletGUI) RunStatusPanel(gtx l.Context) l.Dimensions {
 											}
 											args := []string{
 												os.Args[0],
-												"-D",
+												 "DD"+
 												wg.cx.Config.DataDir.V(),
 												"pipelog",
 												"walletpass"+

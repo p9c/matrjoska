@@ -3,26 +3,36 @@ package gcm
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	
+
 	"golang.org/x/crypto/argon2"
 )
 
 // GetCipher returns a GCM cipher given a password string. Note that this cipher must be renewed every 4gb of encrypted
 // data
 func GetCipher(password []byte) (gcm cipher.AEAD, e error) {
+	// bytes := make([]byte, len(password))
+	// copy(bytes, password)
 	bytes := password
 	var c cipher.Block
-	if c, e = aes.NewCipher(argon2.IDKey(reverse(bytes), bytes, 1, 64*1024, 4, 32)); E.Chk(e) {
+	rb := reverse(bytes)
+	ark := argon2.IDKey(rb, bytes, 1, 64*1024, 4, 32)
+	if c, e = aes.NewCipher(ark); E.Chk(e) {
 		return
 	}
 	if gcm, e = cipher.NewGCM(c); E.Chk(e) {
+	}
+	for i := range bytes {
+		bytes[i] = 0
+	}
+	for i := range rb {
+		rb[i] = 0
 	}
 	return
 }
 
 func reverse(b []byte) []byte {
 	for i := range b {
-		b[i] = b[len(b)-1]
+		b[i], b[len(b)-1] = b[len(b)-1], b[i]
 	}
 	return b
 }

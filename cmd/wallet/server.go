@@ -369,7 +369,7 @@ func (s *Server) WebsocketClientRead(wsc *WebsocketClient) {
 		_, request, e := wsc.conn.ReadMessage()
 		if e != nil {
 			if e != io.EOF && e != io.ErrUnexpectedEOF {
-				W.Ln(
+				W.F(
 					"websocket receive failed from client %s: %v",
 					wsc.remoteAddr, e,
 				)

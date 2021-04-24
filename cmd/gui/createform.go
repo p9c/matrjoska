@@ -352,7 +352,7 @@ func (wg *WalletGUI) cwfTestnetSettings() (out l.Widget) {
 							if !b {
 								wg.bools["solo"].Value(false)
 								wg.bools["lan"].Value(false)
-								wg.cx.Config.MulticastPass.Set("pa55word")
+								// wg.cx.Config.MulticastPass.Set("pa55word")
 								wg.cx.Config.Solo.F()
 								wg.cx.Config.LAN.F()
 								wg.ShuffleSeed()
@@ -387,12 +387,12 @@ func (wg *WalletGUI) cwfTestnetSettings() (out l.Widget) {
 								wg.cx.Config.DisableDNSSeed.T()
 								wg.cx.Config.AutoListen.F()
 								wg.bools["solo"].Value(false)
-								wg.cx.Config.MulticastPass.Set("pa55word")
+								// wg.cx.Config.MulticastPass.Set("pa55word")
 								wg.Invalidate()
 							} else {
 								wg.cx.Config.Solo.F()
 								wg.cx.Config.DisableDNSSeed.F()
-								wg.cx.Config.MulticastPass.Set("pa55word")
+								// wg.cx.Config.MulticastPass.Set("pa55word")
 								wg.cx.Config.AutoListen.T()
 							}
 							_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
@@ -421,13 +421,13 @@ func (wg *WalletGUI) cwfTestnetSettings() (out l.Widget) {
 								wg.cx.Config.LAN.F()
 								wg.cx.Config.DisableDNSSeed.T()
 								wg.cx.Config.AutoListen.F()
-								wg.cx.Config.MulticastPass.Set("pa55word")
+								// wg.cx.Config.MulticastPass.Set("pa55word")
 								wg.bools["lan"].Value(false)
 								wg.Invalidate()
 							} else {
 								wg.cx.Config.LAN.F()
 								wg.cx.Config.DisableDNSSeed.F()
-								wg.cx.Config.MulticastPass.Set("pa55word")
+								// wg.cx.Config.MulticastPass.Set("pa55word")
 								wg.cx.Config.AutoListen.T()
 							}
 							_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())

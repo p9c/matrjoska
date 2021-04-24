@@ -145,6 +145,8 @@ func (wg *WalletGUI) Run() (e error) {
 	wg.openTxID = uberatomic.NewString("")
 	var mc *transport.Channel
 	quit := qu.T()
+	// I.Ln(wg.cx.Config.MulticastPass.V(), string(wg.cx.Config.MulticastPass.
+	// 	Bytes()))
 	if mc, e = transport.NewBroadcastChannel(
 		"controller",
 		wg,
@@ -174,24 +176,24 @@ func (wg *WalletGUI) Run() (e error) {
 	after := func() { D.Ln("running after") }
 	I.Ln(os.Args[1:])
 	options := []string{os.Args[0]}
-	options = append(options, wg.cx.Config.FoundArgs...)
-	options = append(options, "pipelog")
+	// options = append(options, wg.cx.Config.FoundArgs...)
+	// options = append(options, "pipelog")
 
 	E.Ln("options:", options)
 	wg.node = wg.GetRunUnit(
 		"NODE", before, after,
-		// append(options, "node")...,
-		"node",
+		append(options, "node")...,
+		// "node",
 	)
 	wg.wallet = wg.GetRunUnit(
 		"WLLT", before, after,
-		// append(options, "wallet")...,
-		"wallet",
+		append(options, "wallet")...,
+		// "wallet",
 	)
 	wg.miner = wg.GetRunUnit(
 		"MINE", before, after,
-		// append(options, "kopach")...,
-		"wallet",
+		append(options, "kopach")...,
+		// "wallet",
 	)
 	I.S(wg.node, wg.wallet, wg.miner)
 	wg.bools = wg.GetBools()
@@ -215,7 +217,7 @@ func (wg *WalletGUI) Run() (e error) {
 	wg.unlockPage = wg.getWalletUnlockAppWidget()
 	wg.loadingPage = wg.getLoadingPage()
 	if !apputil.FileExists(wg.cx.Config.WalletFile.V()) {
-		I.Ln("wallet file does not exist", *wg.cx.Config.WalletFile)
+		I.Ln("wallet file does not exist", wg.cx.Config.WalletFile.V())
 	} else {
 		*wg.noWallet = false
 		// if !*wg.cx.Config.NodeOff {

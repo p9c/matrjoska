@@ -1194,7 +1194,7 @@ func HandleDropWalletHistory(icmd interface{}, w *Wallet, chainClient ...*chainc
 	out interface{}, e error,
 ) {
 	D.Ln("dropping wallet history")
-	if e = DropWalletHistory(w, w.PodConfig)(nil); E.Chk(e) {
+	if e = DropWalletHistory(w, w.PodConfig); E.Chk(e) {
 	}
 	D.Ln("dropped wallet history")
 	// go func() {
