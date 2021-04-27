@@ -193,7 +193,7 @@ func (wg *WalletGUI) Run() (e error) {
 		append(options, "kopach")...,
 		// "wallet",
 	)
-	I.S(wg.node, wg.wallet, wg.miner)
+	// I.S(wg.node, wg.wallet, wg.miner)
 	wg.bools = wg.GetBools()
 	wg.inputs = wg.GetInputs()
 	wg.passwords = wg.GetPasswords()

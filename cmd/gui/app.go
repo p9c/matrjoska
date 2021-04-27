@@ -550,7 +550,8 @@ func (wg *WalletGUI) RunStatusPanel(gtx l.Context) l.Dimensions {
 							go func() {
 								wg.cx.Config.Discovery.Flip()
 								_ = wg.cx.Config.WriteToFile(wg.cx.Config.ConfigFile.V())
-								I.Ln("discover enabled:", *wg.cx.Config.Discovery)
+								I.Ln("discover enabled:",
+									wg.cx.Config.Discovery.True())
 							}()
 						},
 					).
@@ -583,7 +584,8 @@ func (wg *WalletGUI) RunStatusPanel(gtx l.Context) l.Dimensions {
 						func() {
 							if wg.ChainClient != nil && !wg.ChainClient.Disconnected() {
 								wg.cx.Config.Controller.Flip()
-								I.Ln("controller running:", *wg.cx.Config.Controller)
+								I.Ln("controller running:",
+									wg.cx.Config.Controller.True())
 								var e error
 								if e = wg.ChainClient.SetGenerate(
 									wg.cx.Config.Controller.True(),

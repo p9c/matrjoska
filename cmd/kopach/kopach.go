@@ -73,14 +73,14 @@ type Worker struct {
 	LastHash            *chainhash.Hash
 	StartChan, StopChan qu.C
 	// SetThreads          chan int
-	PassChan            chan string
-	solutions           []SolutionData
-	solutionCount       int
-	Update              qu.C
-	hashCount           atomic.Uint64
-	hashSampleBuf       *rav.BufferUint64
-	hashrate            float64
-	lastNonce           uint64
+	PassChan      chan string
+	solutions     []SolutionData
+	solutionCount int
+	Update        qu.C
+	hashCount     atomic.Uint64
+	hashSampleBuf *rav.BufferUint64
+	hashrate      float64
+	lastNonce     uint64
 }
 
 func (w *Worker) Start() {
@@ -155,14 +155,15 @@ func Run(cx *state.State) (e error) {
 		return
 	}
 	// start up the workers
-	if cx.Config.Generate.True() {
-		w.Start()
-		interrupt.AddHandler(
-			func() {
-				w.Stop()
-			},
-		)
-	}
+	// if cx.Config.Generate.True() {
+	I.Ln("starting up miner workers")
+	w.Start()
+	interrupt.AddHandler(
+		func() {
+			w.Stop()
+		},
+	)
+	// }
 	// controller watcher thread
 	go func() {
 		D.Ln("starting controller watcher")
